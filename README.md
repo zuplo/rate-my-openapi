@@ -1,0 +1,1 @@
+# rate-my-openapi-cli

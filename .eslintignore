@@ -1,0 +1,8 @@
+dist/
+*spec.js
+scripts/
+babel.config.js
+.eslintrc.js
+esbuild.js
+generated/
+bundle/

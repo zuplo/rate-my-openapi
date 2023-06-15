@@ -1,0 +1,7 @@
+dist/
+dist.browser/
+node_modules/
+*.ejs
+temp/
+package-lock.json
+generated/

@@ -63,6 +63,16 @@ export async function generateRating(argv: Arguments) {
     const openApi = JSON.parse(openApiFile.toString()) as
       | OpenAPIV3_1.Document
       | OpenAPIV3.Document;
+    const operations = [
+      "get",
+      "put",
+      "post",
+      "delete",
+      "options",
+      "head",
+      "patch",
+      "trace",
+    ] as OpenAPIV3_1.HttpMethods[];
     const { stdout, stderr } = await execAwait(
       `vacuum spectral-report -o ${pathName}`,
       { maxBuffer: undefined },
@@ -124,9 +134,12 @@ export async function generateRating(argv: Arguments) {
             other: [],
           };
         }
-        const operation = pathIssue.path[2]
+        const operation = operations.includes(
+            pathIssue.path[2] as OpenAPIV3_1.HttpMethods ?? "",
+          )
           ? pathIssue.path[2] as OpenAPIV3_1.HttpMethods
           : "other";
+
         issuesByPathAndOperation[path][operation].push(pathIssue);
         return issuesByPathAndOperation;
       },
@@ -149,20 +162,12 @@ export async function generateRating(argv: Arguments) {
           // This should never happen
           throw new Error(`Path ${path} maps to an undefined pathItem`);
         }
+
         let pathRating: PathRating = {
           score: 100,
           issues: issuesByPathAndOperation[path]["other"],
         };
-        const operations = [
-          "get",
-          "put",
-          "post",
-          "delete",
-          "options",
-          "head",
-          "patch",
-          "trace",
-        ] as OpenAPIV3_1.HttpMethods[];
+
         // We calculate the path score by averaging the scores of the operations
         operations.forEach((operation) => {
           const operationItem = pathItem[operation];

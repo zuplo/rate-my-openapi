@@ -19,6 +19,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "ESNext",
-    "useUnknownInCatchVariables": false
+    "useUnknownInCatchVariables": false,
+    "rootDir": "./src"
   }
 }

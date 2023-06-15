@@ -1,3 +1,5 @@
+import { ISpectralDiagnostic } from "@stoplight/spectral-core";
+
 export type CategoryStatistic = {
   "categoryName": string;
   "categoryId": string;
@@ -63,25 +65,7 @@ export type VacuumReport = {
   };
 };
 
-export type SpectralResult = {
-  "code": string;
-  "path": string[];
-  "message": string;
-  "severity": 0 | 1 | 2 | 3;
-  "range": {
-    "start": {
-      "line": number;
-      "character": number;
-    };
-    "end": {
-      "line": number;
-      "character": number;
-    };
-  };
-  "source": string;
-};
-
-export type SpectralReport = SpectralResult[];
+export type SpectralReport = ISpectralDiagnostic[];
 
 export type OperationRating = {
   score: number;

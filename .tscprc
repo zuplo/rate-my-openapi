@@ -1,0 +1,5 @@
+{
+  "ignored_files": ['**/an_ignored_file.ext'],
+  "compiled_files": [], 
+  "use_ts_exclude": true,
+}

@@ -4,7 +4,8 @@
   "scripts": {
     "build": "tsc --build",
     "format": "prettier --write .",
-    "release": "npm version minor && git add . && git commit -m 'release' && git push && git push --tags"
+    "version": "npm version $npm_package_version --workspaces && git add **/package.json",
+    "postversion": "git push --tags && git push"
   },
   "workspaces": [
     "apps/api",

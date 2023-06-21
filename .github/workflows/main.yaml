@@ -1,28 +1,30 @@
-name: Release
+name: Main
 on:
   push:
-    tags:
-      - v*
-
-env:
-  GCP_PROJECT_ID: zuplo-production
-
-# Only run one set of tests against a single branch, if another one is in
-# progress just kill it and move to the latest commit
-concurrency:
-  group: "release @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}"
-  cancel-in-progress: true
 
 jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - run: npm ci
+      - run: npm run build
+
   release:
-    name: Build & Push Images
-    runs-on: ubuntu-latest-4-cores
+    name: Release
+    runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v')
 
     permissions:
-      contents: read
+      contents: write
       id-token: write
-      packages: write
 
     steps:
       - uses: actions/checkout@v3
@@ -42,13 +44,6 @@ jobs:
           registry: us-docker.pkg.dev
           username: oauth2accesstoken
           password: ${{ steps.auth-gcp.outputs.access_token }}
-
-      # - name: Log in to Github Registry
-      #   uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GH_CUSTOM_TOKEN }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -79,5 +74,23 @@ jobs:
           cache-to: type=gha,mode=max
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            NODE_AUTH_TOKEN=${{ secrets.GH_NPM_PACKAGE_READ_TOKEN }}
+
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+
+        # gets the version string from the ref (i.e. removes the 'refs/tags/v' part)
+      - run: |
+          echo "VERSION=$(echo "${{ github.ref }}" | sed -e "s/refs\/tags\/v/${replace}/g" )" >> $GITHUB_ENV
+
+      - name: Setup Git
+        run: |
+          git config user.name "Terraform GitHub Action"
+          git config user.email "<terraform-github@zuplo.com>"
+
+      - name: API Image Version
+        uses: zuplo/set-tfvar-action@v1
+        with:
+          path: apps/api/terraform/release.auto.tfvars
+          name: image_version
+          value: ${{ env.VERSION }}

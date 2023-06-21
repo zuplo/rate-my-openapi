@@ -5,5 +5,5 @@
 To release a new version run:
 
 ```
-npm version minor
+npm run release
 ```

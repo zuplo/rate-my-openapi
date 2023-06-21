@@ -35,7 +35,7 @@ jobs:
         with:
           token_format: "access_token"
           workload_identity_provider: ${{ vars.GCP_ACTIONS_IDENTITY_PROVIDER }}
-          service_account: ${{ vars.GCP_ACTIONS_SERVICE_ACCOUNT }}
+          service_account: ${{ vars.GCP_ACTIONS_MINIMAL_SERVICE_ACCOUNT }}
 
       - run: node ./scripts/set-versions.js ${{ github.ref }}
 

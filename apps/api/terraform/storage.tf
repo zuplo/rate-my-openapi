@@ -1,5 +1,6 @@
 resource "google_storage_bucket" "default" {
-  name = "rate-my-open-api"
+  name     = "rate-my-open-api"
+  location = "US"
 }
 
 resource "google_storage_bucket_iam_member" "object_admin" {

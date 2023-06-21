@@ -76,6 +76,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: main
+          token: ${{ secrets.GH_CUSTOM_TOKEN }}
 
         # gets the version string from the ref (i.e. removes the 'refs/tags/v' part)
       - run: |
@@ -101,3 +102,7 @@ jobs:
         run: |
           git commit -m "[Image Version] ${{ env.VERSION }}"
           git push origin main
+
+      - uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}

@@ -92,3 +92,12 @@ jobs:
           path: apps/api/terraform/release.auto.tfvars
           name: image_version
           value: ${{ env.VERSION }}
+
+      - name: git add changed files
+        run: |
+          git add apps/api/terraform/release.auto.tfvars
+
+      - name: Commit to main
+        run: |
+          git commit -m "[Image Version] ${{ env.VERSION }}"
+          git push origin main

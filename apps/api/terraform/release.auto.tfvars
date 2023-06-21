@@ -1,1 +1,1 @@
-image_version="1.0.0"
+image_version="1.11.0"

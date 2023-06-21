@@ -15,7 +15,7 @@
     "@vercel/analytics": "^1.0.1",
     "autoprefixer": "10.4.14",
     "eslint": "8.43.0",
-    "eslint-config-next": "13.4.6",
+    "eslint-config-next": "13.4.7",
     "next": "13.4.7",
     "postcss": "8.4.24",
     "react": "18.2.0",

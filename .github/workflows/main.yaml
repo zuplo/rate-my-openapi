@@ -54,8 +54,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: |
-            us-docker.pkg.dev/zuplo-production/docker-registry/${{ inputs.app }}
-          # ghcr.io/zuplo/${{ inputs.app }}
+            us-docker.pkg.dev/zuplo-production/docker-registry/rate-my-open-api
           tags: |
             type=semver,pattern={{version}}
             type=ref,event=branch
@@ -65,7 +64,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ${{ inputs.file }}
+          file: ./apps/api/Dockerfile
           platforms: linux/amd64
           push: true
           provenance: false

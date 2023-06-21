@@ -8,9 +8,7 @@ import {
 
 export const generateOpenApiRating = (
   outputReport: SpectralReport,
-  openApi:
-    | OpenAPIV3_1.Document
-    | OpenAPIV3.Document,
+  openApi: OpenAPIV3_1.Document | OpenAPIV3.Document
 ): RatingOutput => {
   const operations = [
     "get",
@@ -22,30 +20,33 @@ export const generateOpenApiRating = (
     "patch",
     "trace",
   ] as OpenAPIV3_1.HttpMethods[];
-  const issuesByArea = outputReport.reduce((issuesByArea, issue) => {
-    const area = issue.path[0] as keyof typeof issuesByArea;
-    if (!issuesByArea[area]) {
-      issuesByArea[area] = [];
+  const issuesByArea = outputReport.reduce(
+    (issuesByArea, issue) => {
+      const area = issue.path[0] as keyof typeof issuesByArea;
+      if (!issuesByArea[area]) {
+        issuesByArea[area] = [];
+      }
+      issuesByArea[area].push(issue);
+      return issuesByArea;
+    },
+    {
+      components: [],
+      paths: [],
+      security: [],
+      tags: [],
+      info: [],
+      servers: [],
+      other: [],
+    } as {
+      components: SpectralReport;
+      paths: SpectralReport;
+      security: SpectralReport;
+      tags: SpectralReport;
+      info: SpectralReport;
+      servers: SpectralReport;
+      other: SpectralReport;
     }
-    issuesByArea[area].push(issue);
-    return issuesByArea;
-  }, {
-    components: [],
-    paths: [],
-    security: [],
-    tags: [],
-    info: [],
-    servers: [],
-    other: [],
-  } as {
-    components: SpectralReport;
-    paths: SpectralReport;
-    security: SpectralReport;
-    tags: SpectralReport;
-    info: SpectralReport;
-    servers: SpectralReport;
-    other: SpectralReport;
-  });
+  );
 
   // Grab the path/operation issues first as they are the bulk of the API
   const issuesByPathAndOperation = issuesByArea.paths.reduce(
@@ -65,9 +66,9 @@ export const generateOpenApiRating = (
         };
       }
       const operation = operations.includes(
-          pathIssue.path[2] as OpenAPIV3_1.HttpMethods ?? "",
-        )
-        ? pathIssue.path[2] as OpenAPIV3_1.HttpMethods
+        (pathIssue.path[2] as OpenAPIV3_1.HttpMethods) ?? ""
+      )
+        ? (pathIssue.path[2] as OpenAPIV3_1.HttpMethods)
         : "other";
 
       issuesByPathAndOperation[path][operation].push(pathIssue);
@@ -76,7 +77,7 @@ export const generateOpenApiRating = (
     {} as Record<
       string,
       Record<OpenAPIV3_1.HttpMethods | "other", SpectralReport>
-    >,
+    >
   );
 
   const { paths } = openApi;
@@ -150,15 +151,13 @@ export const generateOpenApiRating = (
               typeof issue.code === "string" &&
               issue.code.includes("description")
             ) {
-              descriptionScore = Math.max(
-                0,
-                descriptionScore - scoreDelta,
-              );
+              descriptionScore = Math.max(0, descriptionScore - scoreDelta);
             }
             return;
           }
           if (
-            property?.startsWith("parameters") && parametersScore &&
+            property?.startsWith("parameters") &&
+            parametersScore &&
             operationItem.parameters
           ) {
             parametersScore = Math.max(
@@ -166,8 +165,7 @@ export const generateOpenApiRating = (
               // Normalize the scoreDelta by the number of parameters
               // Ex. making a mistake on only 1 of 5 parameters should not
               // affect the score as much as making a mistake on all of them
-              parametersScore -
-                (scoreDelta / operationItem.parameters.length),
+              parametersScore - scoreDelta / operationItem.parameters.length
             );
             return;
           }
@@ -180,14 +178,17 @@ export const generateOpenApiRating = (
               0,
               // Same normalization as for parameters
               responsesScore -
-                (scoreDelta / Object.keys(operationItem.responses).length),
+                scoreDelta / Object.keys(operationItem.responses).length
             );
             return;
           }
         });
         const operationScore = Math.round(
-          (descriptionScore + responsesScore + (requestBodyScore ?? 0) +
-            (parametersScore ?? 0)) / averagingDenominator,
+          (descriptionScore +
+            responsesScore +
+            (requestBodyScore ?? 0) +
+            (parametersScore ?? 0)) /
+            averagingDenominator
         );
         pathRating[operation] = {
           score: operationScore,
@@ -207,10 +208,10 @@ export const generateOpenApiRating = (
             }
             return sum + (operationRating as OperationRating).score;
           },
-          0,
+          0
         );
         pathRating.score = Math.round(
-          (totalScore / numOperations) - pathIssuesDelta,
+          totalScore / numOperations - pathIssuesDelta
         );
       } else {
         pathRating.score = 0; // Wtf, why document a path with no operations - FAIL
@@ -219,18 +220,13 @@ export const generateOpenApiRating = (
       pathRatings[path] = pathRating;
       return pathRatings;
     },
-    {} as Record<string, PathRating>,
+    {} as Record<string, PathRating>
   );
 
-  const totalScore = Object.values(pathRatings).reduce(
-    (sum, pathRating) => {
-      return sum + pathRating.score;
-    },
-    0,
-  );
-  const openApiScore = Math.round(
-    totalScore / Object.keys(pathRatings).length,
-  );
+  const totalScore = Object.values(pathRatings).reduce((sum, pathRating) => {
+    return sum + pathRating.score;
+  }, 0);
+  const openApiScore = Math.round(totalScore / Object.keys(pathRatings).length);
   return {
     score: openApiScore,
     issues: outputReport,
@@ -257,10 +253,7 @@ const getPathIssueDelta = (pathIssues: SpectralReport) => {
       pathIssuesBySeverity[pathIssue.severity].push(pathIssue);
       return pathIssuesBySeverity;
     },
-    { 0: [], 1: [], 2: [], 3: [] } as Record<
-      0 | 1 | 2 | 3,
-      SpectralReport
-    >,
+    { 0: [], 1: [], 2: [], 3: [] } as Record<0 | 1 | 2 | 3, SpectralReport>
   );
   if (pathIssuesBySeverity[0].length) {
     // You have an error, that likely affects your all your operations

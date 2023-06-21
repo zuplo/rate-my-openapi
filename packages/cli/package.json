@@ -1,0 +1,60 @@
+{
+  "name": "cli",
+  "version": "1.0.0",
+  "description": "CLI for rating OpenAPI files",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --build && tscp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zuplo/rate-my-openapi-cli.git"
+  },
+  "author": "Zuplo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zuplo/rate-my-openapi-cli/issues"
+  },
+  "homepage": "https://github.com/zuplo/rate-my-openapi-cli#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "bin": {
+    "rate-my-openapi": "rate-my-openapi.js"
+  },
+  "lint-staged": {
+    "**/*.{ts,json,md,yml,js,css,html,yaml}": [
+      "prettier --write"
+    ],
+    "**/*.{ts,js}": [
+      "eslint --cache --fix --ignore-path .eslintignore"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@types/prettier": "^2.7.3",
+    "@types/yargs": "^17.0.24",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-unicorn": "^44.0.2",
+    "lint-staged": "^13.2.0",
+    "prettier-plugin-organize-imports": "^3.2.2",
+    "typescript": "5.0.3"
+  },
+  "dependencies": {
+    "@quobix/vacuum": "^0.1.5",
+    "@stoplight/spectral-core": "^1.18.0",
+    "@stoplight/spectral-functions": "^1.7.2",
+    "@stoplight/spectral-parsers": "^1.0.2",
+    "@stoplight/spectral-ruleset-bundler": "^1.5.2",
+    "chalk": "^5.2.0",
+    "dotenv": "^16.1.4",
+    "openapi-types": "^12.1.3",
+    "prettier": "^2.8.8",
+    "yargs": "^17.7.2"
+  }
+}

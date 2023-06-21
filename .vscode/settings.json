@@ -1,3 +1,8 @@
 {
-  "cSpell.words": ["quobix"]
+  "cSpell.words": ["quobix"],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform"
+  }
 }

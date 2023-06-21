@@ -1,0 +1,48 @@
+FROM node:18-slim AS base
+
+# ---- Builder ----
+FROM base AS builder
+
+WORKDIR /app
+
+COPY . .
+RUN node ./scripts/copy-pruned-app.out.js api
+
+# ---- Installer ----
+FROM base AS installer
+
+ARG NODE_AUTH_TOKEN
+
+WORKDIR /app
+
+RUN npm install -g npm@9
+
+
+# Add lockfile and package.json's of isolated subworkspace
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+
+# Install node dependencies
+RUN CI=true npm ci --ignore-scripts 
+
+COPY --from=builder /app/out/full/ .
+
+# Build
+RUN npm run build --workspace api
+
+# ---- Release ----
+FROM base AS runner
+WORKDIR /app
+ 
+# Environment
+ENV NODE_ENV=production
+ENV NODE_OPTIONS="--enable-source-maps"
+# Fastify throws WAY to many of these warnings
+ENV NODE_NO_WARNINGS=1 
+ENV HOST=0.0.0.0
+
+COPY --from=installer /app .
+
+USER node
+
+CMD ["node", "./apps/api/index.js"]

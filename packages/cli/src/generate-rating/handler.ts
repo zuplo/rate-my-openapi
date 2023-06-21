@@ -1,15 +1,10 @@
-import { join, relative } from "node:path";
-import { printCriticalFailureToConsoleAndExit } from "../common/output.js";
-import util from "node:util";
 import { exec } from "child_process";
 import { readFile } from "node:fs/promises";
+import { join, relative } from "node:path";
+import util from "node:util";
 import { OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
-import {
-  OperationRating,
-  PathRating,
-  RatingOutput,
-  SpectralReport,
-} from "../interfaces.js";
+import { printCriticalFailureToConsoleAndExit } from "../common/output.js";
+import { RatingOutput, SpectralReport } from "../interfaces.js";
 import { generateOpenApiRating } from "../utils/rating-utils.js";
 const execAwait = util.promisify(exec);
 export interface Arguments {
@@ -21,16 +16,14 @@ export async function generateRating(argv: Arguments) {
     const opStartTime = Date.now();
     const filepath = argv.filepath;
     const pathName = join(relative(process.cwd(), filepath));
-    const openApiFile = await readFile(
-      pathName,
-    );
+    const openApiFile = await readFile(pathName);
     const openApi = JSON.parse(openApiFile.toString()) as
       | OpenAPIV3_1.Document
       | OpenAPIV3.Document;
     const startTime = Date.now();
     const { stdout, stderr } = await execAwait(
       `vacuum spectral-report -o ${pathName}`,
-      { maxBuffer: undefined },
+      { maxBuffer: undefined }
     );
 
     if (stderr) {

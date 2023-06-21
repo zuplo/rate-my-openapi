@@ -37,8 +37,6 @@ jobs:
           workload_identity_provider: ${{ vars.GCP_ACTIONS_IDENTITY_PROVIDER }}
           service_account: ${{ vars.GCP_ACTIONS_MINIMAL_SERVICE_ACCOUNT }}
 
-      - run: node ./scripts/set-versions.js ${{ github.ref }}
-
       - name: Login to Google Registry
         uses: docker/login-action@v2
         with:

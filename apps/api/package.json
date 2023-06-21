@@ -18,6 +18,6 @@
     "stacktrace-parser": "^0.1.10"
   },
   "devDependencies": {
-    "@types/node": "^18.16.18"
+    "@types/node": "^20.3.1"
   }
 }

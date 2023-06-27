@@ -1,11 +1,12 @@
 import classNames from "classnames";
-import { ChangeEvent, DragEvent, useRef, useState } from "react";
+import { ChangeEvent, DragEvent, FormEvent, useRef, useState } from "react";
 
 const FileUpload = ({ setNextStep }: { setNextStep: () => void }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const urlInputRef = useRef<HTMLInputElement>(null);
 
   const [dragActive, setDragActive] = useState(false);
+  const [error, setError] = useState<string | undefined>();
 
   const onDrag = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -23,13 +24,13 @@ const FileUpload = ({ setNextStep }: { setNextStep: () => void }) => {
     setDragActive(false);
 
     if (e.dataTransfer.files.length) {
-      onFileUpload(e.dataTransfer.files);
+      onFileUpload(e.dataTransfer.files[0]);
     }
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      onFileUpload(e.target.files);
+      onFileUpload(e.target.files[0]);
     }
   };
 
@@ -39,16 +40,56 @@ const FileUpload = ({ setNextStep }: { setNextStep: () => void }) => {
 
   const onSubmit = () => setNextStep();
 
-  const onFileUpload = (files: FileList) => {
-    console.log(files.length);
+  const onFileUpload = (file: File) => {
+    console.log(file);
 
     onSubmit();
   };
 
-  const onUrlInputSubmit = () => {
-    console.log(urlInputRef.current?.value);
+  const onUrlInputSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    onSubmit();
+    const urlInput = urlInputRef.current;
+    if (urlInput?.value && urlInput?.validity.valid) {
+      let fileUrl: URL | undefined = undefined;
+      let fileName: string | undefined = undefined;
+
+      try {
+        const file = new URL(urlInput?.value);
+        if (file.pathname.endsWith(".json")) {
+          fileUrl = file;
+          fileName = file.pathname.substring(
+            file.pathname.lastIndexOf("/") + 1
+          );
+        } else {
+          throw new Error("File must be JSON");
+        }
+      } catch (e) {
+        console.error((e as Error).message);
+        setError((e as Error).message);
+      }
+
+      if (fileUrl && fileName) {
+        try {
+          const response = await fetch(fileUrl);
+
+          if (response.status !== 200) {
+            throw new Error(`Could not fetch file`);
+          }
+
+          const blob = await response.blob();
+
+          onFileUpload(
+            new File([blob], fileName, {
+              type: blob.type,
+            })
+          );
+        } catch (e) {
+          console.error((e as Error).message);
+          setError((e as Error).message);
+        }
+      }
+    }
   };
 
   return (
@@ -75,6 +116,7 @@ const FileUpload = ({ setNextStep }: { setNextStep: () => void }) => {
           className="hidden"
           type="file"
           name="drag-upload"
+          accept=".json"
         />
         <button onClick={onClick}>choose file</button>
         {dragActive && (
@@ -87,7 +129,7 @@ const FileUpload = ({ setNextStep }: { setNextStep: () => void }) => {
           />
         )}
       </div>
-      <div className="flex flex-nowrap gap-3">
+      <form className="flex flex-nowrap gap-3" onSubmit={onUrlInputSubmit}>
         <input
           type="url"
           ref={urlInputRef}
@@ -95,8 +137,9 @@ const FileUpload = ({ setNextStep }: { setNextStep: () => void }) => {
           placeholder="Or enter OpenAPI file URL here"
           aria-label="Or enter OpenAPI file URL here"
         />
-        <button onClick={onUrlInputSubmit}>Submit</button>
-      </div>
+        <button>Submit</button>
+      </form>
+      {error && <p className="text-sm text-red-600">{error}</p>}
     </div>
   );
 };

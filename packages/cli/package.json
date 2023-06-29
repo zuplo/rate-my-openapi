@@ -4,7 +4,7 @@
   "description": "CLI for rating OpenAPI files",
   "type": "module",
   "scripts": {
-    "build": "tsc --build && tscp"
+    "build": "tsc --build"
   },
   "repository": {
     "type": "git",

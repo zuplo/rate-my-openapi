@@ -16,14 +16,19 @@ export async function generateRating(argv: Arguments) {
     const opStartTime = Date.now();
     const filepath = argv.filepath;
     const pathName = join(relative(process.cwd(), filepath));
-    const openApiFile = await readFile(pathName);
+    const rulesetPath = join(
+      relative(process.cwd(), "rulesets/rules.vacuum.yaml"),
+    );
+    const openApiFile = await readFile(
+      pathName,
+    );
     const openApi = JSON.parse(openApiFile.toString()) as
       | OpenAPIV3_1.Document
       | OpenAPIV3.Document;
     const startTime = Date.now();
     const { stdout, stderr } = await execAwait(
-      `vacuum spectral-report -o ${pathName}`,
-      { maxBuffer: undefined }
+      `vacuum spectral-report -r ${rulesetPath} -o ${pathName}`,
+      { maxBuffer: undefined },
     );
 
     if (stderr) {
@@ -40,10 +45,11 @@ export async function generateRating(argv: Arguments) {
     }
     const endTime = Date.now();
     const output: RatingOutput = generateOpenApiRating(outputReport, openApi);
-    console.log(output);
+    console.log(JSON.stringify(output, null, 2));
     const opFinishTime = Date.now();
-    console.log("Time to run Vacuum: ", endTime - startTime, "ms");
-    console.log("Time to run operation: ", opFinishTime - opStartTime, "ms");
+    // Commented out for now so users can write the output as a valid JSON file
+    // console.log("Time to run Vacuum: ", endTime - startTime, "ms");
+    // console.log("Time to run operation: ", opFinishTime - opStartTime, "ms");
     process.exit(0);
   } catch (err) {
     printCriticalFailureToConsoleAndExit(err);

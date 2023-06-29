@@ -43,10 +43,11 @@ export async function generateSpectralRating(argv: Arguments) {
     let outputReport: SpectralReport = await spectral.run(openApiSpectralDoc);
     const endTime = Date.now();
     const output: RatingOutput = generateOpenApiRating(outputReport, openApi);
-    console.log(output);
+    console.log(JSON.stringify(output, null, 2));
     const opFinishTime = Date.now();
-    console.log("Time to run spectral: ", endTime - startTime, "ms");
-    console.log("Time to run operation: ", opFinishTime - opStartTime, "ms");
+    // Commented out for now so users can write the output as a valid JSON file
+    // console.log("Time to run spectral: ", endTime - startTime, "ms");
+    // console.log("Time to run operation: ", opFinishTime - opStartTime, "ms");
     process.exit(0);
   } catch (err) {
     printCriticalFailureToConsoleAndExit(err);

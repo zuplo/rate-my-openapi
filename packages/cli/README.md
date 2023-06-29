@@ -27,22 +27,25 @@ Invoke via `rate-my-openapi`.
 ## Examples
 
 The `example-specs` folder contains some sample OpenAPI files to get an idea of
-scores and performance to expect.
+scores and performance to expect. Tests were run on an M1 Macbook Pro.
 
-### Vacuum with Default Rules
-
-| Example Spec    | Linter processing time (ms) | Overall Processing Time (ms) | Score |
-| --------------- | --------------------------- | ---------------------------- | ----- |
-| Twilio (29KB)   | ~60                         | ~70                          | 50    |
-| Asana (589KB)   | ~180                        | ~200                         | 93    |
-| petstore (26KB) | ~60                         | ~70                          | 80    |
-| Box (1.4MB)     | ~300                        | ~320                         | 91    |
-
-### Spectral with Default Rules
+### Vacuum
 
 | Example Spec    | Linter processing time (ms) | Overall Processing Time (ms) | Score |
 | --------------- | --------------------------- | ---------------------------- | ----- |
-| Twilio (29KB)   | ~110                        | ~220                         | 93    |
-| Asana (589KB)   | ~1400                       | ~1600                        | 100   |
-| petstore (26KB) | ~150                        | ~260                         | 89    |
+| petstore (26KB) | ~60                         | ~70                          | 86    |
+| OpenAI (143KB)  | ~72                         | ~85                          | 67    |
+| Asana (589KB)   | ~170                        | ~200                         | 95    |
+| Box (1.4MB)     | ~300                        | ~320                         | 93    |
+
+### Spectral
+
+The spectral ruleset is tuned to closely match the rules in Vacuum, but some
+rules do not exist in Spectral - resulting in variance in scores.
+
+| Example Spec    | Linter processing time (ms) | Overall Processing Time (ms) | Score |
+| --------------- | --------------------------- | ---------------------------- | ----- |
+| petstore (26KB) | ~150                        | ~260                         | 92    |
+| OpenAI (143KB)  | ~160                        | ~290                         | 75    |
+| Asana (589KB)   | ~1400                       | ~1550                        | 100   |
 | Box (1.4MB)     | ~2660                       | ~2860                        | 100   |

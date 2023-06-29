@@ -1,0 +1,19 @@
+extends: [[spectral:oas, all]]
+rules:
+  paths-kebab-case: false
+  operation-4xx-response: info
+  operation-success-response: warn
+  operation-operationId-valid-in-url: warn
+  operation-operationId: warn
+  contact-properties: info
+  info-contact: info
+  info-license: info
+  license-url: info
+  tag-description: info
+  operation-tags: hint
+  openapi-tags: warn
+  operation-singular-tag: false
+  # The alphabetical rule seems to fail on Box
+  openapi-tags-alphabetical: false
+  description-duplication: false
+  oas3-host-trailing-slash: false

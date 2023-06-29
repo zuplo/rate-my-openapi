@@ -12,5 +12,13 @@
   },
   "[terraform]": {
     "editor.defaultFormatter": "hashicorp.terraform"
-  }
+  },
+  "cSpell.words": [
+    "APIV",
+    "openapi",
+    "operationid",
+    "quobix",
+    "ruleset",
+    "rulesets"
+  ]
 }

@@ -1,0 +1,34 @@
+extends: [[spectral:oas, recommended]]
+rules:
+  # no-http-verbs-in-path: missing
+  # no-ambiguous-paths: missing
+  # operation-4xx-response: missing
+  path-declarations-must-exist: error
+  path-not-include-query: error
+  # operation-operationId: add-reference
+  operation-operationId: warn
+  operation-operationId-unique: error
+  operation-parameters: error
+  path-params: error
+  oas-3-schema: error
+  oas3-api-servers: error
+  no-eval-in-markdown: error
+  no-script-tags-in-markdown: error
+  duplicated-entry-in-enum: error
+  no-$ref-siblings: error
+  oas3-unused-component: error
+  oas3-host-not-example: warn
+  oas3-server-not-examplecom: warn
+  contact-properties: info
+  info-description: error
+  info-license: info
+  license-url: info
+  # description-duplication: missing
+  oas3-parameter-description: warn
+  # component-description: missing
+  tag-description: info
+  operation-tags: hint
+  openapi-tags: warn
+  openapi-tags-alphabetical: false
+  operation-tag-defined: warn
+  oas3-operation-security-defined: error

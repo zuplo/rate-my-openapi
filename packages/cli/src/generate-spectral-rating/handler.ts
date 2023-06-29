@@ -24,6 +24,7 @@ export async function generateSpectralRating(argv: Arguments) {
     const opStartTime = Date.now();
     const filepath = argv.filepath;
     const pathName = join(relative(process.cwd(), filepath));
+   
     const openApiFile = await readFile(pathName);
     const openApiSpectralDoc = new Document(
       openApiFile.toString(),
@@ -34,8 +35,7 @@ export async function generateSpectralRating(argv: Arguments) {
       | OpenAPIV3_1.Document
       | OpenAPIV3.Document;
     const spectral = new Spectral();
-    const rulesetFilepath = join(__dirname, ".spectral.yaml");
-
+    const rulesetFilepath = join(process.cwd(), "../", "../",  "rulesets", ".spectral.yaml");
     spectral.setRuleset(
       await bundleAndLoadRuleset(rulesetFilepath, { fs, fetch })
     );

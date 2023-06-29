@@ -10,15 +10,14 @@ rules:
   operation-operationId-unique: error
   operation-parameters: error
   path-params: error
-  oas-3-schema: error
+  oas3-schema: error
   oas3-api-servers: error
   no-eval-in-markdown: error
   no-script-tags-in-markdown: error
   duplicated-entry-in-enum: error
   no-$ref-siblings: error
   oas3-unused-component: error
-  oas3-host-not-example: warn
-  oas3-server-not-examplecom: warn
+  oas3-server-not-example.com: warn
   contact-properties: info
   info-description: error
   info-license: info

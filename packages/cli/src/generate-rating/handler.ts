@@ -17,7 +17,7 @@ export async function generateRating(argv: Arguments) {
     const filepath = argv.filepath;
     const pathName = join(relative(process.cwd(), filepath));
     const rulesetPath = join(
-      relative(process.cwd(), "rulesets/rules.vacuum.yaml"),
+      process.cwd(), "../", "../", "rulesets/rules.vacuum.yaml",
     );
     const openApiFile = await readFile(
       pathName,

@@ -33,10 +33,10 @@ scores and performance to expect. Tests were run on an M1 Macbook Pro.
 
 | Example Spec    | Linter processing time (ms) | Overall Processing Time (ms) | Score |
 | --------------- | --------------------------- | ---------------------------- | ----- |
-| petstore (26KB) | ~60                         | ~70                          | 86    |
+| petstore (26KB) | ~60                         | ~70                          | 85    |
 | OpenAI (143KB)  | ~72                         | ~85                          | 67    |
-| Asana (589KB)   | ~170                        | ~200                         | 95    |
-| Box (1.4MB)     | ~300                        | ~320                         | 93    |
+| Asana (589KB)   | ~170                        | ~200                         | 96    |
+| Box (1.4MB)     | ~300                        | ~320                         | 96    |
 
 ### Spectral
 
@@ -45,7 +45,7 @@ rules do not exist in Spectral - resulting in variance in scores.
 
 | Example Spec    | Linter processing time (ms) | Overall Processing Time (ms) | Score |
 | --------------- | --------------------------- | ---------------------------- | ----- |
-| petstore (26KB) | ~150                        | ~260                         | 92    |
-| OpenAI (143KB)  | ~160                        | ~290                         | 75    |
-| Asana (589KB)   | ~1400                       | ~1550                        | 100   |
+| petstore (26KB) | ~150                        | ~260                         | 89    |
+| OpenAI (143KB)  | ~160                        | ~290                         | 74    |
+| Asana (589KB)   | ~1400                       | ~1550                        | 99    |
 | Box (1.4MB)     | ~2660                       | ~2860                        | 100   |

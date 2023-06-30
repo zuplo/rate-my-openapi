@@ -4,8 +4,7 @@ import { join, relative } from "node:path";
 import util from "node:util";
 import { OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
 import { printCriticalFailureToConsoleAndExit } from "../common/output.js";
-import { RatingOutput, SpectralReport } from "../interfaces.js";
-import { generateOpenApiRating } from "../utils/rating-utils.js";
+import { RatingOutput, SpectralReport, generateOpenApiRating } from "@rate-my-openapi/core";
 const execAwait = util.promisify(exec);
 export interface Arguments {
   filepath: string;

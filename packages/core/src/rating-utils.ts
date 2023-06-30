@@ -1,15 +1,9 @@
 import { OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
-import {
-  ComponentRating,
-  ComponentsRating,
-  PathRating,
-  Rating,
-  RatingOutput,
-  SpectralReport,
-} from "src/interfaces.js";
+import { ComponentRating, ComponentsRating, PathRating, Rating, RatingOutput, SpectralReport } from "./interfaces";
+
 
 // NOTE: Should sum to 1
-export const OPEN_API_PROPERTY_WEIGHTS = {
+const OPEN_API_PROPERTY_WEIGHTS = {
   info: 0.1,
   servers: 0.05,
   tags: 0.05,

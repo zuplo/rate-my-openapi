@@ -4,17 +4,13 @@ import { bundleAndLoadRuleset } from "@stoplight/spectral-ruleset-bundler/with-l
 import spectralRuntime from "@stoplight/spectral-runtime";
 import * as fs from "node:fs";
 import { readFile } from "node:fs/promises";
-import * as path from "node:path";
 import { join, relative } from "node:path";
-import { fileURLToPath } from "node:url";
 import { OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
 import { printCriticalFailureToConsoleAndExit } from "../common/output.js";
-import { RatingOutput, SpectralReport } from "../interfaces.js";
-import { generateOpenApiRating } from "../utils/rating-utils.js";
+import { SpectralReport, RatingOutput, generateOpenApiRating } from "@rate-my-openapi/core";
+
 const { Spectral, Document } = spectralCore;
 const { fetch } = spectralRuntime;
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export interface Arguments {
   filepath: string;

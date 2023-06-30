@@ -49,3 +49,11 @@ rules do not exist in Spectral - resulting in variance in scores.
 | OpenAI (143KB)  | ~160                        | ~290                         | 74    |
 | Asana (589KB)   | ~1400                       | ~1550                        | 99    |
 | Box (1.4MB)     | ~2660                       | ~2860                        | 100   |
+
+Categories:
+
+- Overall Score
+- Quality for docs
+- SDK generation
+- Completeness
+- Security

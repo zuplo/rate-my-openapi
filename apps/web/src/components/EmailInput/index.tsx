@@ -1,19 +1,46 @@
+"use client";
+
+import { useUploadContext } from "@/contexts/UploadContext";
+import classNames from "classnames";
 import { FormEvent, useRef } from "react";
 
-const EmailInput = ({ setNextStep }: { setNextStep: () => void }) => {
+const EmailInput = () => {
+  const { step, setNextStep, setIsLoading, file } = useUploadContext();
+
   const emailInputRef = useRef<HTMLInputElement>(null);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
 
     const emailInput = emailInputRef.current;
-    if (emailInput?.value && emailInput?.validity.valid) {
-      setNextStep();
+    if (emailInput?.value && emailInput?.validity.valid && file) {
+      try {
+        const formData = new FormData();
+        formData.append("emailAddress", emailInput.value);
+        formData.append("file", file);
+
+        // await fetch("https://api.ratemyopenapi.com/upload", {
+        //   method: "POST",
+        //   body: formData,
+        // });
+
+        setNextStep();
+      } catch (e) {
+        console.error((e as Error).message);
+      }
     }
+
+    setIsLoading(false);
   };
 
   return (
-    <div className="max-w-[450px]">
+    <div
+      className={classNames("max-w-[450px]", {
+        block: step === 2,
+        hidden: step !== 2,
+      })}
+    >
       <form onSubmit={onSubmit}>
         <label htmlFor="email" className="mb-3 block text-xl">
           Enter your email address so we can send your report when it&apos;s

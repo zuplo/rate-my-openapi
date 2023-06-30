@@ -1,7 +1,12 @@
+"use client";
+
+import { useUploadContext } from "@/contexts/UploadContext";
 import classNames from "classnames";
 import { ChangeEvent, DragEvent, FormEvent, useRef, useState } from "react";
 
-const FileUpload = ({ setNextStep }: { setNextStep: () => void }) => {
+const FileUpload = () => {
+  const { step, setNextStep, setIsLoading, setFile } = useUploadContext();
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const urlInputRef = useRef<HTMLInputElement>(null);
 
@@ -29,6 +34,8 @@ const FileUpload = ({ setNextStep }: { setNextStep: () => void }) => {
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setIsLoading(true);
+
     if (e.target.files?.length) {
       onFileUpload(e.target.files[0]);
     }
@@ -38,15 +45,14 @@ const FileUpload = ({ setNextStep }: { setNextStep: () => void }) => {
     fileInputRef.current?.click();
   };
 
-  const onSubmit = () => setNextStep();
-
   const onFileUpload = (file: File) => {
-    console.log(file);
-
-    onSubmit();
+    setFile(file);
+    setNextStep();
+    setIsLoading(false);
   };
 
   const onUrlInputSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
 
     const urlInput = urlInputRef.current;
@@ -67,6 +73,7 @@ const FileUpload = ({ setNextStep }: { setNextStep: () => void }) => {
       } catch (e) {
         console.error((e as Error).message);
         setError((e as Error).message);
+        setIsLoading(false);
       }
 
       if (fileUrl && fileName) {
@@ -87,13 +94,19 @@ const FileUpload = ({ setNextStep }: { setNextStep: () => void }) => {
         } catch (e) {
           console.error((e as Error).message);
           setError((e as Error).message);
+          setIsLoading(false);
         }
       }
     }
   };
 
   return (
-    <div className="max-w-[450px]">
+    <div
+      className={classNames("max-w-[450px]", {
+        block: step === 1,
+        hidden: step !== 1,
+      })}
+    >
       <h2 className="mb-2 text-center text-xl">
         Upload your OpenAPI file and we&apos;ll review it for you
       </h2>

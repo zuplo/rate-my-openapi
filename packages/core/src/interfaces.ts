@@ -70,11 +70,15 @@ export type SpectralReport = ISpectralDiagnostic[];
 export type Rating = {
   score: number;
   issues: SpectralReport;
+  docsScore: number;
+  docsIssues: SpectralReport;
 };
 
 export type PathRating = {
   score: number;
   issues: SpectralReport;
+  docsScore: number;
+  docsIssues: SpectralReport;
   get?: Rating;
   put?: Rating;
   post?: Rating;
@@ -88,11 +92,15 @@ export type PathRating = {
 export type PathsRating = {
   score: number;
   issues: SpectralReport;
+  docsScore: number;
+  docsIssues: SpectralReport;
   [key: string]: PathRating | number | SpectralReport;
 };
 
 export type ComponentsRating = {
   score: number;
+  docsScore: number;
+  docsIssues: SpectralReport;
   issues: SpectralReport;
   schemas?: ComponentRating;
   responses?: ComponentRating;
@@ -109,6 +117,8 @@ export type ComponentsRating = {
 export type ComponentRating = {
   score: number;
   issues: SpectralReport;
+  docsScore: number;
+  docsIssues: SpectralReport;
   // Will just be Rating in practice
   [key: string]: Rating | number | SpectralReport;
 };
@@ -116,6 +126,8 @@ export type ComponentRating = {
 export type RatingOutput = {
   score: number;
   issues: SpectralReport;
+  docsScore: number;
+  docsIssues: SpectralReport;
   paths: PathsRating;
   info: Rating;
   security: Rating;

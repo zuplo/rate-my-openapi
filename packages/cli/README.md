@@ -53,7 +53,39 @@ rules do not exist in Spectral - resulting in variance in scores.
 Categories:
 
 - Overall Score
+  - See the vacuum ruleset
 - Quality for docs
+  - Examples
+  - OperationID
+  - Document 2XX
+  - Document 4XX
+  - Tags (with descriptions)
+  - Servers list
+  - Descriptions
 - SDK generation
+  - No empty servers list
+  - No inline schema definitions
+  - Include title, names, descriptions, and summaries
+  - No missing examples
+  - OperationID is required
+  - Include 2XX response
+  - Optional params come last
+  - Reuse components
 - Completeness
+  - Examples
+  - Document 2XX
+  - Document 4XX
+  - Servers list
+  - Descriptions
+  - All Info properties
 - Security
+  - Security defined See
+    https://github.com/stoplightio/spectral-owasp-ruleset/blob/main/src/ruleset.ts
+  - owasp:api1:2019-no-numeric-ids
+  - owasp:api3:2019-define-error-validation
+  - owasp:api3:2019-define-error-responses-401
+  - owasp:api3:2019-define-error-responses-500
+  - owasp:api4:2019-rate-limit
+  - owasp:api4:2019-rate-limit-retry-after
+  - owasp:api4:2019-rate-limit-responses-429
+  - owasp:api7:2019-security-hosts-https-oas3

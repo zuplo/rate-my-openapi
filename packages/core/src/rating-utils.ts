@@ -1,8 +1,19 @@
+import {
+  getCompletenessIssues,
+  getCompletenessRating,
+  getLengthNormalizedCompletenessRating,
+} from "./completeness-rating-utils";
+import {
+  getDocsIssues,
+  getDocsRating,
+  getLengthNormalizedDocsRating,
+} from "./docs-rating-utils";
 import { OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
 import {
   ComponentRating,
   ComponentsRating,
   PathRating,
+  PathsRating,
   Rating,
   RatingOutput,
   SpectralReport,
@@ -17,30 +28,6 @@ const OPEN_API_PROPERTY_WEIGHTS = {
   paths: 0.6,
   components: 0.15,
 };
-
-const DOCS_ISSUES = [
-  "oas3-schema",
-  "oas3-valid-schema-example",
-  "operation-4xx-response",
-  "operation-operationId-valid-in-url",
-  "operation-success-response",
-  "operation-operationId",
-  "operation-operationId-unique",
-  "oas3-host-not-example",
-  "contact-properties",
-  "info-contact",
-  "info-description",
-  "info-license",
-  "oas3-api-servers",
-  "no-script-tags-in-markdown",
-  "component-description",
-  "oas3-parameter-description",
-  "operation-description",
-  "tag-description",
-  "operation-tags",
-  "openapi-tags",
-  "operation-tag-defined",
-];
 
 export const generateOpenApiRating = (
   outputReport: SpectralReport,
@@ -78,9 +65,12 @@ export const generateOpenApiRating = (
   const pathRatings = getPathRatings(openApi, issuesByArea.paths);
   let totalPathsScore = 0;
   let totalPathsDocsScore = 0;
+  let totalCompletenessScore = 0;
   Object.values(pathRatings).forEach((pathRating) => {
     totalPathsScore = totalPathsScore + pathRating.score;
     totalPathsDocsScore = totalPathsDocsScore + pathRating.docsScore;
+    totalCompletenessScore =
+      totalCompletenessScore + pathRating.completenessScore;
   });
   const pathsScore = Math.round(
     totalPathsScore / Object.keys(pathRatings).length
@@ -88,6 +78,18 @@ export const generateOpenApiRating = (
   const pathsDocsScore = Math.round(
     totalPathsDocsScore / Object.keys(pathRatings).length
   );
+  const pathsCompletenessScore = Math.round(
+    totalCompletenessScore / Object.keys(pathRatings).length
+  );
+  const pathsRating: PathsRating = {
+    score: pathsScore,
+    issues: issuesByArea.paths,
+    docsScore: pathsDocsScore,
+    docsIssues: getDocsIssues(issuesByArea.paths),
+    completenessScore: pathsCompletenessScore,
+    completenessIssues: getCompletenessIssues(issuesByArea.paths),
+    ...pathRatings,
+  };
 
   // TODO: Incorporate components rating
   const componentsRating = getComponentsRatings(
@@ -97,7 +99,7 @@ export const generateOpenApiRating = (
 
   const infoObjectRating = getAreaRating(issuesByArea.info);
 
-  const tagsRating = openApi.tags?.length
+  const tagsRating: Rating = openApi.tags?.length
     ? getLengthNormalizedAreaRating(issuesByArea.tags, openApi.tags?.length)
     : // Having tags is not mandatory, so we count this as a single warning
       // TODO: Should we penalize harder for having more paths?
@@ -106,9 +108,11 @@ export const generateOpenApiRating = (
         issues: issuesByArea.tags,
         docsScore: 85,
         docsIssues: getDocsIssues(issuesByArea.tags),
+        completenessScore: 0, // Needed to be considered complete
+        completenessIssues: getCompletenessIssues(issuesByArea.tags),
       };
 
-  const serversRating = openApi.servers?.length
+  const serversRating: Rating = openApi.servers?.length
     ? getLengthNormalizedAreaRating(
         issuesByArea.servers,
         openApi.servers.length
@@ -119,9 +123,11 @@ export const generateOpenApiRating = (
         issues: issuesByArea.servers,
         docsScore: 0,
         docsIssues: getDocsIssues(issuesByArea.servers),
+        completenessScore: 0,
+        completenessIssues: getCompletenessIssues(issuesByArea.servers),
       };
 
-  const securityRating = openApi.security?.length
+  const securityRating: Rating = openApi.security?.length
     ? getLengthNormalizedAreaRating(
         issuesByArea.security,
         openApi.security.length
@@ -134,18 +140,15 @@ export const generateOpenApiRating = (
         issues: issuesByArea.security,
         docsScore: 85,
         docsIssues: getDocsIssues(issuesByArea.security),
+        completenessScore: 0, // Literally incomplete
+        completenessIssues: getCompletenessIssues(issuesByArea.security),
       };
 
   return {
     issues: outputReport,
     docsIssues: getDocsIssues(outputReport),
-    paths: {
-      score: pathsScore,
-      issues: issuesByArea.paths,
-      docsScore: pathsDocsScore,
-      docsIssues: getDocsIssues(issuesByArea.paths),
-      ...pathRatings,
-    },
+    completenessIssues: getCompletenessIssues(outputReport),
+    paths: pathsRating,
     info: infoObjectRating,
     servers: serversRating,
     tags: tagsRating,
@@ -166,6 +169,15 @@ export const generateOpenApiRating = (
         securityRating.docsScore * OPEN_API_PROPERTY_WEIGHTS.security +
         infoObjectRating.docsScore * OPEN_API_PROPERTY_WEIGHTS.info +
         componentsRating.docsScore * OPEN_API_PROPERTY_WEIGHTS.components
+    ),
+    completenessScore: Math.round(
+      pathsCompletenessScore * OPEN_API_PROPERTY_WEIGHTS.paths +
+        tagsRating.completenessScore * OPEN_API_PROPERTY_WEIGHTS.tags +
+        serversRating.completenessScore * OPEN_API_PROPERTY_WEIGHTS.servers +
+        securityRating.completenessScore * OPEN_API_PROPERTY_WEIGHTS.security +
+        infoObjectRating.completenessScore * OPEN_API_PROPERTY_WEIGHTS.info +
+        componentsRating.completenessScore *
+          OPEN_API_PROPERTY_WEIGHTS.components
     ),
   };
 };
@@ -236,11 +248,14 @@ const getPathRatings = (
     }
 
     if (!issuesByPathAndOperation[path]) {
+      // No issues? Perfect score!
       pathRatings[path] = {
         score: 100,
         issues: [],
         docsScore: 100,
         docsIssues: [],
+        completenessScore: 100,
+        completenessIssues: [],
       };
       return pathRatings;
     }
@@ -250,6 +265,10 @@ const getPathRatings = (
       issues: issuesByPathAndOperation[path]["other"],
       docsScore: 100,
       docsIssues: getDocsIssues(issuesByPathAndOperation[path]["other"]),
+      completenessScore: 100,
+      completenessIssues: getCompletenessIssues(
+        issuesByPathAndOperation[path]["other"]
+      ),
     };
 
     // We calculate the path score by averaging the scores of the operations
@@ -267,6 +286,8 @@ const getPathRatings = (
           issues: [],
           docsScore: 100,
           docsIssues: [],
+          completenessScore: 100,
+          completenessIssues: [],
         };
         return;
       }
@@ -368,16 +389,22 @@ const getPathRatings = (
           averagingDenominator
       );
       const { docsScore, docsIssues } = getDocsRating(operationIssues);
+      const { completenessScore, completenessIssues } =
+        getCompletenessRating(operationIssues);
       pathRating[operation] = {
         score: operationScore,
         issues: operationIssues,
         docsScore,
         docsIssues,
+        completenessScore,
+        completenessIssues,
       };
 
       // Collect all the operation's issues into the path's issues
       pathRating.issues = pathRating.issues.concat(operationIssues);
       pathRating.docsIssues = pathRating.docsIssues.concat(docsIssues);
+      pathRating.completenessIssues =
+        pathRating.completenessIssues.concat(completenessIssues);
     });
 
     const pathIssues = issuesByPathAndOperation[path]["other"];
@@ -389,6 +416,7 @@ const getPathRatings = (
     if (numOperations) {
       let totalScore = 0;
       let totalDocsScore = 0;
+      let totalCompletenessScore = 0;
       Object.entries(pathRating).forEach(([key, maybeOperationRating]) => {
         if (!operations.includes(key as OpenAPIV3_1.HttpMethods)) {
           // Non-operation key (ex. issues, score, etc.)
@@ -397,15 +425,21 @@ const getPathRatings = (
         const operationRating = maybeOperationRating as Rating;
         totalScore = totalScore + operationRating.score;
         totalDocsScore = totalDocsScore + operationRating.docsScore;
+        totalCompletenessScore =
+          totalCompletenessScore + operationRating.completenessScore;
       });
 
       pathRating.score = Math.round(
         totalScore / numOperations - pathIssuesDelta
       );
       pathRating.docsScore = Math.round(totalDocsScore / numOperations);
+      pathRating.completenessScore = Math.round(
+        totalCompletenessScore / numOperations
+      );
     } else {
       pathRating.score = 0; // Wtf, why document a path with no operations - FAIL
       pathRating.docsScore = 0;
+      pathRating.completenessScore = 0;
     }
 
     pathRatings[path] = pathRating;
@@ -419,11 +453,14 @@ const getComponentsRatings = (
 ): ComponentsRating => {
   const { components } = openApi;
   if (!components) {
+    // No components, no problems
     return {
       score: 100,
       issues: componentsIssues,
       docsScore: 100,
       docsIssues: getDocsIssues(componentsIssues),
+      completenessScore: 100,
+      completenessIssues: getCompletenessIssues(componentsIssues),
     };
   }
 
@@ -484,6 +521,8 @@ const getComponentsRatings = (
           issues: [],
           docsScore: 100,
           docsIssues: [],
+          completenessScore: 100,
+          completenessIssues: [],
         };
         return componentCategoryRatings;
       }
@@ -492,17 +531,22 @@ const getComponentsRatings = (
         issues: [],
         docsScore: 100,
         docsIssues: [],
+        completenessScore: 100,
+        completenessIssues: [],
       };
       const componentRatings: Record<string, Rating> = Object.keys(
         componentCategory
       ).reduce((componentsRatings, componentName) => {
         const componentIssues = componentCategoryIssues[componentName];
         if (!componentIssues) {
+          // No issues? Perfect score!
           componentsRatings[componentName] = {
             score: 100,
             issues: [],
             docsScore: 100,
             docsIssues: [],
+            completenessScore: 100,
+            completenessIssues: [],
           };
           return componentsRatings;
         }
@@ -512,24 +556,33 @@ const getComponentsRatings = (
           componentScore = Math.max(0, componentScore - delta);
         });
         const { docsScore, docsIssues } = getDocsRating(componentIssues);
+        const { completenessScore, completenessIssues } =
+          getCompletenessRating(componentIssues);
         componentsRatings[componentName] = {
           score: componentScore,
           issues: componentIssues,
           docsScore,
           docsIssues,
+          completenessScore,
+          completenessIssues,
         };
         componentCategoryRating.issues =
           componentCategoryRating.issues.concat(componentIssues);
         componentCategoryRating.docsIssues =
           componentCategoryRating.docsIssues.concat(docsIssues);
+        componentCategoryRating.completenessIssues =
+          componentCategoryRating.completenessIssues.concat(completenessIssues);
         return componentsRatings;
       }, {} as Record<string, Rating>);
       let totalComponentsScore = 0;
       let totalComponentsDocsScore = 0;
+      let totalCompletenessScore = 0;
       Object.values(componentRatings).forEach((componentRating) => {
         totalComponentsScore = totalComponentsScore + componentRating.score;
         totalComponentsDocsScore =
           totalComponentsDocsScore + componentRating.docsScore;
+        totalCompletenessScore =
+          totalCompletenessScore + componentRating.completenessScore;
       });
       const componentCategoryScore = Math.round(
         totalComponentsScore / Object.keys(componentRatings).length
@@ -537,11 +590,16 @@ const getComponentsRatings = (
       const componentCategoryDocsScore = Math.round(
         totalComponentsDocsScore / Object.keys(componentRatings).length
       );
+      const componentCategoryCompletenessScore = Math.round(
+        totalCompletenessScore / Object.keys(componentRatings).length
+      );
       componentCategoryRatings[componentKey] = {
         score: componentCategoryScore,
         issues: componentCategoryRating.issues,
         docsScore: componentCategoryDocsScore,
         docsIssues: componentCategoryRating.docsIssues,
+        completenessScore: componentCategoryCompletenessScore,
+        completenessIssues: componentCategoryRating.completenessIssues,
         ...componentRatings,
       };
       return componentCategoryRatings;
@@ -550,10 +608,13 @@ const getComponentsRatings = (
   );
   let totalComponentCategoryScore = 0;
   let totalComponentsCategoryDocsScore = 0;
+  let totalComponentsCategoryCompletenessScore = 0;
   Object.values(componentCategoryRatings).forEach((rating) => {
     totalComponentCategoryScore = totalComponentCategoryScore + rating.score;
     totalComponentsCategoryDocsScore =
       totalComponentsCategoryDocsScore + rating.docsScore;
+    totalComponentsCategoryCompletenessScore =
+      totalComponentsCategoryCompletenessScore + rating.completenessScore;
   });
   const componentsScore = Math.round(
     totalComponentCategoryScore / Object.keys(componentCategoryRatings).length
@@ -562,11 +623,17 @@ const getComponentsRatings = (
     totalComponentsCategoryDocsScore /
       Object.keys(componentCategoryRatings).length
   );
+  const componentsCompletenessScore = Math.round(
+    totalComponentsCategoryCompletenessScore /
+      Object.keys(componentCategoryRatings).length
+  );
   return {
     score: componentsScore,
     issues: componentsIssues,
     docsScore: componentsDocsScore,
     docsIssues: getDocsIssues(componentsIssues),
+    completenessScore: componentsCompletenessScore,
+    completenessIssues: getCompletenessIssues(componentsIssues),
     ...componentCategoryRatings,
   };
 };
@@ -587,15 +654,19 @@ const getLengthNormalizedAreaRating = (
     areaIssues,
     areaLength
   );
+  const { completenessScore, completenessIssues } =
+    getLengthNormalizedCompletenessRating(areaIssues, areaLength);
   return {
     score: Math.max(0, 100 - totalDelta / areaLength),
     issues: areaIssues,
     docsScore,
     docsIssues,
+    completenessScore,
+    completenessIssues,
   };
 };
 
-const getScoreDelta = (severity: 0 | 1 | 2 | 3) => {
+export const getScoreDelta = (severity: 0 | 1 | 2 | 3) => {
   switch (severity) {
     case 0:
       return 50; // Essentially an error so judged harshly
@@ -606,32 +677,6 @@ const getScoreDelta = (severity: 0 | 1 | 2 | 3) => {
     case 3:
       return 1; // Hint, prescriptive suggestions essentially
   }
-};
-
-const getDocsRating = (issues: SpectralReport) => {
-  return getLengthNormalizedDocsRating(issues, 1);
-};
-
-const getDocsIssues = (issues: SpectralReport) => {
-  return issues.filter(
-    (issue) =>
-      typeof issue.code === "string" && DOCS_ISSUES.includes(issue.code)
-  );
-};
-
-const getLengthNormalizedDocsRating = (
-  issues: SpectralReport,
-  length: number
-) => {
-  let totalDelta = 0;
-  const docsIssues = issues.filter((issue) => {
-    if (typeof issue.code === "string" && DOCS_ISSUES.includes(issue.code)) {
-      totalDelta = totalDelta + getScoreDelta(issue.severity);
-      return true;
-    }
-    return false;
-  });
-  return { docsScore: Math.max(0, 100 - totalDelta / length), docsIssues };
 };
 
 const getPathIssueDelta = (pathIssues: SpectralReport) => {

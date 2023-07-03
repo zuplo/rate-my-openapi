@@ -20,9 +20,10 @@ Invoke via `rate-my-openapi`.
 
 ### Commands
 
-| Command         | Description                                                                                                          | Example                                                                        |
-| --------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| generate-rating | Generates a rating report for an OpenAPI file, outputting scores for the overall file, each path, and each operation | `rate-my-openapi generate-rating --filepath example-specs/twilio-pricing.json` |
+| Command                  | Description                                                                                                          | Example                                                                                 |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| generate-rating          | Generates a rating report for an OpenAPI file, outputting scores for the overall file, each path, and each operation | `rate-my-openapi generate-rating --filepath example-specs/twilio-pricing.json`          |
+| generate-rating-spectral | Same as above but using Spectral instead of Vacuum                                                                   | `rate-my-openapi generate-rating-spectral --filepath example-specs/twilio-pricing.json` |
 
 ## Examples
 
@@ -52,16 +53,6 @@ rules do not exist in Spectral - resulting in variance in scores.
 
 Categories:
 
-- Overall Score
-  - See the vacuum ruleset
-- Quality for docs
-  - Examples
-  - OperationID
-  - Document 2XX
-  - Document 4XX
-  - Tags (with descriptions)
-  - Servers list
-  - Descriptions
 - SDK generation
   - No empty servers list
   - No inline schema definitions
@@ -71,13 +62,6 @@ Categories:
   - Include 2XX response
   - Optional params come last
   - Reuse components
-- Completeness
-  - Examples
-  - Document 2XX
-  - Document 4XX
-  - Servers list
-  - Descriptions
-  - All Info properties
 - Security
   - Security defined See
     https://github.com/stoplightio/spectral-owasp-ruleset/blob/main/src/ruleset.ts

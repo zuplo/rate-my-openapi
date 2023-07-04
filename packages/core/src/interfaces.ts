@@ -67,18 +67,16 @@ export type VacuumReport = {
 
 export type SpectralReport = ISpectralDiagnostic[];
 
-export type Rating = {
+export interface Rating {
   score: number;
   issues: SpectralReport;
   docsScore: number;
   docsIssues: SpectralReport;
+  completenessScore: number;
+  completenessIssues: SpectralReport;
 };
 
-export type PathRating = {
-  score: number;
-  issues: SpectralReport;
-  docsScore: number;
-  docsIssues: SpectralReport;
+export interface PathRating extends Rating {
   get?: Rating;
   put?: Rating;
   post?: Rating;
@@ -89,19 +87,12 @@ export type PathRating = {
   trace?: Rating;
 };
 
-export type PathsRating = {
-  score: number;
-  issues: SpectralReport;
-  docsScore: number;
-  docsIssues: SpectralReport;
+export interface PathsRating extends Rating {
+  // Will just be PathRating in practice
   [key: string]: PathRating | number | SpectralReport;
 };
 
-export type ComponentsRating = {
-  score: number;
-  docsScore: number;
-  docsIssues: SpectralReport;
-  issues: SpectralReport;
+export interface ComponentsRating extends Rating {
   schemas?: ComponentRating;
   responses?: ComponentRating;
   parameters?: ComponentRating;
@@ -114,20 +105,12 @@ export type ComponentsRating = {
   pathItems?: ComponentRating;
 };
 
-export type ComponentRating = {
-  score: number;
-  issues: SpectralReport;
-  docsScore: number;
-  docsIssues: SpectralReport;
+export interface ComponentRating extends Rating {
   // Will just be Rating in practice
   [key: string]: Rating | number | SpectralReport;
 };
 
-export type RatingOutput = {
-  score: number;
-  issues: SpectralReport;
-  docsScore: number;
-  docsIssues: SpectralReport;
+export interface RatingOutput extends Rating {
   paths: PathsRating;
   info: Rating;
   security: Rating;

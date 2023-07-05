@@ -15,5 +15,7 @@ rules:
   operation-singular-tag: false
   # The alphabetical rule seems to fail on Box
   openapi-tags-alphabetical: false
+  # Noisy and unnecessary
   description-duplication: false
+  # Not a big deal
   oas3-host-trailing-slash: false

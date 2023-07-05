@@ -1,37 +1,5 @@
-extends: [[spectral:oas, recommended]]
+# NOTE: Please keep .spectral.yaml in sync
 rules:
-  # no-http-verbs-in-path: missing
-  # no-ambiguous-paths: missing
-  # operation-4xx-response: missing
-  path-declarations-must-exist: error
-  path-not-include-query: error
-  # operation-operationId: add-reference
-  operation-operationId: warn
-  operation-operationId-unique: error
-  operation-parameters: error
-  path-params: error
-  oas3-schema: error
-  oas3-api-servers: error
-  no-eval-in-markdown: error
-  no-script-tags-in-markdown: error
-  duplicated-entry-in-enum: error
-  no-$ref-siblings: error
-  oas3-unused-component: error
-  oas3-server-not-example.com: warn
-  contact-properties: info
-  info-description: error
-  info-license: info
-  license-url: info
-  # description-duplication: missing
-  oas3-parameter-description: warn
-  # component-description: missing
-  tag-description: info
-  operation-tags: hint
-  openapi-tags: warn
-  openapi-tags-alphabetical: false
-  operation-tag-defined: warn
-  oas3-operation-security-defined: error
-  # Copy of .spectral-supplement.yaml
   apimatic-security-defined:
     description: "Apimatic: It is recommended to define at least one authentication scheme globally using the securitySchemes property in the components section and use it globally to authenticate all the endpoints or use it for specific endpoints."
     message: "'security' must be defined and not empty"

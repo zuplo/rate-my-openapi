@@ -1,3 +1,4 @@
+import { OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
 import {
   getCompletenessIssues,
   getCompletenessRating,
@@ -8,7 +9,6 @@ import {
   getDocsRating,
   getLengthNormalizedDocsRating,
 } from "./docs-rating-utils";
-import { OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
 import {
   ComponentRating,
   ComponentsRating,
@@ -18,6 +18,11 @@ import {
   RatingOutput,
   SpectralReport,
 } from "./interfaces";
+import {
+  getLengthNormalizedSdkGenerationRating,
+  getSdkGenerationIssues,
+  getSdkGenerationRating,
+} from "./sdk-rating-utils";
 
 // NOTE: Should sum to 1
 const OPEN_API_PROPERTY_WEIGHTS = {
@@ -35,11 +40,31 @@ export const generateOpenApiRating = (
 ): RatingOutput => {
   const issuesByArea = outputReport.reduce(
     (issuesByArea, issue) => {
-      const area = issue.path[0] as keyof typeof issuesByArea;
+      let area = issue.path[0] as keyof typeof issuesByArea | undefined;
+      if (!area) {
+        // This can happen for issues with areas being present in the top level
+        const inferredArea = inferAreaFromIssue(issue) as
+          | keyof typeof issuesByArea
+          | undefined;
+        if (!inferredArea) {
+          console.log("Could not infer area from issue - skipping: ", issue);
+          return issuesByArea;
+        }
+        area = inferredArea;
+        issue.path = [area];
+      }
       if (!issuesByArea[area]) {
         // TODO: Not sure when this would happen, should collect some telemetry
         // on this to see if it's a problem
-        issuesByArea[area] = [];
+        const inferredArea = inferAreaFromIssue(issue) as
+          | keyof typeof issuesByArea
+          | undefined;
+        if (!inferredArea) {
+          console.log("Could not infer area from issue - skipping: ", issue);
+          return issuesByArea;
+        }
+        area = inferredArea;
+        issue.path = [area];
       }
       issuesByArea[area].push(issue);
       return issuesByArea;
@@ -51,7 +76,6 @@ export const generateOpenApiRating = (
       tags: [],
       info: [],
       servers: [],
-      other: [],
     } as {
       components: SpectralReport;
       paths: SpectralReport;
@@ -66,11 +90,14 @@ export const generateOpenApiRating = (
   let totalPathsScore = 0;
   let totalPathsDocsScore = 0;
   let totalCompletenessScore = 0;
+  let totalSdkGenerationScore = 0;
   Object.values(pathRatings).forEach((pathRating) => {
     totalPathsScore = totalPathsScore + pathRating.score;
     totalPathsDocsScore = totalPathsDocsScore + pathRating.docsScore;
     totalCompletenessScore =
       totalCompletenessScore + pathRating.completenessScore;
+    totalSdkGenerationScore =
+      totalSdkGenerationScore + pathRating.sdkGenerationScore;
   });
   const pathsScore = Math.round(
     totalPathsScore / Object.keys(pathRatings).length
@@ -81,6 +108,9 @@ export const generateOpenApiRating = (
   const pathsCompletenessScore = Math.round(
     totalCompletenessScore / Object.keys(pathRatings).length
   );
+  const pathsSdkGenerationScore = Math.round(
+    totalSdkGenerationScore / Object.keys(pathRatings).length
+  );
   const pathsRating: PathsRating = {
     score: pathsScore,
     issues: issuesByArea.paths,
@@ -88,6 +118,8 @@ export const generateOpenApiRating = (
     docsIssues: getDocsIssues(issuesByArea.paths),
     completenessScore: pathsCompletenessScore,
     completenessIssues: getCompletenessIssues(issuesByArea.paths),
+    sdkGenerationScore: pathsSdkGenerationScore,
+    sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.paths),
     ...pathRatings,
   };
 
@@ -110,6 +142,8 @@ export const generateOpenApiRating = (
         docsIssues: getDocsIssues(issuesByArea.tags),
         completenessScore: 0, // Needed to be considered complete
         completenessIssues: getCompletenessIssues(issuesByArea.tags),
+        sdkGenerationScore: 100, // No implication afaik
+        sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.tags),
       };
 
   const serversRating: Rating = openApi.servers?.length
@@ -125,6 +159,8 @@ export const generateOpenApiRating = (
         docsIssues: getDocsIssues(issuesByArea.servers),
         completenessScore: 0,
         completenessIssues: getCompletenessIssues(issuesByArea.servers),
+        sdkGenerationScore: 0,
+        sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.servers),
       };
 
   const securityRating: Rating = openApi.security?.length
@@ -142,12 +178,15 @@ export const generateOpenApiRating = (
         docsIssues: getDocsIssues(issuesByArea.security),
         completenessScore: 0, // Literally incomplete
         completenessIssues: getCompletenessIssues(issuesByArea.security),
+        sdkGenerationScore: 85,
+        sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.security),
       };
 
   return {
     issues: outputReport,
     docsIssues: getDocsIssues(outputReport),
     completenessIssues: getCompletenessIssues(outputReport),
+    sdkGenerationIssues: getSdkGenerationIssues(outputReport),
     paths: pathsRating,
     info: infoObjectRating,
     servers: serversRating,
@@ -177,6 +216,15 @@ export const generateOpenApiRating = (
         securityRating.completenessScore * OPEN_API_PROPERTY_WEIGHTS.security +
         infoObjectRating.completenessScore * OPEN_API_PROPERTY_WEIGHTS.info +
         componentsRating.completenessScore *
+          OPEN_API_PROPERTY_WEIGHTS.components
+    ),
+    sdkGenerationScore: Math.round(
+      pathsSdkGenerationScore * OPEN_API_PROPERTY_WEIGHTS.paths +
+        tagsRating.sdkGenerationScore * OPEN_API_PROPERTY_WEIGHTS.tags +
+        serversRating.sdkGenerationScore * OPEN_API_PROPERTY_WEIGHTS.servers +
+        securityRating.sdkGenerationScore * OPEN_API_PROPERTY_WEIGHTS.security +
+        infoObjectRating.sdkGenerationScore * OPEN_API_PROPERTY_WEIGHTS.info +
+        componentsRating.sdkGenerationScore *
           OPEN_API_PROPERTY_WEIGHTS.components
     ),
   };
@@ -256,6 +304,8 @@ const getPathRatings = (
         docsIssues: [],
         completenessScore: 100,
         completenessIssues: [],
+        sdkGenerationScore: 100,
+        sdkGenerationIssues: [],
       };
       return pathRatings;
     }
@@ -267,6 +317,10 @@ const getPathRatings = (
       docsIssues: getDocsIssues(issuesByPathAndOperation[path]["other"]),
       completenessScore: 100,
       completenessIssues: getCompletenessIssues(
+        issuesByPathAndOperation[path]["other"]
+      ),
+      sdkGenerationScore: 100,
+      sdkGenerationIssues: getSdkGenerationIssues(
         issuesByPathAndOperation[path]["other"]
       ),
     };
@@ -288,6 +342,8 @@ const getPathRatings = (
           docsIssues: [],
           completenessScore: 100,
           completenessIssues: [],
+          sdkGenerationScore: 100,
+          sdkGenerationIssues: [],
         };
         return;
       }
@@ -391,6 +447,8 @@ const getPathRatings = (
       const { docsScore, docsIssues } = getDocsRating(operationIssues);
       const { completenessScore, completenessIssues } =
         getCompletenessRating(operationIssues);
+      const { sdkGenerationScore, sdkGenerationIssues } =
+        getSdkGenerationRating(operationIssues);
       pathRating[operation] = {
         score: operationScore,
         issues: operationIssues,
@@ -398,6 +456,8 @@ const getPathRatings = (
         docsIssues,
         completenessScore,
         completenessIssues,
+        sdkGenerationScore,
+        sdkGenerationIssues,
       };
 
       // Collect all the operation's issues into the path's issues
@@ -405,10 +465,10 @@ const getPathRatings = (
       pathRating.docsIssues = pathRating.docsIssues.concat(docsIssues);
       pathRating.completenessIssues =
         pathRating.completenessIssues.concat(completenessIssues);
+      pathRating.sdkGenerationIssues =
+        pathRating.sdkGenerationIssues.concat(sdkGenerationIssues);
     });
 
-    const pathIssues = issuesByPathAndOperation[path]["other"];
-    const pathIssuesDelta = getPathIssueDelta(pathIssues);
     // Remove score and issues keys
     const numOperations = Object.keys(pathRating).filter((key) =>
       operations.includes(key as OpenAPIV3_1.HttpMethods)
@@ -417,6 +477,7 @@ const getPathRatings = (
       let totalScore = 0;
       let totalDocsScore = 0;
       let totalCompletenessScore = 0;
+      let totalSdkGenerationScore = 0;
       Object.entries(pathRating).forEach(([key, maybeOperationRating]) => {
         if (!operations.includes(key as OpenAPIV3_1.HttpMethods)) {
           // Non-operation key (ex. issues, score, etc.)
@@ -427,19 +488,32 @@ const getPathRatings = (
         totalDocsScore = totalDocsScore + operationRating.docsScore;
         totalCompletenessScore =
           totalCompletenessScore + operationRating.completenessScore;
+        totalSdkGenerationScore =
+          totalSdkGenerationScore + operationRating.sdkGenerationScore;
       });
 
+      // We must also account for issues on the path itself
+      const pathIssues = issuesByPathAndOperation[path]["other"];
       pathRating.score = Math.round(
-        totalScore / numOperations - pathIssuesDelta
+        totalScore / numOperations - getPathIssueDelta(pathIssues)
       );
-      pathRating.docsScore = Math.round(totalDocsScore / numOperations);
+      pathRating.docsScore = Math.round(
+        totalDocsScore / numOperations -
+          getPathIssueDelta(getDocsIssues(pathIssues))
+      );
       pathRating.completenessScore = Math.round(
-        totalCompletenessScore / numOperations
+        totalCompletenessScore / numOperations -
+          getPathIssueDelta(getCompletenessIssues(pathIssues))
+      );
+      pathRating.sdkGenerationScore = Math.round(
+        totalSdkGenerationScore / numOperations -
+          getPathIssueDelta(getSdkGenerationIssues(pathIssues))
       );
     } else {
       pathRating.score = 0; // Wtf, why document a path with no operations - FAIL
       pathRating.docsScore = 0;
       pathRating.completenessScore = 0;
+      pathRating.sdkGenerationScore = 0;
     }
 
     pathRatings[path] = pathRating;
@@ -461,6 +535,8 @@ const getComponentsRatings = (
       docsIssues: getDocsIssues(componentsIssues),
       completenessScore: 100,
       completenessIssues: getCompletenessIssues(componentsIssues),
+      sdkGenerationScore: 0, // You will likely generate a garbage SDK
+      sdkGenerationIssues: getSdkGenerationIssues(componentsIssues),
     };
   }
 
@@ -523,6 +599,8 @@ const getComponentsRatings = (
           docsIssues: [],
           completenessScore: 100,
           completenessIssues: [],
+          sdkGenerationScore: 0,
+          sdkGenerationIssues: [],
         };
         return componentCategoryRatings;
       }
@@ -533,6 +611,8 @@ const getComponentsRatings = (
         docsIssues: [],
         completenessScore: 100,
         completenessIssues: [],
+        sdkGenerationScore: 0,
+        sdkGenerationIssues: [],
       };
       const componentRatings: Record<string, Rating> = Object.keys(
         componentCategory
@@ -547,6 +627,8 @@ const getComponentsRatings = (
             docsIssues: [],
             completenessScore: 100,
             completenessIssues: [],
+            sdkGenerationScore: 100,
+            sdkGenerationIssues: [],
           };
           return componentsRatings;
         }
@@ -558,6 +640,8 @@ const getComponentsRatings = (
         const { docsScore, docsIssues } = getDocsRating(componentIssues);
         const { completenessScore, completenessIssues } =
           getCompletenessRating(componentIssues);
+        const { sdkGenerationScore, sdkGenerationIssues } =
+          getSdkGenerationRating(componentIssues);
         componentsRatings[componentName] = {
           score: componentScore,
           issues: componentIssues,
@@ -565,6 +649,8 @@ const getComponentsRatings = (
           docsIssues,
           completenessScore,
           completenessIssues,
+          sdkGenerationScore,
+          sdkGenerationIssues,
         };
         componentCategoryRating.issues =
           componentCategoryRating.issues.concat(componentIssues);
@@ -572,17 +658,24 @@ const getComponentsRatings = (
           componentCategoryRating.docsIssues.concat(docsIssues);
         componentCategoryRating.completenessIssues =
           componentCategoryRating.completenessIssues.concat(completenessIssues);
+        componentCategoryRating.sdkGenerationIssues =
+          componentCategoryRating.sdkGenerationIssues.concat(
+            sdkGenerationIssues
+          );
         return componentsRatings;
       }, {} as Record<string, Rating>);
       let totalComponentsScore = 0;
       let totalComponentsDocsScore = 0;
       let totalCompletenessScore = 0;
+      let totalSdkGenerationScore = 0;
       Object.values(componentRatings).forEach((componentRating) => {
         totalComponentsScore = totalComponentsScore + componentRating.score;
         totalComponentsDocsScore =
           totalComponentsDocsScore + componentRating.docsScore;
         totalCompletenessScore =
           totalCompletenessScore + componentRating.completenessScore;
+        totalSdkGenerationScore =
+          totalSdkGenerationScore + componentRating.sdkGenerationScore;
       });
       const componentCategoryScore = Math.round(
         totalComponentsScore / Object.keys(componentRatings).length
@@ -593,6 +686,9 @@ const getComponentsRatings = (
       const componentCategoryCompletenessScore = Math.round(
         totalCompletenessScore / Object.keys(componentRatings).length
       );
+      const componentCategorySdkGenerationScore = Math.round(
+        totalSdkGenerationScore / Object.keys(componentRatings).length
+      );
       componentCategoryRatings[componentKey] = {
         score: componentCategoryScore,
         issues: componentCategoryRating.issues,
@@ -600,6 +696,8 @@ const getComponentsRatings = (
         docsIssues: componentCategoryRating.docsIssues,
         completenessScore: componentCategoryCompletenessScore,
         completenessIssues: componentCategoryRating.completenessIssues,
+        sdkGenerationScore: componentCategorySdkGenerationScore,
+        sdkGenerationIssues: componentCategoryRating.sdkGenerationIssues,
         ...componentRatings,
       };
       return componentCategoryRatings;
@@ -609,12 +707,15 @@ const getComponentsRatings = (
   let totalComponentCategoryScore = 0;
   let totalComponentsCategoryDocsScore = 0;
   let totalComponentsCategoryCompletenessScore = 0;
+  let totalComponentsCategorySdkGenerationScore = 0;
   Object.values(componentCategoryRatings).forEach((rating) => {
     totalComponentCategoryScore = totalComponentCategoryScore + rating.score;
     totalComponentsCategoryDocsScore =
       totalComponentsCategoryDocsScore + rating.docsScore;
     totalComponentsCategoryCompletenessScore =
       totalComponentsCategoryCompletenessScore + rating.completenessScore;
+    totalComponentsCategorySdkGenerationScore =
+      totalComponentsCategorySdkGenerationScore + rating.sdkGenerationScore;
   });
   const componentsScore = Math.round(
     totalComponentCategoryScore / Object.keys(componentCategoryRatings).length
@@ -627,6 +728,10 @@ const getComponentsRatings = (
     totalComponentsCategoryCompletenessScore /
       Object.keys(componentCategoryRatings).length
   );
+  const componentsSdkGenerationScore = Math.round(
+    totalComponentsCategorySdkGenerationScore /
+      Object.keys(componentCategoryRatings).length
+  );
   return {
     score: componentsScore,
     issues: componentsIssues,
@@ -634,6 +739,8 @@ const getComponentsRatings = (
     docsIssues: getDocsIssues(componentsIssues),
     completenessScore: componentsCompletenessScore,
     completenessIssues: getCompletenessIssues(componentsIssues),
+    sdkGenerationScore: componentsSdkGenerationScore,
+    sdkGenerationIssues: getSdkGenerationIssues(componentsIssues),
     ...componentCategoryRatings,
   };
 };
@@ -656,6 +763,8 @@ const getLengthNormalizedAreaRating = (
   );
   const { completenessScore, completenessIssues } =
     getLengthNormalizedCompletenessRating(areaIssues, areaLength);
+  const { sdkGenerationScore, sdkGenerationIssues } =
+    getLengthNormalizedSdkGenerationRating(areaIssues, areaLength);
   return {
     score: Math.max(0, 100 - totalDelta / areaLength),
     issues: areaIssues,
@@ -663,6 +772,8 @@ const getLengthNormalizedAreaRating = (
     docsIssues,
     completenessScore,
     completenessIssues,
+    sdkGenerationScore,
+    sdkGenerationIssues,
   };
 };
 
@@ -701,4 +812,39 @@ const getPathIssueDelta = (pathIssues: SpectralReport) => {
     return Math.round(pathIssuesBySeverity[3].length * 0.1);
   }
   return 0;
+};
+
+const inferAreaFromIssue = (issue: SpectralReport[0]): string | undefined => {
+  if (issue.path.length === 0) {
+    // The path can be empty for top-level issues
+    if (issue.code.toString().includes("info")) {
+      return "info";
+    } else if (issue.code.toString().includes("server")) {
+      return "servers";
+    } else if (issue.code.toString().includes("path")) {
+      return "paths";
+    } else if (issue.code.toString().includes("component")) {
+      return "components";
+    } else if (issue.code.toString().includes("security")) {
+      return "security";
+    } else if (issue.code.toString().includes("tag")) {
+      return "tags";
+    }
+    return undefined;
+  }
+  const areaHint = issue.path[0];
+  if (areaHint.toString().includes("info")) {
+    return "info";
+  } else if (areaHint.toString().includes("server")) {
+    return "servers";
+  } else if (areaHint.toString().includes("path")) {
+    return "paths";
+  } else if (areaHint.toString().includes("component")) {
+    return "components";
+  } else if (areaHint.toString().includes("security")) {
+    return "security";
+  } else if (areaHint.toString().includes("tag")) {
+    return "tags";
+  }
+  return undefined;
 };

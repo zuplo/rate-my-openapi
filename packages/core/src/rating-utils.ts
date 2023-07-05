@@ -435,20 +435,25 @@ const getPathRatings = (
           return;
         }
       });
-      const operationScore = Math.round(
-        (descriptionScore +
-          responsesScore +
-          (requestBodyScore ?? 0) +
-          (parametersScore ?? 0) +
-          tagsScore +
-          operationIdScore) /
-          averagingDenominator
+      const operationScore = getNormalizedOperationRating(
+        operationItem,
+        operationIssues
       );
-      const { docsScore, docsIssues } = getDocsRating(operationIssues);
-      const { completenessScore, completenessIssues } =
-        getCompletenessRating(operationIssues);
-      const { sdkGenerationScore, sdkGenerationIssues } =
-        getSdkGenerationRating(operationIssues);
+      const docsIssues = getDocsIssues(operationIssues);
+      const docsScore = getNormalizedOperationRating(
+        operationItem,
+        docsIssues
+      );
+      const completenessIssues = getCompletenessIssues(operationIssues);
+      const completenessScore = getNormalizedOperationRating(
+        operationItem,
+        completenessIssues
+      );
+      const sdkGenerationIssues = getSdkGenerationIssues(operationIssues);
+      const sdkGenerationScore = getNormalizedOperationRating(
+        operationItem,
+        sdkGenerationIssues
+      );
       pathRating[operation] = {
         score: operationScore,
         issues: operationIssues,
@@ -519,6 +524,111 @@ const getPathRatings = (
     pathRatings[path] = pathRating;
     return pathRatings;
   }, {} as Record<string, PathRating>);
+};
+
+/**
+ * @description Generates a rating for an Operation, normalizing the score based
+ * on how many properties exist on the operation and how many issues were found
+ * on those properties. Ex. Having 3 response-related issues amongst 5 responses
+ * should be treated the same as having 6 response-related issues amongst 10.
+ */
+const getNormalizedOperationRating = (
+  operationItem: OpenAPIV3_1.OperationObject | OpenAPIV3.OperationObject,
+  operationIssues: SpectralReport
+) => {
+  // We calculate the operation score by averaging the scores of the
+  // key properties of the operation
+
+  // Start with the count of properties we consider required:
+  // Description, tags, operationId, and responses
+  let averagingDenominator = 4;
+
+  // You should have a description so not having one gets penalized
+  let descriptionScore = operationItem.description ? 100 : 0;
+  // You should always document responses
+  let responsesScore = operationItem.responses ? 100 : 0;
+  // You should use tags
+  let tagsScore = operationItem.tags ? 100 : 0;
+  // You should use an operationId
+  let operationIdScore = operationItem.operationId ? 100 : 0;
+
+  // GET and HEAD won't have a requestBody, and some POSTs might not
+  // either
+  let requestBodyScore = operationItem.requestBody ? 100 : undefined;
+  if (requestBodyScore) {
+    averagingDenominator++;
+  }
+
+  // You can have a parameter-less operation too
+  let parametersScore = operationItem.parameters ? 100 : undefined;
+  if (parametersScore) {
+    averagingDenominator++;
+  }
+
+  operationIssues.forEach((issue) => {
+    const scoreDelta = getScoreDelta(issue.severity);
+    const property = issue.path[3] as string | undefined;
+    if (!property) {
+      if (
+        typeof issue.code === "string" &&
+        issue.code.includes("description")
+      ) {
+        descriptionScore = Math.max(0, descriptionScore - scoreDelta);
+      }
+      return;
+    }
+
+    if (
+      property?.startsWith("parameters") &&
+      parametersScore &&
+      operationItem.parameters
+    ) {
+      parametersScore = Math.max(
+        0,
+        // Normalize the scoreDelta by the number of parameters
+        // Ex. making a mistake on only 1 of 5 parameters should not
+        // affect the score as much as making a mistake on all of them
+        parametersScore - scoreDelta / operationItem.parameters.length
+      );
+      return;
+    }
+
+    if (property === "requestBody" && requestBodyScore) {
+      requestBodyScore = Math.max(0, requestBodyScore - scoreDelta);
+      return;
+    }
+    if (property === "responses" && operationItem.responses) {
+      responsesScore = Math.max(
+        0,
+        // Same normalization as for parameters
+        responsesScore -
+          scoreDelta / Object.keys(operationItem.responses).length
+      );
+      return;
+    }
+
+    if (property?.startsWith("tags") && operationItem.tags) {
+      tagsScore = Math.max(
+        0,
+        tagsScore - scoreDelta / (operationItem.tags?.length ?? 1)
+      );
+      return;
+    }
+
+    if (property?.startsWith("operationId")) {
+      operationIdScore = Math.max(0, operationIdScore - scoreDelta);
+      return;
+    }
+  });
+  return Math.round(
+    (descriptionScore +
+      responsesScore +
+      (requestBodyScore ?? 0) +
+      (parametersScore ?? 0) +
+      tagsScore +
+      operationIdScore) /
+      averagingDenominator
+  );
 };
 
 const getComponentsRatings = (
@@ -592,6 +702,7 @@ const getComponentsRatings = (
       }
       const componentCategoryIssues = issuesByComponent[componentKey];
       if (!componentCategoryIssues) {
+        // No issues? Perfect score!
         componentCategoryRatings[componentKey] = {
           score: 100,
           issues: [],
@@ -599,7 +710,7 @@ const getComponentsRatings = (
           docsIssues: [],
           completenessScore: 100,
           completenessIssues: [],
-          sdkGenerationScore: 0,
+          sdkGenerationScore: 100,
           sdkGenerationIssues: [],
         };
         return componentCategoryRatings;
@@ -611,7 +722,7 @@ const getComponentsRatings = (
         docsIssues: [],
         completenessScore: 100,
         completenessIssues: [],
-        sdkGenerationScore: 0,
+        sdkGenerationScore: 100,
         sdkGenerationIssues: [],
       };
       const componentRatings: Record<string, Rating> = Object.keys(
@@ -777,41 +888,29 @@ const getLengthNormalizedAreaRating = (
   };
 };
 
+// How heavily should each issue impact the score?
+// Nothing is scientific here - I made these up
 export const getScoreDelta = (severity: 0 | 1 | 2 | 3) => {
   switch (severity) {
     case 0:
       return 50; // Essentially an error so judged harshly
     case 1:
-      return 15; // Warning, likely affects end-user experience
+      return 25; // Warning, likely affects end-user experience
     case 2:
-      return 5; // Info, may not affect end-user
+      return 10; // Info, may not affect end-user
     case 3:
-      return 1; // Hint, prescriptive suggestions essentially
+      return 5; // Hint, prescriptive suggestions essentially
   }
 };
 
+// Issues discovered at the paths level, that affect all operations
 const getPathIssueDelta = (pathIssues: SpectralReport) => {
-  const pathIssuesBySeverity = pathIssues.reduce(
-    (pathIssuesBySeverity, pathIssue) => {
-      pathIssuesBySeverity[pathIssue.severity].push(pathIssue);
-      return pathIssuesBySeverity;
+  return pathIssues.reduce(
+    (pathIssueDeltaSum, pathIssue) => {
+     return pathIssueDeltaSum + getScoreDelta(pathIssue.severity);
     },
-    { 0: [], 1: [], 2: [], 3: [] } as Record<0 | 1 | 2 | 3, SpectralReport>
+    0
   );
-  if (pathIssuesBySeverity[0].length) {
-    // You have an error, that likely affects your all your operations
-    return getScoreDelta(0);
-  }
-  if (pathIssuesBySeverity[1].length) {
-    return 5 * pathIssuesBySeverity[1].length;
-  }
-  if (pathIssuesBySeverity[2].length) {
-    return pathIssuesBySeverity[2].length;
-  }
-  if (pathIssuesBySeverity[3].length) {
-    return Math.round(pathIssuesBySeverity[3].length * 0.1);
-  }
-  return 0;
 };
 
 const inferAreaFromIssue = (issue: SpectralReport[0]): string | undefined => {

@@ -76,6 +76,8 @@ export interface Rating {
   completenessIssues: SpectralReport;
   sdkGenerationScore: number;
   sdkGenerationIssues: SpectralReport;
+  securityScore: number;
+  securityIssues: SpectralReport;
 };
 
 export interface PathRating extends Rating {

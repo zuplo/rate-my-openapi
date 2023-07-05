@@ -1,4 +1,5 @@
 import { OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
+import { getLengthNormalizedSecurityRating, getSecurityIssues, getSecurityRating } from "./security-rating-utils";
 import {
   getCompletenessIssues,
   getCompletenessRating,
@@ -91,6 +92,7 @@ export const generateOpenApiRating = (
   let totalPathsDocsScore = 0;
   let totalCompletenessScore = 0;
   let totalSdkGenerationScore = 0;
+  let totalSecurityScore = 0;
   Object.values(pathRatings).forEach((pathRating) => {
     totalPathsScore = totalPathsScore + pathRating.score;
     totalPathsDocsScore = totalPathsDocsScore + pathRating.docsScore;
@@ -98,6 +100,7 @@ export const generateOpenApiRating = (
       totalCompletenessScore + pathRating.completenessScore;
     totalSdkGenerationScore =
       totalSdkGenerationScore + pathRating.sdkGenerationScore;
+    totalSecurityScore = totalSecurityScore + pathRating.securityScore;
   });
   const pathsScore = Math.round(
     totalPathsScore / Object.keys(pathRatings).length
@@ -111,6 +114,9 @@ export const generateOpenApiRating = (
   const pathsSdkGenerationScore = Math.round(
     totalSdkGenerationScore / Object.keys(pathRatings).length
   );
+  const pathsSecurityScore = Math.round(
+    totalSecurityScore / Object.keys(pathRatings).length
+  );
   const pathsRating: PathsRating = {
     score: pathsScore,
     issues: issuesByArea.paths,
@@ -120,6 +126,8 @@ export const generateOpenApiRating = (
     completenessIssues: getCompletenessIssues(issuesByArea.paths),
     sdkGenerationScore: pathsSdkGenerationScore,
     sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.paths),
+    securityScore: pathsSecurityScore,
+    securityIssues: getSecurityIssues(issuesByArea.paths),
     ...pathRatings,
   };
 
@@ -144,6 +152,8 @@ export const generateOpenApiRating = (
         completenessIssues: getCompletenessIssues(issuesByArea.tags),
         sdkGenerationScore: 100, // No implication afaik
         sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.tags),
+        securityScore: 100, // No implication afaik
+        securityIssues: getSecurityIssues(issuesByArea.tags),
       };
 
   const serversRating: Rating = openApi.servers?.length
@@ -161,6 +171,8 @@ export const generateOpenApiRating = (
         completenessIssues: getCompletenessIssues(issuesByArea.servers),
         sdkGenerationScore: 0,
         sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.servers),
+        securityScore: 0,
+        securityIssues: getSecurityIssues(issuesByArea.servers),
       };
 
   const securityRating: Rating = openApi.security?.length
@@ -170,16 +182,19 @@ export const generateOpenApiRating = (
       )
     : // Security is not a mandatory property, but chances are the API is
       // secured in some way, but they just didn't document it, so we count this
-      // as a single warning
+      // as a single warning. Security can also be documented at the operation
+      // level.
       {
         score: 85,
         issues: issuesByArea.security,
         docsScore: 85,
         docsIssues: getDocsIssues(issuesByArea.security),
-        completenessScore: 0, // Literally incomplete
+        completenessScore: 85, // May exist at the op level so only warning
         completenessIssues: getCompletenessIssues(issuesByArea.security),
         sdkGenerationScore: 85,
         sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.security),
+        securityScore: 85, // May exist at the op level so only warning
+        securityIssues: getSecurityIssues(issuesByArea.security),
       };
 
   return {
@@ -187,6 +202,7 @@ export const generateOpenApiRating = (
     docsIssues: getDocsIssues(outputReport),
     completenessIssues: getCompletenessIssues(outputReport),
     sdkGenerationIssues: getSdkGenerationIssues(outputReport),
+    securityIssues: getSecurityIssues(outputReport),
     paths: pathsRating,
     info: infoObjectRating,
     servers: serversRating,
@@ -226,6 +242,14 @@ export const generateOpenApiRating = (
         infoObjectRating.sdkGenerationScore * OPEN_API_PROPERTY_WEIGHTS.info +
         componentsRating.sdkGenerationScore *
           OPEN_API_PROPERTY_WEIGHTS.components
+    ),
+    securityScore: Math.round(
+      pathsSecurityScore * OPEN_API_PROPERTY_WEIGHTS.paths +
+        tagsRating.securityScore * OPEN_API_PROPERTY_WEIGHTS.tags +
+        serversRating.securityScore * OPEN_API_PROPERTY_WEIGHTS.servers +
+        securityRating.securityScore * OPEN_API_PROPERTY_WEIGHTS.security +
+        infoObjectRating.securityScore * OPEN_API_PROPERTY_WEIGHTS.info +
+        componentsRating.securityScore * OPEN_API_PROPERTY_WEIGHTS.components
     ),
   };
 };
@@ -306,6 +330,8 @@ const getPathRatings = (
         completenessIssues: [],
         sdkGenerationScore: 100,
         sdkGenerationIssues: [],
+        securityScore: 100,
+        securityIssues: [],
       };
       return pathRatings;
     }
@@ -323,6 +349,8 @@ const getPathRatings = (
       sdkGenerationIssues: getSdkGenerationIssues(
         issuesByPathAndOperation[path]["other"]
       ),
+      securityScore: 100,
+      securityIssues: getSecurityIssues(issuesByPathAndOperation[path]["other"]),
     };
 
     // We calculate the path score by averaging the scores of the operations
@@ -344,106 +372,18 @@ const getPathRatings = (
           completenessIssues: [],
           sdkGenerationScore: 100,
           sdkGenerationIssues: [],
+          securityScore: 100,
+          securityIssues: [],
         };
         return;
       }
 
-      // We calculate the operation score by averaging the scores of the
-      // key properties of the operation
-
-      // Start with the count of properties we consider required:
-      // Description, tags, operationId, and responses
-      let averagingDenominator = 4;
-
-      // TODO: Add vacuum rule for summary
-      // let summaryScore = operationItem.summary ? 100 : 0;
-
-      // You should have a description so not having one gets penalized
-      let descriptionScore = operationItem.description ? 100 : 0;
-      let responsesScore = 100;
-      // You should use tags so not using them gets penalized
-      let tagsScore = operationItem.tags ? 100 : 0;
-      // You should use an operationId so not having one gets penalized
-      let operationIdScore = operationItem.operationId ? 100 : 0;
-
-      // GET and HEAD won't have a requestBody, and some POSTs might not
-      // either
-      let requestBodyScore = operationItem.requestBody ? 100 : undefined;
-      if (requestBodyScore) {
-        averagingDenominator++;
-      }
-
-      // You can have a parameter-less operation too
-      let parametersScore = operationItem.parameters ? 100 : undefined;
-      if (parametersScore) {
-        averagingDenominator++;
-      }
-
-      // TODO: Incorporate issues on tags, operationId, and security
-      operationIssues.forEach((issue) => {
-        const scoreDelta = getScoreDelta(issue.severity);
-        const property = issue.path[3] as string | undefined;
-        if (!property) {
-          if (
-            typeof issue.code === "string" &&
-            issue.code.includes("description")
-          ) {
-            descriptionScore = Math.max(0, descriptionScore - scoreDelta);
-          }
-          return;
-        }
-
-        if (
-          property?.startsWith("parameters") &&
-          parametersScore &&
-          operationItem.parameters
-        ) {
-          parametersScore = Math.max(
-            0,
-            // Normalize the scoreDelta by the number of parameters
-            // Ex. making a mistake on only 1 of 5 parameters should not
-            // affect the score as much as making a mistake on all of them
-            parametersScore - scoreDelta / operationItem.parameters.length
-          );
-          return;
-        }
-
-        if (property === "requestBody" && requestBodyScore) {
-          requestBodyScore = Math.max(0, requestBodyScore - scoreDelta);
-          return;
-        }
-        if (property === "responses") {
-          responsesScore = Math.max(
-            0,
-            // Same normalization as for parameters
-            responsesScore -
-              scoreDelta / Object.keys(operationItem.responses).length
-          );
-          return;
-        }
-
-        if (property?.startsWith("tags") && operationItem.tags) {
-          tagsScore = Math.max(
-            0,
-            tagsScore - scoreDelta / (operationItem.tags?.length ?? 1)
-          );
-          return;
-        }
-
-        if (property?.startsWith("operationId")) {
-          operationIdScore = Math.max(0, operationIdScore - scoreDelta);
-          return;
-        }
-      });
       const operationScore = getNormalizedOperationRating(
         operationItem,
         operationIssues
       );
       const docsIssues = getDocsIssues(operationIssues);
-      const docsScore = getNormalizedOperationRating(
-        operationItem,
-        docsIssues
-      );
+      const docsScore = getNormalizedOperationRating(operationItem, docsIssues);
       const completenessIssues = getCompletenessIssues(operationIssues);
       const completenessScore = getNormalizedOperationRating(
         operationItem,
@@ -454,6 +394,11 @@ const getPathRatings = (
         operationItem,
         sdkGenerationIssues
       );
+      const securityIssues = getSecurityIssues(operationIssues);
+      const securityScore = getNormalizedOperationRating(
+        operationItem,
+        securityIssues
+      );
       pathRating[operation] = {
         score: operationScore,
         issues: operationIssues,
@@ -463,6 +408,8 @@ const getPathRatings = (
         completenessIssues,
         sdkGenerationScore,
         sdkGenerationIssues,
+        securityScore,
+        securityIssues
       };
 
       // Collect all the operation's issues into the path's issues
@@ -472,6 +419,8 @@ const getPathRatings = (
         pathRating.completenessIssues.concat(completenessIssues);
       pathRating.sdkGenerationIssues =
         pathRating.sdkGenerationIssues.concat(sdkGenerationIssues);
+      pathRating.securityIssues =
+        pathRating.securityIssues.concat(securityIssues);
     });
 
     // Remove score and issues keys
@@ -483,6 +432,7 @@ const getPathRatings = (
       let totalDocsScore = 0;
       let totalCompletenessScore = 0;
       let totalSdkGenerationScore = 0;
+      let totalSecurityScore = 0;
       Object.entries(pathRating).forEach(([key, maybeOperationRating]) => {
         if (!operations.includes(key as OpenAPIV3_1.HttpMethods)) {
           // Non-operation key (ex. issues, score, etc.)
@@ -495,6 +445,7 @@ const getPathRatings = (
           totalCompletenessScore + operationRating.completenessScore;
         totalSdkGenerationScore =
           totalSdkGenerationScore + operationRating.sdkGenerationScore;
+        totalSecurityScore = totalSecurityScore + operationRating.securityScore;
       });
 
       // We must also account for issues on the path itself
@@ -514,11 +465,16 @@ const getPathRatings = (
         totalSdkGenerationScore / numOperations -
           getPathIssueDelta(getSdkGenerationIssues(pathIssues))
       );
+      pathRating.securityScore = Math.round(
+        totalSecurityScore / numOperations -
+          getPathIssueDelta(getSecurityIssues(pathIssues))
+      );
     } else {
       pathRating.score = 0; // Wtf, why document a path with no operations - FAIL
       pathRating.docsScore = 0;
       pathRating.completenessScore = 0;
       pathRating.sdkGenerationScore = 0;
+      pathRating.securityScore = 0;
     }
 
     pathRatings[path] = pathRating;
@@ -647,6 +603,8 @@ const getComponentsRatings = (
       completenessIssues: getCompletenessIssues(componentsIssues),
       sdkGenerationScore: 0, // You will likely generate a garbage SDK
       sdkGenerationIssues: getSdkGenerationIssues(componentsIssues),
+      securityScore: 100,
+      securityIssues: getSecurityIssues(componentsIssues),
     };
   }
 
@@ -712,6 +670,8 @@ const getComponentsRatings = (
           completenessIssues: [],
           sdkGenerationScore: 100,
           sdkGenerationIssues: [],
+          securityScore: 100,
+          securityIssues: [],
         };
         return componentCategoryRatings;
       }
@@ -724,6 +684,8 @@ const getComponentsRatings = (
         completenessIssues: [],
         sdkGenerationScore: 100,
         sdkGenerationIssues: [],
+        securityScore: 100,
+        securityIssues: [],
       };
       const componentRatings: Record<string, Rating> = Object.keys(
         componentCategory
@@ -740,6 +702,8 @@ const getComponentsRatings = (
             completenessIssues: [],
             sdkGenerationScore: 100,
             sdkGenerationIssues: [],
+            securityScore: 100,
+            securityIssues: [],
           };
           return componentsRatings;
         }
@@ -753,6 +717,8 @@ const getComponentsRatings = (
           getCompletenessRating(componentIssues);
         const { sdkGenerationScore, sdkGenerationIssues } =
           getSdkGenerationRating(componentIssues);
+        const { securityScore, securityIssues } =
+          getSecurityRating(componentIssues);
         componentsRatings[componentName] = {
           score: componentScore,
           issues: componentIssues,
@@ -762,6 +728,8 @@ const getComponentsRatings = (
           completenessIssues,
           sdkGenerationScore,
           sdkGenerationIssues,
+          securityScore,
+          securityIssues
         };
         componentCategoryRating.issues =
           componentCategoryRating.issues.concat(componentIssues);
@@ -773,12 +741,15 @@ const getComponentsRatings = (
           componentCategoryRating.sdkGenerationIssues.concat(
             sdkGenerationIssues
           );
+        componentCategoryRating.securityIssues =
+          componentCategoryRating.securityIssues.concat(securityIssues);
         return componentsRatings;
       }, {} as Record<string, Rating>);
       let totalComponentsScore = 0;
       let totalComponentsDocsScore = 0;
       let totalCompletenessScore = 0;
       let totalSdkGenerationScore = 0;
+      let totalSecurityScore = 0;
       Object.values(componentRatings).forEach((componentRating) => {
         totalComponentsScore = totalComponentsScore + componentRating.score;
         totalComponentsDocsScore =
@@ -787,6 +758,8 @@ const getComponentsRatings = (
           totalCompletenessScore + componentRating.completenessScore;
         totalSdkGenerationScore =
           totalSdkGenerationScore + componentRating.sdkGenerationScore;
+        totalSecurityScore =
+          totalSecurityScore + componentRating.securityScore;
       });
       const componentCategoryScore = Math.round(
         totalComponentsScore / Object.keys(componentRatings).length
@@ -800,6 +773,9 @@ const getComponentsRatings = (
       const componentCategorySdkGenerationScore = Math.round(
         totalSdkGenerationScore / Object.keys(componentRatings).length
       );
+      const componentCategorySecurityScore = Math.round(
+        totalSecurityScore / Object.keys(componentRatings).length
+      );
       componentCategoryRatings[componentKey] = {
         score: componentCategoryScore,
         issues: componentCategoryRating.issues,
@@ -809,6 +785,8 @@ const getComponentsRatings = (
         completenessIssues: componentCategoryRating.completenessIssues,
         sdkGenerationScore: componentCategorySdkGenerationScore,
         sdkGenerationIssues: componentCategoryRating.sdkGenerationIssues,
+        securityScore: componentCategorySecurityScore,
+        securityIssues: componentCategoryRating.securityIssues,
         ...componentRatings,
       };
       return componentCategoryRatings;
@@ -819,6 +797,7 @@ const getComponentsRatings = (
   let totalComponentsCategoryDocsScore = 0;
   let totalComponentsCategoryCompletenessScore = 0;
   let totalComponentsCategorySdkGenerationScore = 0;
+  let totalComponentsCategorySecurityScore = 0;
   Object.values(componentCategoryRatings).forEach((rating) => {
     totalComponentCategoryScore = totalComponentCategoryScore + rating.score;
     totalComponentsCategoryDocsScore =
@@ -827,6 +806,8 @@ const getComponentsRatings = (
       totalComponentsCategoryCompletenessScore + rating.completenessScore;
     totalComponentsCategorySdkGenerationScore =
       totalComponentsCategorySdkGenerationScore + rating.sdkGenerationScore;
+    totalComponentsCategorySecurityScore =
+      totalComponentsCategorySecurityScore + rating.securityScore;
   });
   const componentsScore = Math.round(
     totalComponentCategoryScore / Object.keys(componentCategoryRatings).length
@@ -843,6 +824,10 @@ const getComponentsRatings = (
     totalComponentsCategorySdkGenerationScore /
       Object.keys(componentCategoryRatings).length
   );
+  const componentsSecurityScore = Math.round(
+    totalComponentsCategorySecurityScore /
+      Object.keys(componentCategoryRatings).length
+  );
   return {
     score: componentsScore,
     issues: componentsIssues,
@@ -852,6 +837,8 @@ const getComponentsRatings = (
     completenessIssues: getCompletenessIssues(componentsIssues),
     sdkGenerationScore: componentsSdkGenerationScore,
     sdkGenerationIssues: getSdkGenerationIssues(componentsIssues),
+    securityScore: componentsSecurityScore,
+    securityIssues: getSecurityIssues(componentsIssues),
     ...componentCategoryRatings,
   };
 };
@@ -876,6 +863,10 @@ const getLengthNormalizedAreaRating = (
     getLengthNormalizedCompletenessRating(areaIssues, areaLength);
   const { sdkGenerationScore, sdkGenerationIssues } =
     getLengthNormalizedSdkGenerationRating(areaIssues, areaLength);
+  const { securityScore, securityIssues } = getLengthNormalizedSecurityRating(
+    areaIssues,
+    areaLength
+  );
   return {
     score: Math.max(0, 100 - totalDelta / areaLength),
     issues: areaIssues,
@@ -885,6 +876,8 @@ const getLengthNormalizedAreaRating = (
     completenessIssues,
     sdkGenerationScore,
     sdkGenerationIssues,
+    securityScore,
+    securityIssues,
   };
 };
 
@@ -905,12 +898,9 @@ export const getScoreDelta = (severity: 0 | 1 | 2 | 3) => {
 
 // Issues discovered at the paths level, that affect all operations
 const getPathIssueDelta = (pathIssues: SpectralReport) => {
-  return pathIssues.reduce(
-    (pathIssueDeltaSum, pathIssue) => {
-     return pathIssueDeltaSum + getScoreDelta(pathIssue.severity);
-    },
-    0
-  );
+  return pathIssues.reduce((pathIssueDeltaSum, pathIssue) => {
+    return pathIssueDeltaSum + getScoreDelta(pathIssue.severity);
+  }, 0);
 };
 
 const inferAreaFromIssue = (issue: SpectralReport[0]): string | undefined => {

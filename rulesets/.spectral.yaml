@@ -122,3 +122,85 @@ rules:
       function: pattern
       functionOptions:
         match: "/^https:/"
+  # Copy of .spectral-supplement.yaml
+  apimatic-security-defined:
+    description: "Apimatic: It is recommended to define at least one authentication scheme globally using the securitySchemes property in the components section and use it globally to authenticate all the endpoints or use it for specific endpoints."
+    message: "'security' must be defined and not empty"
+    given: "$"
+    severity: warn
+    then:
+      field: "security"
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          items:
+            type: object
+          minItems: 1
+  apimatic-operationId-max-length:
+    description: "Apimatic: Longer content can lead to issues in the code generation process. It's best to keep the length to a maximum of 50 characters, wherever possible."
+    message: "{{property}} must be shorter than 50 characters"
+    given: "$.paths..operationId"
+    severity: info
+    type: validation
+    then:
+      function: length
+      functionOptions:
+        max: 50
+  apimatic-parameter-name-max-length:
+    description: "Apimatic: Longer content can lead to issues in the code generation process. It's best to keep the length to a maximum of 50 characters, wherever possible."
+    message: "{{property}} must be shorter than 50 characters"
+    given: "$.paths..parameters[*].name"
+    severity: info
+    type: validation
+    then:
+      function: length
+      functionOptions:
+        max: 50
+  apimatic-header-name-max-length:
+    description: "Apimatic: Longer content can lead to issues in the code generation process. It's best to keep the length to a maximum of 50 characters, wherever possible."
+    message: "{{property}} must be shorter than 50 characters"
+    given: "$.paths..responses..headers[*]~"
+    severity: info
+    type: validation
+    then:
+      function: length
+      functionOptions:
+        max: 50
+  apimatic-component-name-max-length:
+    description: "Apimatic: Longer content can lead to issues in the code generation process. It's best to keep the length to a maximum of 50 characters, wherever possible."
+    message: "{{property}} must be shorter than 50 characters"
+    given: "$.components.[schemas,requestBodies,responses,parameters,examples,headers,securitySchemes][*]~"
+    severity: info
+    type: validation
+    then:
+      function: length
+      functionOptions:
+        max: 50
+  apimatic-no-inline-response-schema:
+    given: $.paths..responses..content..schema
+    description: "Apimatic: In general, inline schemas are not encouraged in code generators and API portal generators since their names are inferred from the parent node in which they are defined inline."
+    message: "Response schema: {{path}} should be moved to components/schemas and referenced"
+    severity: info
+    resolved: false
+    then:
+      field: "$ref"
+      function: truthy
+  apimatic-no-inline-parameter-schema:
+    description: "Apimatic: In general, inline schemas are not encouraged in code generators and API portal generators since their names are inferred from the parent node in which they are defined inline."
+    message: "Parameter schema: {{path}} should be moved to components/schemas and referenced"
+    given: $.paths..parameters[*].schema
+    severity: info
+    resolved: false
+    then:
+      field: "$ref"
+      function: truthy
+  apimatic-no-inline-request-body-schema:
+    description: "Apimatic: In general, inline schemas are not encouraged in code generators and API portal generators since their names are inferred from the parent node in which they are defined inline."
+    message: "Request Body schema: {{path}} should be moved to components/schemas and referenced"
+    given: $.paths..requestBody.content..schema
+    severity: info
+    resolved: false
+    then:
+      field: "$ref"
+      function: truthy

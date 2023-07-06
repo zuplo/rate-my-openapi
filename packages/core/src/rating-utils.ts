@@ -1,5 +1,4 @@
 import { OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
-import { getLengthNormalizedSecurityRating, getSecurityIssues, getSecurityRating } from "./security-rating-utils";
 import {
   getCompletenessIssues,
   getCompletenessRating,
@@ -24,6 +23,11 @@ import {
   getSdkGenerationIssues,
   getSdkGenerationRating,
 } from "./sdk-rating-utils";
+import {
+  getLengthNormalizedSecurityRating,
+  getSecurityIssues,
+  getSecurityRating,
+} from "./security-rating-utils";
 
 // NOTE: Should sum to 1
 const OPEN_API_PROPERTY_WEIGHTS = {
@@ -350,7 +354,9 @@ const getPathRatings = (
         issuesByPathAndOperation[path]["other"]
       ),
       securityScore: 100,
-      securityIssues: getSecurityIssues(issuesByPathAndOperation[path]["other"]),
+      securityIssues: getSecurityIssues(
+        issuesByPathAndOperation[path]["other"]
+      ),
     };
 
     // We calculate the path score by averaging the scores of the operations
@@ -409,7 +415,7 @@ const getPathRatings = (
         sdkGenerationScore,
         sdkGenerationIssues,
         securityScore,
-        securityIssues
+        securityIssues,
       };
 
       // Collect all the operation's issues into the path's issues
@@ -554,12 +560,17 @@ const getNormalizedOperationRating = (
       return;
     }
     if (property === "responses" && operationItem.responses) {
-      responsesScore = Math.max(
-        0,
-        // Same normalization as for parameters
-        responsesScore -
-          scoreDelta / Object.keys(operationItem.responses).length
-      );
+      const responseCode = issue.path[4] as string | undefined;
+      if (responseCode) {
+        responsesScore = Math.max(
+          0,
+          // If the issue is on a specific response, normalize the scoreDelta
+          responsesScore -
+            scoreDelta / Object.keys(operationItem.responses).length
+        );
+        return;
+      }
+      responsesScore = Math.max(0, responsesScore - scoreDelta);
       return;
     }
 
@@ -729,7 +740,7 @@ const getComponentsRatings = (
           sdkGenerationScore,
           sdkGenerationIssues,
           securityScore,
-          securityIssues
+          securityIssues,
         };
         componentCategoryRating.issues =
           componentCategoryRating.issues.concat(componentIssues);
@@ -758,8 +769,7 @@ const getComponentsRatings = (
           totalCompletenessScore + componentRating.completenessScore;
         totalSdkGenerationScore =
           totalSdkGenerationScore + componentRating.sdkGenerationScore;
-        totalSecurityScore =
-          totalSecurityScore + componentRating.securityScore;
+        totalSecurityScore = totalSecurityScore + componentRating.securityScore;
       });
       const componentCategoryScore = Math.round(
         totalComponentsScore / Object.keys(componentRatings).length
@@ -904,35 +914,39 @@ const getPathIssueDelta = (pathIssues: SpectralReport) => {
 };
 
 const inferAreaFromIssue = (issue: SpectralReport[0]): string | undefined => {
-  if (issue.path.length === 0) {
-    // The path can be empty for top-level issues
-    if (issue.code.toString().includes("info")) {
+  if (issue.path.length > 0) {
+    const areaHint = issue.path[0];
+    if (areaHint.toString().includes("info")) {
       return "info";
-    } else if (issue.code.toString().includes("server")) {
+    } else if (areaHint.toString().includes("server")) {
       return "servers";
-    } else if (issue.code.toString().includes("path")) {
+    } else if (areaHint.toString().includes("path")) {
       return "paths";
-    } else if (issue.code.toString().includes("component")) {
+    } else if (areaHint.toString().includes("component")) {
       return "components";
-    } else if (issue.code.toString().includes("security")) {
+    } else if (areaHint.toString().includes("security")) {
       return "security";
-    } else if (issue.code.toString().includes("tag")) {
+    } else if (areaHint.toString().includes("tag")) {
       return "tags";
     }
+  }
+
+  if (typeof issue.code !== "string") {
     return undefined;
   }
-  const areaHint = issue.path[0];
-  if (areaHint.toString().includes("info")) {
+
+  // The path can be empty for top-level issues
+  if (issue.code.includes("info")) {
     return "info";
-  } else if (areaHint.toString().includes("server")) {
+  } else if (issue.code.includes("server")) {
     return "servers";
-  } else if (areaHint.toString().includes("path")) {
+  } else if (issue.code.includes("path")) {
     return "paths";
-  } else if (areaHint.toString().includes("component")) {
+  } else if (issue.code.includes("component")) {
     return "components";
-  } else if (areaHint.toString().includes("security")) {
+  } else if (issue.code.includes("security")) {
     return "security";
-  } else if (areaHint.toString().includes("tag")) {
+  } else if (issue.code.includes("tag")) {
     return "tags";
   }
   return undefined;

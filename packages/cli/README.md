@@ -34,10 +34,10 @@ scores and performance to expect. Tests were run on an M1 Macbook Pro.
 
 | Example Spec    | Linter processing time (ms) | Overall Processing Time (ms) | Score |
 | --------------- | --------------------------- | ---------------------------- | ----- |
-| petstore (26KB) | ~60                         | ~70                          | 85    |
-| OpenAI (143KB)  | ~72                         | ~85                          | 67    |
-| Asana (589KB)   | ~170                        | ~200                         | 96    |
-| Box (1.4MB)     | ~300                        | ~320                         | 96    |
+| petstore (26KB) | TBD                         | TBD                          | 85    |
+| OpenAI (143KB)  | TBD                         | TBD                          | 67    |
+| Asana (589KB)   | TBD                         | TBD                          | 96    |
+| Box (1.4MB)     | TBD                         | TBD                          | 96    |
 
 ### Spectral
 
@@ -46,30 +46,7 @@ rules do not exist in Spectral - resulting in variance in scores.
 
 | Example Spec    | Linter processing time (ms) | Overall Processing Time (ms) | Score |
 | --------------- | --------------------------- | ---------------------------- | ----- |
-| petstore (26KB) | ~150                        | ~260                         | 89    |
-| OpenAI (143KB)  | ~160                        | ~290                         | 74    |
-| Asana (589KB)   | ~1400                       | ~1550                        | 99    |
-| Box (1.4MB)     | ~2660                       | ~2860                        | 100   |
-
-Categories:
-
-- SDK generation
-  - No empty servers list
-  - No inline schema definitions
-  - Include title, names, descriptions, and summaries
-  - No missing examples
-  - OperationID is required
-  - Include 2XX response
-  - Optional params come last
-  - Reuse components
-- Security
-  - Security defined See
-    https://github.com/stoplightio/spectral-owasp-ruleset/blob/main/src/ruleset.ts
-  - owasp:api1:2019-no-numeric-ids
-  - owasp:api3:2019-define-error-validation
-  - owasp:api3:2019-define-error-responses-401
-  - owasp:api3:2019-define-error-responses-500
-  - owasp:api4:2019-rate-limit
-  - owasp:api4:2019-rate-limit-retry-after
-  - owasp:api4:2019-rate-limit-responses-429
-  - owasp:api7:2019-security-hosts-https-oas3
+| petstore (26KB) | TBD                         | TBD                          | 89    |
+| OpenAI (143KB)  | TBD                         | TBD                          | 74    |
+| Asana (589KB)   | TBD                         | TBD                          | 99    |
+| Box (1.4MB)     | TBD                         | TBD                          | 100   |

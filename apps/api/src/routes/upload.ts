@@ -1,37 +1,29 @@
-import { FastifyPluginAsync } from "fastify";
+import { type FastifyPluginAsync } from "fastify";
 import { v4 as uuidv4 } from 'uuid';
+import * as GoogleCloudStorage from '@google-cloud/storage';
 import axios from "axios";
 
-import * as GoogleCloudStorage from '@google-cloud/storage';
+const { GOOGLE_APPLICATION_CREDENTIALS: keyFilename, GOOGLE_CLOUD_STORAGE_BUCKET: bucket } = process.env;
 
 const storage = new GoogleCloudStorage.Storage({
-    projectId: "rate-my-openapi",
-  });
-
-const uploadRouteSchema = {
-  consumes: ['multipart/form-data'],
-  response: {
-    default: {
-      type: 'object',
-      properties: {
-        error: {
-          type: 'boolean',
-          default: false
-        },
-        success: {
-          type: 'boolean',
-          default: false
-        }
-      }
-    },
-  }
-};
+  projectId: "rate-my-openapi",
+  keyFilename
+});
 
 const uploadRoute: FastifyPluginAsync = async function (server) {
   server.route({
     method: "POST",
+    schema: {
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            id: { type: 'string' }
+          }
+        }
+      }
+    },
     url: "/upload",
-    schema: uploadRouteSchema,
     handler: async (request, reply) => {
       const parts = request.parts();
 
@@ -42,45 +34,54 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
         if (part.type === 'file' && part.fieldname === "apiFile") {
           fileName = part.filename;
           file = await part.toBuffer();
-        } else if (part.type === 'field' && part.fieldname === "email") {
+        } else if (part.type === 'field' && part.fieldname === "emailAddress") {
           email = part.value
         }
       }
 
-      if (file && email) {
+      if (file && email && bucket) {
         const uuid = uuidv4();
 
         let signedUrl;
-        try {
-          const [url] = await storage
-            .bucket("jonmhutch")
-            .file(`${uuid}.json`)
-            .getSignedUrl({
-              version: 'v4',
-              action: 'write',
-              expires: Date.now() + 15 * 60 * 1000, // 15 minutes
-              contentType: 'application/octet-stream',
-            });
-          if (url) {
-            signedUrl = url;
-          }
-        } catch (e) {
-          throw new Error(e.message);
+        
+        const [url] = await storage
+          .bucket(bucket)
+          .file(`${uuid}.json`)
+          .getSignedUrl({
+            version: 'v4',
+            action: 'write',
+            expires: Date.now() + 15 * 60 * 1000, // 15 minutes
+            contentType: 'application/octet-stream',
+          })
+          .catch(() => {
+            throw new Error('Unable to generate signed URL');
+          });
+
+        if (url) {
+          signedUrl = url;
         }
 
         if (signedUrl) {
+          const headers = {
+            'Content-Type': 'application/octet-stream'
+          };
+          
           let fileUploadSuccess = false;
           try {
-            const { status } = await axios.put(signedUrl, file, { headers: {'Content-Type': 'application/octet-stream'} });
+            const { status } = await axios.put(signedUrl, file, { headers });
 
             if (status === 200) {
               fileUploadSuccess = true;
             }
           } catch (e) {
-            throw new Error(e.message);
+            throw new Error(e.response.data);
           }
 
           if (fileUploadSuccess) {
+            reply
+              .code(200)
+              .header('Content-Type', 'application/json; charset=utf-8')
+              .send({id: uuid });
           }
         }
       } else {
@@ -94,8 +95,6 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
           throw new Error('Invalid or missing email');
         }
       }
-      
-      reply.send()
     },
   });
 };

@@ -2,6 +2,7 @@ import Fastify from "fastify";
 import { createNewLogger } from "./logger";
 import healthRoute from "./routes/health";
 import uploadRoute from "./routes/upload";
+import rateRoute from "./routes/rate";
 import fastifyMultipart from "@fastify/multipart";
 
 const fastify = Fastify({
@@ -14,12 +15,13 @@ async function build() {
   await fastify.register(fastifyMultipart);
   await fastify.register(healthRoute);
   await fastify.register(uploadRoute);
+  await fastify.register(rateRoute);
 }
 
 export const start = async () => {
   try {
     await build();
-    const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
+    const port = process.env.PORT ? parseInt(process.env.PORT) : 3001;
     const host = process.env.HOST ?? "localhost";
     await fastify.listen({
       host,

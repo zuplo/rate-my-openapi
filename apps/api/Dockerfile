@@ -8,6 +8,9 @@ WORKDIR /app
 COPY . .
 RUN node ./scripts/copy-pruned-app.out.js api
 
+# --- Vacuum ---
+FROM dshanley/vacuum:latest AS vacuum
+
 # ---- Installer ----
 FROM base AS installer
 
@@ -41,7 +44,10 @@ ENV NODE_OPTIONS="--enable-source-maps"
 ENV NODE_NO_WARNINGS=1 
 ENV HOST=0.0.0.0
 
+COPY --from=vacuum /vacuum ./bin/vacuum
 COPY --from=installer /app .
+
+ENV PATH=$PATH:/app/bin
 
 USER node
 

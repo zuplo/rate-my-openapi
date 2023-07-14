@@ -18,12 +18,13 @@ const EmailInput = () => {
       try {
         const formData = new FormData();
         formData.append("emailAddress", emailInput.value);
-        formData.append("file", file);
+        formData.append("apiFile", file);
 
-        // await fetch("https://api.ratemyopenapi.com/upload", {
-        //   method: "POST",
-        //   body: formData,
-        // });
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
+          method: "POST",
+          body: formData,
+          mode: "no-cors",
+        });
 
         setNextStep();
       } catch (e) {

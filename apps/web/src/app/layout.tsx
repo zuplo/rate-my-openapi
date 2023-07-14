@@ -9,7 +9,7 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en" className="h-full">
-      <body className="h-full">
+      <body className="h-full bg-[#F8FAFC] text-base">
         <header className="py-2">
           <h1 className="text-2xl">Rate My OpenAPI</h1>
           <p className="text-xs">

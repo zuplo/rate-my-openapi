@@ -2,16 +2,19 @@
 
 import { useUploadContext } from "@/contexts/UploadContext";
 import classNames from "classnames";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 
 const EmailInput = () => {
   const { step, setNextStep, setIsLoading, file } = useUploadContext();
 
+  const [error, setError] = useState<string>();
   const emailInputRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    setIsLoading(true);
     e.preventDefault();
+
+    setIsLoading(true);
+    setError(undefined);
 
     const emailInput = emailInputRef.current;
     if (emailInput?.value && emailInput?.validity.valid && file) {
@@ -29,6 +32,8 @@ const EmailInput = () => {
         setNextStep();
       } catch (e) {
         console.error((e as Error).message);
+
+        setError((e as Error).message);
       }
     }
 

@@ -5,30 +5,30 @@ import classNames from "classnames";
 const PercentageBar = ({
   percentage,
   colorClass,
-  index,
+  id,
 }: {
   percentage: number;
   colorClass: string;
-  index: number;
+  id: string;
 }) => (
   <>
     <div className="mb-3 rounded-sm bg-gray-200 p-1">
       <div
         className={classNames(
           "h-5 rounded-sm duration-300 ease-linear",
-          `animate-percentage-${index}`,
+          `animate-percentage-${id}`,
           colorClass
         )}
       />
     </div>
     <style jsx>{`
-      .animate-percentage-${index} {
+      .animate-percentage-${id} {
         transition-property: width, background;
-        animation: percentage-${index} 4s;
+        animation: percentage-${id} 4s;
         width: ${percentage}%;
       }
 
-      @keyframes percentage-${index} {
+      @keyframes percentage-${id} {
         0% {
           width: 0%;
           background-color: ${colorClass};

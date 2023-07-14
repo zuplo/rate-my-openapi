@@ -1,108 +1,84 @@
-import PercentageBar from "@/components/PercentageBar";
-import { Fragment } from "react";
+import { notFound } from "next/navigation";
 
-const DUMMY_RATING = 35;
+import ScoreDetailsSection from "@/components/DetailedScoreSection";
+import ScoreMeter from "@/components/ScoreMeter";
 
-const DUMMY_BREAKDOWN_DATA = [
-  {
-    title: "Documentation",
-    score: 90,
-    color: "bg-green-600",
-  },
-  {
-    title: "SDK Generation",
-    score: 50,
-    color: "bg-yellow-400",
-  },
-  {
-    title: "Mocking",
-    score: 30,
-    color: "bg-red-600",
-  },
-];
+import getApiFile from "@/requests/getApiFile";
+import getReport from "@/requests/getReport";
 
-const DUMMY_DETAILS_DATA = [
-  {
-    level: "High",
-    category: "Documentation",
-    description:
-      "Missing descriptions. Short uninformative descriptions. No use of markdown.",
-  },
-  {
-    level: "High",
-    category: "Mocking",
-    description: "No examples.",
-  },
-  {
-    level: "Consider",
-    category: "Design",
-    description: "Endpoint has incorrect pluralization.",
-  },
-];
+import getStorageUrl from "@/utils/getStorageUrl";
 
-const ReportPage = () => {
+const ReportPage = async ({ params }: { params: { id: string } }) => {
+  const apiFileData = getApiFile(params.id);
+  const reportData = getReport(params.id);
+
+  const [apiFile, report] = await Promise.all([apiFileData, reportData]);
+
+  if (!apiFile || !report) {
+    notFound();
+  }
+
+  const storageUrl = getStorageUrl(`${params.id}.json`);
+
   return (
     <>
-      <div className="mb-4 flex justify-between">
-        <p>
-          File name Version 1.2.3{" "}
-          <a target="_blank" href="https://www.zuplo.com">
-            API document link
+      <p className=" mx-auto my-20 max-w-xl text-center text-7xl">
+        Hey look at you. This is not terrible!
+      </p>
+
+      <div className="mx-auto mb-10 flex max-w-3xl items-center justify-between rounded-lg bg-white p-10 shadow-md">
+        <div className="pr-10">
+          <h1 className=" text-2xl">
+            {apiFile?.info.title} Version {apiFile?.info.version}
+          </h1>
+          <a
+            className="mb-10 block underline"
+            target="_blank"
+            href={storageUrl}
+          >
+            Link to API Document
           </a>
-        </p>
-        <button>share your results</button>
+          <p className="text-lg">
+            Your API spec scored {report.score} out of 100
+          </p>
+          <p className="text-lg">
+            97th percentile - Your rank 85th out of 3123 OpenAPI docs rated.
+          </p>
+        </div>
+        <ScoreMeter score={report.score} />
       </div>
 
-      <div className="mx-auto mb-8 flex h-[250px] w-[250px] items-center justify-center rounded-full border text-6xl">
-        <span>{DUMMY_RATING}</span>
-      </div>
-
-      <p className="text-md mb-3">
-        Your API spec scored {DUMMY_RATING} out of 100
-      </p>
-      <h2 className="mb-3 text-2xl">
-        Summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod.
-      </h2>
-      <p className="text-md mb-10">
-        97th percentile - Your rank 85th out of 3123 OpenAPI docs rated.
-      </p>
-
-      <h2 className="mb-3 text-2xl">Breakdown</h2>
+      <h2 className="mb-10 text-center text-4xl">Your rating in details</h2>
       <div className="mb-10">
-        {DUMMY_BREAKDOWN_DATA.map((item, index) => (
-          <Fragment key={`percentage-bar-${index}`}>
-            <h3>
-              {item.title} {item.score}%
-            </h3>
-            <PercentageBar
-              percentage={item.score}
-              colorClass={item.color}
-              index={index}
-            />
-          </Fragment>
-        ))}
+        {report?.docsScore && (
+          <ScoreDetailsSection
+            title="Documentation"
+            score={report?.docsScore}
+            issues={report?.docsIssues}
+          />
+        )}
+        {report?.completenessScore && (
+          <ScoreDetailsSection
+            title="Completeness"
+            score={report?.completenessScore}
+            issues={report?.completenessIssues}
+          />
+        )}
+        {report?.sdkGenerationScore && (
+          <ScoreDetailsSection
+            title="SDK Generation"
+            score={report?.sdkGenerationScore}
+            issues={report?.sdkGenerationIssues}
+          />
+        )}
+        {report?.securityScore && (
+          <ScoreDetailsSection
+            title="Security"
+            score={report?.securityScore}
+            issues={report?.securityIssues}
+          />
+        )}
       </div>
-
-      <h2 className="mb-3 text-2xl">Details</h2>
-      <table className="grid min-w-full border-collapse grid-cols-[minmax(150px,1.2fr)_minmax(150px,1.2fr)_minmax(150px,3.6fr)]">
-        <thead className="contents text-left">
-          <tr className="contents">
-            <th className="border p-2">Level</th>
-            <th className="border p-2">Category</th>
-            <th className="border p-2">Description</th>
-          </tr>
-        </thead>
-        <tbody className="contents">
-          {DUMMY_DETAILS_DATA.map((item, index) => (
-            <tr className="contents" key={`details-table-row-${index}`}>
-              <td className="border p-2">{item.level}</td>
-              <td className="border p-2">{item.category}</td>
-              <td className="border p-2">{item.description}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </>
   );
 };

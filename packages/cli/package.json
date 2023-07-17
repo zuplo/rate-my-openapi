@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@rate-my-openapi/core": "*",
-    "@quobix/vacuum": "^0.1.5",
+    "@quobix/vacuum": "^0.2.4",
     "@stoplight/spectral-core": "^1.18.0",
     "@stoplight/spectral-functions": "^1.7.2",
     "@stoplight/spectral-parsers": "^1.0.2",

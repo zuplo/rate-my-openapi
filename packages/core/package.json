@@ -28,7 +28,7 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.16.19",
     "@types/prettier": "^2.7.3",
     "@types/yargs": "^17.0.24",
     "@typescript-eslint/eslint-plugin": "^5.57.1",

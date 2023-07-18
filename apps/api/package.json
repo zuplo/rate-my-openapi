@@ -27,7 +27,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@types/node": "^18.16.18",
+    "@types/node": "^18.16.19",
     "@types/uuid": "^9.0.2",
     "openapi-types": "^12.1.3"
   }

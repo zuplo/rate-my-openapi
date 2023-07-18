@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        base: '0.875rem',
+      },
       keyframes: ({theme}) => ({
         ellipsis: {
           "to": { width: "1.25em"}

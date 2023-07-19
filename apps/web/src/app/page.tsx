@@ -4,11 +4,16 @@ import UploadInterface from "@/components/UploadInterface";
 import { UploadContextProvider } from "@/contexts/UploadContext";
 
 const HomePage = () => (
-  <main className="flex h-[calc(100%-64px)] w-full flex-col items-center justify-center">
+  <main className="flex h-full w-full flex-col items-center justify-center">
+    <h2 className="mb-16 max-w-2xl text-center text-7xl font-bold">
+      Rate & improve your API in a blink
+    </h2>
     <UploadContextProvider>
-      <UploadInterface />
-      <EmailInput />
-      <AnalyzingText />
+      <div className="grid w-full max-w-4xl grid-cols-1">
+        <UploadInterface />
+        <EmailInput />
+        <AnalyzingText />
+      </div>
     </UploadContextProvider>
   </main>
 );

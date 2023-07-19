@@ -3,17 +3,27 @@
 import { useUploadContext } from "@/contexts/UploadContext";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import classNames from "classnames";
-import { DragEvent, FormEvent, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  DragEvent,
+  FormEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import StepContainer from "../StepContainer";
 
 const UploadInterface = () => {
-  const { step, setNextStep, setIsLoading, setFile, file } = useUploadContext();
+  const { setNextStep, setFile, file } = useUploadContext();
 
   const urlInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [dragActive, setDragActive] = useState(false);
   const [error, setError] = useState<string | undefined>();
   const [showButtons, setShowButtons] = useState(false);
+
+  const onDragOver = (e: globalThis.DragEvent) => e.preventDefault();
 
   const onDrag = (e: DragEvent<HTMLFormElement | HTMLDivElement>) => {
     e.preventDefault();
@@ -25,39 +35,56 @@ const UploadInterface = () => {
     }
   };
 
-  const onDrop = (e: DragEvent<HTMLDivElement>) => {
+  const onDrop = (e: DragEvent<HTMLDivElement> | globalThis.DragEvent) => {
     e.preventDefault();
 
-    setError(undefined);
     setDragActive(false);
 
-    if (e.dataTransfer.files.length) {
-      const file = e.dataTransfer.files[0];
-
-      if (file.type === "application/json") {
-        onFileUpload(file);
-
-        if (urlInputRef.current) {
-          urlInputRef.current.value = file.name;
-        }
-
-        shouldShowButtons();
-      } else {
-        setError("File must be JSON");
-      }
+    if (e.dataTransfer?.files.length) {
+      onLocalFileUpload(e.dataTransfer.files[0]);
     }
   };
 
-  const onFileUpload = (file: File) => {
-    setFile(file);
-    setIsLoading(false);
+  useEffect(() => {
+    window.addEventListener("dragover", onDragOver, false);
+    window.addEventListener("drop", onDrop, false);
+
+    return () => {
+      window.removeEventListener("dragover", onDragOver);
+      window.removeEventListener("drop", onDrop);
+    };
+  });
+
+  const onLocalFileUpload = (newFile: File) => {
+    if (newFile.type === "application/json") {
+      setError(undefined);
+
+      setFile(newFile);
+
+      if (urlInputRef.current) {
+        urlInputRef.current.value = newFile.name;
+      }
+
+      shouldShowButtons();
+    } else {
+      setError("File must be JSON");
+    }
+  };
+
+  const onLocalFileUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const onLocalFileUploadInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      onLocalFileUpload(e.target.files[0]);
+    }
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setError(undefined);
-    setIsLoading(true);
 
     const urlInput = urlInputRef.current;
     if (file) {
@@ -79,7 +106,6 @@ const UploadInterface = () => {
       } catch (e) {
         console.error((e as Error).message);
         setError((e as Error).message);
-        setIsLoading(false);
       }
 
       if (fileUrl && fileName) {
@@ -92,7 +118,7 @@ const UploadInterface = () => {
 
           const blob = await response.blob();
 
-          onFileUpload(
+          setFile(
             new File([blob], fileName, {
               type: blob.type,
             })
@@ -102,7 +128,6 @@ const UploadInterface = () => {
         } catch (e) {
           console.error((e as Error).message);
           setError((e as Error).message);
-          setIsLoading(false);
         }
       }
     }
@@ -125,14 +150,14 @@ const UploadInterface = () => {
     );
 
   return (
-    <div
-      className={classNames(" w-full max-w-4xl ", {
-        block: step === 1,
-        hidden: step !== 1,
-      })}
-    >
+    <StepContainer step={1}>
+      <p className="mx-auto mb-16 max-w-lg text-center text-xl text-gray-600">
+        Drop your spec file, paste a URL to it or paste your whole spec into the
+        form below and we’ll analyse it.
+      </p>
       <form
         className="relative flex w-full rounded-lg border border-gray-200 bg-white p-4 shadow-md"
+        id="upload-form"
         onDragEnter={onDrag}
         onSubmit={onSubmit}
       >
@@ -146,6 +171,14 @@ const UploadInterface = () => {
           disabled={!!file}
         />
 
+        <input
+          ref={fileInputRef}
+          onChange={onLocalFileUploadInputChange}
+          className="hidden"
+          type="file"
+          name="drag-upload"
+          accept=".json"
+        />
         <div className="flex h-[44px]">
           {showButtons && (
             <>
@@ -181,7 +214,30 @@ const UploadInterface = () => {
         )}
       </form>
       <p className="mt-2 h-[16px] text-left text-sm text-red-600">{error}</p>
-    </div>
+      <div className="flex items-center">
+        <p className="mr-3 font-bold uppercase text-gray-400">Examples:</p>
+        <ul className="flex gap-3">
+          <li className="rounded-lg bg-gray-200 p-2 font-medium text-gray-600">
+            Lorem
+          </li>
+          <li className="rounded-lg bg-gray-200 p-2 font-medium text-gray-600">
+            Ipsum
+          </li>
+          <li className="rounded-lg bg-gray-200 p-2 font-medium text-gray-600">
+            Consectetur
+          </li>
+          <li className="rounded-lg bg-gray-200 p-2 font-medium text-gray-600">
+            Adipiscing
+          </li>
+          <button
+            onClick={onLocalFileUploadClick}
+            className="rounded-lg border border-gray-400 bg-transparent p-2 font-medium text-gray-600"
+          >
+            Upload an OpenAPI spec
+          </button>
+        </ul>
+      </div>
+    </StepContainer>
   );
 };
 

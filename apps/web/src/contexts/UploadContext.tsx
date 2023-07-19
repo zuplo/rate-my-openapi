@@ -31,7 +31,13 @@ const UploadContextProvider = ({ children }: { children: ReactNode }) => {
   const [file, setFile] = useState<File | undefined>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const setNextStep = () => setStep(step + 1);
+  const setNextStep = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setStep(step + 1);
+    }, 500);
+  };
 
   return (
     <UploadContext.Provider

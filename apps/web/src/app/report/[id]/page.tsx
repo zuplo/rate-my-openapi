@@ -22,8 +22,8 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <p className=" mx-auto my-20 max-w-xl text-center text-7xl">
-        Hey look at you. This is not terrible!
+      <p className="mx-auto mb-16 mt-32 max-w-xl text-center text-7xl">
+        Lorem ipsum dolor! Consectetur adipiscing elit!
       </p>
 
       <div className="mx-auto mb-10 flex max-w-3xl items-center justify-between rounded-lg bg-white p-10 shadow-md">
@@ -42,7 +42,7 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
             Your API spec scored {report.score} out of 100
           </p>
           <p className="text-lg">
-            97th percentile - Your rank 85th out of 3123 OpenAPI docs rated.
+            ##th percentile - Your rank ##th out of #### OpenAPI docs rated.
           </p>
         </div>
         <ScoreMeter score={report.score} />

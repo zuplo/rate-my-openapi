@@ -3,9 +3,12 @@
 import { useUploadContext } from "@/contexts/UploadContext";
 import classNames from "classnames";
 import { FormEvent, useRef, useState } from "react";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import StepContainer from "../StepContainer";
 
 const EmailInput = () => {
-  const { step, setNextStep, setIsLoading, file } = useUploadContext();
+  const { step, setNextStep, setIsLoading, file, isLoading } =
+    useUploadContext();
 
   const [error, setError] = useState<string>();
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -41,28 +44,32 @@ const EmailInput = () => {
   };
 
   return (
-    <div
-      className={classNames("max-w-[450px]", {
-        block: step === 2,
-        hidden: step !== 2,
-      })}
-    >
+    <StepContainer step={2}>
       <form onSubmit={onSubmit}>
-        <label htmlFor="email" className="mb-3 block text-xl">
+        <label
+          htmlFor="email"
+          className="mx-auto mb-16 block max-w-lg text-center text-xl text-gray-600"
+        >
           Enter your email address so we can send your report when it&apos;s
           ready
         </label>
-        <div className="flex flex-nowrap gap-3">
+        <div className="relative flex w-full rounded-lg border border-gray-200 bg-white p-4 shadow-md">
           <input
             required
             type="email"
             ref={emailInputRef}
-            className="w-full rounded border border-gray-300 bg-gray-200 px-3"
+            placeholder="Enter email here"
+            className="w-full border-none bg-transparent pr-3 text-lg outline-none"
           />
-          <button>Submit</button>
+          <button
+            type="submit"
+            className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-none bg-gray-900 p-0"
+          >
+            <ChevronRightIcon height={24} width={24} className="text-white" />
+          </button>
         </div>
       </form>
-    </div>
+    </StepContainer>
   );
 };
 

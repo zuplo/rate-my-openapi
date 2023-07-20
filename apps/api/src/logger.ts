@@ -6,7 +6,7 @@ import { parse as parseStack } from "stacktrace-parser";
 
 export const GOOGLE_TRACE_PROPERTY = "logging.googleapis.com/trace";
 export const GOOGLE_LABELS_PROPERTY = "logging.googleapis.com/labels";
-const PROJECT_ID = "zuplo-production";
+const PROJECT_ID = "zuplo-marketing";
 
 import { randomUUID } from "node:crypto";
 

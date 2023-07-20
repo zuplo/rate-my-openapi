@@ -19,7 +19,7 @@ resource "google_cloud_run_v2_service" "default" {
     }
 
     containers {
-      image = "us-docker.pkg.dev/zuplo-production/docker-registry/${var.service_name}:${var.image_version}"
+      image = "us-docker.pkg.dev/zuplo-marketing/docker-registry/${var.service_name}:${var.image_version}"
 
       ports {
         container_port = 5000

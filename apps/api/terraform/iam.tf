@@ -3,7 +3,7 @@ resource "google_service_account" "default" {
 }
 
 resource "google_project_iam_member" "artifactregistry_read_dev_api_sa" {
-  project = var.project_id
+  project = "zuplo-production"
   role    = "roles/artifactregistry.reader"
   member  = "serviceAccount:${google_service_account.default.email}"
 }

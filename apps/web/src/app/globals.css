@@ -9,12 +9,13 @@ header {
   @apply px-4;
 }
 
-button {
-  @apply block;
-  @apply rounded;
-  @apply border;
-  @apply border-gray-400;
-  @apply bg-gray-300;
-  @apply px-6;
-  @apply py-3;
+button.icon-button {
+  @apply flex;
+  @apply h-[44px];
+  @apply w-[44px];
+  @apply items-center;
+  @apply justify-center;
+  @apply rounded-lg;
+  @apply border-none;
+  @apply p-0;
 }

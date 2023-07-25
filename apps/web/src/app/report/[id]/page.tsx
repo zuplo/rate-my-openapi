@@ -18,13 +18,13 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <p className="mx-auto mb-16 mt-32 max-w-xl text-center text-7xl">
+      <p className="mx-auto mb-16 mt-32 max-w-xl text-center text-4xl md:text-7xl">
         Lorem ipsum dolor! Consectetur adipiscing elit!
       </p>
 
-      <div className="mx-auto mb-10 flex max-w-3xl items-center justify-between rounded-lg bg-white p-10 shadow-md">
-        <div className="pr-10">
-          <h1 className=" text-2xl">
+      <div className="mx-auto mb-10 flex max-w-3xl flex-col items-center justify-between rounded-lg bg-white p-10 shadow-md md:flex-row">
+        <div className="order-2 pr-10 md:order-1">
+          <h1 className="text-2xl">
             {apiFile.title} Version {apiFile.version}
           </h1>
           <a
@@ -41,7 +41,9 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
             ##th percentile - Your rank ##th out of #### OpenAPI docs rated.
           </p>
         </div>
-        <ScoreMeter score={report.score} />
+        <div className="relative order-1 mb-6 md:order-2 md:mb-0">
+          <ScoreMeter score={report.score} />
+        </div>
       </div>
 
       <h2 className="mb-10 text-center text-4xl">Your rating in details</h2>

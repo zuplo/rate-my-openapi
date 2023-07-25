@@ -6,8 +6,6 @@ import ScoreMeter from "@/components/ScoreMeter";
 import getApiFile from "@/requests/getApiFile";
 import getReport from "@/requests/getReport";
 
-import getStorageUrl from "@/utils/getStorageUrl";
-
 const ReportPage = async ({ params }: { params: { id: string } }) => {
   const apiFileData = getApiFile(params.id);
   const reportData = getReport(params.id);
@@ -18,8 +16,6 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
     notFound();
   }
 
-  const storageUrl = getStorageUrl(`${params.id}.json`);
-
   return (
     <>
       <p className="mx-auto mb-16 mt-32 max-w-xl text-center text-7xl">
@@ -29,12 +25,12 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
       <div className="mx-auto mb-10 flex max-w-3xl items-center justify-between rounded-lg bg-white p-10 shadow-md">
         <div className="pr-10">
           <h1 className=" text-2xl">
-            {apiFile?.info.title} Version {apiFile?.info.version}
+            {apiFile.title} Version {apiFile.version}
           </h1>
           <a
             className="mb-10 block underline"
             target="_blank"
-            href={storageUrl}
+            href={apiFile.url}
           >
             Link to API Document
           </a>

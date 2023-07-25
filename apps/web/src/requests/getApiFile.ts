@@ -1,11 +1,12 @@
-import getStorageUrl from "@/utils/getStorageUrl";
-import { type OpenAPIV3, type OpenAPIV3_1 } from "openapi-types";
-
 const getApiFile = async (
   id: string
-): Promise<OpenAPIV3_1.Document | OpenAPIV3.Document | undefined> => {
+): Promise<{ title: string; version: string; url: string } | undefined> => {
   try {
-    const res = await fetch(getStorageUrl(`${id}.json`));
+    const res = await fetch(
+      `${process.env.NODE_ENV === "development" ? "http" : "https"}://${
+        process.env.NEXT_PUBLIC_VERCEL_URL
+      }/api/file/${id}`
+    );
 
     if (res.status === 200) {
       return res.json();

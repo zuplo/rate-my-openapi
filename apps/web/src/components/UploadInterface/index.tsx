@@ -12,6 +12,26 @@ import {
   useState,
 } from "react";
 import StepContainer from "../StepContainer";
+import Link from "next/link";
+
+const EXAMPLES = [
+  {
+    title: "Lorem",
+    slug: "lorem",
+  },
+  {
+    title: "Ipsum",
+    slug: "ipsum",
+  },
+  {
+    title: "Consectetur",
+    slug: "consectetur",
+  },
+  {
+    title: "Adipiscing",
+    slug: "adipiscing",
+  },
+];
 
 const UploadInterface = () => {
   const { setNextStep, setFile, file } = useUploadContext();
@@ -182,17 +202,11 @@ const UploadInterface = () => {
         <div className="flex h-[44px]">
           {showButtons && (
             <>
-              <button
-                className="mr-2 flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-none bg-gray-300 p-0 text-white"
-                onClick={onClear}
-              >
+              <button className="icon-button bg-gray-300" onClick={onClear}>
                 <XMarkIcon height={24} width={24} className="text-white" />
               </button>
 
-              <button
-                type="submit"
-                className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-none bg-gray-900 p-0"
-              >
+              <button type="submit" className="icon-button bg-gray-900">
                 <ChevronRightIcon
                   height={24}
                   width={24}
@@ -216,25 +230,25 @@ const UploadInterface = () => {
       <p className="mt-2 h-[16px] text-left text-sm text-red-600">{error}</p>
       <div className="flex items-center">
         <p className="mr-3 font-bold uppercase text-gray-400">Examples:</p>
-        <ul className="flex gap-3">
-          <li className="rounded-lg bg-gray-200 p-2 font-medium text-gray-600">
-            Lorem
+        <ul className="flex flex-wrap items-center gap-3">
+          {EXAMPLES.map((example) => (
+            <li key={example.slug}>
+              <Link
+                className="block rounded-lg bg-gray-200 p-2 font-medium text-gray-600 transition-colors hover:bg-gray-900 hover:text-white"
+                href={`/report/${example.slug}`}
+              >
+                {example.title}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <button
+              onClick={onLocalFileUploadClick}
+              className="rounded-lg border border-gray-400 bg-transparent p-2 font-medium text-gray-600 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white"
+            >
+              Upload an OpenAPI spec
+            </button>
           </li>
-          <li className="rounded-lg bg-gray-200 p-2 font-medium text-gray-600">
-            Ipsum
-          </li>
-          <li className="rounded-lg bg-gray-200 p-2 font-medium text-gray-600">
-            Consectetur
-          </li>
-          <li className="rounded-lg bg-gray-200 p-2 font-medium text-gray-600">
-            Adipiscing
-          </li>
-          <button
-            onClick={onLocalFileUploadClick}
-            className="rounded-lg border border-gray-400 bg-transparent p-2 font-medium text-gray-600"
-          >
-            Upload an OpenAPI spec
-          </button>
         </ul>
       </div>
     </StepContainer>

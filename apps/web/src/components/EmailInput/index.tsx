@@ -1,14 +1,14 @@
 "use client";
 
-import { useUploadContext } from "@/contexts/UploadContext";
-import classNames from "classnames";
 import { FormEvent, useRef, useState } from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import StepContainer from "../StepContainer";
+
+import { useUploadContext } from "@/contexts/UploadContext";
+
+import StepContainer from "@/components/StepContainer";
 
 const EmailInput = () => {
-  const { step, setNextStep, setIsLoading, file, isLoading } =
-    useUploadContext();
+  const { setNextStep, setIsLoading, file } = useUploadContext();
 
   const [error, setError] = useState<string>();
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -61,14 +61,12 @@ const EmailInput = () => {
             placeholder="Enter email here"
             className="w-full border-none bg-transparent pr-3 text-lg outline-none"
           />
-          <button
-            type="submit"
-            className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-lg border-none bg-gray-900 p-0"
-          >
+          <button type="submit" className="icon-button bg-gray-900">
             <ChevronRightIcon height={24} width={24} className="text-white" />
           </button>
         </div>
       </form>
+      <p className="mt-2 h-[16px] text-left text-sm text-red-600">{error}</p>
     </StepContainer>
   );
 };

@@ -1,7 +1,3 @@
-"use client";
-
-import { useUploadContext } from "@/contexts/UploadContext";
-import classNames from "classnames";
 import StepContainer from "../StepContainer";
 
 const AnalyzingText = () => (

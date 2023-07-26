@@ -1,3 +1,5 @@
+"use client";
+
 import { useUploadContext } from "@/contexts/UploadContext";
 import classNames from "classnames";
 import { ReactNode } from "react";

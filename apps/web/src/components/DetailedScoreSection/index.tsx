@@ -39,8 +39,8 @@ const ScoreDetailsSection = ({
   const titleSlug = title.toLowerCase().replace(" ", "-");
 
   return (
-    <div className="text-red mb-10 flex rounded-lg bg-white py-10 pr-5 shadow-md">
-      <div className="flex basis-1/4 flex-col items-center justify-center">
+    <div className="mb-10 flex flex-col overflow-hidden break-words	 rounded-lg bg-white p-8 shadow-md md:flex-row md:p-10 md:pl-0">
+      <div className="mb-6 flex basis-1/4 flex-col items-center justify-center md:mb-0">
         <h3 className={`mb-6 font-bold uppercase ${scoreTextColor}`}>
           {title}
         </h3>

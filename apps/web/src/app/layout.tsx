@@ -9,7 +9,7 @@ export const metadata = {
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html lang="en" className="h-full">
-    <body className="container relative mx-auto h-full bg-[#F8FAFC] text-base">
+    <body className="container mx-auto h-full bg-[#F8FAFC] text-base">
       <Header />
       {children}
       <Analytics />

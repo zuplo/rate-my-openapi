@@ -1,6 +1,6 @@
 {
   "name": "@rate-my-openapi/core",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "Core utilities for producing an OpenAPI rating",
   "main": "index.js",
   "scripts": {

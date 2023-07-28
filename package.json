@@ -2,7 +2,7 @@
   "name": "rate-my-openapi",
   "version": "1.15.0",
   "scripts": {
-    "build": "tsc --build",
+    "build": "npm install -g @quobix/vacuum && tsc --build",
     "format": "prettier --write .",
     "release": "npm version minor",
     "version": "npm version $npm_package_version --workspaces && git add **/package.json",

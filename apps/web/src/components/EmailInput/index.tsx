@@ -26,7 +26,7 @@ const EmailInput = () => {
         formData.append("emailAddress", emailInput.value);
         formData.append("apiFile", file);
 
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
+        await fetch(`/api/upload-file`, {
           method: "POST",
           body: formData,
           mode: "no-cors",

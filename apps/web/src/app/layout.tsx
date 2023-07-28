@@ -1,4 +1,4 @@
-import { Analytics } from "@vercel/analytics/react";
+// import { Analytics } from "@vercel/analytics";
 
 import "./globals.css";
 import Header from "@/components/Header";
@@ -12,7 +12,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     <body className="container mx-auto h-full bg-[#F8FAFC] text-base">
       <Header />
       {children}
-      <Analytics />
+      {/* <Analytics /> */}
     </body>
   </html>
 );

@@ -5,48 +5,63 @@ import ScoreMeter from "@/components/ScoreMeter";
 
 import getApiFile from "@/requests/getApiFile";
 import getReport from "@/requests/getReport";
+import { Suspense } from "react";
+
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import ShareButton from "@/components/ShareButton";
+
+const ApiFileInfo = async ({
+  id,
+  fileType,
+}: {
+  id: string;
+  fileType: string;
+}) => {
+  const apiFile = await getApiFile(id, fileType);
+
+  return (
+    <>
+      <h1 className="text-2xl">
+        {apiFile?.title} {apiFile?.version}
+      </h1>
+      <a
+        className="flex items-center justify-center underline"
+        target="_blank"
+        href={apiFile?.url}
+      >
+        <span className="mr-1">Spec</span>
+        <ArrowTopRightOnSquareIcon height={16} width={16} />
+      </a>
+    </>
+  );
+};
 
 const ReportPage = async ({ params }: { params: { id: string } }) => {
-  const apiFileData = getApiFile(params.id);
-  const reportData = getReport(params.id);
+  const report = await getReport(params.id);
 
-  const [apiFile, report] = await Promise.all([apiFileData, reportData]);
-
-  if (!apiFile || !report) {
+  if (!report) {
     notFound();
   }
 
   return (
     <>
-      <p className="mx-auto mb-16 mt-32 max-w-xl text-center text-4xl md:text-7xl">
-        Lorem ipsum dolor! Consectetur adipiscing elit!
-      </p>
-
-      <div className="mx-auto mb-10 flex max-w-3xl flex-col items-center justify-between rounded-lg bg-white p-10 shadow-md md:flex-row">
-        <div className="order-2 pr-10 md:order-1">
-          <h1 className="text-2xl">
-            {apiFile.title} Version {apiFile.version}
-          </h1>
-          <a
-            className="mb-10 block underline"
-            target="_blank"
-            href={apiFile.url}
-          >
-            Link to API Document
-          </a>
-          <p className="text-lg">
-            Your API spec scored {report.score} out of 100
-          </p>
-          <p className="text-lg">
-            ##th percentile - Your rank ##th out of #### OpenAPI docs rated.
-          </p>
-        </div>
-        <div className="relative order-1 mb-6 md:order-2 md:mb-0">
+      <div className="mx-auto mt-8 flex max-w-3xl flex-col items-center gap-6 rounded-lg bg-white p-6 shadow-md md:mt-32 md:flex-row md:justify-around md:p-10">
+        <div className="relative">
           <ScoreMeter score={report.score} />
+        </div>
+        <div className="text-center md:pr-10">
+          <Suspense>
+            <ApiFileInfo id={params.id} fileType={report.fileType} />
+          </Suspense>
         </div>
       </div>
 
-      <h2 className="mb-10 text-center text-4xl">Your rating in details</h2>
+      <h2 className="mx-auto my-16 max-w-xl text-center text-4xl font-extrabold md:text-7xl">
+        Here is your
+        <br />
+        breakdown
+      </h2>
       <div className="mb-10">
         {report?.docsScore && (
           <ScoreDetailsSection
@@ -76,6 +91,12 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
             issues={report?.securityIssues}
           />
         )}
+      </div>
+      <div className="flex w-full flex-col md:flex-row md:items-center md:justify-center">
+        <ShareButton className="mb-4 md:mb-0 md:mr-4" />
+        <Link href="/" className="button-light">
+          Rate your OpenAPI spec
+        </Link>
       </div>
     </>
   );

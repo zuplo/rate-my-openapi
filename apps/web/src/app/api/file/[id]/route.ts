@@ -2,6 +2,7 @@ import { type OpenAPIV3 } from "openapi-types";
 
 import { Storage } from "@google-cloud/storage";
 import { NextResponse } from "next/server";
+import { load } from "js-yaml";
 
 type GoogleRequestError = { code: number; errors?: Error[] };
 
@@ -25,13 +26,20 @@ const storage = new Storage({
 });
 
 export async function GET(
-  _request: Request,
+  request: Request,
   { params }: { params: { id: string } }
 ) {
+  const { searchParams } = new URL(request.url);
+  const fileType = searchParams.get("type");
   try {
-    const file = storage.bucket(bucket as string).file(`${params.id}.json`);
+    const file = storage
+      .bucket(bucket as string)
+      .file(`${params.id}.${fileType}`);
     const contents = await file.download();
-    const contentsJson = JSON.parse(contents.toString());
+    const contentsJson =
+      fileType === "json"
+        ? JSON.parse(contents.toString())
+        : load(contents.toString());
     const publicUrl = file.publicUrl();
 
     if (contents) {

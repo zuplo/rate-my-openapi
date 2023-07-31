@@ -16,24 +16,13 @@ import {
 import StepContainer from "../StepContainer";
 import Link from "next/link";
 import classNames from "classnames";
+import FormError from "../FormError";
 
-const EXAMPLES = [
-  {
-    title: "Lorem",
-    slug: "lorem",
-  },
-  {
-    title: "Ipsum",
-    slug: "ipsum",
-  },
-  {
-    title: "Consectetur",
-    slug: "consectetur",
-  },
-  {
-    title: "Adipiscing",
-    slug: "adipiscing",
-  },
+const EXAMPLES: { title: string; slug: string }[] = [
+  // {
+  //   title: "Lorem",
+  //   slug: "lorem",
+  // },
 ];
 
 const UploadInterface = () => {
@@ -260,32 +249,24 @@ const UploadInterface = () => {
           </button>
         </div>
       </form>
-      <p
-        className={classNames(
-          "mb-3 mt-2 text-left text-sm text-red-600 transition-[height]",
-          {
-            "h-[16px]": !!error,
-            "h-0": !error,
-          }
-        )}
-      >
-        {error}
-      </p>
-      <div className="flex items-center">
-        <p className="mr-3 font-bold uppercase text-gray-400">Examples:</p>
-        <ul className="flex flex-wrap items-center gap-3">
-          {EXAMPLES.map((example) => (
-            <li key={example.slug}>
-              <Link
-                className="block rounded-lg bg-gray-200 p-2 font-medium text-gray-600 transition-colors hover:bg-gray-900 hover:text-white"
-                href={`/report/${example.slug}`}
-              >
-                {example.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <FormError error={error} />
+      {EXAMPLES.length > 0 && (
+        <div className="flex items-center">
+          <p className="mr-3 font-bold uppercase text-gray-400">Examples:</p>
+          <ul className="flex flex-wrap items-center gap-3">
+            {EXAMPLES.map((example) => (
+              <li key={example.slug}>
+                <Link
+                  className="block rounded-lg bg-gray-200 p-2 font-medium text-gray-600 transition-colors hover:bg-gray-900 hover:text-white"
+                  href={`/report/${example.slug}`}
+                >
+                  {example.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </StepContainer>
   );
 };

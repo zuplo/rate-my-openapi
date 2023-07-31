@@ -18,7 +18,9 @@ jobs:
           cache: "npm"
 
       - run: npm ci
+      - run: npm run build --workspace packages/core
       - run: npm run build
+
 
   release:
     name: Release

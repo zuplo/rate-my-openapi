@@ -31,7 +31,8 @@ RUN CI=true npm ci --ignore-scripts
 COPY --from=builder /app/out/full/ .
 
 # Build
-RUN npm run build --workspace api
+RUN npm run build --workspace packages/core
+RUN npm run build --workspace apps/api
 
 # ---- Release ----
 FROM base AS runner

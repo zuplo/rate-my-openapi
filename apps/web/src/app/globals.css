@@ -4,18 +4,33 @@
 
 main,
 header {
-  @apply container;
-  @apply mx-auto;
-  @apply px-4;
+  @apply container mx-auto px-4;
 }
 
 button.icon-button {
-  @apply flex;
-  @apply h-[44px];
-  @apply w-[44px];
-  @apply items-center;
-  @apply justify-center;
-  @apply rounded-lg;
-  @apply border-none;
-  @apply p-0;
+  @apply flex h-[44px] w-[44px] items-center justify-center rounded-lg border-none p-0;
+}
+
+.text-fill-transparent {
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient {
+  @apply text-fill-transparent bg-gradient-to-r bg-clip-text;
+}
+
+.button {
+  @apply text-center rounded-lg p-4 text-lg font-bold transition-colors border;
+}
+
+.button-dark {
+  @apply button border-black bg-black text-white md:hover:bg-transparent md:hover:text-black;
+}
+
+.button-light {
+  @apply button border-black md:hover:bg-black md:hover:text-white;
+}
+
+.button-transparent {
+  @apply button border-transparent md:hover:border-black;
 }

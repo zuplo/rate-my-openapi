@@ -32,7 +32,7 @@ export async function GET(
   try {
     const contents = await storage
       .bucket(bucket as string)
-      .file(`${params.id}-rating.json`)
+      .file(`${params.id}-report.json`)
       .download();
 
     if (contents) {
@@ -58,6 +58,7 @@ export async function GET(
         completenessIssues,
         sdkGenerationIssues,
         securityIssues,
+        fileType: parsedContents?.issues?.[0]?.source?.split(".").pop(),
       }))(parsedContents);
 
       return NextResponse.json<RatingOutput>(data, { status: 200 });

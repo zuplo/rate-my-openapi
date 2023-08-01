@@ -6,9 +6,10 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useUploadContext } from "@/contexts/UploadContext";
 
 import StepContainer from "@/components/StepContainer";
+import FormError from "../FormError";
 
 const EmailInput = () => {
-  const { setNextStep, setIsLoading, file } = useUploadContext();
+  const { setNextStep, file } = useUploadContext();
 
   const [error, setError] = useState<string>();
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -16,7 +17,6 @@ const EmailInput = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsLoading(true);
     setError(undefined);
 
     const emailInput = emailInputRef.current;
@@ -39,8 +39,6 @@ const EmailInput = () => {
         setError((e as Error).message);
       }
     }
-
-    setIsLoading(false);
   };
 
   return (
@@ -66,7 +64,7 @@ const EmailInput = () => {
           </button>
         </div>
       </form>
-      <p className="mt-2 h-[16px] text-left text-sm text-red-600">{error}</p>
+      <FormError error={error} />
     </StepContainer>
   );
 };

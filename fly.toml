@@ -7,6 +7,7 @@ app = "api-ratemyopeanpi-com"
 primary_region = "cdg"
 
 [build]
+  dockerfile = "Dockerfile.api"
 
 [http_service]
   internal_port = 3000

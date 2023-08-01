@@ -1,1 +1,0 @@
-image_version="1.11.0"

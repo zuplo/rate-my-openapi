@@ -1,21 +1,22 @@
 "use client";
 
-import { useUploadContext } from "@/contexts/UploadContext";
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { DocumentIcon } from "@heroicons/react/24/outline";
-
 import {
-  ChangeEvent,
-  DragEvent,
-  FormEvent,
+  type ChangeEvent,
+  type DragEvent,
+  type FormEvent,
   useEffect,
   useRef,
   useState,
 } from "react";
-import StepContainer from "../StepContainer";
 import Link from "next/link";
-import classNames from "classnames";
+
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { DocumentIcon } from "@heroicons/react/24/outline";
+
+import { useUploadContext } from "@/contexts/UploadContext";
+
+import StepContainer from "../StepContainer";
 import FormError from "../FormError";
 
 const EXAMPLES: { title: string; slug: string }[] = [

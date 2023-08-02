@@ -28,7 +28,6 @@ const AnimatedScore = ({
           initial-value: 0;
           inherits: false;
         }
-
         .animated-counter-${id} {
           animation-name: ${id}-counter;
           animation-duration: 1000ms;
@@ -39,7 +38,6 @@ const AnimatedScore = ({
         .animated-counter-${id}::after {
           content: counter(num-${id});
         }
-
         @keyframes ${id}-counter {
           from {
             --num-${id}: 0;

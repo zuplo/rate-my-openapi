@@ -3,10 +3,14 @@
 import classNames from "classnames";
 import AnimatedScore from "../AnimatedScore";
 
-// import { type SpectralReport } from "../../../../../packages/core/dist";
-type SpectralReport = any;
-
 import { useState } from "react";
+import getScoreTextColor from "@/utils/getScoreTextColor";
+
+type Issue = {
+  message: string;
+  severity: number;
+  count: number;
+};
 
 const PAGE_LENGTH = 3;
 const INITIAL_LENGTH = 3;
@@ -26,13 +30,6 @@ const getSeverityTextColor = (severity: number) =>
     "to-low-light from-low-dark": severity === 3,
   });
 
-const getScoreTextColor = (score: number) =>
-  classNames({
-    "to-low-light from-low-dark": score > 66,
-    "to-mid-light from-mid-dark": score > 33 && score <= 66,
-    "to-high-light from-high-dark": score <= 33,
-  });
-
 const ScoreDetailsSection = ({
   title,
   score,
@@ -40,26 +37,26 @@ const ScoreDetailsSection = ({
 }: {
   title: string;
   score: number;
-  issues: SpectralReport;
+  issues: Issue[];
 }) => {
   const [page, setPage] = useState(0);
   const scoreTextColor = getScoreTextColor(score);
   const titleSlug = title.toLowerCase().replace(" ", "-");
-  const sortedIssues = [...issues].sort((a, b) => a.severity - b.severity);
-  const issueCount = sortedIssues.length;
+  const issueCount = issues.length;
   const totalPages = Math.ceil((issueCount - INITIAL_LENGTH) / PAGE_LENGTH);
+
   return (
-    <div className="mb-10 flex flex-col overflow-hidden break-words	 rounded-lg bg-white p-8 shadow-md md:flex-row md:p-10 md:pl-0">
-      <div className="mb-6 flex basis-1/4 flex-col items-center justify-center md:mb-0">
+    <div className="mb-10 flex flex-col	overflow-hidden rounded-lg bg-white p-8 shadow-md md:flex-row md:items-start md:p-10 md:pl-0">
+      <div className="mb-6 flex basis-1/4 flex-col items-center justify-center md:mb-0 md:mt-12">
         <h3
-          className={`text-gradient mb-6 text-xl font-bold uppercase ${scoreTextColor}`}
+          className={`text-gradient mb-6 font-roboto-mono text-xl font-bold uppercase ${scoreTextColor}`}
         >
           {title}
         </h3>
         <AnimatedScore score={score} className="text-7xl" id={titleSlug} />
       </div>
       <div className="basis-3/4">
-        <table className="grid min-w-full border-collapse grid-cols-[minmax(100px,0.5fr)_minmax(100px,4fr)] gap-2">
+        <table className="grid min-w-full border-collapse grid-cols-[minmax(70px,0.7fr)_minmax(100px,4fr)] gap-2">
           <thead className="contents text-left font-bold uppercase">
             <tr className="contents text-gray-400">
               <th>Severity</th>
@@ -67,7 +64,7 @@ const ScoreDetailsSection = ({
             </tr>
           </thead>
           <tbody className="contents">
-            {sortedIssues
+            {issues
               .slice(
                 0,
                 page ? PAGE_LENGTH * page + INITIAL_LENGTH : INITIAL_LENGTH
@@ -84,8 +81,18 @@ const ScoreDetailsSection = ({
                   >
                     {SEVERITY_LEVEL_MAP[issue.severity]}
                   </td>
-                  <td>
-                    <span className="block">{issue.message}</span>
+                  <td className="flex flex-wrap gap-1 md:flex-nowrap">
+                    <span
+                      className="block overflow-hidden break-words"
+                      dangerouslySetInnerHTML={{
+                        __html: issue.message,
+                      }}
+                    ></span>
+                    {issue.count > 1 && (
+                      <span className="shrink-0 text-gray-400">
+                        ({issue.count} occurances)
+                      </span>
+                    )}
                   </td>
                 </tr>
               ))}

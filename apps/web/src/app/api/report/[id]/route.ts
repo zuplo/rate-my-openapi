@@ -1,5 +1,4 @@
-// import { type RatingOutput } from "@rate-my-openapi/core";
-type RatingOutput = any;
+import { type ISpectralDiagnostic } from "@stoplight/spectral-core";
 
 import { Storage } from "@google-cloud/storage";
 import { NextResponse } from "next/server";
@@ -54,14 +53,14 @@ export async function GET(
         completenessScore,
         sdkGenerationScore,
         securityScore,
-        docsIssues,
-        completenessIssues,
-        sdkGenerationIssues,
-        securityIssues,
+        docsIssues: groupIssues(docsIssues),
+        completenessIssues: groupIssues(completenessIssues),
+        sdkGenerationIssues: groupIssues(sdkGenerationIssues),
+        securityIssues: groupIssues(securityIssues),
         fileType: parsedContents?.issues?.[0]?.source?.split(".").pop(),
       }))(parsedContents);
 
-      return NextResponse.json<RatingOutput>(data, { status: 200 });
+      return NextResponse.json(data, { status: 200 });
     }
 
     return NextResponse.json<null>(null, { status: 204 });
@@ -73,3 +72,37 @@ export async function GET(
     });
   }
 }
+
+type Issue = {
+  message: string;
+  severity: number;
+  count: number;
+};
+
+const groupIssues = (issues: ISpectralDiagnostic[]) => {
+  const groupedIssues: Issue[] = [];
+
+  issues.forEach((issue) => {
+    if (!groupedIssues.find(({ message }) => message === issue.message)) {
+      groupedIssues.push({
+        message: issue.message,
+        severity: issue.severity,
+        count: issues.filter(({ message }) => message === issue.message).length,
+      });
+    }
+  });
+
+  const formattedIssues = groupedIssues.map((issue) => ({
+    ...issue,
+    message: issue.message.replace(/`(.*?)`/g, "<code>$1</code>"),
+  }));
+
+  const sortedIssues = formattedIssues.sort(
+    (a, b) =>
+      a.severity - b.severity ||
+      b.count - a.count ||
+      a.message.localeCompare(b.message)
+  );
+
+  return sortedIssues;
+};

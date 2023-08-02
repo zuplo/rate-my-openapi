@@ -2,7 +2,7 @@
 
 import { useUploadContext } from "@/contexts/UploadContext";
 import classNames from "classnames";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 const StepContainer = ({
   children,

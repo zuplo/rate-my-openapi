@@ -24,11 +24,12 @@ const healthRoute: FastifyPluginAsync = async function (server) {
 
       try {
         const pkgJson = await fs.readFile(
-          path.resolve(__dirname, "../../package.json"),
+          path.resolve(process.cwd(), "../../package.json"),
           "utf-8"
         );
         pkg = JSON.parse(pkgJson);
       } catch (e) {
+        console.error(e);
         req.log.debug("Failed to get version info in health check");
         health = false;
       }

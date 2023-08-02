@@ -1,7 +1,7 @@
 import fastifyMultipart from "@fastify/multipart";
 import { type FastifyPluginAsync } from "fastify";
-import { inngestInstance } from "src/services/inngest.js";
 import { v4 as uuidv4 } from "uuid";
+import { inngestInstance } from "../services/inngest.js";
 import { getStorageBucketName, storage } from "../services/storage.js";
 
 const uploadRoute: FastifyPluginAsync = async function (server) {

@@ -24,7 +24,7 @@ const healthRoute: FastifyPluginAsync = async function (server) {
 
       try {
         const pkgJson = await fs.readFile(
-          path.resolve(process.cwd(), "../../package.json"),
+          path.resolve(process.cwd(), "./package.json"),
           "utf-8"
         );
         pkg = JSON.parse(pkgJson);

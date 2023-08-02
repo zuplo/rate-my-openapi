@@ -6,10 +6,10 @@ import {
 import spectralCore from "@stoplight/spectral-core";
 import SpectralParsers from "@stoplight/spectral-parsers";
 import { bundleAndLoadRuleset } from "@stoplight/spectral-ruleset-bundler/with-loader";
-import { exec } from "child_process";
 import esMain from "es-main";
 import { unlink, writeFile } from "fs/promises";
 import { load as loadYAML } from "js-yaml";
+import { exec } from "node:child_process";
 import * as fs from "node:fs";
 import { join } from "node:path";
 import util from "node:util";

@@ -1,6 +1,6 @@
 resource "google_service_account" "default" {
-  name       = "Rate My Open API (production)"
-  account_id = "rate-my-open-api"
+  display_name = "Rate My Open API (production)"
+  account_id   = "rate-my-open-api"
 }
 
 resource "google_project_iam_member" "storage_admin_sa" {

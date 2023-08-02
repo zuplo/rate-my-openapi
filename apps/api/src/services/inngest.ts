@@ -1,5 +1,5 @@
 import { Inngest } from "inngest";
-import { generateRating } from "../model/rating.js";
+import { generateRating } from "../lib/rating.js";
 
 export const inngestInstance = new Inngest({ name: "Rate My OpenAPI" });
 

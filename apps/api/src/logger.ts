@@ -6,7 +6,7 @@ import { parse as parseStack } from "stacktrace-parser";
 
 export const GOOGLE_TRACE_PROPERTY = "logging.googleapis.com/trace";
 export const GOOGLE_LABELS_PROPERTY = "logging.googleapis.com/labels";
-const PROJECT_ID = "zuplo-marketing";
+const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT_ID || "unknown";
 
 import { randomUUID } from "node:crypto";
 
@@ -288,8 +288,10 @@ export function createNewLogger(
   }
 
   if (logStream) {
+    // @ts-ignore
     return pino(loggerOptions, logStream);
   } else {
+    // @ts-ignore
     return pino(loggerOptions);
   }
 }

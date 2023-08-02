@@ -14,12 +14,7 @@ FROM dshanley/vacuum:latest AS vacuum
 # ---- Installer ----
 FROM base AS installer
 
-ARG NODE_AUTH_TOKEN
-
 WORKDIR /app
-
-RUN npm install -g npm@9
-
 
 # Add lockfile and package.json's of isolated subworkspace
 COPY .gitignore .gitignore
@@ -52,4 +47,4 @@ ENV PATH=$PATH:/app/bin
 
 USER node
 
-CMD ["node", "./apps/api/index.js"]
+CMD ["node", "./apps/api/dist/server.js"]

@@ -4,7 +4,7 @@ import {
   generateOpenApiRating,
 } from "@rate-my-openapi/core";
 import spectralCore from "@stoplight/spectral-core";
-import Parsers from "@stoplight/spectral-parsers"; // make sure to install the package if you intend to use default parsers!
+import Parsers from "@stoplight/spectral-parsers";
 import { bundleAndLoadRuleset } from "@stoplight/spectral-ruleset-bundler/with-loader";
 import spectralRuntime from "@stoplight/spectral-runtime";
 import { exec } from "child_process";

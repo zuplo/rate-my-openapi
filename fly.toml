@@ -19,3 +19,5 @@ primary_region = "cdg"
 
 [env]
   PORT = "3000"
+  GOOGLE_CLOUD_PROJECT_ID = "zuplo-marketing"
+  GOOGLE_CLOUD_STORAGE_BUCKET = "api-ratemyopeanpi-com-prod"

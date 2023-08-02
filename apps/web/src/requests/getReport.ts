@@ -1,24 +1,79 @@
+import { ISpectralDiagnostic } from "@stoplight/spectral-core";
+
 // import { type RatingOutput } from "@rate-my-openapi/core";
 type RatingOutput = any;
 
-const getReport = async (id: string): Promise<RatingOutput | undefined> => {
-  try {
-    const res = await fetch(
-      `${process.env.NODE_ENV === "development" ? "http" : "https"}://${
-        process.env.NEXT_PUBLIC_VERCEL_URL
-      }/api/report/${id}`
-    );
+type Issue = {
+  message: string;
+  severity: number;
+  count: number;
+};
 
-    if (res.status === 200) {
-      return res.json();
-    } else {
-      throw new Error("Report file not found");
+const groupIssues = (issues: ISpectralDiagnostic[]) => {
+  const groupedIssues: Issue[] = [];
+
+  issues.forEach((issue) => {
+    if (!groupedIssues.find(({ message }) => message === issue.message)) {
+      groupedIssues.push({
+        message: issue.message,
+        severity: issue.severity,
+        count: issues.filter(({ message }) => message === issue.message).length,
+      });
     }
-  } catch (e) {
-    console.error(e);
+  });
 
-    return;
+  const formattedIssues = groupedIssues.map((issue) => ({
+    ...issue,
+    message: issue.message.replace(/`(.*?)`/g, "<code>$1</code>"),
+  }));
+
+  const sortedIssues = formattedIssues.sort(
+    (a, b) =>
+      a.severity - b.severity ||
+      b.count - a.count ||
+      a.message.localeCompare(b.message)
+  );
+
+  return sortedIssues;
+};
+
+const getReport = async (id: string): Promise<RatingOutput | undefined> => {
+  const downloadUrlRequest = await fetch(
+    (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${id}`
+  );
+  const downloadUrlJson = await downloadUrlRequest.json();
+
+  const contentRequest = await fetch(downloadUrlJson.publicUrl);
+  const contentJson = await contentRequest.json();
+
+  if (!contentJson) {
+    return null;
   }
+
+  const data = (({
+    score,
+    docsScore,
+    completenessScore,
+    sdkGenerationScore,
+    securityScore,
+    docsIssues,
+    completenessIssues,
+    sdkGenerationIssues,
+    securityIssues,
+  }) => ({
+    score,
+    docsScore,
+    completenessScore,
+    sdkGenerationScore,
+    securityScore,
+    docsIssues: groupIssues(docsIssues),
+    completenessIssues: groupIssues(completenessIssues),
+    sdkGenerationIssues: groupIssues(sdkGenerationIssues),
+    securityIssues: groupIssues(securityIssues),
+    fileExtension: contentJson?.issues?.[0]?.source?.split(".").pop(),
+  }))(contentJson);
+
+  return data;
 };
 
 export default getReport;

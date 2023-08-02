@@ -1,24 +1,25 @@
-import Fastify from "fastify";
-import { createNewLogger } from "./logger";
-import healthRoute from "./routes/health";
-import uploadRoute from "./routes/upload";
-import rateRoute from "./routes/rate";
 import fastifyMultipart from "@fastify/multipart";
+import Fastify from "fastify";
+import { createNewLogger } from "./logger.js";
+import healthRoute from "./routes/health.js";
+import { inngestRoute } from "./routes/inggest/route.js";
+import uploadRoute from "./routes/upload.js";
 
 const fastify = Fastify({
   logger: createNewLogger(),
   requestIdHeader: "zp-rid",
   requestIdLogLabel: "trace",
+  bodyLimit: 10000000, // 10MB
 });
 
 async function build() {
   await fastify.register(fastifyMultipart);
   await fastify.register(healthRoute);
   await fastify.register(uploadRoute);
-  await fastify.register(rateRoute);
+  await fastify.register(inngestRoute);
 }
 
-export const start = async () => {
+const start = async () => {
   try {
     await build();
     const port = process.env.PORT ? parseInt(process.env.PORT) : 3001;
@@ -33,3 +34,14 @@ export const start = async () => {
   }
   return fastify;
 };
+
+start()
+  .then((server) => {
+    process.on("SIGTERM", () => {
+      server.close();
+    });
+    process.on("SIGINT", () => {
+      server.close();
+    });
+  })
+  .catch(console.error);

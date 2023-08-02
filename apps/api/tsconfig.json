@@ -5,6 +5,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false
   }
 }

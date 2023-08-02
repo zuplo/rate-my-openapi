@@ -3,6 +3,7 @@
   "version": "1.15.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc --build",
     "start": "node ./index.js"
@@ -20,13 +21,17 @@
     "axios": "^1.4.0",
     "child_process": "^1.0.2",
     "dotenv": "^16.3.1",
+    "es-main": "^1.2.0",
     "fastify": "^4.18.0",
-    "pino": "^8.14.1",
+    "inngest": "^2.4.0",
+    "js-yaml": "^4.1.0",
+    "pino": "^8.14.2",
     "pino-pretty": "^10.0.0",
     "stacktrace-parser": "^0.1.10",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.5",
     "@types/node": "^18.16.18",
     "@types/uuid": "^9.0.2",
     "openapi-types": "^12.1.3"

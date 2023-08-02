@@ -1,36 +1,20 @@
-FROM node:18-slim AS base
+# --- Vacuum ---
+FROM dshanley/vacuum:latest AS vacuum
 
-# ---- Builder ----
-FROM base AS builder
+FROM node:18-slim
 
 WORKDIR /app
 
 COPY . .
-RUN node ./scripts/copy-pruned-app.out.js api
 
-# --- Vacuum ---
-FROM dshanley/vacuum:latest AS vacuum
-
-# ---- Installer ----
-FROM base AS installer
-
-WORKDIR /app
-
-# Add lockfile and package.json's of isolated subworkspace
-COPY .gitignore .gitignore
-COPY --from=builder /app/out/json/ .
+RUN npm install -g npm@9
 
 # Install node dependencies
 RUN CI=true npm ci --ignore-scripts 
 
-COPY --from=builder /app/out/full/ .
-
 # Build
+RUN npm run build --workspace packages/core
 RUN npm run build --workspace apps/api
-
-# ---- Release ----
-FROM base AS runner
-WORKDIR /app
  
 # Environment
 ENV NODE_ENV=production
@@ -40,9 +24,8 @@ ENV NODE_NO_WARNINGS=1
 ENV HOST=0.0.0.0
 
 COPY --from=vacuum /vacuum ./bin/vacuum
-COPY --from=installer /app .
-
 ENV PATH=$PATH:/app/bin
+
 
 USER node
 

@@ -3,15 +3,16 @@
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import AnimatedScore from "../AnimatedScore";
+import getScoreTextColor from "@/utils/getScoreTextColor";
 
 const SVG_SIZE = 210;
 const STROKE_WIDTH = 18;
 
 const getScoreStrokeColor = (score: number) =>
   classNames({
-    "stroke-green-600": score > 66,
-    "stroke-yellow-400": score > 33 && score <= 66,
-    "stroke-red-600": score <= 33,
+    "stroke-low-light": score > 66,
+    "stroke-mid-light": score > 33 && score <= 66,
+    "stroke-high-light": score <= 33,
   });
 
 const ScoreMeter = ({ score }: { score: number }) => {
@@ -26,6 +27,7 @@ const ScoreMeter = ({ score }: { score: number }) => {
   const dash = (meterValue * circumference) / 100;
 
   const strokeColor = getScoreStrokeColor(score);
+  const textColor = getScoreTextColor(score);
 
   const halfSvgSize = SVG_SIZE / 2;
 
@@ -40,7 +42,11 @@ const ScoreMeter = ({ score }: { score: number }) => {
   return (
     <div className="relative">
       <div className="absolute flex h-full w-full items-center justify-center">
-        <AnimatedScore score={score} className="bold text-[85px]" id="main" />
+        <AnimatedScore
+          score={score}
+          className={`bold text-gradient text-[85px] ${textColor} font-plex-sans`}
+          id="main"
+        />
       </div>
 
       <svg

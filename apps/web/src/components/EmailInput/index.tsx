@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
+import { type FormEvent, useRef, useState } from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 import { useUploadContext } from "@/contexts/UploadContext";

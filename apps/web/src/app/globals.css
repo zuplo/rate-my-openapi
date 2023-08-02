@@ -34,3 +34,7 @@ button.icon-button {
 .button-transparent {
   @apply button border-transparent md:hover:border-black;
 }
+
+code {
+  @apply bg-gray-100 p-[2px];
+}

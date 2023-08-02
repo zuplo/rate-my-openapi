@@ -1,6 +1,7 @@
 import AnalyzingText from "@/components/AnalyzingText";
 import EmailInput from "@/components/EmailInput";
 import UploadInterface from "@/components/UploadInterface";
+
 import { UploadContextProvider } from "@/contexts/UploadContext";
 
 const HomePage = () => (

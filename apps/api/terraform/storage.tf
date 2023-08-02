@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "default" {
-  name     = "api-ratemyopeanpi-com-prod"
+  name     = "rate-my-open-api-prod"
   location = "US"
 }
 

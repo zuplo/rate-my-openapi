@@ -18,5 +18,8 @@ jobs:
           cache: "npm"
 
       - run: npm ci
-      - run: npm run build --workspace packages/core
       - run: npm run build
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_IO_MARKETING_API_TOKEN }}

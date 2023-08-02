@@ -9,5 +9,6 @@
     "declaration": false,
     "declarationMap": false,
     "sourceMap": false
-  }
+  },
+  "references": [{ "path": "../../packages/core" }]
 }

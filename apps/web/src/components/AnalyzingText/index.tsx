@@ -1,7 +1,7 @@
 import StepContainer from "../StepContainer";
 
 const AnalyzingText = () => (
-  <StepContainer step={1}>
+  <StepContainer step={3}>
     <p className="mx-auto mb-2 w-[160px] text-3xl after:inline-block after:w-0 after:animate-ellipsis after:overflow-hidden after:align-bottom after:content-['\2026']">
       Analyzing
     </p>

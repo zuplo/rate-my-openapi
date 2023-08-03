@@ -120,7 +120,7 @@ const UploadInterface = () => {
         ) {
           fileUrl = file;
           fileName = file.pathname.substring(
-            file.pathname.lastIndexOf("/") + 1
+            file.pathname.lastIndexOf("/") + 1,
           );
         } else {
           throw new Error("File must be JSON or YAML");
@@ -143,7 +143,7 @@ const UploadInterface = () => {
           setFile(
             new File([blob], fileName, {
               type: blob.type,
-            })
+            }),
           );
 
           setNextStep();
@@ -168,7 +168,7 @@ const UploadInterface = () => {
   const shouldShowButtons = () =>
     setShowButtons(
       !!file ||
-        !!(urlInputRef.current?.value && urlInputRef.current?.value !== "")
+        !!(urlInputRef.current?.value && urlInputRef.current?.value !== ""),
     );
 
   const onInputChange = () => {

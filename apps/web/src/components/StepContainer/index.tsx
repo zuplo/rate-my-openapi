@@ -22,7 +22,7 @@ const StepContainer = ({
           "opacity-0":
             (currentStep === step && isLoading) || currentStep !== step,
           "pointer-events-none invisible": currentStep !== step,
-        }
+        },
       )}
     >
       {children}

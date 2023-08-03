@@ -8,7 +8,8 @@ const getApiFile = async ({
   fileExtension: string;
 }): Promise<{ title: string; version: string; url: string } | undefined> => {
   const downloadUrlRequestl = await fetch(
-    (process.env.NEXT_PUBLIC_API_URL as string) + `/file/${id}.${fileExtension}`
+    (process.env.NEXT_PUBLIC_API_URL as string) +
+      `/file/${id}.${fileExtension}`,
   );
   const downloadUrlJson = await downloadUrlRequestl.json();
 

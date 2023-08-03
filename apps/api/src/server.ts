@@ -1,8 +1,10 @@
 import fastifyMultipart from "@fastify/multipart";
 import Fastify from "fastify";
 import { createNewLogger } from "./logger.js";
+import { fileRoute } from "./routes/file.js";
 import healthRoute from "./routes/health.js";
 import { inngestRoute } from "./routes/inggest/route.js";
+import { reportRoute } from "./routes/report.js";
 import uploadRoute from "./routes/upload.js";
 
 const fastify = Fastify({
@@ -17,6 +19,8 @@ async function build() {
   await fastify.register(healthRoute);
   await fastify.register(uploadRoute);
   await fastify.register(inngestRoute);
+  await fastify.register(reportRoute);
+  await fastify.register(fileRoute);
 }
 
 const start = async () => {

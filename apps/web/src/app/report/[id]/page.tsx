@@ -13,12 +13,15 @@ import ShareButton from "@/components/ShareButton";
 
 const ApiFileInfo = async ({
   id,
-  fileType,
+  fileExtension,
 }: {
   id: string;
-  fileType: string;
+  fileExtension: string;
 }) => {
-  const apiFile = await getApiFile(id, fileType);
+  const apiFile = await getApiFile({
+    id,
+    fileExtension,
+  });
 
   return (
     <>
@@ -52,7 +55,7 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
         </div>
         <div className="text-center md:pr-10">
           <Suspense>
-            <ApiFileInfo id={params.id} fileType={report.fileType} />
+            <ApiFileInfo id={params.id} fileExtension={report.fileExtension} />
           </Suspense>
         </div>
       </div>

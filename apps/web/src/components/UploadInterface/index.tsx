@@ -282,8 +282,11 @@ const UploadInterface = () => {
       </form>
       <FormError error={error} />
       {EXAMPLES.length > 0 && (
-        <div className="flex items-center">
-          <p className="mr-3 font-bold uppercase text-gray-400">Examples:</p>
+        <div className="mt-5 flex flex-col items-center">
+          <p className="m-5 text-lg text-gray-400">
+            Don&apos;t have an OpenAPI file to analyze? Check out the reports of
+            these APIs
+          </p>
           <ul className="flex flex-wrap items-center gap-3">
             {EXAMPLES.map((example) => (
               <li key={example.slug}>

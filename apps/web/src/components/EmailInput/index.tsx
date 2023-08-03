@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useRef, useState } from "react";
+import { type FormEvent, useRef, useState, useEffect } from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 import { useUploadContext } from "@/contexts/UploadContext";
@@ -22,8 +22,21 @@ const EmailInput = () => {
     setIsValid(!!(emailInput?.value && emailInput?.validity.valid));
   };
 
+  useEffect(() => {
+    const defaultValue = localStorage.getItem("lastUsedEmailAddress") || "";
+    if (emailInputRef.current) {
+      emailInputRef.current.value = defaultValue;
+      const emailInput = emailInputRef.current;
+      setIsValid(!!(emailInput?.value && emailInput?.validity.valid));
+    }
+  }, []);
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (isSubmitting) {
+      return;
+    }
 
     setIsSubmitting(true);
     setError(undefined);
@@ -40,6 +53,8 @@ const EmailInput = () => {
           body: formData,
           mode: "no-cors",
         });
+
+        localStorage.setItem("lastUsedEmailAddress", emailInput?.value);
 
         setNextStep();
       } catch (e) {
@@ -73,7 +88,7 @@ const EmailInput = () => {
           <button
             type="submit"
             className="icon-button-submit"
-            disabled={!isValid}
+            disabled={!isValid || isSubmitting}
           >
             {isSubmitting ? (
               <LoadingIndicator height={20} width={20} className="text-white" />
@@ -82,6 +97,11 @@ const EmailInput = () => {
             )}
           </button>
         </div>
+        {isSubmitting && (
+          <p className="m-5 text-lg text-gray-400">
+            Uploading your OpenAPI definition...
+          </p>
+        )}
       </form>
       <FormError error={error} />
     </StepContainer>

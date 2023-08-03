@@ -1,6 +1,7 @@
 import { EventSchemas, Inngest } from "inngest";
 import { sendFailureEmail, sendReportEmail } from "../lib/email.js";
 import { generateRating } from "../lib/rating.js";
+import { slack, slackChannelId } from "./slack.js";
 
 type FileUploaded = {
   data: {
@@ -24,9 +25,19 @@ export const generateRatingInngest = inngestInstance.createFunction(
     name: "Generate Rating For OpenAPI and Send Email",
     onFailure: async ({ error, event, step }) => {
       const originalEvent = event.data.event;
-      return await sendFailureEmail({
-        email: originalEvent.data.email,
-        reportId: originalEvent.data.id,
+
+      await step.run("Send Email", async () => {
+        return await sendFailureEmail({
+          email: originalEvent.data.email,
+          reportId: originalEvent.data.id,
+        });
+      });
+
+      await step.run("Send Slack Message", async () => {
+        return await slack.chat.postMessage({
+          channel: slackChannelId,
+          text: `Failed to generate rating for ${originalEvent.data.email} and Report ID ${originalEvent.data.id} with error: ${error.message}`,
+        });
       });
     },
   },
@@ -46,5 +57,12 @@ export const generateRatingInngest = inngestInstance.createFunction(
         reportId: event.data.id,
       });
     });
-  }
+
+    await step.run("Send Slack Message", async () => {
+      return await slack.chat.postMessage({
+        channel: slackChannelId,
+        text: `Generated rating for ${event.data.email}. Report URL: https://ratemyopenapi.com/report/${event.data.id}`,
+      });
+    });
+  },
 );

@@ -1,6 +1,5 @@
 import "./globals.css";
 
-import { Analytics } from "@vercel/analytics/react";
 import { PHProvider, PostHogPageview } from "./providers";
 import { Roboto, Roboto_Mono, IBM_Plex_Sans } from "next/font/google";
 
@@ -44,7 +43,6 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
       <body className="container mx-auto h-full bg-[#F8FAFC] text-base">
         <Header />
         {children}
-        <Analytics />
       </body>
     </PHProvider>
   </html>

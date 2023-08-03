@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.5",
-    "@types/node": "^18.16.18",
+    "@types/node": "^18.17.1",
     "@types/uuid": "^9.0.2",
     "openapi-types": "^12.1.3"
   }

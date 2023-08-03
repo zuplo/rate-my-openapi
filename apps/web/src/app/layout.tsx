@@ -5,6 +5,7 @@ import { Roboto, Roboto_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import Header from "@/components/Header";
 import { Suspense } from "react";
+import Footer from "@/components/Footer";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -43,6 +44,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
       <body className="container mx-auto h-full bg-[#F8FAFC] text-base">
         <Header />
         {children}
+        <Footer />
       </body>
     </PHProvider>
   </html>

@@ -4,14 +4,17 @@ type Props = {
   params: { id: string };
 };
 
-export function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata,
-): Metadata {
+export function generateMetadata({ params }: Props): Metadata {
   const id = params.id;
   return {
-    ...parent,
+    title: "Rate My OpenAPI",
+    description: "Upload your OpenAPI spec and we'll tell you how good it is.",
     openGraph: {
+      title: "Rate My OpenAPI",
+      description:
+        "Upload your OpenAPI spec and we'll tell you how good it is.",
+      type: "website",
+      url: `https://ratemyopenapi.com/report/${id}`,
       images: [
         {
           url: `/api/og/${id}`,

@@ -11,7 +11,7 @@ const fastify = Fastify({
   logger: createNewLogger(),
   requestIdHeader: "zp-rid",
   requestIdLogLabel: "trace",
-  bodyLimit: 10000000, // 10MB
+  bodyLimit: 30000000, // 50MB
 });
 
 async function build() {

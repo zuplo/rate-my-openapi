@@ -12,25 +12,25 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@fastify/multipart": "^7.7.0",
-    "@google-cloud/storage": "^6.11.0",
+    "@fastify/multipart": "^7.7.3",
+    "@google-cloud/storage": "^6.12.0",
     "@rate-my-openapi/core": "*",
     "@sendgrid/mail": "^7.7.0",
-    "@stoplight/spectral-core": "^1.18.2",
-    "@stoplight/spectral-parsers": "^1.0.2",
+    "@stoplight/spectral-core": "^1.18.3",
+    "@stoplight/spectral-parsers": "^1.0.3",
     "@stoplight/spectral-ruleset-bundler": "^1.5.2",
     "es-main": "^1.2.0",
-    "fastify": "^4.18.0",
+    "fastify": "^4.21.0",
     "inngest": "^2.4.0",
     "js-yaml": "^4.1.0",
     "pino": "^8.14.2",
-    "pino-pretty": "^10.0.0",
+    "pino-pretty": "^10.2.0",
     "stacktrace-parser": "^0.1.10",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.5",
-    "@types/node": "^18.17.1",
+    "@types/node": "^20.4.6",
     "@types/uuid": "^9.0.2",
     "openapi-types": "^12.1.3"
   }

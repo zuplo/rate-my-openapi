@@ -1,9 +1,10 @@
 import "./globals.css";
 
-import { Analytics } from "@vercel/analytics/react";
+import { PHProvider, PostHogPageview } from "./providers";
 import { Roboto, Roboto_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import Header from "@/components/Header";
+import { Suspense } from "react";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -35,11 +36,15 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     lang="en"
     className={`h-full ${roboto.variable} ${robotoMono.variable} ${ibmPlexSans.variable}`}
   >
-    <body className="container mx-auto h-full bg-[#F8FAFC] text-base">
-      <Header />
-      {children}
-      <Analytics />
-    </body>
+    <Suspense>
+      <PostHogPageview />
+    </Suspense>
+    <PHProvider>
+      <body className="container mx-auto h-full bg-[#F8FAFC] text-base">
+        <Header />
+        {children}
+      </body>
+    </PHProvider>
   </html>
 );
 

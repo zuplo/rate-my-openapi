@@ -73,7 +73,7 @@ const EmailInput = () => {
           <button
             type="submit"
             className="icon-button-submit"
-            disabled={isValid}
+            disabled={!isValid}
           >
             {isSubmitting ? (
               <LoadingIndicator height={20} width={20} className="text-white" />

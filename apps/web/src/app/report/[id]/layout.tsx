@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 type Props = {
   params: { id: string };
@@ -6,22 +6,32 @@ type Props = {
 
 export function generateMetadata({ params }: Props): Metadata {
   const id = params.id;
+
+  const ogiImage = `https://www.ratemyopenapi.com/api/og/${id}`;
+  const title = "Rate My OpenAPI";
+  const description =
+    "Upload your OpenAPI spec and we'll tell you how good it is.";
+  const sitename = "ratemyopenapi.com";
+
   return {
-    title: "Rate My OpenAPI",
-    description: "Upload your OpenAPI spec and we'll tell you how good it is.",
+    title,
+    description,
     openGraph: {
-      title: "Rate My OpenAPI",
-      description:
-        "Upload your OpenAPI spec and we'll tell you how good it is.",
+      title,
+      description,
       type: "website",
       url: `https://ratemyopenapi.com/report/${id}`,
-      images: [
-        {
-          url: `https://www.ratemyopenapi.com/api/og/${id}`,
-        },
-      ],
+      siteName: sitename,
+      locale: "en_US",
+
+      images: [ogiImage],
     },
-    twitter: {},
+    twitter: {
+      title,
+      description,
+      card: "summary_large_image",
+      images: [ogiImage],
+    },
   };
 }
 

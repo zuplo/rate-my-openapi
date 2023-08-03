@@ -34,7 +34,8 @@ const UploadInterface = () => {
 
   const [dragActive, setDragActive] = useState(false);
   const [error, setError] = useState<string | undefined>();
-  const [showButtons, setShowButtons] = useState(false);
+  const [isValidUrlInput, setIsValidUrlInput] = useState(false);
+  const [isLocalUpload, setIsLocalUpload] = useState(false);
 
   const onDragOver = (e: globalThis.DragEvent) => {
     e.preventDefault();
@@ -75,15 +76,9 @@ const UploadInterface = () => {
       newFile.type === "application/json" ||
       newFile.type === "application/x-yaml"
     ) {
-      setError(undefined);
-
       setFile(newFile);
-
-      if (urlInputRef.current) {
-        urlInputRef.current.value = newFile.name;
-      }
-
-      shouldShowButtons();
+      setError(undefined);
+      setIsLocalUpload(true);
     } else {
       setError("File must be JSON or YAML");
     }
@@ -157,29 +152,31 @@ const UploadInterface = () => {
 
   const onClear = () => {
     setFile(undefined);
+    setError(undefined);
+    setIsLocalUpload(false);
 
     if (urlInputRef.current) {
       urlInputRef.current.value = "";
     }
 
-    setShowButtons(false);
+    setIsValidUrlInput(false);
   };
-
-  const shouldShowButtons = () =>
-    setShowButtons(
-      !!file ||
-        !!(urlInputRef.current?.value && urlInputRef.current?.value !== ""),
-    );
 
   const onInputChange = () => {
     setError(undefined);
-    shouldShowButtons();
+
+    const isValid =
+      urlInputRef.current?.value &&
+      urlInputRef.current?.value !== "" &&
+      urlInputRef.current?.validity.valid;
+
+    setIsValidUrlInput(!!isValid);
   };
 
   return (
     <StepContainer step={1}>
       {dragActive && (
-        <div className="absolute left-0 top-0 z-10 h-full w-full px-[10%] py-[30%]">
+        <div className="absolute left-0 top-0 z-10 h-full w-full px-[10%] py-[30%] md:py-[10%]">
           <div className="flex h-full w-full items-center justify-center rounded-lg border-4 border-dashed border-blue-400 bg-[#F8FAFC]/50 backdrop-blur-[1px]">
             <div className="w-full max-w-[240px] rounded-lg bg-white px-5 py-10 text-center shadow-md">
               <DocumentIcon
@@ -199,7 +196,7 @@ const UploadInterface = () => {
         </div>
       )}
 
-      <p className="mx-auto mb-16 max-w-lg text-center text-xl text-gray-600">
+      <p className="mx-auto mb-6 max-w-lg text-center text-xl text-gray-600 md:mb-16">
         Drop your spec file, paste a URL to it or paste your whole spec into the
         form below and we’ll analyse it.
       </p>
@@ -213,10 +210,29 @@ const UploadInterface = () => {
           ref={urlInputRef}
           onChange={onInputChange}
           className="w-full border-none bg-transparent pr-3 text-lg outline-none"
-          placeholder="Drop your OpenAPI file or enter your OpenAPI file URL here"
+          placeholder={
+            !isLocalUpload
+              ? "Drop your OpenAPI file or enter your OpenAPI file URL here"
+              : ""
+          }
           aria-label="Enter OpenAPI file URL here"
           disabled={!!file}
         />
+
+        {isLocalUpload && (
+          <button
+            onClick={onClear}
+            className="absolute flex items-center rounded-lg bg-gray-200 p-2 text-lg hover:bg-gray-300"
+          >
+            <DocumentIcon
+              height={24}
+              width={24}
+              className="mr-1 text-gray-900"
+            />
+            <span>{file?.name}</span>
+            <XMarkIcon height={24} width={24} className="ml-3 text-gray-900" />
+          </button>
+        )}
 
         <input
           ref={fileInputRef}
@@ -226,8 +242,9 @@ const UploadInterface = () => {
           name="drag-upload"
           accept=".json,.yaml,.yml"
         />
+
         <div className="flex h-[44px]">
-          {!file && (
+          {!isLocalUpload && !file && !isValidUrlInput && (
             <button
               onClick={onLocalFileUploadClick}
               className="mr-2 whitespace-nowrap rounded-lg border border-gray-500 bg-transparent px-3 py-2 text-gray-500 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white"
@@ -235,16 +252,17 @@ const UploadInterface = () => {
               Select a file
             </button>
           )}
-          {file && (
-            <button className="icon-button mr-2 bg-gray-500" onClick={onClear}>
-              <XMarkIcon height={24} width={24} className="text-white" />
+
+          {isValidUrlInput && (
+            <button className="icon-button mr-2 bg-gray-200" onClick={onClear}>
+              <XMarkIcon height={24} width={24} className="text-gray-500" />
             </button>
           )}
 
           <button
             type="submit"
-            className="icon-button bg-gray-900 disabled:cursor-not-allowed disabled:bg-gray-300"
-            disabled={!showButtons}
+            className="icon-button-submit"
+            disabled={isLocalUpload ? !file : !isValidUrlInput}
           >
             <ChevronRightIcon height={24} width={24} className="text-white" />
           </button>

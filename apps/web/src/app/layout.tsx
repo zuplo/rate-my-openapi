@@ -5,6 +5,7 @@ import { Roboto, Roboto_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import Header from "@/components/Header";
 import { Suspense } from "react";
+import Footer from "@/components/Footer";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -34,15 +35,16 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html
     lang="en"
-    className={`h-full ${roboto.variable} ${robotoMono.variable} ${ibmPlexSans.variable}`}
+    className={`h-screen ${roboto.variable} ${robotoMono.variable} ${ibmPlexSans.variable}`}
   >
     <Suspense>
       <PostHogPageview />
     </Suspense>
     <PHProvider>
-      <body className="container mx-auto h-full bg-[#F8FAFC] text-base">
+      <body className="container mx-auto flex h-full flex-col justify-between bg-[#F8FAFC] text-base">
         <Header />
         {children}
+        <Footer />
       </body>
     </PHProvider>
   </html>

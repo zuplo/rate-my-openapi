@@ -19,7 +19,7 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 const ReportLayout = ({ children }: { children: React.ReactNode }) => (
-  <main className="pb-8 pt-[90px] md:pt-[136px]">{children}</main>
+  <main className="pb-8">{children}</main>
 );
 
 export default ReportLayout;

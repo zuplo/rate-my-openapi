@@ -79,6 +79,15 @@ export const generateRatingInngest = inngestInstance.createFunction(
       });
     });
 
+    await step.run("Generate and cache OG image", async () => {
+      const result = await fetch(
+        "https://ratemyopenapi.com/api/og/" + event.data.id,
+      );
+      return {
+        status: result.status,
+      };
+    });
+
     await step.run("Send Slack Message", async () => {
       return await slack.chat.postMessage({
         channel: slackChannelId,

@@ -42,6 +42,10 @@ const getReport = async (id: string): Promise<RatingOutput | undefined> => {
     (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${id}`,
   );
 
+  if (downloadUrlRequest.status !== 200) {
+    return null;
+  }
+
   const downloadUrlJson = await downloadUrlRequest.json();
 
   const contentRequest = await fetch(downloadUrlJson.publicUrl);

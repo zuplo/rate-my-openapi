@@ -95,7 +95,7 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
           />
         )}
       </div>
-      <div className="flex w-full flex-col md:flex-row md:items-center md:justify-center">
+      <div className="mb-10 flex w-full flex-col md:flex-row md:items-center md:justify-center">
         <ShareButton className="mb-4 md:mb-0 md:mr-4" />
         <Link href="/" className="button-light">
           Rate your OpenAPI spec

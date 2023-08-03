@@ -21,9 +21,9 @@ const getApiFile = async ({
       : load(await contentRequest.text());
 
   return {
-    title: contentsJson.info.title,
-    version: contentsJson.info.version,
-    url: downloadUrlJson.publicUrl,
+    title: contentsJson?.info?.title,
+    version: contentsJson?.info?.version,
+    url: downloadUrlJson?.publicUrl,
   };
 };
 

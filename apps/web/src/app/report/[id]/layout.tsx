@@ -1,17 +1,20 @@
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   params: { id: string };
 };
 
-export function generateMetadata({ params }: Props): Metadata {
+export function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Metadata {
   const id = params.id;
   return {
-    title: "Report - Rate My OpenAPI",
+    ...parent,
     openGraph: {
       images: [
         {
-          url: `https://ratemyopenapi.com/api/og/${id}`,
+          url: `/api/og/${id}`,
         },
       ],
     },
@@ -19,7 +22,7 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 const ReportLayout = ({ children }: { children: React.ReactNode }) => (
-  <main className="pb-8 pt-[90px] md:pt-[136px]">{children}</main>
+  <main className="pb-8">{children}</main>
 );
 
 export default ReportLayout;

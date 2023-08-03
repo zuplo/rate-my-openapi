@@ -2,6 +2,7 @@ import { EventSchemas, Inngest } from "inngest";
 import { sendFailureEmail, sendReportEmail } from "../lib/email.js";
 import { generateRating } from "../lib/rating.js";
 import { slack, slackChannelId } from "./slack.js";
+import { posthog } from "./posthog.js";
 
 type FileUploaded = {
   data: {
@@ -26,7 +27,7 @@ export const generateRatingInngest = inngestInstance.createFunction(
     onFailure: async ({ error, event, step }) => {
       const originalEvent = event.data.event;
 
-      await step.run("Send Email", async () => {
+      await step.run("Send Email to user", async () => {
         return await sendFailureEmail({
           email: originalEvent.data.email,
           reportId: originalEvent.data.id,
@@ -39,10 +40,30 @@ export const generateRatingInngest = inngestInstance.createFunction(
           text: `Failed to generate rating for ${originalEvent.data.email} and Report ID ${originalEvent.data.id} with error: ${error.message}`,
         });
       });
+
+      await step.run("Trigger failure event", async () => {
+        return await posthog.capture({
+          distinctId: originalEvent.data.email,
+          properties: {
+            reportId: originalEvent.data.id,
+          },
+          event: "report_generated_failed",
+        });
+      });
     },
   },
   { event: "api/file.uploaded" },
   async ({ event, step }) => {
+    await step.run("Trigger upload event", async () => {
+      return await posthog.capture({
+        distinctId: event.data.email,
+        properties: {
+          reportId: event.data.id,
+        },
+        event: "report_uploaded",
+      });
+    });
+
     await step.run("Generate Rating", async () => {
       return await generateRating({
         id: event.data.id,
@@ -62,6 +83,16 @@ export const generateRatingInngest = inngestInstance.createFunction(
       return await slack.chat.postMessage({
         channel: slackChannelId,
         text: `Generated rating for ${event.data.email}. Report URL: https://ratemyopenapi.com/report/${event.data.id}`,
+      });
+    });
+
+    await step.run("Trigger successful event", async () => {
+      return await posthog.capture({
+        distinctId: event.data.email,
+        properties: {
+          reportId: event.data.id,
+        },
+        event: "report_generated_successfully",
       });
     });
   },

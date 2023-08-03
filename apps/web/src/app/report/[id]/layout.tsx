@@ -7,11 +7,12 @@ type Props = {
 export function generateMetadata({ params }: Props): Metadata {
   const id = params.id;
   return {
+    metadataBase: new URL("https://ratemyopenapi.com"),
     title: "Report - Rate My OpenAPI",
     openGraph: {
       images: [
         {
-          url: `https://ratemyopenapi.com/api/og/${id}`,
+          url: `/api/og/${id}`,
         },
       ],
     },

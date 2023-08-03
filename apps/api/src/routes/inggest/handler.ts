@@ -1,3 +1,8 @@
+// This file has been copied from the ongoing PR to add Fastify support
+// https://github.com/inngest/inngest-js/pull/202
+// We will remove this file once the PR is merged and a new version of the
+// inngest package is released.
+
 import { type FastifyReply, type FastifyRequest } from "fastify";
 import { InngestCommHandler, type ServeHandler } from "inngest";
 

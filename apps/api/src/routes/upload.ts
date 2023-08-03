@@ -71,7 +71,7 @@ const parseMultipartUpload = async (
       const nonValidatedFileExtension = part.filename.split(".").pop();
       fileExtension = validateFileExtension(nonValidatedFileExtension);
     } else if (part.type === "field" && part.fieldname === "emailAddress") {
-      email = part.value;
+      email = part.value as string;
     }
   }
 

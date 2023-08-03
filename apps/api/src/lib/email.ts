@@ -31,6 +31,34 @@ export const sendReportEmail = async ({
   }
 };
 
+export const sendFailureEmail = async ({
+  email,
+  reportId,
+}: {
+  email: string;
+  reportId: string;
+}) => {
+  const msg = {
+    to: email,
+    from: "hello@ratemyopenapi.com",
+    subject: "We could not generate your report",
+    text: `We could not generate your report. There was an issue with your OpenAPI file.`,
+    html: "We could not generate your report. There was an issue with your OpenAPI file.",
+  };
+
+  try {
+    const emailSend = await sgMail.send(msg);
+
+    return {
+      statusCode: emailSend[0].statusCode,
+      headers: emailSend[0].headers,
+    };
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};
+
 // Run this without needing to run the entire app
 // `node dist/services/sendgrid.js <email> <reportId>`
 if (esMain(import.meta))

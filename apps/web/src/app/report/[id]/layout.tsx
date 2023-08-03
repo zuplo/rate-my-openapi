@@ -17,10 +17,11 @@ export function generateMetadata({ params }: Props): Metadata {
       url: `https://ratemyopenapi.com/report/${id}`,
       images: [
         {
-          url: `/api/og/${id}`,
+          url: `https://www.ratemyopenapi.com/api/og/${id}`,
         },
       ],
     },
+    twitter: {},
   };
 }
 

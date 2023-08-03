@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useRef, useState } from "react";
+import { type FormEvent, useRef, useState, useEffect } from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 import { useUploadContext } from "@/contexts/UploadContext";
@@ -21,6 +21,15 @@ const EmailInput = () => {
     const emailInput = emailInputRef.current;
     setIsValid(!!(emailInput?.value && emailInput?.validity.valid));
   };
+
+  useEffect(() => {
+    const defaultValue = localStorage.getItem("lastUsedEmailAddress") || "";
+    if (emailInputRef.current) {
+      emailInputRef.current.value = defaultValue;
+      const emailInput = emailInputRef.current;
+      setIsValid(!!(emailInput?.value && emailInput?.validity.valid));
+    }
+  }, []);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -44,6 +53,8 @@ const EmailInput = () => {
           body: formData,
           mode: "no-cors",
         });
+
+        localStorage.setItem("lastUsedEmailAddress", emailInput?.value);
 
         setNextStep();
       } catch (e) {

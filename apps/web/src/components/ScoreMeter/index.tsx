@@ -1,7 +1,4 @@
-"use client";
-
 import classNames from "classnames";
-import { useEffect, useState } from "react";
 import AnimatedScore from "../AnimatedScore";
 import getScoreTextColor from "@/utils/getScoreTextColor";
 
@@ -16,15 +13,9 @@ const getScoreStrokeColor = (score: number) =>
   });
 
 const ScoreMeter = ({ score }: { score: number }) => {
-  const [meterValue, setMeterValue] = useState(0);
-
-  useEffect(() => {
-    setMeterValue(score);
-  }, [score]);
-
   const radius = (SVG_SIZE - STROKE_WIDTH) / 2;
   const circumference = radius * Math.PI * 2;
-  const dash = (meterValue * circumference) / 100;
+  const dash = (score * circumference) / 100;
 
   const strokeColor = getScoreStrokeColor(score);
   const textColor = getScoreTextColor(score);

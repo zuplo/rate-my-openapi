@@ -1,5 +1,5 @@
 import { Inngest } from "inngest";
-import { sendReportEmail } from "src/lib/email.js";
+import { sendReportEmail } from "../lib/email.js";
 import { generateRating } from "../lib/rating.js";
 
 export const inngestInstance = new Inngest({ name: "Rate My OpenAPI" });

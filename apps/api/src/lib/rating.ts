@@ -35,7 +35,11 @@ export const generateRating = async ({
 
   const contentString = file.toString();
 
-  const report = await getReport(contentString, fileName, id);
+  const report = await getReport({
+    content: contentString,
+    fileExtension: fileExtension,
+    id,
+  });
 
   if (!report) {
     throw new Error(`Could not generate report for file ${fileName}`);
@@ -52,8 +56,16 @@ export const generateRating = async ({
   };
 };
 
-const getReport = async (content: string, fileType: string, id: string) => {
-  const tempApiFilePath = `/tmp/${id}.${fileType}`;
+const getReport = async ({
+  content,
+  fileExtension,
+  id,
+}: {
+  content: string;
+  fileExtension: string;
+  id: string;
+}) => {
+  const tempApiFilePath = `/tmp/${id}.${fileExtension}`;
 
   try {
     await writeFile(tempApiFilePath, Buffer.from(content));
@@ -66,10 +78,14 @@ const getReport = async (content: string, fileType: string, id: string) => {
 
   let vacuumCliReport;
   try {
-    const { stdout, stderr } = await execAwait(
-      `vacuum spectral-report -r ${rulesetPath} -o ${tempApiFilePath}`,
-      { maxBuffer: undefined }
-    );
+    const vacuumCommand =
+      `vacuum spectral-report -r ${rulesetPath} -o ${tempApiFilePath}`.replace(
+        /\n/g,
+        ""
+      );
+    const { stdout, stderr } = await execAwait(vacuumCommand, {
+      maxBuffer: undefined,
+    });
 
     if (stderr) {
       throw new Error(stderr);
@@ -95,7 +111,7 @@ const getReport = async (content: string, fileType: string, id: string) => {
   let spectralOutputReport;
   try {
     const parser =
-      fileType === "json" ? SpectralParsers.Json : SpectralParsers.Yaml;
+      fileExtension === "json" ? SpectralParsers.Json : SpectralParsers.Yaml;
 
     const openApiSpectralDoc = new Document(
       content,
@@ -133,7 +149,7 @@ const getReport = async (content: string, fileType: string, id: string) => {
     : initialOutputReport;
 
   const outputContent =
-    fileType === "json"
+    fileExtension === "json"
       ? JSON.parse(content)
       : loadYAML(content, { json: true });
 
@@ -160,11 +176,17 @@ if (esMain(import.meta)) {
       throw new Error("File ID and file extension are required");
     }
 
-    const result = await generateRating({
-      email: "aabedraba@gmail.com",
-      id: fileId,
-      fileExtension,
-    });
-    console.log(result);
+    try {
+      const result = await generateRating({
+        email: "aabedraba@gmail.com",
+        id: fileId,
+        fileExtension,
+      });
+
+      console.log(result);
+    } catch (e) {
+      console.error(e);
+      process.exit(1);
+    }
   })();
 }

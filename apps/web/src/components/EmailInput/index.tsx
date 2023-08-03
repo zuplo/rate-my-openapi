@@ -86,6 +86,11 @@ const EmailInput = () => {
             )}
           </button>
         </div>
+        {isSubmitting && (
+          <p className="m-5 text-lg text-gray-400">
+            Uploading your OpenAPI definition...
+          </p>
+        )}
       </form>
       <FormError error={error} />
     </StepContainer>

@@ -25,6 +25,10 @@ const EmailInput = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (isSubmitting) {
+      return;
+    }
+
     setIsSubmitting(true);
     setError(undefined);
 
@@ -73,7 +77,7 @@ const EmailInput = () => {
           <button
             type="submit"
             className="icon-button-submit"
-            disabled={!isValid}
+            disabled={!isValid || isSubmitting}
           >
             {isSubmitting ? (
               <LoadingIndicator height={20} width={20} className="text-white" />

@@ -20,10 +20,22 @@ import StepContainer from "../StepContainer";
 import FormError from "../FormError";
 
 const EXAMPLES: { title: string; slug: string }[] = [
-  // {
-  //   title: "Lorem",
-  //   slug: "lorem",
-  // },
+  {
+    title: "Stripe",
+    slug: "9dda3db0-ed13-4563-a144-835d550f63ad",
+  },
+  {
+    title: "GitHub",
+    slug: "7f898483-ba2b-4b17-8278-fc241a6a5c0d",
+  },
+  {
+    title: "Zuplo",
+    slug: "934bc050-9590-4496-9433-73deeec452ff",
+  },
+  {
+    title: "Spotify",
+    slug: "6fab0561-259a-47c0-b21a-16c02b19fede",
+  },
 ];
 
 const UploadInterface = () => {

@@ -2,10 +2,10 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bottom-0 left-0 right-0">
+    <footer className="relative bottom-0 left-0 right-0">
       <div className="sm:p-2 container mx-auto flex items-center justify-between border-t p-5 text-lg text-gray-500 md:text-xl">
         <div>
-          Create with ❤️ by{" "}
+          Created with ❤️ by{" "}
           <a
             href="https://zuplo.com/"
             target="_blank"

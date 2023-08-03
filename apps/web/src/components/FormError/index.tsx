@@ -7,7 +7,7 @@ const FormError = ({ error }: { error?: string }) => (
       {
         "h-[16px]": !!error,
         "h-0": !error,
-      }
+      },
     )}
   >
     {error}

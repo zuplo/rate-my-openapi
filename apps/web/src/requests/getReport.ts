@@ -31,7 +31,7 @@ const groupIssues = (issues: ISpectralDiagnostic[]) => {
     (a, b) =>
       a.severity - b.severity ||
       b.count - a.count ||
-      a.message.localeCompare(b.message)
+      a.message.localeCompare(b.message),
   );
 
   return sortedIssues;
@@ -39,7 +39,7 @@ const groupIssues = (issues: ISpectralDiagnostic[]) => {
 
 const getReport = async (id: string): Promise<RatingOutput | undefined> => {
   const downloadUrlRequest = await fetch(
-    (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${id}`
+    (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${id}`,
   );
   const downloadUrlJson = await downloadUrlRequest.json();
 

@@ -67,7 +67,7 @@ const ScoreDetailsSection = ({
             {issues
               .slice(
                 0,
-                page ? PAGE_LENGTH * page + INITIAL_LENGTH : INITIAL_LENGTH
+                page ? PAGE_LENGTH * page + INITIAL_LENGTH : INITIAL_LENGTH,
               )
               .map((issue, index: number) => (
                 <tr
@@ -76,7 +76,7 @@ const ScoreDetailsSection = ({
                 >
                   <td
                     className={`text-gradient font-bold uppercase ${getSeverityTextColor(
-                      issue.severity
+                      issue.severity,
                     )}`}
                   >
                     {SEVERITY_LEVEL_MAP[issue.severity]}

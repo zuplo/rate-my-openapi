@@ -6,6 +6,7 @@ import { Roboto, Roboto_Mono, IBM_Plex_Sans } from "next/font/google";
 import Header from "@/components/Header";
 import { Suspense } from "react";
 import Footer from "@/components/Footer";
+import { Metadata } from "next";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -28,8 +29,9 @@ const ibmPlexSans = IBM_Plex_Sans({
   variable: "--font-plex-sans",
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Rate My OpenAPI",
+  description: "Upload your OpenAPI spec and we'll tell you how good it is.",
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (

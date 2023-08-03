@@ -1,14 +1,16 @@
-import { Metadata } from "next";
+import { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
   params: { id: string };
 };
 
-export function generateMetadata({ params }: Props): Metadata {
+export function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Metadata {
   const id = params.id;
   return {
-    metadataBase: new URL("https://ratemyopenapi.com"),
-    title: "Report - Rate My OpenAPI",
+    ...parent,
     openGraph: {
       images: [
         {

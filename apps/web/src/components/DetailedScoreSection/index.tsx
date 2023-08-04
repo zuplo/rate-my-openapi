@@ -24,10 +24,10 @@ const SEVERITY_LEVEL_MAP: Record<number, string> = {
 
 const getSeverityTextColor = (severity: number) =>
   classNames({
-    "to-critical-light from-critical-dark": severity === 0,
-    "to-high-light from-high-dark": severity === 1,
-    "to-mid-light from-mid-dark": severity === 2,
-    "to-low-light from-low-dark": severity === 3,
+    "text-black": severity === 0,
+    "text-red-500": severity === 1,
+    "text-yellow-500": severity === 2,
+    "text-green-500": severity === 3,
   });
 
 const ScoreDetailsSection = ({
@@ -47,9 +47,9 @@ const ScoreDetailsSection = ({
 
   return (
     <div className="mb-10 flex flex-col	overflow-hidden rounded-lg bg-white p-8 shadow-md md:flex-row md:items-start md:p-10 md:pl-0">
-      <div className="mb-6 flex basis-1/4 flex-col items-center justify-center md:mb-0 md:mt-12">
+      <div className="mb-6 flex basis-1/4 flex-col items-center justify-center md:mb-0">
         <h3
-          className={`text-gradient mb-6 font-roboto-mono text-xl font-bold uppercase ${scoreTextColor}`}
+          className={`mb-6 font-roboto-mono text-xl font-bold uppercase ${scoreTextColor}`}
         >
           {title}
         </h3>
@@ -75,7 +75,7 @@ const ScoreDetailsSection = ({
                   key={`${titleSlug}-table-row-${index}`}
                 >
                   <td
-                    className={`text-gradient font-bold uppercase ${getSeverityTextColor(
+                    className={`font-bold uppercase ${getSeverityTextColor(
                       issue.severity,
                     )}`}
                   >
@@ -104,7 +104,7 @@ const ScoreDetailsSection = ({
             {issueCount > PAGE_LENGTH + INITIAL_LENGTH && (
               <button
                 onClick={() => setPage(page + 1)}
-                className="button-dark mb-4 md:mb-0 md:mr-4"
+                className="button-light mb-4 md:mb-0 md:mr-4"
               >
                 Show {PAGE_LENGTH} more
               </button>

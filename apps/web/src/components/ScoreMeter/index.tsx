@@ -1,15 +1,21 @@
 import classNames from "classnames";
 import AnimatedScore from "../AnimatedScore";
-import getScoreTextColor from "@/utils/getScoreTextColor";
 
 const SVG_SIZE = 210;
 const STROKE_WIDTH = 18;
 
 const getScoreStrokeColor = (score: number) =>
   classNames({
-    "stroke-low-light": score > 66,
-    "stroke-mid-light": score > 33 && score <= 66,
-    "stroke-high-light": score <= 33,
+    "stroke-green-500": score > 66,
+    "stroke-yellow-500": score > 33 && score <= 66,
+    "stroke-red-500": score <= 33,
+  });
+
+const getScoreTextColor = (score: number) =>
+  classNames({
+    "bg-green-500": score > 66,
+    "bg-yellow-500": score > 33 && score <= 66,
+    "bg-red-500": score <= 33,
   });
 
 const ScoreMeter = ({ score }: { score: number }) => {
@@ -35,7 +41,7 @@ const ScoreMeter = ({ score }: { score: number }) => {
       <div className="absolute flex h-full w-full items-center justify-center">
         <AnimatedScore
           score={score}
-          className={`bold text-gradient text-[85px] ${textColor} font-plex-sans`}
+          className={`bold text-gradient ${textColor} font-plex-sans text-[85px]`}
           id="main"
         />
       </div>

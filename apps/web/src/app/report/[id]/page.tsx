@@ -10,6 +10,7 @@ import { Suspense } from "react";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import ShareButton from "@/components/ShareButton";
+import { RatingExamples } from "@/components/RatingExamples";
 
 const ApiFileInfo = async ({
   id,
@@ -95,12 +96,15 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
           />
         )}
       </div>
-      <div className="mb-10 flex w-full flex-col md:flex-row md:items-center md:justify-center">
+      <div className="mb-10 mt-20 flex w-full flex-col md:flex-row md:items-center md:justify-center">
         <ShareButton className="mb-4 md:mb-0 md:mr-4" />
         <Link href="/" className="button-light">
-          Rate your OpenAPI spec
+          Rate another OpenAPI spec
         </Link>
       </div>
+      <RatingExamples>
+        <p className="m-5 text-lg text-gray-400">See how other APIs scored</p>
+      </RatingExamples>
     </>
   );
 };

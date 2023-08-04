@@ -18,25 +18,7 @@ import { useUploadContext } from "@/contexts/UploadContext";
 
 import StepContainer from "../StepContainer";
 import FormError from "../FormError";
-
-const EXAMPLES: { title: string; slug: string }[] = [
-  {
-    title: "Stripe",
-    slug: "9dda3db0-ed13-4563-a144-835d550f63ad",
-  },
-  {
-    title: "GitHub",
-    slug: "7f898483-ba2b-4b17-8278-fc241a6a5c0d",
-  },
-  {
-    title: "Zuplo",
-    slug: "934bc050-9590-4496-9433-73deeec452ff",
-  },
-  {
-    title: "Spotify",
-    slug: "6fab0561-259a-47c0-b21a-16c02b19fede",
-  },
-];
+import { RatingExamples } from "../RatingExamples";
 
 const UploadInterface = () => {
   const { setNextStep, setFile, file } = useUploadContext();
@@ -207,8 +189,8 @@ const UploadInterface = () => {
       )}
 
       <p className="mx-auto mb-6 max-w-lg text-center text-xl text-gray-600 md:mb-16">
-        Drop your spec file, paste a URL to it or paste your whole spec into the
-        form below and we’ll analyse it.
+        Drop your OpenAPI definition or paste a URL into the form below and get
+        a score on your API&apos;s quality.
       </p>
       <form
         className="relative flex w-full rounded-lg border border-gray-200 bg-white p-4 shadow-md"
@@ -279,26 +261,12 @@ const UploadInterface = () => {
         </div>
       </form>
       <FormError error={error} />
-      {EXAMPLES.length > 0 && (
-        <div className="mt-5 flex flex-col items-center">
-          <p className="m-5 text-lg text-gray-400">
-            Don&apos;t have an OpenAPI file to analyze? Check out the reports of
-            these APIs
-          </p>
-          <ul className="flex flex-wrap items-center gap-3">
-            {EXAMPLES.map((example) => (
-              <li key={example.slug}>
-                <Link
-                  className="block rounded-lg bg-gray-200 p-2 font-medium text-gray-600 transition-colors hover:bg-gray-900 hover:text-white"
-                  href={`/report/${example.slug}`}
-                >
-                  {example.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
+      <RatingExamples>
+        <div className="m-5 text-center text-lg text-gray-400">
+          <p>Don&apos;t have an OpenAPI file to analyze?</p>
+          <p> Check out the reports of other APIs</p>
         </div>
-      )}
+      </RatingExamples>
     </StepContainer>
   );
 };

@@ -1,5 +1,9 @@
 import { type FastifyPluginAsync } from "fastify";
 import { getStorageBucketName, storage } from "../services/storage.js";
+import {
+  logAndReplyInternalError,
+  successJsonReply,
+} from "../helpers/reply.js";
 
 export const reportRoute: FastifyPluginAsync = async function (server) {
   server.route({
@@ -25,15 +29,19 @@ export const reportRoute: FastifyPluginAsync = async function (server) {
     handler: async (request, reply) => {
       const { id } = request.params as { id: string };
 
-      const publicUrl = await storage
-        .bucket(getStorageBucketName())
-        .file(`${id}-report.json`)
-        .getSignedUrl({
-          action: "read",
-          expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 day
-        });
+      try {
+        const publicUrl = await storage
+          .bucket(getStorageBucketName())
+          .file(`${id}-report.json`)
+          .getSignedUrl({
+            action: "read",
+            expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 day
+          });
 
-      reply.send({ publicUrl });
+        return successJsonReply({ publicUrl }, reply);
+      } catch (e) {
+        return logAndReplyInternalError(e, request, reply);
+      }
     },
   });
 };

@@ -3,6 +3,12 @@ import { type FastifyPluginAsync } from "fastify";
 import { v4 as uuidv4 } from "uuid";
 import { inngestInstance } from "../services/inngest.js";
 import { getStorageBucketName, storage } from "../services/storage.js";
+import { Result, Ok, Err } from "ts-results-es";
+import {
+  logAndReplyError,
+  logAndReplyInternalError,
+  successJsonReply,
+} from "../helpers/reply.js";
 
 const uploadRoute: FastifyPluginAsync = async function (server) {
   server.route({
@@ -22,78 +28,97 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
       const parts = request.parts();
       const parseResult = await parseMultipartUpload(parts);
 
-      if (!parseResult) {
-        return reply
-          .code(400)
-          .header("Content-Type", "application/json; charset=utf-8")
-          .send({ message: "Invalid request body" });
+      if (parseResult.err) {
+        return logAndReplyError(parseResult.val, request, reply);
       }
 
+      // upload to google cloud storage
+      const uuid = uuidv4();
       try {
-        const uuid = uuidv4();
-        const fileContents = Buffer.from(parseResult.file).toString();
-        const fileName = `${uuid}.${parseResult.fileExtension}`;
+        const fileContents = Buffer.from(parseResult.val.file).toString();
+        const fileName = `${uuid}.${parseResult.val.fileExtension}`;
 
         await storage
           .bucket(getStorageBucketName())
           .file(fileName)
           .save(fileContents);
+      } catch (e) {
+        return logAndReplyInternalError(e, request, reply);
+      }
 
+      try {
         await inngestInstance.send({
           name: "api/file.uploaded",
           data: {
             id: uuid,
-            email: parseResult.email,
-            fileExtension: parseResult.fileExtension,
+            email: parseResult.val.email,
+            fileExtension: parseResult.val.fileExtension,
           },
         });
 
-        return reply
-          .code(200)
-          .header("Content-Type", "application/json; charset=utf-8")
-          .send({ id: uuid });
+        return successJsonReply({ id: uuid }, reply);
       } catch (e) {
-        throw new Error(e);
+        return logAndReplyInternalError(e, request, reply);
       }
     },
   });
 };
 
+type ParseMultipartUploadResult = {
+  file: Buffer;
+  email: string;
+  fileExtension: string;
+};
+
 const parseMultipartUpload = async (
-  parts: AsyncIterableIterator<fastifyMultipart.Multipart>
-) => {
+  parts: AsyncIterableIterator<fastifyMultipart.Multipart>,
+): Promise<Result<ParseMultipartUploadResult, UserErrorResult>> => {
   let file;
   let email;
-  let fileExtension;
+  let fileExtensionResult;
   for await (const part of parts) {
     if (part.type === "file" && part.fieldname === "apiFile") {
       file = await part.toBuffer();
       const nonValidatedFileExtension = part.filename.split(".").pop();
-      fileExtension = validateFileExtension(nonValidatedFileExtension);
+      fileExtensionResult = validateFileExtension(nonValidatedFileExtension);
     } else if (part.type === "field" && part.fieldname === "emailAddress") {
       email = part.value as string;
     }
   }
 
-  if (!file || !email || !fileExtension) {
-    return null;
+  if (!file || !email || !fileExtensionResult) {
+    return Err({
+      userMessage: "Invalid request body",
+      debugMessage: "Invalid request body",
+      statusCode: 400,
+    });
   }
 
-  return {
+  if (fileExtensionResult.err) {
+    return fileExtensionResult;
+  }
+
+  return Ok({
     file,
     email,
-    fileExtension,
-  };
+    fileExtension: fileExtensionResult.val,
+  });
 };
 
-const validateFileExtension = (fileExtension: string | undefined) => {
+const validateFileExtension = (
+  fileExtension: string | undefined,
+): Result<"yaml" | "json", UserErrorResult> => {
   switch (fileExtension) {
     case "yaml":
-      return "yaml";
+      return Ok("yaml");
     case "json":
-      return "json";
+      return Ok("json");
     default:
-      throw new Error("Invalid file extension");
+      return Err({
+        userMessage: "Invalid file extension",
+        debugMessage: "Invalid file extension",
+        statusCode: 400,
+      });
   }
 };
 

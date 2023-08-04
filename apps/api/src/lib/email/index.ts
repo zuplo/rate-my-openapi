@@ -1,7 +1,16 @@
 import sgMail from "@sendgrid/mail";
 import esMain from "es-main";
 import { getSuccesfulEmailHtml } from "./succesfull-email.js";
+import { Err, Ok, Result } from "ts-results-es";
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
+
+type SendEmailResult = {
+  statusCode: number;
+  headers: {
+    [key: string]: string;
+  };
+};
 
 export const sendReportEmail = async ({
   email,
@@ -9,7 +18,7 @@ export const sendReportEmail = async ({
 }: {
   email: string;
   reportId: string;
-}) => {
+}): Promise<Result<SendEmailResult, GenericErrorResult>> => {
   const msg = {
     to: email,
     from: "hello@ratemyopenapi.com",
@@ -23,23 +32,29 @@ export const sendReportEmail = async ({
   try {
     const emailSend = await sgMail.send(msg);
 
-    return {
+    return Ok({
       statusCode: emailSend[0].statusCode,
       headers: emailSend[0].headers,
-    };
-  } catch (e) {
-    console.log(e);
-    return null;
+    });
+  } catch (err) {
+    return Err({
+      error: `Could not send email to ${email}: ${err}`,
+    });
   }
+};
+
+type SendFailureEmailResult = {
+  statusCode: number;
+  headers: {
+    [key: string]: string;
+  };
 };
 
 export const sendFailureEmail = async ({
   email,
-  reportId,
 }: {
   email: string;
-  reportId: string;
-}) => {
+}): Promise<Result<SendFailureEmailResult, GenericErrorResult>> => {
   const msg = {
     to: email,
     from: "hello@ratemyopenapi.com",
@@ -51,18 +66,19 @@ export const sendFailureEmail = async ({
   try {
     const emailSend = await sgMail.send(msg);
 
-    return {
+    return Ok({
       statusCode: emailSend[0].statusCode,
       headers: emailSend[0].headers,
-    };
-  } catch (e) {
-    console.log(e);
-    return null;
+    });
+  } catch (err) {
+    return Err({
+      error: `Could not send email to ${email}: ${err}`,
+    });
   }
 };
 
 // Run this without needing to run the entire app
-// `node dist/services/sendgrid.js <email> <reportId>`
+// `npx tsx src/services/sendgrid.ts <email> <reportId>`
 if (esMain(import.meta))
   sendReportEmail({
     email: process.argv[2],

@@ -112,53 +112,51 @@ const UploadInterface = () => {
     setError(undefined);
 
     const urlInput = urlInputRef.current;
+
     if (file) {
       return setNextStep();
-    } else if (urlInput?.value && urlInput?.validity.valid) {
-      let fileUrl: URL | undefined = undefined;
-      let fileName: string | undefined = undefined;
+    }
 
-      try {
-        const file = new URL(urlInput?.value);
-        if (
-          file.pathname.endsWith(".json") ||
-          file.pathname.endsWith(".yml") ||
-          file.pathname.endsWith(".yaml")
-        ) {
-          fileUrl = file;
-          fileName = file.pathname.substring(
-            file.pathname.lastIndexOf("/") + 1,
-          );
-        } else {
-          throw new Error("File must be JSON or YAML");
-        }
-      } catch (e) {
-        console.error((e as Error).message);
-        setError((e as Error).message);
+    if (!urlInput?.value || !urlInput?.validity.valid) {
+      return;
+    }
+
+    const fileUrl = new URL(urlInput?.value);
+    const fileName = fileUrl.pathname.substring(
+      fileUrl.pathname.lastIndexOf("/") + 1,
+    );
+
+    const isValidFileExtension =
+      fileName.endsWith(".json") ||
+      fileName.endsWith(".yml") ||
+      fileName.endsWith(".yaml");
+
+    if (fileName.indexOf(".") !== -1 && !isValidFileExtension) {
+      setError("File must be JSON or YAML");
+      return;
+    }
+
+    try {
+      const response = await fetch(fileUrl);
+
+      if (response.status !== 200) {
+        throw new Error(`Could not fetch OpenAPI file from ${fileUrl}`);
       }
 
-      if (fileUrl && fileName) {
-        try {
-          const response = await fetch(fileUrl);
+      const blob = await response.blob();
 
-          if (response.status !== 200) {
-            throw new Error(`Could not fetch file`);
-          }
+      setFile(
+        new File([blob], fileName, {
+          type: blob.type,
+        }),
+      );
 
-          const blob = await response.blob();
-
-          setFile(
-            new File([blob], fileName, {
-              type: blob.type,
-            }),
-          );
-
-          setNextStep();
-        } catch (e) {
-          console.error((e as Error).message);
-          setError((e as Error).message);
-        }
-      }
+      setNextStep();
+    } catch (e) {
+      console.error(
+        (e as Error).message + ". Does your URL have CORS enabled?",
+      );
+      setError((e as Error).message + ". Does your URL have CORS enabled?");
     }
   };
 

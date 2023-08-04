@@ -16,6 +16,9 @@ export function generateMetadata({ params }: Props): Metadata {
   return {
     title,
     description,
+    icons: {
+      icon: "/favicon.ico",
+    },
     openGraph: {
       title,
       description,

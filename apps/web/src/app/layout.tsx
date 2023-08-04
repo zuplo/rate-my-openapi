@@ -32,6 +32,9 @@ const ibmPlexSans = IBM_Plex_Sans({
 export const metadata: Metadata = {
   title: "Rate My OpenAPI",
   description: "Upload your OpenAPI spec and we'll tell you how good it is.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => (

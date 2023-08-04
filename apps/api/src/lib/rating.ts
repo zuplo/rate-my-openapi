@@ -14,64 +14,78 @@ import * as fs from "node:fs";
 import { join } from "node:path";
 import util from "node:util";
 import { getStorageBucketName, storage } from "../services/storage.js";
+import { Err, Ok, Result } from "ts-results-es";
 const { Spectral, Document } = spectralCore;
 
 const execAwait = util.promisify(exec);
 
-export const generateRating = async ({
-  id,
-  fileExtension,
-  email,
-}: {
+type GenerateRatingInput = {
   id: string;
   fileExtension: string;
   email: string;
-}) => {
-  const fileName = `${id}.${fileExtension}`;
-  const file = await storage
-    .bucket(getStorageBucketName())
-    .file(fileName)
-    .download();
-
-  const contentString = file.toString();
-
-  const report = await getReport({
-    content: contentString,
-    fileExtension: fileExtension,
-    id,
-  });
-
-  if (!report) {
-    throw new Error(`Could not generate report for file ${fileName}`);
-  }
-
-  await storage
-    .bucket(getStorageBucketName())
-    .file(`${id}-report.json`)
-    .save(Buffer.from(JSON.stringify(report)));
-
-  return {
-    email,
-    id,
-  };
 };
 
-const getReport = async ({
-  content,
-  fileExtension,
-  id,
-}: {
-  content: string;
-  fileExtension: string;
-  id: string;
-}) => {
-  const tempApiFilePath = `/tmp/${id}.${fileExtension}`;
+export const generateRating = async (
+  input: GenerateRatingInput,
+): Promise<Result<true, GenericErrorResult>> => {
+  const fileName = `${input.id}.${input.fileExtension}`;
+
+  let content;
+  try {
+    const file = await storage
+      .bucket(getStorageBucketName())
+      .file(fileName)
+      .download();
+
+    content = file.toString();
+  } catch (err) {
+    return Err({
+      error: `Could not download file ${fileName}: ${err}`,
+    });
+  }
+
+  const reportResult = await getReport({
+    content: content,
+    fileExtension: input.fileExtension,
+    id: input.id,
+  });
+
+  if (reportResult.err) {
+    return reportResult;
+  }
 
   try {
-    await writeFile(tempApiFilePath, Buffer.from(content));
-  } catch (e) {
-    console.error(e);
-    throw new Error(`Unable to write temporary upload file. File ID: ${id}`);
+    await storage
+      .bucket(getStorageBucketName())
+      .file(`${input.id}-report.json`)
+      .save(Buffer.from(JSON.stringify(reportResult.val)));
+
+    return Ok(true);
+  } catch (err) {
+    return Err({
+      error: `Could not save report for file ${fileName}: ${err}`,
+    });
+  }
+};
+
+type GetReportInput = {
+  id: string;
+  fileExtension: string;
+  content: string;
+};
+
+const getReport = async (
+  input: GetReportInput,
+): Promise<Result<RatingOutput, GenericErrorResult>> => {
+  const tempApiFilePath = `/tmp/${input.id}.${input.fileExtension}`;
+
+  try {
+    await writeFile(tempApiFilePath, Buffer.from(input.content));
+  } catch (err) {
+    return Err({
+      error: `Could not write temporary file for file ${input.id}`,
+      err,
+    });
   }
 
   const rulesetPath = join(process.cwd(), "rulesets/rules.vacuum.yaml");
@@ -81,48 +95,54 @@ const getReport = async ({
     const vacuumCommand =
       `vacuum spectral-report -r ${rulesetPath} -o ${tempApiFilePath}`.replace(
         /\n/g,
-        ""
+        "",
       );
     const { stdout, stderr } = await execAwait(vacuumCommand, {
       maxBuffer: undefined,
     });
 
     if (stderr) {
-      throw new Error(stderr);
+      return Err({
+        error: `Vacuum CLI command failed for file ${input.id}: ${stderr}`,
+      });
     }
 
     if (!stdout) {
-      throw new Error(
-        `No output from Vacuum. Confirm the file is not empty. File ID: ${id}`
-      );
+      return Err({
+        error: `Vacuum CLI command succeeded but did not generate a report for file ${input.id}`,
+      });
     }
 
     vacuumCliReport = stdout;
   } catch (e) {
-    throw new Error("Could not execute Vacuum CLI command:" + e);
+    return Err({
+      error: `Vacuum CLI command failed for file ${input.id}: ${e}`,
+    });
   }
 
   if (!vacuumCliReport) {
-    throw new Error(
-      "Vacuum CLI command succeeded but did not generate a report"
-    );
+    return Err({
+      error: `Vacuum CLI command succeeded but did not generate a report for file ${input.id}`,
+    });
   }
 
   let spectralOutputReport;
   try {
     const parser =
-      fileExtension === "json" ? SpectralParsers.Json : SpectralParsers.Yaml;
+      input.fileExtension === "json"
+        ? SpectralParsers.Json
+        : SpectralParsers.Yaml;
 
     const openApiSpectralDoc = new Document(
-      content,
+      input.content,
       parser as SpectralParsers.IParser,
-      tempApiFilePath
+      tempApiFilePath,
     );
 
     const spectral = new Spectral();
     const spectralRulesetFilepath = join(
       process.cwd(),
-      "rulesets/.spectral-supplement.yaml"
+      "rulesets/.spectral-supplement.yaml",
     );
 
     try {
@@ -131,40 +151,50 @@ const getReport = async ({
         {
           fs,
           fetch,
-        }
+        },
       );
       spectral.setRuleset(spectralRuleset);
-    } catch {
-      throw new Error("Unable to set Spectral ruleset");
+    } catch (err) {
+      return Err({
+        error: `Unable to set Spectral ruleset for file ${input.id}: ${err}`,
+      });
     }
 
     spectralOutputReport = await spectral.run(openApiSpectralDoc);
-  } catch (e) {
-    throw new Error(e || "Could not generate Spectral report");
+  } catch (err) {
+    return Err({
+      error: `Unable to run Spectral for file ${input.id}: ${err}`,
+    });
   }
 
-  const initialOutputReport: SpectralReport = JSON.parse(vacuumCliReport);
-  const outputReport = spectralOutputReport
-    ? [...initialOutputReport, ...spectralOutputReport]
-    : initialOutputReport;
+  let output;
+  try {
+    const initialOutputReport: SpectralReport = JSON.parse(vacuumCliReport);
+    const outputReport = spectralOutputReport
+      ? [...initialOutputReport, ...spectralOutputReport]
+      : initialOutputReport;
 
-  const outputContent =
-    fileExtension === "json"
-      ? JSON.parse(content)
-      : loadYAML(content, { json: true });
+    const outputContent =
+      input.fileExtension === "json"
+        ? JSON.parse(input.content)
+        : loadYAML(input.content, { json: true });
 
-  const output: RatingOutput = generateOpenApiRating(
-    outputReport,
-    outputContent
-  );
+    output = generateOpenApiRating(outputReport, outputContent);
+  } catch (err) {
+    return Err({
+      error: `Unable to generate rating for file ${input.id}: ${err}`,
+    });
+  }
 
   try {
     unlink(tempApiFilePath);
   } catch (err) {
-    throw new Error(`Unable to delete temporary upload file. File ID: ${id}`);
+    return Err({
+      error: `Unable to delete temporary file for file ${input.id}: ${err}`,
+    });
   }
 
-  return output;
+  return Ok(output);
 };
 
 if (esMain(import.meta)) {
@@ -183,7 +213,7 @@ if (esMain(import.meta)) {
         fileExtension,
       });
 
-      console.log(result);
+      console.log(result.unwrap());
     } catch (e) {
       console.error(e);
       process.exit(1);

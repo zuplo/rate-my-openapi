@@ -1,5 +1,5 @@
 import { EventSchemas, Inngest } from "inngest";
-import { sendFailureEmail, sendReportEmail } from "../lib/email.js";
+import { sendFailureEmail, sendReportEmail } from "../lib/email/index.js";
 import { generateRating } from "../lib/rating.js";
 import { slack, slackChannelId } from "./slack.js";
 import { posthog } from "./posthog.js";

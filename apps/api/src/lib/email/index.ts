@@ -1,5 +1,6 @@
 import sgMail from "@sendgrid/mail";
 import esMain from "es-main";
+import { getSuccesfulEmailHtml } from "./succesfull-email.js";
 sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
 
 export const sendReportEmail = async ({
@@ -14,8 +15,9 @@ export const sendReportEmail = async ({
     from: "hello@ratemyopenapi.com",
     subject: "Your OpenAPI Report is Ready",
     text: "Visit here: https://ratemyopenapi.com/report/" + reportId,
-    html:
-      "Visit your report here: https://ratemyopenapi.com/report/" + reportId,
+    html: getSuccesfulEmailHtml({
+      reportId,
+    }),
   };
 
   try {

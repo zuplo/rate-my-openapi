@@ -10,11 +10,14 @@ const ShareButton = ({ className = "" }) => {
       onClick={() => {
         setCopied(true);
         navigator.clipboard.writeText(window.location.href);
-        setTimeout(() => setCopied(false), 5000);
+        setTimeout(() => setCopied(false), 7000);
       }}
-      className={`button-dark ${className}`}
+      disabled={copied}
+      className={`${
+        copied ? "button bg-gray-400 text-white" : "button-dark"
+      } ${className}`}
     >
-      {copied ? "Link copied to clipboard" : "Share these results"}
+      {copied ? "Copied to clipboard" : "Share these results"}
     </button>
   );
 };

@@ -104,7 +104,7 @@ const ScoreDetailsSection = ({
             {issueCount > PAGE_LENGTH + INITIAL_LENGTH && (
               <button
                 onClick={() => setPage(page + 1)}
-                className="button-dark mb-4 md:mb-0 md:mr-4"
+                className="button-light mb-4 md:mb-0 md:mr-4"
               >
                 Show {PAGE_LENGTH} more
               </button>

@@ -47,7 +47,7 @@ const ScoreDetailsSection = ({
 
   return (
     <div className="mb-10 flex flex-col	overflow-hidden rounded-lg bg-white p-8 shadow-md md:flex-row md:items-start md:p-10 md:pl-0">
-      <div className="mb-6 flex basis-1/4 flex-col items-center justify-center md:mb-0 md:mt-12">
+      <div className="mb-6 flex basis-1/4 flex-col items-center justify-center md:mb-0">
         <h3
           className={`text-gradient mb-6 font-roboto-mono text-xl font-bold uppercase ${scoreTextColor}`}
         >

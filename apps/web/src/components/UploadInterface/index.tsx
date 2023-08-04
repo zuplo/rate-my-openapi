@@ -189,8 +189,8 @@ const UploadInterface = () => {
       )}
 
       <p className="mx-auto mb-6 max-w-lg text-center text-xl text-gray-600 md:mb-16">
-        Drop your spec file, paste a URL to it or paste your whole spec into the
-        form below and we’ll analyse it.
+        Drop your OpenAPI definition or paste a URL into the form below and get
+        a score on your API&apos;s quality.
       </p>
       <form
         className="relative flex w-full rounded-lg border border-gray-200 bg-white p-4 shadow-md"

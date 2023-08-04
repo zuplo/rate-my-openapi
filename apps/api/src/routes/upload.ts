@@ -9,6 +9,7 @@ import {
   logAndReplyInternalError,
   successJsonReply,
 } from "../helpers/reply.js";
+import { load } from "js-yaml";
 
 const uploadRoute: FastifyPluginAsync = async function (server) {
   server.route({
@@ -35,15 +36,16 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
       // upload to google cloud storage
       const uuid = uuidv4();
       try {
-        const fileContents = Buffer.from(parseResult.val.file).toString();
         const fileName = `${uuid}.${parseResult.val.fileExtension}`;
 
         await storage
           .bucket(getStorageBucketName())
           .file(fileName)
-          .save(fileContents);
-      } catch (e) {
-        return logAndReplyInternalError(e, request, reply);
+          .save(parseResult.val.fileContentString);
+
+        request.log.info(`Uploaded file ${uuid}`);
+      } catch (err) {
+        return logAndReplyInternalError(err, request, reply);
       }
 
       try {
@@ -57,15 +59,15 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
         });
 
         return successJsonReply({ id: uuid }, reply);
-      } catch (e) {
-        return logAndReplyInternalError(e, request, reply);
+      } catch (err) {
+        return logAndReplyInternalError(err, request, reply);
       }
     },
   });
 };
 
 type ParseMultipartUploadResult = {
-  file: Buffer;
+  fileContentString: string;
   email: string;
   fileExtension: string;
 };
@@ -73,53 +75,56 @@ type ParseMultipartUploadResult = {
 const parseMultipartUpload = async (
   parts: AsyncIterableIterator<fastifyMultipart.Multipart>,
 ): Promise<Result<ParseMultipartUploadResult, UserErrorResult>> => {
-  let file;
+  let fileContent;
   let email;
-  let fileExtensionResult;
+  let fileName;
   for await (const part of parts) {
     if (part.type === "file" && part.fieldname === "apiFile") {
-      file = await part.toBuffer();
-      const nonValidatedFileExtension = part.filename.split(".").pop();
-      fileExtensionResult = validateFileExtension(nonValidatedFileExtension);
+      fileContent = await part.toBuffer();
     } else if (part.type === "field" && part.fieldname === "emailAddress") {
       email = part.value as string;
     }
   }
 
-  if (!file || !email || !fileExtensionResult) {
+  if (!fileContent || !email) {
     return Err({
       userMessage: "Invalid request body",
       debugMessage: "Invalid request body",
       statusCode: 400,
     });
   }
+  const fileContentString = fileContent.toString();
+  const fileIsJsonOrYamlResult = checkFileIsJsonOrYaml(fileContentString);
 
-  if (fileExtensionResult.err) {
-    return fileExtensionResult;
+  if (fileIsJsonOrYamlResult.err) {
+    return fileIsJsonOrYamlResult;
   }
 
   return Ok({
-    file,
+    fileContentString,
     email,
-    fileExtension: fileExtensionResult.val,
+    fileExtension: fileIsJsonOrYamlResult.val,
   });
 };
 
-const validateFileExtension = (
-  fileExtension: string | undefined,
+const checkFileIsJsonOrYaml = (
+  fileContentString: string,
 ): Result<"yaml" | "json", UserErrorResult> => {
-  switch (fileExtension) {
-    case "yaml":
-      return Ok("yaml");
-    case "json":
-      return Ok("json");
-    default:
-      return Err({
-        userMessage: "Invalid file extension",
-        debugMessage: "Invalid file extension",
-        statusCode: 400,
-      });
-  }
+  try {
+    JSON.parse(fileContentString);
+    return Ok("json");
+  } catch (_) {}
+
+  try {
+    load(fileContentString);
+    return Ok("yaml");
+  } catch (err) {}
+
+  return Err({
+    userMessage: "Invalid file format",
+    debugMessage: "File can only be json or yaml",
+    statusCode: 400,
+  });
 };
 
 export default uploadRoute;

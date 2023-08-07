@@ -19,12 +19,8 @@ header {
   -webkit-text-fill-color: transparent;
 }
 
-.text-gradient {
-  @apply text-fill-transparent bg-gradient-to-r bg-clip-text;
-}
-
 .button {
-  @apply text-center rounded-lg p-4 text-lg font-bold transition-colors border;
+  @apply text-center rounded-lg p-4 font-medium transition-colors border;
 }
 
 .button-dark {
@@ -36,7 +32,7 @@ header {
 }
 
 .button-transparent {
-  @apply button border-transparent md:hover:border-black;
+  @apply button border-transparent  md:hover:border-black;
 }
 
 code {

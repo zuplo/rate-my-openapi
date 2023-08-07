@@ -10,11 +10,11 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[css]": {
-    "editor.defaultFormatter": "esbenp.vscode-eslint"
-  },
   "[terraform]": {
     "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
   },
   "cSpell.words": [
     "Apimatic",

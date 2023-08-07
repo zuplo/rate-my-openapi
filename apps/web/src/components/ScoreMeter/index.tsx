@@ -1,5 +1,9 @@
+"use client";
+
 import classNames from "classnames";
 import AnimatedScore from "../AnimatedScore";
+import { useInView } from "react-intersection-observer";
+import { useEffect, useState } from "react";
 
 const SVG_SIZE = 210;
 const STROKE_WIDTH = 18;
@@ -13,15 +17,26 @@ const getScoreStrokeColor = (score: number) =>
 
 const getScoreTextColor = (score: number) =>
   classNames({
-    "bg-green-500": score > 66,
-    "bg-yellow-500": score > 33 && score <= 66,
-    "bg-red-500": score <= 33,
+    "text-green-500": score > 66,
+    "text-yellow-500": score > 33 && score <= 66,
+    "text-red-500": score <= 33,
   });
 
+const calculateDash = (score: number, circumference: number) =>
+  (score * circumference) / 100;
+
 const ScoreMeter = ({ score }: { score: number }) => {
+  const { ref, inView } = useInView({ triggerOnce: true });
+
   const radius = (SVG_SIZE - STROKE_WIDTH) / 2;
   const circumference = radius * Math.PI * 2;
-  const dash = (score * circumference) / 100;
+  const [dash, setDash] = useState(calculateDash(0, circumference));
+
+  useEffect(() => {
+    if (inView) {
+      setDash(calculateDash(score, circumference));
+    }
+  }, [inView, score, circumference]);
 
   const strokeColor = getScoreStrokeColor(score);
   const textColor = getScoreTextColor(score);
@@ -41,7 +56,7 @@ const ScoreMeter = ({ score }: { score: number }) => {
       <div className="absolute flex h-full w-full items-center justify-center">
         <AnimatedScore
           score={score}
-          className={`bold text-gradient ${textColor} font-plex-sans text-[85px]`}
+          className={`bold ${textColor} font-plex-sans text-[85px]`}
           id="main"
         />
       </div>
@@ -50,6 +65,7 @@ const ScoreMeter = ({ score }: { score: number }) => {
         height={SVG_SIZE}
         width={SVG_SIZE}
         viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
+        ref={ref}
       >
         <circle className="stroke-gray-200" {...sharedAttributes} />
         <circle

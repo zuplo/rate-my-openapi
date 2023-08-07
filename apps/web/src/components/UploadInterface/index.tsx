@@ -25,6 +25,7 @@ const UploadInterface = () => {
 
   const urlInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
 
   const [dragActive, setDragActive] = useState(false);
   const [error, setError] = useState<string | undefined>();
@@ -73,6 +74,10 @@ const UploadInterface = () => {
       setFile(newFile);
       setError(undefined);
       setIsLocalUpload(true);
+
+      // Timeout used to avoid a bit of a race condition with
+      // button being disabled
+      setTimeout(() => submitButtonRef.current?.focus(), 50);
     } else {
       setError("File must be JSON or YAML");
     }
@@ -211,6 +216,15 @@ const UploadInterface = () => {
           disabled={!!file}
         />
 
+        <input
+          ref={fileInputRef}
+          onChange={onLocalFileUploadInputChange}
+          className="hidden"
+          type="file"
+          name="drag-upload"
+          accept=".json,.yaml,.yml"
+        />
+
         {isLocalUpload && (
           <button
             onClick={onClear}
@@ -226,19 +240,11 @@ const UploadInterface = () => {
           </button>
         )}
 
-        <input
-          ref={fileInputRef}
-          onChange={onLocalFileUploadInputChange}
-          className="hidden"
-          type="file"
-          name="drag-upload"
-          accept=".json,.yaml,.yml"
-        />
-
         <div className="flex h-[44px]">
           {!isLocalUpload && !file && !isValidUrlInput && (
             <button
               onClick={onLocalFileUploadClick}
+              type="button"
               className="mr-2 whitespace-nowrap rounded-lg border border-gray-500 bg-transparent px-3 py-2 text-gray-500 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white"
             >
               Select a file
@@ -253,6 +259,7 @@ const UploadInterface = () => {
 
           <button
             type="submit"
+            ref={submitButtonRef}
             className="icon-button-submit"
             disabled={isLocalUpload ? !file : !isValidUrlInput}
           >

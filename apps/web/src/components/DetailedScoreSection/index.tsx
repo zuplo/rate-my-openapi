@@ -30,7 +30,7 @@ const getSeverityTextColor = (severity: number) =>
     "text-green-500": severity === 3,
   });
 
-const ScoreDetailsSection = ({
+const DetailedScoreSection = ({
   title,
   score,
   issues,
@@ -47,7 +47,7 @@ const ScoreDetailsSection = ({
 
   return (
     <div className="mb-10 flex flex-col	overflow-hidden rounded-lg bg-white p-8 shadow-md md:flex-row md:items-start md:p-10 md:pl-0">
-      <div className="mb-6 flex basis-1/4 flex-col items-center justify-center md:mb-0">
+      <div className="mb-6 flex basis-1/4 flex-col items-center justify-center px-4 md:mb-0">
         <h3
           className={`mb-6 font-roboto-mono text-xl font-bold uppercase ${scoreTextColor}`}
         >
@@ -104,9 +104,9 @@ const ScoreDetailsSection = ({
             {issueCount > PAGE_LENGTH + INITIAL_LENGTH && (
               <button
                 onClick={() => setPage(page + 1)}
-                className="button-light mb-4 md:mb-0 md:mr-4"
+                className="button-transparent mb-4 text-sm md:mb-0 md:mr-4"
               >
-                Show {PAGE_LENGTH} more
+                Show {PAGE_LENGTH} more issues
               </button>
             )}
             <button
@@ -117,7 +117,7 @@ const ScoreDetailsSection = ({
             </button>
           </div>
         )}
-        {page >= totalPages && (
+        {issueCount > INITIAL_LENGTH && page >= totalPages && (
           <button
             onClick={() => setPage(0)}
             className="button-dark mt-10 w-full md:mr-4 md:w-auto"
@@ -130,4 +130,4 @@ const ScoreDetailsSection = ({
   );
 };
 
-export default ScoreDetailsSection;
+export default DetailedScoreSection;

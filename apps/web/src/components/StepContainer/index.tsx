@@ -13,15 +13,16 @@ const StepContainer = ({
 }) => {
   const { step: currentStep, isLoading } = useUploadContext();
 
+  const isCurrentStep = currentStep === step;
+
   return (
     <div
       className={classNames(
         "col-start-1 row-start-1 w-full transition-opacity",
         {
-          "opacity-1": currentStep === step && !isLoading,
-          "opacity-0":
-            (currentStep === step && isLoading) || currentStep !== step,
-          "pointer-events-none invisible": currentStep !== step,
+          "opacity-1": isCurrentStep && !isLoading,
+          "opacity-0": (isCurrentStep && isLoading) || !isCurrentStep,
+          "pointer-events-none invisible": !isCurrentStep,
         },
       )}
     >

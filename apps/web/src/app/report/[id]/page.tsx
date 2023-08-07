@@ -7,7 +7,6 @@ import getApiFile from "@/requests/getApiFile";
 import getReport from "@/requests/getReport";
 import { Suspense } from "react";
 
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import ShareButton from "@/components/ShareButton";
 import { RatingExamples } from "@/components/RatingExamples";
@@ -25,19 +24,9 @@ const ApiFileInfo = async ({
   });
 
   return (
-    <>
-      <h1 className="text-2xl">
-        {apiFile?.title} {apiFile?.version}
-      </h1>
-      <a
-        className="flex items-center justify-center underline"
-        target="_blank"
-        href={apiFile?.url}
-      >
-        <span className="mr-1">Spec</span>
-        <ArrowTopRightOnSquareIcon height={16} width={16} />
-      </a>
-    </>
+    <h1 className="text-2xl">
+      {apiFile?.title} {apiFile?.version}
+    </h1>
   );
 };
 
@@ -97,8 +86,8 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
         )}
       </div>
       <div className="mb-10 mt-20 flex w-full flex-col md:flex-row md:items-center md:justify-center">
-        <ShareButton className="mb-4 md:mb-0 md:mr-4" />
-        <Link href="/" className="button-light">
+        <ShareButton className="mb-4 text-lg md:mb-0 md:mr-4" />
+        <Link href="/" className="button-light text-lg">
           Rate another OpenAPI spec
         </Link>
       </div>

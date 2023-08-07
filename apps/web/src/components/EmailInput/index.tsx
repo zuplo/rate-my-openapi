@@ -10,11 +10,12 @@ import FormError from "../FormError";
 import LoadingIndicator from "../LoadingIndicator";
 
 const EmailInput = () => {
-  const { setNextStep, file } = useUploadContext();
+  const { setNextStep, file, step: currentStep } = useUploadContext();
 
   const [error, setError] = useState<string>();
   const [isValid, setIsValid] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const emailInputRef = useRef<HTMLInputElement>(null);
 
   const onChange = () => {
@@ -30,6 +31,12 @@ const EmailInput = () => {
       setIsValid(!!(emailInput?.value && emailInput?.validity.valid));
     }
   }, []);
+
+  useEffect(() => {
+    if (currentStep === 2) {
+      emailInputRef.current?.focus();
+    }
+  }, [currentStep]);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

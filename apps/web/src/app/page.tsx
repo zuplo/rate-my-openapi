@@ -6,7 +6,7 @@ import { UploadContextProvider } from "@/contexts/UploadContext";
 
 const HomePage = () => (
   <main className="flex h-screen w-full flex-col items-center justify-center py-4">
-    <h2 className="mb-16 max-w-2xl text-center text-5xl font-bold md:mb-16 md:text-7xl">
+    <h2 className="mb-12 max-w-2xl text-center text-5xl font-bold md:mb-16 md:text-7xl">
       Ace Your API Design
     </h2>
     <UploadContextProvider>

@@ -9,8 +9,54 @@ type Issue = {
   count: number;
 };
 
-const groupIssues = (issues: ISpectralDiagnostic[]) => {
+const formatIssues = (issues: ISpectralDiagnostic[]) => {
   const groupedIssues: Issue[] = [];
+
+  issues.forEach((issue, i) => {
+    if (/^(?:Parameter|Request Body|Response) schema/i.test(issue.message)) {
+      issues[i].message = issue.message.replace(/schema:.*?\/schema/, "schema");
+    }
+    if (issue.message.startsWith("Schema for")) {
+      issues[i].message = issue.message.replace(/for.*`/, "");
+    }
+    if (
+      issue.message.startsWith("Field `") ||
+      issue.message.startsWith("Tags for")
+    ) {
+      issues[i].message = issue.message.replace(/at path.*`/, "");
+    }
+    if (issue.message.startsWith("Missing example")) {
+      issues[i].message = issue.message.replace(
+        /for.*`/,
+        "for property on component",
+      );
+    }
+    if (issue.message.startsWith("the parameter")) {
+      issues[i].message = issue.message.replace(
+        /the parameter.*`/,
+        "Parameter",
+      );
+    }
+    if (issue.message.endsWith("must be shorter than 50 characters")) {
+      issues[i].message =
+        "Component schema key must be shorter than 50 characters";
+    }
+    if (issue.message.startsWith("Example `")) {
+      if (issue.message.includes("(line")) {
+        issues[i].message = issue.message.replace(/`.*\)/, "");
+      } else if (issue.message.includes("not valid")) {
+        issues[i].message = issue.message.replace(/`.*is not/, "is not");
+      }
+    }
+    if (issue.message.startsWith("Example for property")) {
+      issues[i].message = issue.message.replace(/`.*?`/, "");
+    }
+    if (/^the `(?:delete|get|patch|post|put)` operation/i.test(issue.message)) {
+      issues[i].message = issue.message.replace(/path `.*`,/, "contains a tag");
+    }
+
+    issues[i].message = issue.message.replace(/`(.*?)`/g, "<code>$1</code>");
+  });
 
   issues.forEach((issue) => {
     if (!groupedIssues.find(({ message }) => message === issue.message)) {
@@ -22,12 +68,7 @@ const groupIssues = (issues: ISpectralDiagnostic[]) => {
     }
   });
 
-  const formattedIssues = groupedIssues.map((issue) => ({
-    ...issue,
-    message: issue.message.replace(/`(.*?)`/g, "<code>$1</code>"),
-  }));
-
-  const sortedIssues = formattedIssues.sort(
+  const sortedIssues = groupedIssues.sort(
     (a, b) =>
       a.severity - b.severity ||
       b.count - a.count ||
@@ -72,10 +113,10 @@ const getReport = async (id: string): Promise<RatingOutput | undefined> => {
     completenessScore,
     sdkGenerationScore,
     securityScore,
-    docsIssues: groupIssues(docsIssues),
-    completenessIssues: groupIssues(completenessIssues),
-    sdkGenerationIssues: groupIssues(sdkGenerationIssues),
-    securityIssues: groupIssues(securityIssues),
+    docsIssues: formatIssues(docsIssues),
+    completenessIssues: formatIssues(completenessIssues),
+    sdkGenerationIssues: formatIssues(sdkGenerationIssues),
+    securityIssues: formatIssues(securityIssues),
     fileExtension: contentJson?.issues?.[0]?.source?.split(".").pop(),
   }))(contentJson);
 

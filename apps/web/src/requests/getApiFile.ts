@@ -6,25 +6,32 @@ const getApiFile = async ({
 }: {
   id: string;
   fileExtension: string;
-}): Promise<{ title: string; version: string; url: string } | undefined> => {
-  const downloadUrlRequestl = await fetch(
-    (process.env.NEXT_PUBLIC_API_URL as string) +
-      `/file/${id}.${fileExtension}`,
-  );
-  const downloadUrlJson = await downloadUrlRequestl.json();
+}): Promise<{ title: string; version: string }> => {
+  try {
+    const downloadUrlRequestl = await fetch(
+      (process.env.NEXT_PUBLIC_API_URL as string) +
+        `/file/${id}.${fileExtension}`,
+    );
+    const downloadUrlJson = await downloadUrlRequestl.json();
 
-  const contentRequest = await fetch(downloadUrlJson.publicUrl);
+    const contentRequest = await fetch(downloadUrlJson.publicUrl);
 
-  const contentsJson =
-    fileExtension === "json"
-      ? await contentRequest.json()
-      : load(await contentRequest.text());
+    const contentsJson =
+      fileExtension === "json"
+        ? await contentRequest.json()
+        : load(await contentRequest.text());
 
-  return {
-    title: contentsJson?.info?.title,
-    version: contentsJson?.info?.version,
-    url: downloadUrlJson?.publicUrl,
-  };
+    return {
+      title: contentsJson?.info?.title,
+      version: contentsJson?.info?.version,
+    };
+  } catch (e) {
+    console.error(e);
+    return {
+      title: "",
+      version: "",
+    };
+  }
 };
 
 export default getApiFile;

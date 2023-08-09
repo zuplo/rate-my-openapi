@@ -37,6 +37,10 @@ module.exports = {
       animation: {
         ellipsis: "ellipsis steps(4, end) 900ms infinite",
       },
+      backgroundImage: {
+        "gradient-radial":
+          "radial-gradient(circle at 25% -10%, var(--tw-gradient-from), transparent 45%), radial-gradient(circle at 110% 75%, var(--tw-gradient-from), transparent 55%)",
+      },
     },
   },
   plugins: [],

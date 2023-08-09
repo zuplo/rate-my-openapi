@@ -1,4 +1,5 @@
 import AnalyzingText from "@/components/AnalyzingText";
+import DynamicBackground from "@/components/DynamicBackground";
 import EmailInput from "@/components/EmailInput";
 import UploadInterface from "@/components/UploadInterface";
 
@@ -16,6 +17,7 @@ const HomePage = () => (
         <AnalyzingText />
       </div>
     </UploadContextProvider>
+    <DynamicBackground />
   </main>
 );
 

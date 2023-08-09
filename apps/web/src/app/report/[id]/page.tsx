@@ -10,6 +10,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import ShareButton from "@/components/ShareButton";
 import { RatingExamples } from "@/components/RatingExamples";
+import DynamicBackground from "@/components/DynamicBackground";
 
 const ApiFileInfo = async ({
   id,
@@ -39,11 +40,11 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <>
-      <div className="mx-auto mt-8 flex max-w-3xl flex-col items-center gap-6 rounded-lg bg-white p-6 shadow-md md:mt-32 md:flex-row md:justify-around md:p-10">
+      <div className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-6 rounded-lg bg-white p-6 shadow-md md:mt-32 md:flex-row md:justify-around md:p-10">
         <div className="relative">
           <ScoreMeter score={report.score} />
         </div>
-        <div className="text-center md:pr-10">
+        <div className="text-center">
           <Suspense>
             <ApiFileInfo id={params.id} fileExtension={report.fileExtension} />
           </Suspense>
@@ -94,6 +95,7 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
       <RatingExamples>
         <p className="m-5 text-lg text-gray-400">See how other APIs scored</p>
       </RatingExamples>
+      <DynamicBackground score={report.score} />
     </>
   );
 };

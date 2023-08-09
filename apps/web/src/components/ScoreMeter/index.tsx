@@ -4,6 +4,7 @@ import classNames from "classnames";
 import AnimatedScore from "../AnimatedScore";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
+import getScoreTextColor from "@/utils/getScoreTextColor";
 
 const SVG_SIZE = 210;
 const STROKE_WIDTH = 18;
@@ -13,13 +14,6 @@ const getScoreStrokeColor = (score: number) =>
     "stroke-green-500": score > 66,
     "stroke-yellow-500": score > 33 && score <= 66,
     "stroke-red-500": score <= 33,
-  });
-
-const getScoreTextColor = (score: number) =>
-  classNames({
-    "text-green-500": score > 66,
-    "text-yellow-500": score > 33 && score <= 66,
-    "text-red-500": score <= 33,
   });
 
 const calculateDash = (score: number, circumference: number) =>

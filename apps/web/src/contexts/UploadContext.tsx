@@ -13,7 +13,6 @@ type UploadContextType = {
   file?: File;
   isLoading: boolean;
   setFile: Dispatch<SetStateAction<File | undefined>>;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
   setNextStep: () => void;
   step: number;
 };
@@ -21,7 +20,6 @@ type UploadContextType = {
 const UploadContext = createContext<UploadContextType>({
   isLoading: false,
   setFile: () => {},
-  setIsLoading: () => {},
   setNextStep: () => {},
   step: 1,
 });
@@ -45,7 +43,6 @@ const UploadContextProvider = ({ children }: { children: ReactNode }) => {
         file,
         isLoading,
         setFile,
-        setIsLoading,
         setNextStep,
         step,
       }}

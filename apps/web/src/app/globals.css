@@ -16,11 +16,7 @@ header {
 }
 
 .icon-button-submit {
-  @apply icon-button bg-green-400 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:bg-none transition-all;
-}
-
-.text-fill-transparent {
-  -webkit-text-fill-color: transparent;
+  @apply icon-button bg-green-500 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:bg-none transition-all;
 }
 
 .button {

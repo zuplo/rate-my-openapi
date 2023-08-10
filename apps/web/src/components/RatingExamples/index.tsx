@@ -19,22 +19,20 @@ const EXAMPLES: { title: string; slug: string }[] = [
   },
 ];
 
-export const RatingExamples = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="m-10 flex flex-col items-center">
-      {children}
-      <ul className="flex flex-wrap items-center gap-3">
-        {EXAMPLES.map((example) => (
-          <li key={example.slug}>
-            <Link
-              className="block rounded-lg bg-gray-200 p-2 font-medium text-gray-600 transition-colors hover:bg-gray-900 hover:text-white"
-              href={`/report/${example.slug}`}
-            >
-              {example.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+export const RatingExamples = ({ children }: { children: React.ReactNode }) => (
+  <div className="m-10 flex flex-col items-center">
+    {children}
+    <ul className="flex flex-wrap items-center gap-3">
+      {EXAMPLES.map((example) => (
+        <li key={example.slug}>
+          <Link
+            className="block rounded-lg bg-gray-200 p-2 font-medium text-gray-600 transition-colors hover:bg-gray-900 hover:text-white"
+            href={`/report/${example.slug}`}
+          >
+            {example.title}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);

@@ -1,12 +1,13 @@
 import "./globals.css";
 
-import { PHProvider, PostHogPageview } from "./providers";
+import { Suspense } from "react";
+import { Metadata } from "next";
 import { Roboto, Roboto_Mono, IBM_Plex_Sans } from "next/font/google";
 
+import { PHProvider, PostHogPageview } from "./providers";
+
 import Header from "@/components/Header";
-import { Suspense } from "react";
 import Footer from "@/components/Footer";
-import { Metadata } from "next";
 
 const roboto = Roboto({
   subsets: ["latin"],

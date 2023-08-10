@@ -46,7 +46,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
       <PostHogPageview />
     </Suspense>
     <PHProvider>
-      <body className="container mx-auto flex h-full flex-col justify-between bg-[#F8FAFC] text-base">
+      <body className="container mx-auto flex h-full flex-col justify-between text-base">
         <Header />
         {children}
         <Footer />

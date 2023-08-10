@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  background-color: #F8F8F8;
+}
+
 main,
 header {
   @apply container mx-auto px-4;

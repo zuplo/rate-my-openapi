@@ -27,6 +27,8 @@
     "pino": "^8.14.2",
     "pino-pretty": "^10.2.0",
     "posthog-node": "^3.1.1",
+    "resend": "^0.17.2",
+    "serialize-error": "^11.0.1",
     "stacktrace-parser": "^0.1.10",
     "ts-results-es": "^3.6.1",
     "uuid": "^9.0.0"

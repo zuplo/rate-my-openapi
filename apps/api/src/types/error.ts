@@ -13,7 +13,8 @@ declare global {
 
   export type GenericErrorResult = {
     context?: any;
-    error: any;
+    errorMessage: any;
+    serializedError?: any;
   };
 
   export interface ErrorResponse extends FastifyReply {

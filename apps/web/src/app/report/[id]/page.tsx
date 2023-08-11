@@ -44,8 +44,21 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
         <div className="relative">
           <ScoreMeter score={report.score} />
         </div>
-        <div className="text-center">
-          <Suspense>
+        <div className="w-full text-center">
+          <Suspense
+            fallback={
+              <>
+                <span
+                  className="mx-auto block h-[32px] w-[95%] animate-pulse rounded bg-slate-200"
+                  role="presentation"
+                />
+                <span
+                  className="mx-auto mt-2 block h-[32px] w-[80%] animate-pulse rounded bg-slate-200"
+                  role="presentation"
+                />
+              </>
+            }
+          >
             <ApiFileInfo id={params.id} fileExtension={report.fileExtension} />
           </Suspense>
         </div>
@@ -57,12 +70,14 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
         breakdown
       </h2>
       <div className="mb-10">
-        {report?.docsScore && (
+        {report?.docsScore ? (
           <ScoreDetailsSection
             title="Documentation"
             score={report?.docsScore}
             issues={report?.docsIssues}
           />
+        ) : (
+          <div className="mb-10 h-[630px] animate-pulse rounded-lg bg-slate-200 shadow-md md:h-[312px]" />
         )}
         {report?.completenessScore && (
           <ScoreDetailsSection

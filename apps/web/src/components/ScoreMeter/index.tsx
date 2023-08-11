@@ -19,21 +19,22 @@ const getScoreStrokeColor = (score: number) =>
 const calculateDash = (score: number, circumference: number) =>
   (score * circumference) / 100;
 
-const ScoreMeter = ({ score }: { score: number }) => {
+const ScoreMeter = ({ score = 0 }: { score: number }) => {
   const { ref, inView } = useInView({ triggerOnce: true });
 
   const radius = (SVG_SIZE - STROKE_WIDTH) / 2;
   const circumference = radius * Math.PI * 2;
   const [dash, setDash] = useState(calculateDash(0, circumference));
+  const [textColor, setTextColor] = useState("text-gray-400");
+  const [strokeColor, setStrokeColor] = useState("text-gray-400");
 
   useEffect(() => {
     if (inView) {
       setDash(calculateDash(score, circumference));
+      setTextColor(getScoreTextColor(score));
+      setStrokeColor(getScoreStrokeColor(score));
     }
   }, [inView, score, circumference]);
-
-  const strokeColor = getScoreStrokeColor(score);
-  const textColor = getScoreTextColor(score);
 
   const halfSvgSize = SVG_SIZE / 2;
 

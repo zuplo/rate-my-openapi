@@ -6,6 +6,7 @@ import healthRoute from "./routes/health.js";
 import { inngestRoute } from "./routes/inggest/route.js";
 import { reportRoute } from "./routes/report.js";
 import uploadRoute from "./routes/upload.js";
+import cors from "@fastify/cors";
 
 const fastify = Fastify({
   logger: createNewLogger(),
@@ -21,6 +22,7 @@ async function build() {
   await fastify.register(inngestRoute);
   await fastify.register(reportRoute);
   await fastify.register(fileRoute);
+  await fastify.register(cors);
 }
 
 const start = async () => {

@@ -1,4 +1,5 @@
 import { ISpectralDiagnostic } from "@stoplight/spectral-core";
+import { type SimpleReport } from "../../../api/src/lib/rating";
 
 // import { type RatingOutput } from "@rate-my-openapi/core";
 type RatingOutput = any;

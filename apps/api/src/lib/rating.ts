@@ -141,6 +141,8 @@ export type SimpleReport = Pick<
   | "sdkGenerationScore"
 > & {
   fileExtension: "json" | "yaml";
+  title: string;
+  version: string;
 };
 
 type GetReportOutput = {
@@ -190,13 +192,14 @@ const getReport = async (
   }
 
   let spectralOutputReport;
+  let openApiSpectralDoc: spectralCore.Document;
   try {
     const parser =
       input.fileExtension === "json"
         ? SpectralParsers.Json
         : SpectralParsers.Yaml;
 
-    const openApiSpectralDoc = new Document(
+    openApiSpectralDoc = new Document(
       input.fileContent,
       parser as SpectralParsers.IParser,
       input.openAPIFilePath,
@@ -250,6 +253,11 @@ const getReport = async (
   }
 
   const simpleReport = {
+    version:
+      (openApiSpectralDoc.data as any)?.info?.version ||
+      (openApiSpectralDoc.data as any)?.openapi ||
+      "",
+    title: (openApiSpectralDoc.data as any)?.info?.title || "OpenAPI",
     fileExtension: input.fileExtension,
     docsScore: output.docsScore,
     completenessScore: output.completenessScore,

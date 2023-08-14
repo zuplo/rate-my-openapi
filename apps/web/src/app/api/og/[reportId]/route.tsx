@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/server";
 import classNames from "classnames";
-import getApiFile from "@/requests/getApiFile";
-import { getReport } from "@/requests/getReport";
+import { getSimpleReport } from "@/requests/getReport";
 
 export const runtime = "edge";
 
@@ -9,11 +8,12 @@ export async function GET(
   request: Request,
   { params }: { params: { reportId: string } },
 ) {
-  const report = await getReport(params.reportId);
-  const apiFile = await getApiFile({
-    id: params.reportId,
-    fileExtension: report.fileExtension,
-  });
+  const report = await getSimpleReport(params.reportId);
+
+  if (!report) {
+    console.error("Report not found", params.reportId);
+    return new Response("Not found", { status: 404 });
+  }
 
   return new ImageResponse(
     (
@@ -29,7 +29,7 @@ export async function GET(
             <div tw="flex flex-col md:flex-row w-full py-12 px-4 md:items-center justify-around p-8">
               <h2 tw="flex flex-col text-6xl font-bold tracking-tight text-gray-900 text-left">
                 <span tw="text-indigo-600">OpenAPI Rating for</span>
-                <span tw="text-pink-500">{apiFile?.title}</span>
+                <span tw="text-pink-500">{report?.title}</span>
                 <span tw="mt-5">Get yours at</span>
                 <span>ratemyopenapi.com</span>
               </h2>

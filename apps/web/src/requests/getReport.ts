@@ -102,6 +102,8 @@ export type SimpleReport = {
   securityScore: number;
   sdkGenerationScore: number;
   fileExtension: "json" | "yaml";
+  title: string;
+  version: string;
 };
 
 export const getSimpleReport = async (

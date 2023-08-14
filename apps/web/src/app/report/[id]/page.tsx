@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import ScoreDetailsSection from "@/components/DetailedScoreSection";
 import ScoreMeter from "@/components/ScoreMeter";
 
-import getApiFile from "@/requests/getApiFile";
 import { getReport, getSimpleReport } from "@/requests/getReport";
 import { Suspense } from "react";
 
@@ -12,25 +11,6 @@ import ShareButton from "@/components/ShareButton";
 import { RatingExamples } from "@/components/RatingExamples";
 import DynamicBackground from "@/components/DynamicBackground";
 import { DetailedScoreLoading } from "@/components/DetailedScoreSection/Loading";
-
-const ApiFileInfo = async ({
-  id,
-  fileExtension,
-}: {
-  id: string;
-  fileExtension: string;
-}) => {
-  const apiFile = await getApiFile({
-    id,
-    fileExtension,
-  });
-
-  return (
-    <h1 className="text-2xl">
-      {apiFile?.title} {apiFile?.version}
-    </h1>
-  );
-};
 
 const FullReport = async ({ id }: { id: string }) => {
   const report = await getReport(id);
@@ -96,25 +76,9 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
           <ScoreMeter score={simpleReport.score} />
         </div>
         <div className="w-full text-center">
-          <Suspense
-            fallback={
-              <>
-                <span
-                  className="mx-auto block h-[32px] w-[95%] animate-pulse rounded bg-slate-200"
-                  role="presentation"
-                />
-                <span
-                  className="mx-auto mt-2 block h-[32px] w-[80%] animate-pulse rounded bg-slate-200"
-                  role="presentation"
-                />
-              </>
-            }
-          >
-            <ApiFileInfo
-              id={params.id}
-              fileExtension={simpleReport.fileExtension}
-            />
-          </Suspense>
+          <h1 className="text-2xl">
+            {simpleReport?.title} {simpleReport?.version}
+          </h1>
         </div>
       </div>
 

@@ -1,5 +1,4 @@
 import { ISpectralDiagnostic } from "@stoplight/spectral-core";
-import { type SimpleReport } from "../../../api/src/lib/rating";
 
 // import { type RatingOutput } from "@rate-my-openapi/core";
 type RatingOutput = any;
@@ -94,6 +93,15 @@ export const getReport = async (id: string): Promise<RatingOutput | null> => {
   }))(contentJson);
 
   return data;
+};
+
+export type SimpleReport = {
+  docsScore: number;
+  completenessScore: number;
+  score: number;
+  securityScore: number;
+  sdkGenerationScore: number;
+  fileExtension: "json" | "yaml";
 };
 
 export const getSimpleReport = async (

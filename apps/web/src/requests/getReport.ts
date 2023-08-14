@@ -40,6 +40,12 @@ const groupIssues = (issues: ISpectralDiagnostic[]) => {
 const getReport = async (id: string): Promise<RatingOutput | undefined> => {
   const downloadUrlRequest = await fetch(
     (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${id}`,
+    {
+      next: {
+        // 1 day
+        revalidate: 60 * 60 * 24,
+      },
+    },
   );
 
   if (downloadUrlRequest.status !== 200) {

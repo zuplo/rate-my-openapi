@@ -1,10 +1,14 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-export const logAndReplyError = (
-  errorResult: UserErrorResult,
-  fastifyRequest: FastifyRequest,
-  fastifyReply: FastifyReply,
-) => {
+export const logAndReplyError = ({
+  errorResult,
+  fastifyRequest,
+  fastifyReply,
+}: {
+  errorResult: UserErrorResult;
+  fastifyRequest: FastifyRequest;
+  fastifyReply: FastifyReply;
+}) => {
   fastifyRequest.log.error(errorResult.debugMessage, {
     error: errorResult.error,
     context: errorResult.context,
@@ -19,21 +23,25 @@ export const logAndReplyError = (
     });
 };
 
-export const logAndReplyInternalError = (
-  error: any,
-  fastifyRequest: FastifyRequest,
-  fastifyReploy: FastifyReply,
-) => {
-  return logAndReplyError(
-    {
+export const logAndReplyInternalError = ({
+  error,
+  fastifyRequest,
+  fastifyReply,
+}: {
+  error: any;
+  fastifyRequest: FastifyRequest;
+  fastifyReply: FastifyReply;
+}) => {
+  return logAndReplyError({
+    errorResult: {
       userMessage: "Internal server error",
       debugMessage: "Internal server error",
       statusCode: 500,
       error,
     },
     fastifyRequest,
-    fastifyReploy,
-  );
+    fastifyReply,
+  });
 };
 
 export const successJsonReply = (data: object, fastifyReploy: FastifyReply) => {

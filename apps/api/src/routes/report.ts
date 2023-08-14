@@ -39,8 +39,12 @@ export const reportRoute: FastifyPluginAsync = async function (server) {
           });
 
         return successJsonReply({ publicUrl }, reply);
-      } catch (e) {
-        return logAndReplyInternalError(e, request, reply);
+      } catch (err) {
+        return logAndReplyInternalError({
+          error: err,
+          fastifyRequest: request,
+          fastifyReply: reply,
+        });
       }
     },
   });

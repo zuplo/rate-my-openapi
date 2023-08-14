@@ -40,7 +40,11 @@ export const fileRoute: FastifyPluginAsync = async function (server) {
 
         return successJsonReply({ publicUrl }, reply);
       } catch (err) {
-        return logAndReplyInternalError(err, request, reply);
+        return logAndReplyInternalError({
+          error: err,
+          fastifyRequest: request,
+          fastifyReply: reply,
+        });
       }
     },
   });

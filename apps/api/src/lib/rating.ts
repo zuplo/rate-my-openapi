@@ -74,7 +74,7 @@ export const generateRating = async (
 
     await storage
       .bucket(getStorageBucketName())
-      .file(`${input.reportId}-simpleReport.json`)
+      .file(`${input.reportId}-simple-report.json`)
       .save(Buffer.from(JSON.stringify(reportResult.val.simpleReport)));
   } catch (err) {
     return Err({
@@ -132,14 +132,16 @@ type GetReportInput = {
   fileExtension: "json" | "yaml";
 };
 
-type SimpleReport = Pick<
+export type SimpleReport = Pick<
   Rating,
   | "docsScore"
   | "completenessScore"
   | "score"
   | "securityScore"
   | "sdkGenerationScore"
->;
+> & {
+  fileExtension: "json" | "yaml";
+};
 
 type GetReportOutput = {
   simpleReport: SimpleReport;
@@ -248,6 +250,7 @@ const getReport = async (
   }
 
   const simpleReport = {
+    fileExtension: input.fileExtension,
     docsScore: output.docsScore,
     completenessScore: output.completenessScore,
     score: output.score,

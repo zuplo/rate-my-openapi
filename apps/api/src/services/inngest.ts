@@ -82,8 +82,8 @@ export const generateRatingInngest = inngestInstance.createFunction(
 
     await step.run("Generate Rating", async () => {
       const result = await generateRating({
-        id: event.data.id,
-        fileExtension: event.data.fileExtension,
+        reportId: event.data.id,
+        fileExtension: event.data.fileExtension as "json" | "yaml",
         email: event.data.email,
       });
 

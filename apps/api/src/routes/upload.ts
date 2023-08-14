@@ -30,7 +30,11 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
       const parseResult = await parseMultipartUpload(parts);
 
       if (parseResult.err) {
-        return logAndReplyError(parseResult.val, request, reply);
+        return logAndReplyError({
+          errorResult: parseResult.val,
+          fastifyRequest: request,
+          fastifyReply: reply,
+        });
       }
 
       // upload to google cloud storage
@@ -45,7 +49,11 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
 
         request.log.info(`Uploaded file ${uuid}`);
       } catch (err) {
-        return logAndReplyInternalError(err, request, reply);
+        return logAndReplyInternalError({
+          error: err,
+          fastifyRequest: request,
+          fastifyReply: reply,
+        });
       }
 
       try {
@@ -60,7 +68,11 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
 
         return successJsonReply({ id: uuid }, reply);
       } catch (err) {
-        return logAndReplyInternalError(err, request, reply);
+        return logAndReplyInternalError({
+          error: `Could not send event to inngest: ${err}`,
+          fastifyRequest: request,
+          fastifyReply: reply,
+        });
       }
     },
   });

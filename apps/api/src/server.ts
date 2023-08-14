@@ -47,7 +47,9 @@ start()
       server.close();
     });
     process.on("SIGINT", () => {
-      server.close();
+      console.log("\nGracefully shutting down from SIGINT (Ctrl-C)");
+      // some other closing procedures go here
+      process.exit(0);
     });
   })
   .catch(console.error);

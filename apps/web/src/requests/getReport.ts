@@ -37,7 +37,7 @@ const groupIssues = (issues: ISpectralDiagnostic[]) => {
   return sortedIssues;
 };
 
-const getReport = async (id: string): Promise<RatingOutput | undefined> => {
+export const getReport = async (id: string): Promise<RatingOutput | null> => {
   const downloadUrlRequest = await fetch(
     (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${id}`,
     {
@@ -90,10 +90,54 @@ const getReport = async (id: string): Promise<RatingOutput | undefined> => {
     completenessIssues: groupIssues(completenessIssues),
     sdkGenerationIssues: groupIssues(sdkGenerationIssues),
     securityIssues: groupIssues(securityIssues),
-    fileExtension: contentJson?.issues?.[0]?.source?.split(".").pop(),
   }))(contentJson);
 
   return data;
 };
 
-export default getReport;
+export type SimpleReport = {
+  docsScore: number;
+  completenessScore: number;
+  score: number;
+  securityScore: number;
+  sdkGenerationScore: number;
+  fileExtension: "json" | "yaml";
+};
+
+export const getSimpleReport = async (
+  id: string,
+): Promise<SimpleReport | null> => {
+  const downloadUrlRequest = await fetch(
+    (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${id}/simplified`,
+    {
+      next: {
+        // 1 day
+        revalidate: 60 * 60 * 24,
+      },
+    },
+  );
+
+  if (downloadUrlRequest.status !== 200) {
+    console.log("API Error getting simplified report", {
+      status: downloadUrlRequest.status,
+      content: await downloadUrlRequest.text(),
+    });
+    return null;
+  }
+
+  const downloadUrlJson = await downloadUrlRequest.json();
+
+  const contentRequest = await fetch(downloadUrlJson.publicUrl);
+
+  if (contentRequest.status !== 200) {
+    console.log("Google Cloud Error getting simplified report", {
+      status: contentRequest.status,
+      content: await contentRequest.text(),
+    });
+    return null;
+  }
+
+  const contentJson = await contentRequest.json();
+
+  return contentJson;
+};

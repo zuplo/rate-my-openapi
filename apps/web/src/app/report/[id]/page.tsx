@@ -4,13 +4,14 @@ import ScoreDetailsSection from "@/components/DetailedScoreSection";
 import ScoreMeter from "@/components/ScoreMeter";
 
 import getApiFile from "@/requests/getApiFile";
-import getReport from "@/requests/getReport";
+import { getReport, getSimpleReport } from "@/requests/getReport";
 import { Suspense } from "react";
 
 import Link from "next/link";
 import ShareButton from "@/components/ShareButton";
 import { RatingExamples } from "@/components/RatingExamples";
 import DynamicBackground from "@/components/DynamicBackground";
+import { DetailedScoreLoading } from "@/components/DetailedScoreSection/Loading";
 
 const ApiFileInfo = async ({
   id,
@@ -31,44 +32,11 @@ const ApiFileInfo = async ({
   );
 };
 
-const ReportPage = async ({ params }: { params: { id: string } }) => {
-  const report = await getReport(params.id);
-
-  if (!report) {
-    notFound();
-  }
+const FullReport = async ({ id }: { id: string }) => {
+  const report = await getReport(id);
 
   return (
     <>
-      <div className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-6 rounded-lg bg-white p-6 shadow-md md:mt-32 md:flex-row md:justify-around md:p-10">
-        <div className="relative">
-          <ScoreMeter score={report.score} />
-        </div>
-        <div className="w-full text-center">
-          <Suspense
-            fallback={
-              <>
-                <span
-                  className="mx-auto block h-[32px] w-[95%] animate-pulse rounded bg-slate-200"
-                  role="presentation"
-                />
-                <span
-                  className="mx-auto mt-2 block h-[32px] w-[80%] animate-pulse rounded bg-slate-200"
-                  role="presentation"
-                />
-              </>
-            }
-          >
-            <ApiFileInfo id={params.id} fileExtension={report.fileExtension} />
-          </Suspense>
-        </div>
-      </div>
-
-      <h2 className="mx-auto my-16 max-w-xl text-center text-4xl font-extrabold md:text-7xl">
-        Here is your
-        <br />
-        breakdown
-      </h2>
       <div className="mb-10">
         {report?.docsScore ? (
           <ScoreDetailsSection
@@ -110,7 +78,66 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
       <RatingExamples>
         <p className="m-5 text-lg text-gray-400">See how other APIs scored</p>
       </RatingExamples>
-      <DynamicBackground score={report.score} />
+    </>
+  );
+};
+
+const ReportPage = async ({ params }: { params: { id: string } }) => {
+  const simpleReport = await getSimpleReport(params.id);
+
+  if (!simpleReport) {
+    notFound();
+  }
+
+  return (
+    <>
+      <div className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-6 rounded-lg bg-white p-6 shadow-md md:mt-32 md:flex-row md:justify-around md:p-10">
+        <div className="relative">
+          <ScoreMeter score={simpleReport.score} />
+        </div>
+        <div className="w-full text-center">
+          <Suspense
+            fallback={
+              <>
+                <span
+                  className="mx-auto block h-[32px] w-[95%] animate-pulse rounded bg-slate-200"
+                  role="presentation"
+                />
+                <span
+                  className="mx-auto mt-2 block h-[32px] w-[80%] animate-pulse rounded bg-slate-200"
+                  role="presentation"
+                />
+              </>
+            }
+          >
+            <ApiFileInfo
+              id={params.id}
+              fileExtension={simpleReport.fileExtension}
+            />
+          </Suspense>
+        </div>
+      </div>
+
+      <>
+        <h2 className="mx-auto my-16 max-w-xl text-center text-4xl font-extrabold md:text-7xl">
+          Here is your
+          <br />
+          breakdown
+        </h2>
+        <Suspense
+          fallback={
+            <>
+              <DetailedScoreLoading title="Documentation" />
+              <DetailedScoreLoading title="Completeness" />
+              <DetailedScoreLoading title="SDK Generation" />
+              <DetailedScoreLoading title="Security" />
+            </>
+          }
+        >
+          <FullReport id={params.id} />
+        </Suspense>
+      </>
+      <DynamicBackground score={simpleReport.score} />
     </>
   );
 };

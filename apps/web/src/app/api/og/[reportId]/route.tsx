@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/server";
-import getReport from "@/requests/getReport";
 import classNames from "classnames";
 import getApiFile from "@/requests/getApiFile";
+import { getReport } from "@/requests/getReport";
 
 export const runtime = "edge";
 

@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const EXAMPLES: { title: string; slug: string }[] = [
   {
     title: "Stripe",
@@ -25,12 +23,12 @@ export const RatingExamples = ({ children }: { children: React.ReactNode }) => (
     <ul className="flex flex-wrap items-center gap-3">
       {EXAMPLES.map((example) => (
         <li key={example.slug}>
-          <Link
+          <a
             className="block rounded-lg bg-gray-200 p-2 font-medium text-gray-600 transition-colors hover:bg-gray-900 hover:text-white"
             href={`/report/${example.slug}`}
           >
             {example.title}
-          </Link>
+          </a>
         </li>
       ))}
     </ul>

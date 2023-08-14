@@ -43,7 +43,10 @@ const getReport = async (id: string): Promise<RatingOutput | undefined> => {
   );
 
   if (downloadUrlRequest.status !== 200) {
-    console.log("API Error getting report", downloadUrlRequest);
+    console.log("API Error getting report", {
+      status: downloadUrlRequest.status,
+      content: await downloadUrlRequest.text(),
+    });
     return null;
   }
 
@@ -51,15 +54,15 @@ const getReport = async (id: string): Promise<RatingOutput | undefined> => {
 
   const contentRequest = await fetch(downloadUrlJson.publicUrl);
 
-  const contentJson = await contentRequest.json();
-
   if (contentRequest.status !== 200) {
     console.log("Google Cloud Error getting report", {
       status: contentRequest.status,
-      contentJson,
+      content: await contentRequest.text(),
     });
     return null;
   }
+
+  const contentJson = await contentRequest.json();
 
   const data = (({
     score,

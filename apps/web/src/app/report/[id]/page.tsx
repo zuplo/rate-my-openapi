@@ -62,7 +62,7 @@ const FullReport = async ({ id }: { id: string }) => {
   );
 };
 
-const ReportPage = async ({ params }: { params: { id: string } }) => {
+const HeroScore = async ({ params }: { params: { id: string } }) => {
   const simpleReport = await getSimpleReport(params.id);
 
   if (!simpleReport) {
@@ -81,27 +81,54 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
           </h1>
         </div>
       </div>
-
-      <>
-        <h2 className="mx-auto my-16 max-w-xl text-center text-4xl font-extrabold md:text-7xl">
-          Here is your
-          <br />
-          breakdown
-        </h2>
-        <Suspense
-          fallback={
-            <>
-              <DetailedScoreLoading title="Documentation" />
-              <DetailedScoreLoading title="Completeness" />
-              <DetailedScoreLoading title="SDK Generation" />
-              <DetailedScoreLoading title="Security" />
-            </>
-          }
-        >
-          <FullReport id={params.id} />
-        </Suspense>
-      </>
+      <h2 className="mx-auto my-16 max-w-xl text-center text-4xl font-extrabold md:text-7xl">
+        Here is your
+        <br />
+        breakdown
+      </h2>
       <DynamicBackground score={simpleReport.score} />
+    </>
+  );
+};
+
+const LoadingHeroScore = () => {
+  return (
+    <>
+      <div className="mx-auto mt-8 flex max-w-xl animate-pulse flex-col items-center gap-6 rounded-lg bg-white p-6 shadow-md md:mt-32 md:flex-row md:justify-around md:p-10">
+        <div className="relative">
+          <ScoreMeter score={0} />
+        </div>
+        <div className="flex w-full items-center justify-center">
+          <div className="h-8 w-48 animate-pulse rounded-lg bg-gray-200" />
+        </div>
+      </div>
+      <h2 className="mx-auto my-16 max-w-xl animate-pulse text-center text-4xl font-extrabold text-gray-400 md:text-7xl">
+        Loading
+        <br />
+        full report
+      </h2>
+    </>
+  );
+};
+
+const ReportPage = async ({ params }: { params: { id: string } }) => {
+  return (
+    <>
+      <Suspense fallback={<LoadingHeroScore />}>
+        <HeroScore params={params} />
+      </Suspense>
+      <Suspense
+        fallback={
+          <>
+            <DetailedScoreLoading title="Documentation" />
+            <DetailedScoreLoading title="Completeness" />
+            <DetailedScoreLoading title="SDK Generation" />
+            <DetailedScoreLoading title="Security" />
+          </>
+        }
+      >
+        <FullReport id={params.id} />
+      </Suspense>
     </>
   );
 };

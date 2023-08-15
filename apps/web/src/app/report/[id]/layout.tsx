@@ -26,7 +26,6 @@ export function generateMetadata({ params }: Props): Metadata {
       url: `https://ratemyopenapi.com/report/${id}`,
       siteName: sitename,
       locale: "en_US",
-
       images: [ogiImage],
     },
     twitter: {

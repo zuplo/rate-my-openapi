@@ -1,4 +1,4 @@
-import sgMail from "@sendgrid/mail";
+import sgMail, { MailDataRequired } from "@sendgrid/mail";
 import esMain from "es-main";
 import { getSuccesfulEmailHtml } from "./succesfull-email.js";
 import { Err, Ok, Result } from "ts-results-es";
@@ -21,7 +21,10 @@ export const sendReportEmail = async ({
 }): Promise<Result<SendEmailResult, GenericErrorResult>> => {
   const msg = {
     to: email,
-    from: "hello@ratemyopenapi.com",
+    from: {
+      name: "Rate My OpenAPI",
+      email: "hello@ratemyopenapi.com",
+    },
     subject: "Your OpenAPI Report is Ready",
     text: "Visit here: https://ratemyopenapi.com/report/" + reportId,
     html: getSuccesfulEmailHtml({
@@ -55,9 +58,12 @@ export const sendFailureEmail = async ({
 }: {
   email: string;
 }): Promise<Result<SendFailureEmailResult, GenericErrorResult>> => {
-  const msg = {
+  const msg: MailDataRequired = {
     to: email,
-    from: "hello@ratemyopenapi.com",
+    from: {
+      name: "Rate My OpenAPI",
+      email: "hello@ratemyopenapi.com",
+    },
     subject: "We could not generate your report",
     text: `We could not generate your report. There was an issue with your OpenAPI file.`,
     html: "We could not generate your report. There was an issue with your OpenAPI file.",

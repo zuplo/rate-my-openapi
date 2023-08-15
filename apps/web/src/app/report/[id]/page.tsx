@@ -76,9 +76,10 @@ const HeroScore = async ({ params }: { params: { id: string } }) => {
           <ScoreMeter score={simpleReport.score} />
         </div>
         <div className="w-full text-center">
-          <h1 className="text-2xl">
+          <h1 className="mb-10 text-2xl">
             {simpleReport?.title} {simpleReport?.version}
           </h1>
+          <ShareButton type="light" />
         </div>
       </div>
       <h2 className="mx-auto my-16 max-w-xl text-center text-4xl font-extrabold md:text-7xl">

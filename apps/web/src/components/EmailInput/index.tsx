@@ -76,13 +76,6 @@ const EmailInput = () => {
   return (
     <StepContainer step={2}>
       <form onSubmit={onSubmit}>
-        <label
-          htmlFor="email"
-          className="mx-auto mb-6 block max-w-lg text-center text-xl text-gray-600 md:mb-16"
-        >
-          Enter your email address so we can send your report when it&apos;s
-          ready
-        </label>
         <div className="relative flex w-full rounded-lg border border-gray-200 bg-white p-4 shadow-md">
           <input
             required
@@ -110,6 +103,12 @@ const EmailInput = () => {
           </p>
         )}
       </form>
+      <label
+        htmlFor="email"
+        className="mx-auto mt-6 block max-w-lg text-center text-xl text-gray-600 md:mb-16"
+      >
+        Enter your email to send your report when it&apos;s ready.
+      </label>
       <FormError error={error} />
     </StepContainer>
   );

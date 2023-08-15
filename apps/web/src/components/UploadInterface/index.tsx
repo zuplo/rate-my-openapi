@@ -182,20 +182,13 @@ const UploadInterface = () => {
               />
 
               <p className="text-xl font-bold text-gray-500">
-                Drop your file here
-              </p>
-              <p className=" text-gray-500">
-                We’ll start analysing your API within a blink
+                Drop your OpenAPI here
               </p>
             </div>
           </div>
         </div>
       )}
 
-      <p className="mx-auto mb-6 max-w-lg text-center text-xl text-gray-600 md:mb-16">
-        Drop your OpenAPI definition or paste a URL into the form below and get
-        a score on your API&apos;s quality.
-      </p>
       <form
         className="relative flex w-full rounded-lg border border-gray-200 bg-white p-4 shadow-md"
         id="upload-form"
@@ -251,7 +244,10 @@ const UploadInterface = () => {
           )}
 
           {isValidUrlInput && (
-            <button className="icon-button mr-2 bg-gray-200" onClick={onClear}>
+            <button
+              className="icon-button mr-2 bg-gray-200 hover:bg-gray-300"
+              onClick={onClear}
+            >
               <XMarkIcon height={24} width={24} className="text-gray-500" />
             </button>
           )}

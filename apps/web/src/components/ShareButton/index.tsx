@@ -2,7 +2,13 @@
 
 import { useState } from "react";
 
-const ShareButton = ({ className = "" }) => {
+const ShareButton = ({
+  className = "",
+  type,
+}: {
+  className?: string;
+  type?: "light" | "dark";
+}) => {
   const [copied, setCopied] = useState(false);
 
   return (
@@ -14,7 +20,11 @@ const ShareButton = ({ className = "" }) => {
       }}
       disabled={copied}
       className={`${
-        copied ? "button bg-gray-400 text-white" : "button-dark"
+        copied
+          ? "button bg-gray-400 text-white"
+          : type === "light"
+          ? "button-light"
+          : "button-dark"
       } ${className}`}
     >
       {copied ? "Copied to clipboard" : "Share these results"}

@@ -1,18 +1,22 @@
-import { Argv } from "yargs";
+import { Argv, CommandModule } from "yargs";
 import setBlocking from "../common/output.js";
-import { Arguments, generateRating } from "../generate-rating/handler.js";
+import { Arguments, generateRating } from "../handlers/generate-rating.js";
 
-export default {
-  desc: "Generate a rating for an OpenAPI file",
+export const generateRatingCommand: CommandModule<any, any> = {
   command: "generate-rating",
+  describe: "Generate a rating for an OpenAPI file using Vacuum",
   builder: (yargs: Argv): Argv<unknown> => {
     return yargs
       .option("filepath", {
         type: "string",
         describe: "The filepath of the OpenAPI file to rate",
-        default: ".",
+        demandOption: true,
         normalize: true,
-        hidden: true,
+      })
+      .option("format", {
+        type: "string",
+        describe: '"json" or "yaml"',
+        default: "json",
       })
       .middleware([setBlocking]);
   },

@@ -1,21 +1,25 @@
-import { Argv } from "yargs";
+import { Argv, CommandModule } from "yargs";
 import setBlocking from "../common/output.js";
 import {
   Arguments,
   generateSpectralRating,
-} from "../generate-spectral-rating/handler.js";
+} from "../handlers/generate-spectral-rating.js";
 
-export default {
-  desc: "Generate a rating for an OpenAPI file using Spectral",
-  command: "generate-rating-spectral",
+export const generateSpectralCommand: CommandModule<any, any> = {
+  describe: "Generate a rating for an OpenAPI file using Spectral",
+  command: "generate-spectral-rating",
   builder: (yargs: Argv): Argv<unknown> => {
     return yargs
       .option("filepath", {
         type: "string",
         describe: "The filepath of the OpenAPI file to rate",
-        default: ".",
         normalize: true,
-        hidden: true,
+        demandOption: true,
+      })
+      .option("format", {
+        type: "string",
+        describe: '"json" or "yaml"',
+        default: "json",
       })
       .middleware([setBlocking]);
   },

@@ -4,7 +4,7 @@ import {
   generateOpenApiRating,
 } from "@rate-my-openapi/core";
 import spectralCore from "@stoplight/spectral-core";
-import Parsers from "@stoplight/spectral-parsers";
+import Parsers, { IParser } from "@stoplight/spectral-parsers";
 import { bundleAndLoadRuleset } from "@stoplight/spectral-ruleset-bundler/with-loader";
 import spectralRuntime from "@stoplight/spectral-runtime";
 import { exec } from "child_process";
@@ -12,35 +12,34 @@ import * as fs from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join, relative } from "node:path";
 import util from "node:util";
-import { OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
 import { printCriticalFailureToConsoleAndExit } from "../common/output.js";
+import { load } from "js-yaml";
 
 const { Spectral, Document } = spectralCore;
 const { fetch } = spectralRuntime;
 const execAwait = util.promisify(exec);
 export interface Arguments {
   filepath: string;
+  format: string;
 }
 
 export async function generateRating(argv: Arguments) {
   try {
     const opStartTime = Date.now();
+    const format = argv.format;
     const filepath = argv.filepath;
     const pathName = join(relative(process.cwd(), filepath));
     const rulesetPath = join(
       process.cwd(),
       "../",
       "../",
-      "rulesets/rules.vacuum.yaml"
+      "rulesets/rules.vacuum.yaml",
     );
     const openApiFile = await readFile(pathName);
-    const openApi = JSON.parse(openApiFile.toString()) as
-      | OpenAPIV3_1.Document
-      | OpenAPIV3.Document;
     const startTime = Date.now();
     const { stdout, stderr } = await execAwait(
       `vacuum spectral-report -r ${rulesetPath} -o ${pathName}`,
-      { maxBuffer: undefined }
+      { maxBuffer: undefined },
     );
 
     if (stderr) {
@@ -63,10 +62,18 @@ export async function generateRating(argv: Arguments) {
     // - https://github.com/daveshanley/vacuum/issues/303
     // - https://github.com/daveshanley/vacuum/issues/283
     // - https://github.com/daveshanley/vacuum/issues/269
+    if (format !== "json" && format !== "yaml") {
+      throw new Error(
+        `Invalid format: ${format}. Must be either "json" or "yaml"`,
+      );
+    }
+
+    const parser = format === "json" ? Parsers.Json : Parsers.Yaml;
+
     const openApiSpectralDoc = new Document(
       openApiFile.toString(),
-      Parsers.Json,
-      filepath
+      parser as IParser,
+      filepath,
     );
     const spectral = new Spectral();
     const rulesetFilepath = join(
@@ -74,18 +81,25 @@ export async function generateRating(argv: Arguments) {
       "../",
       "../",
       "rulesets",
-      ".spectral-supplement.yaml"
+      ".spectral-supplement.yaml",
     );
     spectral.setRuleset(
-      await bundleAndLoadRuleset(rulesetFilepath, { fs, fetch })
+      await bundleAndLoadRuleset(rulesetFilepath, { fs, fetch }),
     );
     const spectralOutputReport: SpectralReport = await spectral.run(
-      openApiSpectralDoc
+      openApiSpectralDoc,
     );
     outputReport = [...outputReport, ...spectralOutputReport];
 
     const endTime = Date.now();
-    const output: RatingOutput = generateOpenApiRating(outputReport, openApi);
+    const outputContent =
+      format === "json"
+        ? JSON.parse(openApiFile.toString())
+        : load(openApiFile.toString(), { json: true });
+    const output: RatingOutput = generateOpenApiRating(
+      outputReport,
+      outputContent,
+    );
     console.log(JSON.stringify(output, null, 2));
     const opFinishTime = Date.now();
     // Commented out for now so users can write the output as a valid JSON file

@@ -38,6 +38,7 @@ const groupIssues = (issues: ISpectralDiagnostic[]) => {
 };
 
 export const getReport = async (id: string): Promise<RatingOutput | null> => {
+  const start = performance.now();
   const downloadUrlRequest = await fetch(
     (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${id}`,
     {
@@ -69,6 +70,9 @@ export const getReport = async (id: string): Promise<RatingOutput | null> => {
   }
 
   const contentJson = await contentRequest.json();
+  const end = performance.now();
+
+  console.log("Full Report fetched in", end - start, "ms");
 
   const data = (({
     score,
@@ -109,6 +113,7 @@ export type SimpleReport = {
 export const getSimpleReport = async (
   id: string,
 ): Promise<SimpleReport | null> => {
+  const start = performance.now();
   const downloadUrlRequest = await fetch(
     (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${id}/simplified`,
     {
@@ -130,6 +135,10 @@ export const getSimpleReport = async (
   const downloadUrlJson = await downloadUrlRequest.json();
 
   const contentRequest = await fetch(downloadUrlJson.publicUrl);
+
+  const end = performance.now();
+
+  console.log("Simplified Report fetched in", end - start, "ms");
 
   if (contentRequest.status !== 200) {
     console.log("Google Cloud Error getting simplified report", {

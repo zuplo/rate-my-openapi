@@ -2,7 +2,8 @@
 
 import { useUploadContext } from "@/contexts/UploadContext";
 import classNames from "classnames";
-import { type ReactNode } from "react";
+import posthog from "posthog-js";
+import { useEffect, type ReactNode } from "react";
 
 const StepContainer = ({
   children,
@@ -14,6 +15,14 @@ const StepContainer = ({
   const { step: currentStep, isLoading } = useUploadContext();
 
   const isCurrentStep = currentStep === step;
+
+  useEffect(() => {
+    return () => {
+      if (currentStep === 3) {
+        posthog.reset();
+      }
+    };
+  }, []);
 
   return (
     <div

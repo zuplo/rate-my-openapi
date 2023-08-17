@@ -8,6 +8,7 @@ import { useUploadContext } from "@/contexts/UploadContext";
 import StepContainer from "@/components/StepContainer";
 import FormError from "../FormError";
 import LoadingIndicator from "../LoadingIndicator";
+import posthog from "posthog-js";
 
 const EmailInput = () => {
   const { setNextStep, file, step: currentStep } = useUploadContext();
@@ -62,6 +63,8 @@ const EmailInput = () => {
         });
 
         localStorage.setItem("lastUsedEmailAddress", emailInput?.value);
+
+        await posthog.identify(emailInput?.value);
 
         setNextStep();
       } catch (e) {

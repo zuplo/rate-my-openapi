@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import ScoreDetailsSection from "@/components/DetailedScoreSection";
 import ScoreMeter from "@/components/ScoreMeter";
 
-import { getReport, getSimpleReport } from "@/requests/getReport";
+import { SimpleReport, getReport, getSimpleReport } from "@/requests/getReport";
 import { Suspense } from "react";
 
 import Link from "next/link";
@@ -62,13 +62,7 @@ const FullReport = async ({ id }: { id: string }) => {
   );
 };
 
-const HeroScore = async ({ params }: { params: { id: string } }) => {
-  const simpleReport = await getSimpleReport(params.id);
-
-  if (!simpleReport) {
-    notFound();
-  }
-
+const HeroScore = async ({ simpleReport }: { simpleReport: SimpleReport }) => {
   return (
     <>
       <div className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-6 rounded-lg bg-white p-6 shadow-md md:mt-32 md:flex-row md:justify-around md:p-10">
@@ -113,11 +107,15 @@ const LoadingHeroScore = () => {
 };
 
 const ReportPage = async ({ params }: { params: { id: string } }) => {
+  const simpleReport = await getSimpleReport(params.id);
+
+  if (!simpleReport) {
+    notFound();
+  }
+
   return (
     <>
-      <Suspense fallback={<LoadingHeroScore />}>
-        <HeroScore params={params} />
-      </Suspense>
+      <HeroScore simpleReport={simpleReport} />
       <Suspense
         fallback={
           <>

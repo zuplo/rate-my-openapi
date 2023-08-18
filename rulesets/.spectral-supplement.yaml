@@ -172,3 +172,45 @@ rules:
       function: pattern
       functionOptions:
         match: "/^https:/"
+  redocly-operation-summary:
+    message: Operation should have a summary
+    description: "Operation summaries are used to generate API docs. Redocly uses the summary as the header for the operation, as well as the sidebar navigation text. See https://redocly.com/docs/cli/rules/operation-summary/"
+    severity: warn
+    given: "$.paths.*[?( @property === 'get' || @property === 'put' || @property === 'post' || @property === 'delete' || @property === 'options' || @property === 'head' || @property === 'patch' || @property === 'trace' )]"
+    then:
+      - field: "summary"
+        function: truthy
+  redocly-components-invalid-map-name:
+    message: All component names MUST consist of the following characters `A..Z a..z 0..9 . _ -`
+    description: "All components MUST use keys that match the regular expression: ^[a-zA-Z0-9.-_]+$ See https://redocly.com/docs/cli/rules/spec-components-invalid-map-name/"
+    severity: error
+    given:
+      - "$.components.schemas[*]~"
+      - "$.components.parameters[*]~"
+      - "$.components.securitySchemes[*]~"
+      - "$.components.requestBodies[*]~"
+      - "$.components.responses[*]~"
+      - "$.components.headers[*]~"
+      - "$.components.examples[*]~"
+      - "$.components.links[*]~"
+      - "$.components.callbacks[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: ^[a-zA-Z0-9._-]+$
+  redocly-no-server-variables-empty-enum:
+    message: "Server variables defined, but no enum of options provided"
+    description: "If you use server variables, there are generally two kinds: tenant-driven and environment-driven. In the case of environment-driven variables, you may want to predefine all of the possible values. See https://redocly.com/docs/cli/rules/no-server-variables-empty-enum/"
+    severity: warn
+    given: "$.servers[*].variables[*]"
+    then:
+      field: "enum"
+      function: defined
+  redocly-no-undefined-server-variable:
+    message: "Variable was declared in server URL but not documented"
+    description: "Document all declared server variables to make it easier to consume the API. See https://redocly.com/docs/cli/rules/no-undefined-server-variable/"
+    severity: warn
+    given: "$.servers[?(@.url.match(/({)/))]"
+    then:
+      field: "variables"
+      function: defined

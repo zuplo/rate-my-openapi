@@ -17,5 +17,5 @@ rules:
   openapi-tags-alphabetical: false
   # Noisy and unnecessary
   description-duplication: false
-  # Not a big deal
+  # Covered by oas3-api-servers
   oas3-host-trailing-slash: false

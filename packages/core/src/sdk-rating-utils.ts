@@ -39,6 +39,7 @@ const APIMATIC_SDK_ISSUES = [
   "operation-operationId-valid-in-url", // Rec 8
   "operation-success-response", // Rec 9
   "operation-tags", // Rec 10
+  "redocly-components-invalid-map-name"
 ];
 
 export const SDK_ISSUES = [...APIMATIC_SDK_ISSUES];

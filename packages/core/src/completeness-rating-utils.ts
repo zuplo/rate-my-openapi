@@ -21,7 +21,10 @@ export const COMPLETENESS_ISSUES = [
   'operation-tags',
   'openapi-tags',
   'operation-tag-defined',
-  'oas3-operation-security-defined'
+  'oas3-operation-security-defined',
+  "redocly-operation-summary",
+  "redocly-no-server-variables-empty-enum",
+  "redocly-no-undefined-server-variable",
 ]
 
 export const getCompletenessRating = (issues: SpectralReport) => {

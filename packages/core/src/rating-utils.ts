@@ -148,7 +148,7 @@ export const generateOpenApiRating = (
     : // Having tags is not mandatory, so we count this as a single warning
       // TODO: Should we penalize harder for having more paths?
       {
-        score: 85,
+        score: 0,
         issues: issuesByArea.tags,
         docsScore: 85,
         docsIssues: getDocsIssues(issuesByArea.tags),
@@ -189,15 +189,15 @@ export const generateOpenApiRating = (
       // as a single warning. Security can also be documented at the operation
       // level.
       {
-        score: 85,
+        score: 0,
         issues: issuesByArea.security,
-        docsScore: 85,
+        docsScore: 0,
         docsIssues: getDocsIssues(issuesByArea.security),
-        completenessScore: 85, // May exist at the op level so only warning
+        completenessScore: 0, // May exist at the op level so only warning
         completenessIssues: getCompletenessIssues(issuesByArea.security),
-        sdkGenerationScore: 85,
+        sdkGenerationScore: 0,
         sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.security),
-        securityScore: 85, // May exist at the op level so only warning
+        securityScore: 0, // Should exist but be an empty array
         securityIssues: getSecurityIssues(issuesByArea.security),
       };
 

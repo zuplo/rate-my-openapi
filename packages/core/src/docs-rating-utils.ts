@@ -10,6 +10,7 @@ export const DOCS_ISSUES = [
   "operation-operationId",
   "operation-operationId-unique",
   "oas3-host-not-example",
+  "oas3-host-trailing-slash",
   "contact-properties",
   "info-description",
   "oas3-api-servers",
@@ -21,6 +22,15 @@ export const DOCS_ISSUES = [
   "operation-tags",
   "openapi-tags",
   "operation-tag-defined",
+  "typed-enum",
+  "duplicated-entry-in-enum",
+  "path-keys-no-trailing-slash",
+  "operation-parameters",
+  "path-params",
+  "path-not-include-query",
+  "redocly-operation-summary",
+  "redocly-no-server-variables-empty-enum",
+  "redocly-no-undefined-server-variable",
 ];
 
 export const getDocsRating = (issues: SpectralReport) => {

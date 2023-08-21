@@ -1,5 +1,5 @@
 # --- Vacuum ---
-FROM dshanley/vacuum:latest AS vacuum
+FROM dshanley/vacuum@sha256:f3191df2bb1fac1bb568fc05984912ae8917cfefee606c4c55aaeede1dcf0cb0 as vacuum
 
 FROM node:18-slim
 
@@ -15,7 +15,7 @@ RUN CI=true npm ci --ignore-scripts
 # Build
 RUN npm run build --workspace packages/core
 RUN npm run build --workspace apps/api
- 
+
 # Environment
 ENV NODE_ENV=production
 ENV NODE_OPTIONS="--enable-source-maps"
@@ -23,7 +23,7 @@ ENV NODE_OPTIONS="--enable-source-maps"
 ENV NODE_NO_WARNINGS=1 
 ENV HOST=0.0.0.0
 
-COPY --from=vacuum /vacuum ./bin/vacuum
+COPY --from=vacuum /usr/local/bin/vacuum ./bin/vacuum
 ENV PATH=$PATH:/app/bin
 
 

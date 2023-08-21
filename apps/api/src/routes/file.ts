@@ -1,8 +1,8 @@
 import { type FastifyPluginAsync } from "fastify";
 import { getStorageBucketName, storage } from "../services/storage.js";
 import {
+  logAndReplyError,
   logAndReplyInternalError,
-  successJsonReply,
 } from "../helpers/reply.js";
 
 export const fileRoute: FastifyPluginAsync = async function (server) {
@@ -30,15 +30,31 @@ export const fileRoute: FastifyPluginAsync = async function (server) {
       const { fileName } = request.params as { fileName: string };
 
       try {
-        const publicUrl = await storage
+        const [fileExists] = await storage
           .bucket(getStorageBucketName())
           .file(fileName)
-          .getSignedUrl({
-            action: "read",
-            expires: Date.now() + 1000 * 60 * 60 * 24, // 1 day
-          });
+          .exists();
 
-        return successJsonReply({ publicUrl }, reply);
+        if (!fileExists) {
+          return logAndReplyError({
+            errorResult: {
+              debugMessage: `File ${fileName} does not exist`,
+              userMessage: `File ${fileName} does not exist`,
+              statusCode: 404,
+            },
+            fastifyRequest: request,
+            fastifyReply: reply,
+          });
+        }
+
+        reply.hijack();
+        reply.raw.setHeader("Content-Type", "application/json; charset=utf-8");
+        reply.raw.setHeader("Access-Control-Allow-Origin", "*");
+        return await storage
+          .bucket(getStorageBucketName())
+          .file(fileName)
+          .createReadStream()
+          .pipe(reply.raw);
       } catch (err) {
         return logAndReplyInternalError({
           error: err,

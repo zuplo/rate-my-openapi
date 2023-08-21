@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/server";
 import classNames from "classnames";
-import { getSimpleReport } from "@/requests/getReport";
+import { getSimpleReport } from "../../../report/[id]/simple-report-request";
 
 export const runtime = "edge";
 
@@ -17,7 +17,6 @@ export async function GET(
 
   return new ImageResponse(
     (
-      // Modified based on https://tailwindui.com/components/marketing/sections/cta-sections
       <div
         style={{
           display: "flex",

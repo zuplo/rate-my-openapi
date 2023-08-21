@@ -41,14 +41,17 @@ In addition to an overall score for each level of hierarchy, additional category
 scores were created by specifically focusing on sets of rules that were deemed
 most important to those categories. The current categories are:
 
-- Docs Quality: Measure of quality of documentation that can be generated from
-  this spec. Missing fields like examples and responses affects this score.
-- Completeness: How complete is this OpenAPI spec? Does it fill out many of the
-  non-required but nice-to-have properties? Missing fields like descriptions
+- **Docs Quality**: Measure of quality of documentation that can be generated
+  from this spec. We utilized recommendations from
+  [Redocly](https://redocly.com/docs/cli/rules/built-in-rules/) to generate this
+  score. Missing fields like examples and responses affects this score.
+- **Completeness**: How complete is this OpenAPI spec? Does it fill out many of
+  the non-required but nice-to-have properties? Missing fields like descriptions
   affects this score.
-- SDK Generation: How suitable is this OpenAPI spec for generating an SDK? We
-  utilized recommendations from Apimatic to generate this score. Proper naming
-  and component usage affect this score.
-- Security (Inspired by OWASP recommendations): How vulnerable is this API to
-  OWASP's Top 10 attack vectors? Contract-testing plays a large role here, so
+- **SDK Generation**: How suitable is this OpenAPI spec for generating an SDK?
+  We utilized recommendations from
+  [Apimatic](https://www.apimatic.io/blog/2022/11/14-best-practices-to-write-openapi-for-better-api-consumption/)
+  to generate this score. Proper naming and component usage affect this score.
+- **Security (Inspired by OWASP recommendations)**: How vulnerable is this API
+  to OWASP's Top 10 attack vectors? Contract-testing plays a large role here, so
   documenting all possible responses affects this score.

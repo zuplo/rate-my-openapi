@@ -1,5 +1,5 @@
-import { getStorageBucketName, storage } from "../src/services/storage";
-import { SimpleReport } from "../src/lib/rating";
+import { getStorageBucketName, storage } from "../services/storage.js";
+import { SimpleReport } from "../lib/rating.js";
 import { load } from "js-yaml";
 
 // at the time of writing this script, I introduced a new simple report format

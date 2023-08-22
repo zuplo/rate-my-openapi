@@ -16,10 +16,10 @@ const PAGE_LENGTH = 3;
 const INITIAL_LENGTH = 3;
 
 const SEVERITY_LEVEL_MAP: Record<number, string> = {
-  0: "critical",
-  1: "high",
-  2: "mid",
-  3: "low",
+  0: "error",
+  1: "warn",
+  2: "info",
+  3: "hint",
 };
 
 const getSeverityTextColor = (severity: number) =>

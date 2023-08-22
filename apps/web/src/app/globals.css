@@ -16,7 +16,7 @@ header {
 }
 
 .icon-button-submit {
-  @apply icon-button bg-gray-500 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:bg-none transition-all hover:bg-black;
+  @apply icon-button bg-pink-600 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:bg-none transition-all hover:bg-pink-500;
 }
 
 .button {

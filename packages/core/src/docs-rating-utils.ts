@@ -38,15 +38,19 @@ export const getDocsRating = (issues: SpectralReport) => {
 };
 
 export const getDocsIssues = (issues: SpectralReport) => {
-  return issues.filter(
-    (issue) =>
-      typeof issue.code === "string" && DOCS_ISSUES.includes(issue.code)
-  );
+  return issues
+    .filter(
+      (issue) =>
+        typeof issue.code === "string" && DOCS_ISSUES.includes(issue.code),
+    )
+    .sort(
+      (a, b) => a.severity - b.severity || a.message.localeCompare(b.message),
+    );
 };
 
 export const getLengthNormalizedDocsRating = (
   issues: SpectralReport,
-  length: number
+  length: number,
 ) => {
   let totalDelta = 0;
   const docsIssues = issues.filter((issue) => {

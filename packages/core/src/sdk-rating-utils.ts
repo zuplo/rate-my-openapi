@@ -39,7 +39,7 @@ const APIMATIC_SDK_ISSUES = [
   "operation-operationId-valid-in-url", // Rec 8
   "operation-success-response", // Rec 9
   "operation-tags", // Rec 10
-  "redocly-components-invalid-map-name"
+  "redocly-components-invalid-map-name",
 ];
 
 export const SDK_ISSUES = [...APIMATIC_SDK_ISSUES];
@@ -49,14 +49,19 @@ export const getSdkGenerationRating = (issues: SpectralReport) => {
 };
 
 export const getSdkGenerationIssues = (issues: SpectralReport) => {
-  return issues.filter(
-    (issue) => typeof issue.code === "string" && SDK_ISSUES.includes(issue.code)
-  );
+  return issues
+    .filter(
+      (issue) =>
+        typeof issue.code === "string" && SDK_ISSUES.includes(issue.code),
+    )
+    .sort(
+      (a, b) => a.severity - b.severity || a.message.localeCompare(b.message),
+    );
 };
 
 export const getLengthNormalizedSdkGenerationRating = (
   issues: SpectralReport,
-  length: number
+  length: number,
 ) => {
   let totalDelta = 0;
   const sdkGenerationIssues = issues.filter((issue) => {

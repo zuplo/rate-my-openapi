@@ -155,6 +155,10 @@ const UploadInterface = () => {
       urlInputRef.current.value = "";
     }
 
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+
     setIsValidUrlInput(false);
   };
 

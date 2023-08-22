@@ -56,11 +56,21 @@ const EmailInput = () => {
         formData.append("emailAddress", emailInput?.value);
         formData.append("apiFile", file);
 
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
-          method: "POST",
-          body: formData,
-          mode: "no-cors",
-        });
+        const uploadResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/upload`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+
+        if (!uploadResponse.ok) {
+          setError(
+            `Upload failed with status ${uploadResponse.status}. Try again?`,
+          );
+          setIsSubmitting(false);
+          return;
+        }
 
         localStorage.setItem("lastUsedEmailAddress", emailInput?.value);
 
@@ -100,19 +110,19 @@ const EmailInput = () => {
             )}
           </button>
         </div>
-        {isSubmitting && (
-          <p className="m-5 text-lg text-gray-400">
-            Uploading your OpenAPI definition...
-          </p>
-        )}
       </form>
       <label
         htmlFor="email"
         className="mx-auto mt-6 block max-w-lg text-center text-xl text-gray-600 md:mb-16"
       >
-        Enter your email to send your report when it&apos;s ready.
+        {error ? (
+          <p className="mb-4 text-red-500">{error}</p>
+        ) : isSubmitting ? (
+          <p className="text-gray-400">Uploading your OpenAPI definition...</p>
+        ) : (
+          <>Enter your email to send your report when it&apos;s ready.</>
+        )}
       </label>
-      <FormError error={error} />
     </StepContainer>
   );
 };

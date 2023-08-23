@@ -1,7 +1,9 @@
 import { SpectralReport } from "./interfaces";
 import { getScoreDelta } from "./rating-utils";
+import { COMMON_CRITICAL_ISSUES } from "./common-rating-utils";
 
 export const COMPLETENESS_ISSUES = [
+  ...COMMON_CRITICAL_ISSUES,
   "oas3-valid-schema-example",
   "operation-4xx-response",
   "path-declarations-must-exist",

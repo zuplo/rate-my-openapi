@@ -15,7 +15,7 @@ rules:
   no-eval-in-markdown: error
   no-script-tags-in-markdown: error
   duplicated-entry-in-enum: error
-  no-$ref-siblings: error
+  no-$ref-siblings: false
   oas3-unused-component: error
   oas3-server-not-example.com: warn
   contact-properties: info

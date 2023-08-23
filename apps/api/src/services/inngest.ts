@@ -1,6 +1,6 @@
 import { EventSchemas, Inngest } from "inngest";
 import { sendFailureEmail, sendReportEmail } from "../lib/email/index.js";
-import { generateRating } from "../lib/rating.js";
+import { generateRating, uploadReport } from "../lib/rating.js";
 import { slack, slackChannelId } from "./slack.js";
 import { posthog } from "./posthog.js";
 
@@ -81,18 +81,28 @@ export const generateRatingInngest = inngestInstance.createFunction(
     });
 
     await step.run("Generate Rating", async () => {
-      const result = await generateRating({
+      const ratingResult = await generateRating({
         reportId: event.data.id,
         fileExtension: event.data.fileExtension as "json" | "yaml",
-        email: event.data.email,
       });
 
-      if (result.err) {
-        logger.error("Step Generate Rating failed: ", result.err);
-        throw result.err;
+      if (ratingResult.err) {
+        logger.error("Step Generate Rating failed: ", ratingResult.err);
+        throw ratingResult.err;
       }
 
-      return result.val;
+      const uploadResult = await uploadReport({
+        reportId: event.data.id,
+        fullReport: ratingResult.val.fullReport,
+        simpleReport: ratingResult.val.simpleReport,
+      });
+
+      if (uploadResult.err) {
+        logger.error("Step Upload Report failed: ", uploadResult.err);
+        throw uploadResult.err;
+      }
+
+      return uploadResult.val;
     });
 
     await step.run("Send Success Email", async () => {

@@ -23,12 +23,47 @@ const execAwait = util.promisify(exec);
 type GenerateRatingInput = {
   reportId: string;
   fileExtension: "json" | "yaml";
-  email: string;
+};
+
+export const uploadReport = async ({
+  reportId,
+  fullReport,
+  simpleReport,
+}: {
+  reportId: string;
+  fullReport: RatingOutput;
+  simpleReport: SimpleReport;
+}): Promise<Result<true, GenericErrorResult>> => {
+  try {
+    await storage
+      .bucket(getStorageBucketName())
+      .file(`${reportId}-report.json`)
+      .save(Buffer.from(JSON.stringify(fullReport)));
+
+    await storage
+      .bucket(getStorageBucketName())
+      .file(`${reportId}-simple-report.json`)
+      .save(Buffer.from(JSON.stringify(simpleReport)));
+
+    return Ok(true);
+  } catch (err) {
+    return Err({
+      error: `Could not save report for file ${reportId}: ${err}`,
+    });
+  }
 };
 
 export const generateRating = async (
   input: GenerateRatingInput,
-): Promise<Result<true, GenericErrorResult>> => {
+): Promise<
+  Result<
+    {
+      simpleReport: SimpleReport;
+      fullReport: RatingOutput;
+    },
+    GenericErrorResult
+  >
+> => {
   const fileName = `${input.reportId}.${input.fileExtension}`;
 
   let content;
@@ -66,29 +101,13 @@ export const generateRating = async (
     return reportResult;
   }
 
-  try {
-    await storage
-      .bucket(getStorageBucketName())
-      .file(`${input.reportId}-report.json`)
-      .save(Buffer.from(JSON.stringify(reportResult.val.fullReport)));
-
-    await storage
-      .bucket(getStorageBucketName())
-      .file(`${input.reportId}-simple-report.json`)
-      .save(Buffer.from(JSON.stringify(reportResult.val.simpleReport)));
-  } catch (err) {
-    return Err({
-      error: `Could not save report for file ${fileName}: ${err}`,
-    });
-  }
-
   const deleteTempFileResult = await deleteTempFile(tempApiFilePath.val);
 
   if (deleteTempFileResult.err) {
     return deleteTempFileResult;
   }
 
-  return Ok(true);
+  return Ok(reportResult.val);
 };
 
 const deleteTempFile = async (
@@ -104,7 +123,7 @@ const deleteTempFile = async (
   }
 };
 
-const createTempFile = async ({
+export const createTempFile = async ({
   fileId,
   fileExtension,
   content,

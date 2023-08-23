@@ -1,0 +1,4684 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "The Zuplo Developer API, powered by Zuplo",
+    "version": "1.0.0",
+    "description": "Welcome to ZAPI - the Zuplo API where you can manage API keys, tunnels and more. To get your API key for this service login to [portal.zuplo.com](https://portal.zuplo.com) and navigate to your project **Settings > Zuplo API Keys.** \n\n\n ![API Keys](https://cdn.zuplo.com/uploads/zuplo-api-keys.png)"
+  },
+  "tags": [
+    {
+      "name": "Deployments",
+      "description": "Set of operations available to handle deployments."
+    },
+    {
+      "name": "Analytics"
+    },
+    {
+      "name": "Tunnels",
+      "description": "List of endpoints available to perform operations on Tunnels."
+    },
+    {
+      "name": "Tunnel Services",
+      "description": "List of endpoints available to manage services for a given tunnel."
+    },
+    {
+      "name": "Variables",
+      "description": "Set of operations available to create and update environment variables."
+    },
+    {
+      "name": "API Keys - Buckets",
+      "description": "Bucket is an object representing a group of API key consumers for a given account. This section includes a group of endpoints available to perform CRUD operations on a bucket."
+    },
+    {
+      "name": "API Keys - Consumers",
+      "description": "Consumer is an object representing a group of API keys in a given bucket.  This section includes a group of endpoints available to perform CRUD operations on a consumer."
+    },
+    {
+      "name": "API Keys - Keys",
+      "description": "This is an object representing an API key. This section includes a list of endpoints to perform CRUD operations on an API key."
+    },
+    {
+      "name": "API Keys - Managers"
+    },
+    {
+      "name": "API Keys - Manager Invites"
+    },
+    {
+      "name": "Developer Portal - Keys"
+    }
+  ],
+  "paths": {
+    "/openapi": {
+      "get": {
+        "operationId": "openApi",
+        "summary": "OpenAPI Specification",
+        "description": "Returns the OpenAPI V3 spec for Zuplo's Developer API",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.OpenApiRoute.ApiSpec"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/accounts/{accountName}/key-buckets": {
+      "get": {
+        "tags": [
+          "API Keys - Buckets"
+        ],
+        "operationId": "ApiKeyBucketsService_list",
+        "summary": "Lists buckets",
+        "description": "Lists all buckets belonging to this account.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.Buckets"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "API Keys - Buckets"
+        ],
+        "operationId": "ApiKeyBucketsService_create",
+        "summary": "Creates a bucket",
+        "description": "Creates a new bucket for this account.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The request has succeeded and a new resource has been created as a result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.Bucket"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zuplo.ApiKeys.BucketCreateBody"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/key-buckets/{bucketName}": {
+      "get": {
+        "tags": [
+          "API Keys - Buckets"
+        ],
+        "operationId": "ApiKeyBucketsService_read",
+        "summary": "Gets the details for a bucket",
+        "description": "Returns the details for a bucket, including the token used to connect to the bucket.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.Bucket"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "API Keys - Buckets"
+        ],
+        "operationId": "ApiKeyBucketsService_update",
+        "summary": "Updates the bucket",
+        "description": "Updates a bucket, and returns the updated value.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.Bucket"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zuplo.ApiKeys.BucketUpdateBody"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "API Keys - Buckets"
+        ],
+        "operationId": "ApiKeyBucketsService_delete",
+        "summary": "Deletes a bucket",
+        "description": "Deletes a bucket and any related resources",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. "
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers": {
+      "get": {
+        "tags": [
+          "API Keys - Consumers"
+        ],
+        "operationId": "ApiKeyConsumersService_list",
+        "summary": "Lists consumers",
+        "description": "Lists all consumers belonging to this account.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "description": "default: 1000",
+            "schema": {
+              "minimum": 1,
+              "maximum": 1000
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": true,
+            "description": "default: 0",
+            "schema": {
+              "minimum": 0
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.IncludeApiKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.IncludeManagerInvitesParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.IncludeManagerParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.KeyFormatQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ManagerEmailQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ManagerInviteEmailQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.TagQueryParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.Consumers"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "API Keys - Consumers"
+        ],
+        "operationId": "ApiKeyConsumersService_create",
+        "summary": "Creates a consumer",
+        "description": "Creates a new consumer for this account.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.WithApiKeyQueryParam"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The request has succeeded and a new resource has been created as a result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.Consumer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zuplo.ApiKeys.ConsumerCreateBody"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers/{consumerName}": {
+      "get": {
+        "tags": [
+          "API Keys - Consumers"
+        ],
+        "operationId": "ApiKeyConsumersService_read",
+        "summary": "Gets a consumer",
+        "description": "Gets a consumer given a bucket name and consumer name.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ConsumerParams.consumerName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.IncludeApiKeyParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.KeyFormatQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.IncludeManagerParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.IncludeManagerInvitesParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.TagQueryParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.Consumer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "API Keys - Consumers"
+        ],
+        "operationId": "ApiKeyConsumersService_update",
+        "summary": "Updates the consumer",
+        "description": "Update the consumer with the matching consumer name.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ConsumerParams.consumerName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.TagQueryParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.Consumer"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zuplo.ApiKeys.ConsumerUpdateBody"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "API Keys - Consumers"
+        ],
+        "operationId": "ApiKeyConsumersService_delete",
+        "summary": "Deletes a consumer",
+        "description": "Deletes a consumer and any related resources",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ConsumerParams.consumerName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.TagQueryParam"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. "
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers/{consumerName}/keys": {
+      "get": {
+        "tags": [
+          "API Keys - Keys"
+        ],
+        "operationId": "ApiKeyKeysService_list",
+        "summary": "Lists keys",
+        "description": "Lists all keys for this consumer.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ConsumerParams.consumerName"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "description": "default: 1000",
+            "schema": {
+              "minimum": 1,
+              "maximum": 1000
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": true,
+            "description": "default: 0",
+            "schema": {
+              "minimum": 0
+            }
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.KeyFormatQueryParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.ApiKeys"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "API Keys - Keys"
+        ],
+        "operationId": "ApiKeyKeysService_create",
+        "summary": "Creates an API key",
+        "description": "Creates a new API key for this consumer.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ConsumerParams.consumerName"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The request has succeeded and a new resource has been created as a result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.ApiKey"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zuplo.ApiKeys.ApiKeyCreateOrUpdateBody"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers/{consumerName}/keys/$bulk": {
+      "post": {
+        "tags": [
+          "API Keys - Keys"
+        ],
+        "operationId": "ApiKeyKeysService_bulkCreate",
+        "summary": "Creates multiple API keys",
+        "description": "Creates multiple new API keys for this consumer.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ConsumerParams.consumerName"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The request has succeeded and a new resource has been created as a result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.ApiKeys"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.ApiKeyCreateOrUpdateBody"
+                },
+                "x-typespec-name": "Zuplo.ApiKeys.ApiKeyCreateOrUpdateBody[]"
+              }
+            }
+          }
+        },
+        "example": {
+          "data": [
+            {
+              "id": "key_akiz7pVtGndeII1JvnQeS1IJ",
+              "description": "key-1",
+              "createdOn": "2023-07-25T23:41:41.468Z",
+              "updatedOn": "2023-07-25T23:41:41.468Z",
+              "expiresOn": "2055-07-25T22:48:24.831Z",
+              "key": "zpka_b41fb9aaf83d4c433159e2b5021f3fd3_25215834"
+            },
+            {
+              "id": "key_AzxvUmcWGdCh7BwdbvvYvONZ",
+              "description": "key-2",
+              "createdOn": "2023-07-25T23:41:41.468Z",
+              "updatedOn": "2023-07-25T23:41:41.468Z",
+              "expiresOn": "2095-07-25T22:48:24.831Z",
+              "key": "zpka_347c167e952346ad9a3c39da4caa5451_7f769c4e"
+            }
+          ]
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers/{consumerName}/keys/{keyId}": {
+      "get": {
+        "tags": [
+          "API Keys - Keys"
+        ],
+        "operationId": "ApiKeyKeysService_get",
+        "summary": "Gets an API key",
+        "description": "Retrieves an API key for this consumer.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ConsumerParams.consumerName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ApiKeyParams.keyId"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.KeyFormatQueryParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.TagQueryParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.ApiKey"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "API Keys - Keys"
+        ],
+        "operationId": "ApiKeyKeysService_update",
+        "summary": "Updates an API key",
+        "description": "Updates an API key for this consumer.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ConsumerParams.consumerName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ApiKeyParams.keyId"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.TagQueryParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.ApiKeys.ApiKey"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zuplo.ApiKeys.ApiKeyCreateOrUpdateBody"
+              }
+            }
+          }
+        },
+        "example": {
+          "description": "updated api key",
+          "expiresOn": "2099-04-20T05:54:34.408Z",
+          "key": "z_12233das4233"
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "API Keys - Keys"
+        ],
+        "operationId": "ApiKeyKeysService_delete",
+        "summary": "Deletes an API key",
+        "description": "Deletes an API key for this consumer.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ConsumerParams.consumerName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ApiKeyParams.keyId"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.TagQueryParam"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. "
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers/{consumerName}/roll-key": {
+      "post": {
+        "tags": [
+          "API Keys - Consumers"
+        ],
+        "operationId": "ApiKeyConsumersService_rollKey",
+        "summary": "Roll consumer keys",
+        "description": "Set expiration for keys with no expiration date and creates a new key.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.BucketParams.bucketName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.ConsumerParams.consumerName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.ApiKeys.TagQueryParam"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "There is no content to send for this request, but the headers may be useful. "
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zuplo.Common.ExpiresOnField"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/projects/{projectName}/branches/{branchName}/variables": {
+      "post": {
+        "tags": [
+          "Variables"
+        ],
+        "operationId": "VariablesService_create",
+        "summary": "Create a new variable",
+        "description": "Creates a new environment variable in a branch for a given project",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountProjectParams.projectName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.BranchParams"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The request has succeeded and a new resource has been created as a result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Variables.Variable"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zuplo.Variables.VariableCreateBody"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/projects/{projectName}/branches/{branchName}/variables/{variableName}": {
+      "patch": {
+        "tags": [
+          "Variables"
+        ],
+        "operationId": "VariablesService_update",
+        "summary": "Update value of a variable",
+        "description": "Update the value of a variable in a branch for a given project",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountProjectParams.projectName"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.BranchParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.VariableParams"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Variables.Variable"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zuplo.Variables.VariableUpdateBody"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/projects/{projectName}/deployment-status/{statusId}": {
+      "get": {
+        "tags": [
+          "Deployments"
+        ],
+        "operationId": "V1_deploymentStatus",
+        "summary": "Gets deployment status",
+        "description": "Gets the deployment status of your upload. Use the UUID of the uploaded sources as the statusId.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountProjectParams.projectName"
+          },
+          {
+            "name": "statusId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.DeploymentStatus.DeploymentStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/projects/{projectName}/deployments": {
+      "get": {
+        "tags": [
+          "Deployments"
+        ],
+        "operationId": "DeploymentsService_list",
+        "summary": "Lists deployments",
+        "description": "Lists the deployments for the specified account and project.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountProjectParams.projectName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Deployments.DeploymentsList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/projects/{projectName}/sources": {
+      "post": {
+        "operationId": "V1_sources",
+        "summary": "Sources",
+        "description": "POST to create an project-specific temporary URL for uploading your sources.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountProjectParams.projectName"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Sources.Source"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/tunnels": {
+      "get": {
+        "tags": [
+          "Tunnels"
+        ],
+        "operationId": "TunnelService_list",
+        "summary": "Lists tunnels",
+        "description": "Lists all tunnels belonging to this account.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Tunnels.TunnelList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Tunnels"
+        ],
+        "operationId": "TunnelService_create",
+        "summary": "Creates a tunnel",
+        "description": "Creates a new tunnel for this account.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The request has succeeded and a new resource has been created as a result.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Tunnels.Tunnel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zuplo.Tunnels.Tunnel"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/tunnels/{tunnelId}": {
+      "get": {
+        "tags": [
+          "Tunnels"
+        ],
+        "operationId": "TunnelService_read",
+        "summary": "Gets the details for a tunnel",
+        "description": "Returns the details for a tunnel, including the token used to connect to the tunnel.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Tunnels.TunnelIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Tunnels.Tunnel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Tunnels"
+        ],
+        "operationId": "TunnelService_delete",
+        "summary": "Deletes a tunnel",
+        "description": "Deletes a tunnel and any services that it has.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Tunnels.TunnelIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Tunnels.TunnelTeardownOperation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/tunnels/{tunnelId}/$rotate-token": {
+      "post": {
+        "tags": [
+          "Tunnels"
+        ],
+        "operationId": "TunnelService_update",
+        "summary": "Rotates the token",
+        "description": "Rotates the token used to connect to the tunnel.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Tunnels.TunnelIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Tunnels.Tunnel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The server cannot find the requested resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.NotFoundProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/tunnels/{tunnelId}/provisioning-operations/{operationId}": {
+      "get": {
+        "tags": [
+          "Tunnel Services"
+        ],
+        "operationId": "TunneledServicesService_getProvisioningStatus",
+        "summary": "Gets the provisioning status for the tunnel",
+        "description": "This endpoint returns the status of the services that the tunnel is currently configured for. Provisioning the services is an asynchronous process so this endpoint allows you to poll the status.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Tunnels.TunnelIdParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Tunnels.TunneledServiceProvisioningStatusParams.operationId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Tunnels.TunneledServicesProvisioningOperation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/tunnels/{tunnelId}/services-configuration": {
+      "get": {
+        "tags": [
+          "Tunnel Services"
+        ],
+        "operationId": "TunneledServicesService_getServiceConfiguration",
+        "summary": "Gets the service configuration for the tunnel",
+        "description": "This endpoint returns a snapshot of the services that the tunnel is currently configured for.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Tunnels.TunnelIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Tunnels.TunneledServicesConfiguration"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Tunnel Services"
+        ],
+        "operationId": "TunneledServicesService_putServiceConfiguration",
+        "summary": "Configures the services that the tunnel connects to",
+        "description": "This endpoint reads the request body and creates/updates/delete the services that the tunnel connects to.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Tunnels.TunnelIdParam"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Tunnels.TunneledServicesProvisioningOperation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Zuplo.Tunnels.TunneledServicesConfiguration"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/accounts/{accountName}/tunnels/{tunnelId}/teardown-operations/{operationId}": {
+      "get": {
+        "tags": [
+          "Tunnels"
+        ],
+        "operationId": "TunnelService_getProvisioningStatus",
+        "summary": "Gets the teardown provisioning status for the tunnel",
+        "description": "This endpoint returns the status of the deletion of the tunnel. Tearing down the tunnel is an asynchronous process so this endpoint allows you to poll the status.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.AccountParams"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Tunnels.TunnelIdParam"
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Tunnels.TunnelTeardownStatusParams.operationId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Tunnels.TunnelTeardownOperation"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/deployments/{deploymentName}": {
+      "delete": {
+        "tags": [
+          "Deployments"
+        ],
+        "operationId": "DeployService_delete",
+        "summary": "Deletes deployment",
+        "description": "Deletes the specified deployment.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.DeployParams"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded."
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/deployments/{deploymentName}/deploy": {
+      "post": {
+        "tags": [
+          "Deployments"
+        ],
+        "operationId": "DeployService_create",
+        "summary": "Performs a deployment",
+        "description": "Deploys the specified deployment.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          },
+          {
+            "$ref": "#/components/parameters/Zuplo.Common.DeployParams"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.Deploys.DeploymentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/v1/who-am-i": {
+      "get": {
+        "operationId": "V1_whoAmI",
+        "summary": "Who Am I",
+        "description": "Returns basic information about the caller (using the api key)",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "example": "Bearer YOUR_KEY_HERE",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The `Authorization` header is used to authenticate with the API using your API key. Value is of the format `Bearer YOUR_KEY_HERE`."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The request has succeeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.WhoAmI.WhoAmI"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The server could not understand the request due to invalid syntax.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.BadRequestProblemResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Access is unauthorized.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.UnauthorizedProblemResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "Zuplo.ApiKeys.ApiKeyParams.keyId": {
+        "name": "keyId",
+        "in": "path",
+        "required": true,
+        "description": "The key id",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.ApiKeys.BucketParams.bucketName": {
+        "name": "bucketName",
+        "in": "path",
+        "required": true,
+        "description": "The bucket name",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.ApiKeys.ConsumerParams.consumerName": {
+        "name": "consumerName",
+        "in": "path",
+        "required": true,
+        "description": "The consumer name",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.ApiKeys.DevPortalBucketParams.bucketName": {
+        "name": "bucketName",
+        "in": "path",
+        "required": true,
+        "description": "The bucket name.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.ApiKeys.DevPortalBucketParams.dev-portal-sub": {
+        "name": "dev-portal-sub",
+        "in": "header",
+        "required": true,
+        "description": "The dev portal user sub.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.ApiKeys.DevPortalBucketParamsWithEmailHeader.dev-portal-email": {
+        "name": "dev-portal-email",
+        "in": "header",
+        "required": true,
+        "description": "The dev portal user email.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.ApiKeys.DevPortalConsumerParams.consumerName": {
+        "name": "consumerName",
+        "in": "path",
+        "required": true,
+        "description": "The consumer name.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.ApiKeys.DevPortalKeysParams.id": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "The consumer name.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.ApiKeys.IncludeApiKeyParam": {
+        "name": "include-api-keys",
+        "in": "query",
+        "required": false,
+        "description": "Include the api key data in the response",
+        "schema": {
+          "type": "boolean",
+          "example": true
+        },
+        "example": true
+      },
+      "Zuplo.ApiKeys.IncludeManagerInvitesParam": {
+        "name": "include-manager-invites",
+        "in": "query",
+        "required": false,
+        "description": "Include the manager invites data in the response",
+        "schema": {
+          "type": "boolean",
+          "example": true
+        },
+        "example": true
+      },
+      "Zuplo.ApiKeys.IncludeManagerParam": {
+        "name": "include-managers",
+        "in": "query",
+        "required": false,
+        "description": "Include the managers data in the response",
+        "schema": {
+          "type": "boolean",
+          "example": true
+        },
+        "example": true
+      },
+      "Zuplo.ApiKeys.KeyFormatQueryParam": {
+        "name": "key-format",
+        "in": "query",
+        "required": false,
+        "description": "The format of the key to return.\n'none': Key is completely hidden.\n'visible': Key is completely visible.\n'masked': Part of key suffix is visible.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "none",
+            "visible",
+            "masked"
+          ],
+          "example": "masked"
+        },
+        "example": "masked"
+      },
+      "Zuplo.ApiKeys.ManagerEmailQueryParam": {
+        "name": "manager-email",
+        "in": "query",
+        "required": false,
+        "description": "Filter by email address of key manager",
+        "schema": {
+          "type": "string",
+          "example": "bob@example.com"
+        },
+        "example": "bob@example.com"
+      },
+      "Zuplo.ApiKeys.ManagerInviteEmailQueryParam": {
+        "name": "manager-invite-email",
+        "in": "query",
+        "required": false,
+        "description": "Filter by email address of key manager who haven't accepted the invite yet",
+        "schema": {
+          "type": "string",
+          "example": "bob@example.com"
+        },
+        "example": "bob@example.com"
+      },
+      "Zuplo.ApiKeys.ManagerInviteParams.inviteId": {
+        "name": "inviteId",
+        "in": "path",
+        "required": true,
+        "description": "The invitation id",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.ApiKeys.ManagerParams.managerId": {
+        "name": "managerId",
+        "in": "path",
+        "required": true,
+        "description": "The manager id",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.ApiKeys.TagQueryParam": {
+        "name": "tag",
+        "in": "query",
+        "required": false,
+        "description": "Query by tag. Example usage is `tag.account=foo`, where `account` is the name of the tag property and `foo` is the value.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.ApiKeys.WithApiKeyQueryParam": {
+        "name": "with-api-key",
+        "in": "query",
+        "required": false,
+        "description": "If an API key should be created with the consumer",
+        "schema": {
+          "type": "boolean",
+          "example": true
+        },
+        "example": true
+      },
+      "Zuplo.Common.AccountParams": {
+        "name": "accountName",
+        "in": "path",
+        "required": true,
+        "description": "The name of the account. You can find this in your Zuplo Portal under Settings > Project Information.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.Common.AccountProjectParams.projectName": {
+        "name": "projectName",
+        "in": "path",
+        "required": true,
+        "description": "The name of the project. You can find this in your Zuplo Portal under Settings > Project Information.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.Common.BranchParams": {
+        "name": "branchName",
+        "in": "path",
+        "required": true,
+        "description": "The name of the branch in your source control provider.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.Common.DeployParams": {
+        "name": "deploymentName",
+        "in": "path",
+        "required": true,
+        "description": "The name of the deployment. You can find this in the Zuplo Portal under Settings > Environments.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.Common.VariableParams": {
+        "name": "variableName",
+        "in": "path",
+        "required": true,
+        "description": "The name of the project variable.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "Zuplo.Tunnels.TunnelIdParam": {
+        "name": "tunnelId",
+        "in": "path",
+        "required": true,
+        "description": "The ID of the tunnel.",
+        "schema": {
+          "type": "string",
+          "example": "tnl_JcHFzTcJ9y4GU69lKBOaxFYU"
+        },
+        "example": "tnl_JcHFzTcJ9y4GU69lKBOaxFYU"
+      },
+      "Zuplo.Tunnels.TunnelTeardownStatusParams.operationId": {
+        "name": "operationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "tst_1vmvAjaCun9Mfeosn3Og4ddD"
+        },
+        "example": "tst_1vmvAjaCun9Mfeosn3Og4ddD"
+      },
+      "Zuplo.Tunnels.TunneledServiceProvisioningStatusParams.operationId": {
+        "name": "operationId",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "example": "pst_ezMUOh0xFqRWg84DPH5jVwgO"
+        },
+        "example": "pst_ezMUOh0xFqRWg84DPH5jVwgO"
+      }
+    },
+    "schemas": {
+      "Zuplo.ApiKeys.ApiKey": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was created.",
+            "example": "2023-04-18T05:54:34.408Z",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was last updated.",
+            "example": "2023-04-20T05:54:34.408Z",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "expiresOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the key expires.",
+            "example": "2023-04-18T05:54:34.408Z"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the api key"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key value"
+          }
+        },
+        "description": "A Consumer can have any number of API keys associated with it. Each API Key shares the same identity (i.e. Consumer) when authenticating with this service. Keys can have their own description to note the use of the key and can have an expiration date. Expired keys will not be permitted to authenticate after their expiration.",
+        "required": [
+          "createdOn",
+          "updatedOn",
+          "id"
+        ],
+        "example": {
+          "createdOn": "2023-04-20T05:54:34.408Z",
+          "updatedOn": "2023-04-20T05:54:34.408Z",
+          "id": "key_m1m4ol223R0kGHGZY7tPQMQl",
+          "description": "My secret api key",
+          "expiresOn": "2023-04-20T05:54:34.408Z",
+          "key": "zpka_66b21c8591354c0997db232cc2f79c9e_69253f24"
+        }
+      },
+      "Zuplo.ApiKeys.ApiKeyCreateOrUpdateBody": {
+        "type": "object",
+        "properties": {
+          "expiresOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the key expires.",
+            "example": "2023-04-18T05:54:34.408Z"
+          },
+          "description": {
+            "type": "string",
+            "description": "The description of the api key"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key value"
+          }
+        },
+        "example": {
+          "description": "My secret api key",
+          "expiresOn": "2023-04-20T05:54:34.408Z",
+          "key": "zpka_66b21c8591354c0997db232cc2f79c9e_69253f24"
+        }
+      },
+      "Zuplo.ApiKeys.ApiKeys": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zuplo.ApiKeys.ApiKey"
+            },
+            "x-typespec-name": "Zuplo.ApiKeys.ApiKey[]"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "uint32",
+            "example": 1000
+          },
+          "offset": {
+            "type": "integer",
+            "format": "uint32",
+            "example": 0
+          },
+          "total": {
+            "type": "integer",
+            "format": "uint32"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "example": {
+          "data": [
+            {
+              "createdOn": "2023-04-20T05:54:34.408Z",
+              "updatedOn": "2023-04-20T05:54:34.408Z",
+              "id": "key_m1m4ol223R0kGHGZY7tPQMQl",
+              "description": "My secret api key",
+              "expiresOn": "2023-04-20T05:54:34.408Z",
+              "key": "zpka_66b21c8591354c0997db232cc2f79c9e_69253f24"
+            }
+          ],
+          "limit": 1000,
+          "offset": 0
+        }
+      },
+      "Zuplo.ApiKeys.Bucket": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was created.",
+            "example": "2023-04-18T05:54:34.408Z",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was last updated.",
+            "example": "2023-04-20T05:54:34.408Z",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "example": "bckt_pCcNMjERFSoh5xIQir7o99Z6KDoLp36e",
+            "readOnly": true
+          },
+          "isRetrievable": {
+            "type": "boolean",
+            "description": "Whether the API keys stored in the bucket are retrievable",
+            "example": true
+          },
+          "name": {
+            "type": "string",
+            "description": "A friendly name for the bucket",
+            "pattern": "^[a-z0-9-]{5,128}$",
+            "example": "my-bucket"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the bucket",
+            "example": "Bucket for zuplo consumers"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "x-typespec-name": "Record<string>",
+            "description": "Key value pairs to associate with the bucket",
+            "example": {
+              "foo": "baz"
+            }
+          }
+        },
+        "description": "Top level group for API key mangement. A bucket could be used with a single Zuplo environment or shared among multiple environments or projects. By default a Zuplo API Gateway project will be created with several buckets that map to production, preview, and working copy environments.",
+        "required": [
+          "createdOn",
+          "updatedOn",
+          "id",
+          "name"
+        ],
+        "example": {
+          "id": "bckt_pCcNMjERFSoh5xIQir7o99Z6KDoLp36e",
+          "name": "my-bucket",
+          "createdOn": "2023-07-24T19:26:36.000Z",
+          "updatedOn": "2023-07-24T19:26:36.000Z",
+          "description": "Bucket for zuplo consumers",
+          "isRetrievable": true,
+          "tags": {
+            "foo": "bar"
+          }
+        }
+      },
+      "Zuplo.ApiKeys.BucketCreateBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "A friendly name for the bucket",
+            "pattern": "^[a-z0-9-]{5,128}$",
+            "example": "my-bucket"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the bucket",
+            "example": "Bucket for zuplo consumers"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "x-typespec-name": "Record<string>",
+            "description": "Key value pairs to associate with the bucket",
+            "example": {
+              "foo": "baz"
+            }
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "example": {
+          "name": "my-bucket",
+          "description": "Bucket for zuplo consumers",
+          "tags": {
+            "foo": "bar"
+          }
+        }
+      },
+      "Zuplo.ApiKeys.BucketUpdateBody": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "A description of the bucket",
+            "example": "Bucket for zuplo consumers"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "x-typespec-name": "Record<string>",
+            "description": "Key value pairs to associate with the bucket",
+            "example": {
+              "foo": "baz"
+            }
+          }
+        },
+        "example": {
+          "description": "Bucket for zuplo consumers",
+          "tags": {
+            "foo": "bar"
+          }
+        }
+      },
+      "Zuplo.ApiKeys.Buckets": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zuplo.ApiKeys.Bucket"
+            },
+            "x-typespec-name": "Zuplo.ApiKeys.Bucket[]"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "uint32",
+            "example": 1000
+          },
+          "offset": {
+            "type": "integer",
+            "format": "uint32",
+            "example": 0
+          },
+          "total": {
+            "type": "integer",
+            "format": "uint32"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "example": {
+          "data": [
+            {
+              "id": "bckt_pCcNMjERFSoh5xIQir7o99Z6KDoLp36e",
+              "name": "my-bucket",
+              "createdOn": "2023-07-24T19:26:36.000Z",
+              "updatedOn": "2023-07-24T19:26:36.000Z",
+              "description": "Bucket for zuplo consumers",
+              "isRetrievable": true,
+              "tags": {
+                "foo": "bar"
+              }
+            }
+          ]
+        }
+      },
+      "Zuplo.ApiKeys.Consumer": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was created.",
+            "example": "2023-04-18T05:54:34.408Z",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was last updated.",
+            "example": "2023-04-20T05:54:34.408Z",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "A friendly name for the consumer. This name is used as the default user.sub property in the API Key Authentication policy.",
+            "pattern": "^[a-z0-9-]{1,128}$"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the consumer"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "x-typespec-name": "Record<string>",
+            "description": "Key value pairs to associate with the consumer"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "x-typespec-name": "Record<string>",
+            "description": "Generic metadata associated with the consumer"
+          }
+        },
+        "description": "Consumers are the core of the API Key service. The consumer is the 'identity' of any API Keys that are created. ",
+        "required": [
+          "createdOn",
+          "updatedOn",
+          "id",
+          "name"
+        ],
+        "example": {
+          "id": "csmr_brw0leTAVw478VFKD4F6OqVI",
+          "name": "zup-inc",
+          "createdOn": "2023-04-20T05:54:34.408Z",
+          "updatedOn": "2023-04-20T05:54:34.408Z",
+          "description": "Consumer for zup inc",
+          "tags": {
+            "foo": "bar"
+          },
+          "metadata": {
+            "id": "zup-id-343"
+          },
+          "managers": [
+            {
+              "id": "eusr_MeefoYod5eQN33MEjC4PeRFH",
+              "createdOn": "2023-06-19T17:32:11.990Z",
+              "email": "mgr@zuploinc.com",
+              "sub": "sub-oauth2|113533232396018044159"
+            }
+          ],
+          "managerInvites": [
+            {
+              "id": "eusr_MeefoYod5eQN334EjC4PeRFH",
+              "createdOn": "2023-06-19T17:32:11.990Z",
+              "email": "mgr2@zuploinc.com",
+              "sub": "sub-oauth2|113533232396018044000"
+            }
+          ],
+          "apiKeys": [
+            {
+              "id": "key_AM7eAiR0BiaXTam951XmC9kK",
+              "description": "api key for zup inc",
+              "createdOn": "2023-06-19T17:32:17.737Z",
+              "updatedOn": "2023-06-19T17:32:17.737Z",
+              "expiresOn": "2035-06-19T17:32:17.737Z",
+              "key": "****69ff2f90"
+            }
+          ]
+        }
+      },
+      "Zuplo.ApiKeys.ConsumerCreateBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "A friendly name for the consumer. This name is used as the default user.sub property in the API Key Authentication policy.",
+            "pattern": "^[a-z0-9-]{1,128}$"
+          },
+          "managers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-typespec-name": "string[]",
+            "description": "Email addresses of the managers to add to the consumer"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the consumer"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "x-typespec-name": "Record<string>",
+            "description": "Key value pairs to associate with the consumer"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "x-typespec-name": "Record<string>",
+            "description": "Generic metadata associated with the consumer"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "example": {
+          "name": "zup-inc",
+          "description": "Consumer for zup inc",
+          "tags": {
+            "foo": "bar"
+          },
+          "metadata": {
+            "id": "zup-id-343"
+          },
+          "managers": [
+            "mgr@zuplo-inc-example.com"
+          ]
+        }
+      },
+      "Zuplo.ApiKeys.ConsumerUpdateBody": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "A description of the consumer"
+          },
+          "tags": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "x-typespec-name": "Record<string>",
+            "description": "Key value pairs to associate with the consumer"
+          },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "x-typespec-name": "Record<string>",
+            "description": "Generic metadata associated with the consumer"
+          }
+        },
+        "example": {
+          "description": "Consumer for zup inc",
+          "tags": {
+            "foo": "bar"
+          },
+          "metadata": {
+            "id": "zup-id-343"
+          }
+        }
+      },
+      "Zuplo.ApiKeys.Consumers": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zuplo.ApiKeys.Consumer"
+            },
+            "x-typespec-name": "Zuplo.ApiKeys.Consumer[]"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "uint32",
+            "example": 1000
+          },
+          "offset": {
+            "type": "integer",
+            "format": "uint32",
+            "example": 0
+          },
+          "total": {
+            "type": "integer",
+            "format": "uint32"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "example": {
+          "data": [
+            {
+              "id": "csmr_brw0leTAVw478VFKD4F6OqVI",
+              "name": "zup-inc",
+              "createdOn": "2023-04-20T05:54:34.408Z",
+              "updatedOn": "2023-04-20T05:54:34.408Z",
+              "description": "Consumer for zup inc",
+              "tags": {
+                "foo": "bar"
+              },
+              "metadata": {
+                "id": "zup-id-343"
+              },
+              "managers": [
+                {
+                  "id": "eusr_MeefoYod5eQN33MEjC4PeRFH",
+                  "createdOn": "2023-06-19T17:32:11.990Z",
+                  "email": "mgr@zuploinc.com",
+                  "sub": "sub-oauth2|113533232396018044159"
+                }
+              ],
+              "managerInvites": [
+                {
+                  "id": "eusr_MeefoYod5eQN334EjC4PeRFH",
+                  "createdOn": "2023-06-19T17:32:11.990Z",
+                  "email": "mgr2@zuploinc.com",
+                  "sub": "sub-oauth2|113533232396018044000"
+                }
+              ],
+              "apiKeys": [
+                {
+                  "id": "key_AM7eAiR0BiaXTam951XmC9kK",
+                  "description": "api key for zup inc",
+                  "createdOn": "2023-06-19T17:32:17.737Z",
+                  "updatedOn": "2023-06-19T17:32:17.737Z",
+                  "expiresOn": "2035-06-19T17:32:17.737Z",
+                  "key": "****69ff2f90"
+                }
+              ]
+            }
+          ],
+          "offset": 0,
+          "limit": 1000
+        }
+      },
+      "Zuplo.ApiKeys.Manager": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was created.",
+            "example": "2023-04-18T05:54:34.408Z",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the manager"
+          },
+          "sub": {
+            "type": "string",
+            "description": "The sub of the manager in the identity provider"
+          }
+        },
+        "description": "Managers are users that have access to a consumer. Managers can be invited to a consumer using the manager-invites endpoint.",
+        "required": [
+          "createdOn",
+          "id",
+          "email",
+          "sub"
+        ],
+        "example": {
+          "createdOn": "2023-04-20T05:54:34.408Z",
+          "id": "managerId",
+          "email": "bob@example.com"
+        }
+      },
+      "Zuplo.ApiKeys.ManagerInvite": {
+        "type": "object",
+        "properties": {
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was created.",
+            "example": "2023-04-18T05:54:34.408Z",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "expiresOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the invitation expires.",
+            "example": "2023-04-18T05:54:34.408Z",
+            "readOnly": true
+          },
+          "inviteCode": {
+            "type": "string",
+            "description": "The code to use to accept the invitation",
+            "readOnly": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address of the manager to invite"
+          }
+        },
+        "description": "Manager invites are used to invite managers to a consumer. The invitation code can be sent to the manager for them to gain access to the consumer.",
+        "required": [
+          "createdOn",
+          "id",
+          "expiresOn",
+          "inviteCode",
+          "email"
+        ],
+        "example": {
+          "createdOn": "2023-04-20T05:54:34.408Z",
+          "id": "inviteId",
+          "expiresOn": "2023-04-20T05:54:34.408Z",
+          "inviteCode": "abc123",
+          "email": "bob@example.com"
+        }
+      },
+      "Zuplo.Common.ExpiresOnField": {
+        "type": "object",
+        "properties": {
+          "expiresOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item will expire.",
+            "example": "2050-04-18T05:54:34.408Z"
+          }
+        },
+        "required": [
+          "expiresOn"
+        ],
+        "example": {
+          "expiresOn": "2050-04-18T05:54:34.408Z"
+        }
+      },
+      "Zuplo.ConsumerAnalytics.CallsByStatusCodeData": {
+        "type": "object",
+        "properties": {}
+      },
+      "Zuplo.ConsumerAnalytics.CallsDetailData": {
+        "type": "object",
+        "properties": {
+          "consumer": {
+            "type": "string",
+            "readOnly": true
+          },
+          "timeStamp": {
+            "type": "string",
+            "readOnly": true
+          },
+          "totalCalls": {
+            "readOnly": true
+          },
+          "callsByStatusCode": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zuplo.ConsumerAnalytics.CallsByStatusCodeData"
+            },
+            "x-typespec-name": "Zuplo.ConsumerAnalytics.CallsByStatusCodeData[]",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "consumer",
+          "timeStamp",
+          "totalCalls",
+          "callsByStatusCode"
+        ]
+      },
+      "Zuplo.ConsumerAnalytics.RecentCallsData": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zuplo.ConsumerAnalytics.RequestData"
+            },
+            "x-typespec-name": "Zuplo.ConsumerAnalytics.RequestData[]",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "Zuplo.ConsumerAnalytics.ReponseStatsByStatusCodeData": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Zuplo.ConsumerAnalytics.StatsByStatusCodeData"
+              }
+            ],
+            "readOnly": true
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "Zuplo.ConsumerAnalytics.RequestData": {
+        "type": "object",
+        "properties": {
+          "consumer": {
+            "type": "string",
+            "readOnly": true
+          },
+          "method": {
+            "type": "string",
+            "readOnly": true
+          },
+          "routePath": {
+            "type": "string",
+            "readOnly": true
+          },
+          "statusCode": {
+            "type": "string",
+            "readOnly": true
+          },
+          "timeStamp": {
+            "type": "string",
+            "readOnly": true
+          },
+          "city": {
+            "type": "string",
+            "readOnly": true
+          },
+          "country": {
+            "type": "string",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "consumer",
+          "method",
+          "routePath",
+          "statusCode",
+          "timeStamp",
+          "city",
+          "country"
+        ]
+      },
+      "Zuplo.ConsumerAnalytics.StatsByStatusCodeData": {
+        "type": "object",
+        "properties": {
+          "stats": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zuplo.ConsumerAnalytics.StatsData"
+            },
+            "x-typespec-name": "Zuplo.ConsumerAnalytics.StatsData[]",
+            "readOnly": true
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zuplo.ConsumerAnalytics.CallsDetailData"
+            },
+            "x-typespec-name": "Zuplo.ConsumerAnalytics.CallsDetailData[]",
+            "readOnly": true
+          }
+        }
+      },
+      "Zuplo.ConsumerAnalytics.StatsData": {
+        "type": "object",
+        "properties": {
+          "totalCalls": {
+            "readOnly": true
+          },
+          "consumer": {
+            "type": "string",
+            "readOnly": true
+          },
+          "callsByStatusCode": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zuplo.ConsumerAnalytics.CallsByStatusCodeData"
+            },
+            "x-typespec-name": "Zuplo.ConsumerAnalytics.CallsByStatusCodeData[]",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "totalCalls",
+          "consumer",
+          "callsByStatusCode"
+        ]
+      },
+      "Zuplo.DeploymentStatus.DeploymentStatus": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR",
+              "IN_PROGRESS"
+            ],
+            "x-typespec-name": "SUCCESS | ERROR | IN_PROGRESS",
+            "example": "SUCCESS"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://api.zuplo.com/v1/deployments/1234"
+          },
+          "steps": {
+            "$ref": "#/components/schemas/object"
+          },
+          "buildResult": {
+            "$ref": "#/components/schemas/object"
+          }
+        },
+        "description": "Status of a Zuplo project deployment, including the status, build results, and a URL to view more details.",
+        "required": [
+          "status",
+          "url",
+          "steps",
+          "buildResult"
+        ],
+        "example": {
+          "status": "SUCCESS",
+          "url": "https://api.zuplo.com/v1/deployments/1234"
+        }
+      },
+      "Zuplo.Deployments.DeploymentsList": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zuplo.Deployments.SimplifiedDeployment"
+            },
+            "x-typespec-name": "Zuplo.Deployments.SimplifiedDeployment[]"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "example": {
+          "data": [
+            {
+              "name": "lime-skunk-main-bbe7540",
+              "label": "main",
+              "urlParameter": "main",
+              "createdOn": "2023-07-25T23:41:41.468Z",
+              "updatedOn": "2023-07-25T23:41:41.468Z",
+              "loggingId": "chocolate_great_buzzard::lime-skunk::main::main::bbe7540",
+              "accountName": "chocolate_great_buzzard",
+              "projectName": "lime-skunk",
+              "state": "STARTED",
+              "message": "",
+              "branchName": "main",
+              "userSub": "deployer@zuploinc",
+              "url": "https://lime-skunk-main-bbe7540.zuplo.app",
+              "environmentType": "PRODUCTION"
+            }
+          ]
+        }
+      },
+      "Zuplo.Deployments.SimplifiedDeployment": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "prod-deployment"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://api.zuplo.com/deployments/1234"
+          }
+        },
+        "description": "A single deployment of a Zup.",
+        "required": [
+          "name",
+          "url"
+        ],
+        "example": {
+          "name": "prod-deployment",
+          "url": "https://api.zuplo.com/deployments/1234"
+        }
+      },
+      "Zuplo.Deploys.DeploymentResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "example": {
+          "status": "request enqueued"
+        }
+      },
+      "Zuplo.HttpProblemDetails.BadRequestProblemResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "https://httpproblems.com/http-status/400"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "enum": [
+              "Bad Request"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "title"
+        ],
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "detail": {
+                "type": "string"
+              },
+              "instance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "title"
+            ],
+            "x-typespec-name": "Zuplo.HttpProblemDetails.ProblemResponse<400>"
+          }
+        ],
+        "example": {
+          "type": "https://httpproblems.com/http-status/400",
+          "title": "Bad Request",
+          "status": 400
+        }
+      },
+      "Zuplo.HttpProblemDetails.InternalServerErrorProblemResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "https://httpproblems.com/http-status/500"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "enum": [
+              "Internal Server Error"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "title"
+        ],
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "detail": {
+                "type": "string"
+              },
+              "instance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "title"
+            ],
+            "x-typespec-name": "Zuplo.HttpProblemDetails.ProblemResponse<500>"
+          }
+        ],
+        "example": {
+          "type": "https://httpproblems.com/http-status/500",
+          "title": "Internal Server Error",
+          "status": 500
+        }
+      },
+      "Zuplo.HttpProblemDetails.NotFoundProblemResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "https://httpproblems.com/http-status/404"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "enum": [
+              "Not Found"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "title"
+        ],
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "detail": {
+                "type": "string"
+              },
+              "instance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "title"
+            ],
+            "x-typespec-name": "Zuplo.HttpProblemDetails.ProblemResponse<404>"
+          }
+        ],
+        "example": {
+          "type": "https://httpproblems.com/http-status/404",
+          "title": "Not Found",
+          "status": 404
+        }
+      },
+      "Zuplo.HttpProblemDetails.UnauthorizedProblemResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "https://httpproblems.com/http-status/401"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "enum": [
+              "Unauthorized"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "title"
+        ],
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "detail": {
+                "type": "string"
+              },
+              "instance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "title"
+            ],
+            "x-typespec-name": "Zuplo.HttpProblemDetails.ProblemResponse<401>"
+          }
+        ],
+        "example": {
+          "type": "https://httpproblems.com/http-status/401",
+          "title": "Unauthorized",
+          "status": 401
+        }
+      },
+      "Zuplo.OpenApiRoute.ApiSpec": {
+        "type": "object",
+        "properties": {},
+        "example": "{ openapi: 3.0.0, info: { title: The Zuplo Developer API, powered by Zuplo} .... } ,"
+      },
+      "Zuplo.Sources.Source": {
+        "type": "object",
+        "properties": {
+          "uploadUrl": {
+            "type": "string",
+            "example": "https://storage.googleapis.com/[..]1fac8da132b9"
+          }
+        },
+        "required": [
+          "uploadUrl"
+        ],
+        "example": {
+          "uploadUrl": "https://storage.googleapis.com/[..]1fac8da132b9"
+        }
+      },
+      "Zuplo.Tunnels.Tunnel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "tnl_JcHFzTcJ9y4GU69lKBOaxFYU",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "A friendly name for the tunnel",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$",
+            "example": "api-service-tunnel"
+          },
+          "token": {
+            "type": "string",
+            "description": "Set your TUNNEL_TOKEN to this value to connect to the tunnel.",
+            "example": "eyJhIjoiODJh[..]m89In0=",
+            "readOnly": true
+          }
+        },
+        "description": "Tunnels allow you to expose services running on bare metal, on-premises, or other non-cloud providers to the Zuplo platform. [Further reading](https://zuplo.com/docs/articles/secure-tunnel).",
+        "required": [
+          "id",
+          "name",
+          "token"
+        ],
+        "example": {
+          "tunnelId": "tnl_JcHFzTcJ9y4GU69lKBOaxFYU",
+          "name": "api-service-tunnel",
+          "token": "eyJhIjoiODJhNGM0ZTBlYWY3ZmU3YjQyMWRlZHU1ODhlNjg1ZGMiLCJ0IjoiNjY3ZWZhODktYzIyNS00NTIyLWI0M2EtYTgwYzY0OTgxMGY1IiwicyI6IkY5RGdVNnNNOTJWT245OUlUSWxMazVwY3lHV0ZLVG1jcHg2d0I5TkR4Vm89In0="
+        }
+      },
+      "Zuplo.Tunnels.TunnelList": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zuplo.Tunnels.TunnelListItem"
+            },
+            "x-typespec-name": "Zuplo.Tunnels.TunnelListItem[]"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "uint32",
+            "example": 1000
+          },
+          "offset": {
+            "type": "integer",
+            "format": "uint32",
+            "example": 0
+          },
+          "total": {
+            "type": "integer",
+            "format": "uint32"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "example": {
+          "data": [
+            {
+              "id": "tnl_JcHFzTcJ9y4GU69lKBOaxFYU",
+              "name": "api-service-tunnel"
+            }
+          ]
+        }
+      },
+      "Zuplo.Tunnels.TunnelListItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "tnl_JcHFzTcJ9y4GU69lKBOaxFYU",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "A friendly name for the tunnel",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$",
+            "example": "api-service-tunnel"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      },
+      "Zuplo.Tunnels.TunnelTeardownOperation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "tst_1vmvAjaCun9Mfeosn3Og4ddD",
+            "readOnly": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "in-progress",
+              "success",
+              "error"
+            ],
+            "x-typespec-name": "in-progress | success | error",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "Successfully torn down tunnel."
+          },
+          "details": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status"
+        ]
+      },
+      "Zuplo.Tunnels.TunneledServiceConfiguration": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "A friendly name for the service. This name needs to be unique across all your tunneled services. Changing this will invalidate existing services with the name.",
+            "pattern": "^[a-zA-Z0-9-]{3,24}$",
+            "example": "authservice"
+          },
+          "endpoint": {
+            "type": "string",
+            "description": "The URL of the service that the tunnel will forward to, e.g, http://localhost:3000",
+            "example": "https://localhost:3000"
+          },
+          "configurations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "project": {
+                  "type": "string",
+                  "description": "The name the project.",
+                  "example": "alpha-beta-gamma"
+                },
+                "accessibleBy": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "working-copy",
+                      "preview",
+                      "production"
+                    ],
+                    "x-typespec-name": "working-copy | preview | production"
+                  },
+                  "x-typespec-name": "working-copy | preview | production[]",
+                  "description": "The environments of the project that should have acess to this tunneled service.",
+                  "example": "['preview', 'production']"
+                }
+              },
+              "required": [
+                "project",
+                "accessibleBy"
+              ],
+              "x-typespec-name": "Zuplo.Tunnels.(anonymous model)"
+            },
+            "x-typespec-name": "Zuplo.Tunnels.(anonymous model)[]",
+            "description": "A list of projects that should have access to this tunneled service under the service://name URL scheme."
+          }
+        },
+        "required": [
+          "name",
+          "endpoint",
+          "configurations"
+        ]
+      },
+      "Zuplo.Tunnels.TunneledServicesConfiguration": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "integer",
+            "format": "uint8",
+            "description": "The version of this configuration format.",
+            "example": 1
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Zuplo.Tunnels.TunneledServiceConfiguration"
+            },
+            "x-typespec-name": "Zuplo.Tunnels.TunneledServiceConfiguration[]"
+          }
+        },
+        "required": [
+          "version",
+          "services"
+        ]
+      },
+      "Zuplo.Tunnels.TunneledServicesProvisioningOperation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "pst_ezMUOh0xFqRWg84DPH5jVwgO",
+            "readOnly": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "in-progress",
+              "success",
+              "error"
+            ],
+            "x-typespec-name": "in-progress | success | error",
+            "example": "success"
+          },
+          "message": {
+            "type": "string",
+            "example": "Successfully provisioned services."
+          },
+          "details": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status"
+        ]
+      },
+      "Zuplo.Variables.Variable": {
+        "type": "object",
+        "properties": {
+          "branch": {
+            "type": "string",
+            "example": "staging",
+            "readOnly": true
+          },
+          "createdOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was created.",
+            "example": "2023-04-18T05:54:34.408Z",
+            "readOnly": true
+          },
+          "updatedOn": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the item was last updated.",
+            "example": "2023-04-20T05:54:34.408Z",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "example": "APP_ENVIRONMENT_KEY"
+          },
+          "isSecret": {
+            "type": "boolean",
+            "example": "true"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "branch",
+          "createdOn",
+          "updatedOn",
+          "name",
+          "isSecret",
+          "value"
+        ],
+        "example": {
+          "name": "PORTAL_ID",
+          "isSecret": false,
+          "value": "89333",
+          "branch": "main",
+          "createdOn": "2023-04-18T05:54:34.408Z",
+          "updatedOn": "2023-04-20T05:54:34.408Z"
+        }
+      },
+      "Zuplo.Variables.VariableCreateBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "APP_ENVIRONMENT_KEY"
+          },
+          "isSecret": {
+            "type": "boolean",
+            "example": "true"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "isSecret",
+          "value"
+        ],
+        "example": {
+          "name": "PORTAL_ID",
+          "isSecret": false,
+          "value": "89333"
+        }
+      },
+      "Zuplo.Variables.VariableUpdateBody": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "value": "89333"
+        }
+      },
+      "Zuplo.WhoAmI.WhoAmI": {
+        "type": "object",
+        "properties": {
+          "account": {
+            "type": "string",
+            "example": "chocolate_blizzard_treat"
+          }
+        },
+        "required": [
+          "account"
+        ]
+      },
+      "object": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://dev.zuplo.com"
+    }
+  ]
+}

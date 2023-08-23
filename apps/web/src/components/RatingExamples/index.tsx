@@ -9,7 +9,7 @@ const EXAMPLES: { title: string; slug: string }[] = [
   },
   {
     title: "Zuplo",
-    slug: "934bc050-9590-4496-9433-73deeec452ff",
+    slug: "109a3e82-2f6f-4825-880a-9039949112df",
   },
 ];
 

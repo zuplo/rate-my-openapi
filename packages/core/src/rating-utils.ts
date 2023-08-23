@@ -197,17 +197,18 @@ export const generateOpenApiRating = (
     : // Security is not a mandatory property, but chances are the API is
       // secured in some way, but they just didn't document it, so we count this
       // as a fail. Security can also be documented at the operation
-      // level, but should also be documented at the top level in most cases.
+      // level, but should also be documented at the top level in most cases,
+      // even if its just an empty array
       {
-        score: 25,
+        score: 0,
         issues: issuesByArea.security,
-        docsScore: 25,
+        docsScore: 0,
         docsIssues: getDocsIssues(issuesByArea.security),
-        completenessScore: 25,
+        completenessScore: 0,
         completenessIssues: getCompletenessIssues(issuesByArea.security),
-        sdkGenerationScore: 25,
+        sdkGenerationScore: 100, // No implication afaik
         sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.security),
-        securityScore: 25,
+        securityScore: 0,
         securityIssues: getSecurityIssues(issuesByArea.security),
       };
 

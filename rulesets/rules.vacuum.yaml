@@ -19,3 +19,4 @@ rules:
   description-duplication: false
   # Covered by oas3-api-servers
   oas3-host-trailing-slash: false
+  no-$ref-siblings: false

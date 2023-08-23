@@ -1,8 +1,9 @@
+import { COMMON_CRITICAL_ISSUES } from "./common-rating-utils";
 import { SpectralReport } from "./interfaces";
 import { getScoreDelta } from "./rating-utils";
 
 export const DOCS_ISSUES = [
-  "oas3-schema",
+  ...COMMON_CRITICAL_ISSUES,
   "oas3-valid-schema-example",
   "operation-4xx-response",
   "operation-operationId-valid-in-url",
@@ -27,6 +28,8 @@ export const DOCS_ISSUES = [
   "path-keys-no-trailing-slash",
   "operation-parameters",
   "path-params",
+  "no-ambiguous-paths",
+  "no-http-verbs-in-path",
   "path-not-include-query",
   "redocly-operation-summary",
   "redocly-no-server-variables-empty-enum",

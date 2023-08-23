@@ -1,0 +1,6 @@
+[Error: ENOENT: no such file or directory, open 'example-specs/openapi.json'] {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'example-specs/openapi.json'
+}

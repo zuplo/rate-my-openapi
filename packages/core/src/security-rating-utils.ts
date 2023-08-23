@@ -1,10 +1,12 @@
 import { SpectralReport } from "./interfaces";
 import { getScoreDelta } from "./rating-utils";
+import { COMMON_CRITICAL_ISSUES } from "./common-rating-utils";
 
 // Sort of a subset of https://github.com/stoplightio/spectral-owasp-ruleset/blob/main/src/ruleset.ts
 // With some rules dropped because I didn't think they were very useful or
 // actionable.
 export const SECURITY_ISSUES = [
+  ...COMMON_CRITICAL_ISSUES,
   "apimatic-security-defined",
   "owasp:api1:2019-no-numeric-ids",
   "owasp:api2:2019-no-http-basic",

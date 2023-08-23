@@ -1,11 +1,11 @@
 const EXAMPLES: { title: string; slug: string }[] = [
   {
     title: "Asana",
-    slug: "022f6169-763f-4970-ad3e-599eaca76dd7",
+    slug: "378c2bb4-e4f0-4654-ac42-4a6bca6a572c",
   },
   {
-    title: "Twilio",
-    slug: "330373e1-8e4a-4181-af5f-560f1d4267df",
+    title: "Zapier",
+    slug: "f865aeb5-0e2f-41aa-922c-1195a300b529",
   },
   {
     title: "Zuplo",

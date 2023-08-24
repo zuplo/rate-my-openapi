@@ -6,7 +6,7 @@ import UploadInterface from "@/components/UploadInterface";
 import { UploadContextProvider } from "@/contexts/UploadContext";
 
 const HomePage = () => (
-  <main className="flex h-screen w-full flex-col items-center justify-center py-4">
+  <div className="flex flex-col items-center justify-center md:mt-10">
     <h2 className="mb-12 max-w-3xl text-center text-5xl font-bold md:mb-16 md:text-7xl">
       Upload your OpenAPI.
       <br />
@@ -20,7 +20,7 @@ const HomePage = () => (
       </div>
     </UploadContextProvider>
     <DynamicBackground />
-  </main>
+  </div>
 );
 
 export default HomePage;

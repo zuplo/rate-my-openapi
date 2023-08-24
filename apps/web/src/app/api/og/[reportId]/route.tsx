@@ -9,6 +9,10 @@ export async function GET(
   { params }: { params: { reportId: string } },
 ) {
   const report = await getSimpleReport(params.reportId);
+  const fontData = await fetch(
+    new URL("../../../../../assets/Roboto-Bold.ttf", import.meta.url),
+  ).then((res) => res.arrayBuffer());
+
   if (!report) {
     console.error("Report not found", params.reportId);
     return new Response("Not found", { status: 404 });
@@ -19,7 +23,6 @@ export async function GET(
       <div
         style={{
           display: "flex",
-          fontFamily: "Roboto, sans-serif",
         }}
       >
         <div tw="flex ">
@@ -29,19 +32,25 @@ export async function GET(
             height="630"
             src={`https://cdn.zuplo.com/assets/517742cf-0c08-448c-8f81-18b03c3a7144.png`}
           />
-          <div tw="flex ml-80 mt-30 items-center">
-            <div tw="flex text-white text-6xl text-wrap break-words w-100 h-30 font-extrabold text-center items-center justify-center mr-15">
+          <div tw="flex ml-100 mt-30 items-center">
+            <div
+              style={{
+                fontFamily: "Roboto",
+              }}
+              tw="flex text-white text-6xl text-wrap break-words w-100 h-30 text-center items-center justify-center mr-10"
+            >
               {report.title} - {report.version}
             </div>
             <div
               tw={classNames(
                 "flex items-center justify-center rounded-full text-base text-white h-80 w-80 border-8	text-9xl font-bold border-white",
                 {
-                  "border-green-500 text-green-500 bg-green-200":
-                    report.score > 66,
-                  "border-yellow-500 text-yellow-500 bg-yellow-200":
-                    report.score > 33 && report.score <= 66,
-                  "border-red-500 text-red-500 bg-red-200": report.score <= 33,
+                  "text-green-500 bg-green-200": report.score > 80,
+                  "text-yellow-500 bg-yellow-200":
+                    report.score > 50 && report.score <= 80,
+                  "text-red-500 bg-red-200":
+                    report.score > 0 && report.score <= 50,
+                  "text-gray-500 bg-gray-200": report.score === 0,
                 },
               )}
             >
@@ -54,6 +63,13 @@ export async function GET(
     {
       width: 1200,
       height: 630,
+      fonts: [
+        {
+          name: "Roboto",
+          data: fontData,
+          style: "normal",
+        },
+      ],
     },
   );
 }

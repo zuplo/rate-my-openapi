@@ -4,12 +4,25 @@ import classNames from "classnames";
 import AnimatedScore from "../AnimatedScore";
 
 import { useState } from "react";
-import getScoreTextColor from "@/utils/getScoreTextColor";
+import getScoreTextColor from "@/utils/get-score-test-color";
+import { useModal } from "react-modal-hook";
+import IssueModal from "../IssueModal";
 
-type Issue = {
+export type Issue = {
+  code: string;
   message: string;
   severity: number;
   count: number;
+  range: {
+    start: {
+      line: number;
+      character: number;
+    };
+    end: {
+      line: number;
+      character: number;
+    };
+  };
 };
 
 const PAGE_LENGTH = 3;
@@ -24,9 +37,9 @@ const SEVERITY_LEVEL_MAP: Record<number, string> = {
 
 const getSeverityTextColor = (severity: number) =>
   classNames({
-    "text-black": severity === 0,
-    "text-red-500": severity === 1,
-    "text-yellow-500": severity === 2,
+    "text-red-500": severity === 0,
+    "text-yellow-500": severity === 1,
+    "text-blue-500": severity === 2,
     "text-green-500": severity === 3,
   });
 
@@ -34,16 +47,39 @@ const DetailedScoreSection = ({
   title,
   score,
   issues,
+  openapi,
+  fileExtension,
 }: {
   title: string;
   score: number;
   issues: Issue[];
+  openapi: string;
+  fileExtension: "json" | "yaml";
 }) => {
   const [page, setPage] = useState(0);
   const scoreTextColor = getScoreTextColor(score);
   const titleSlug = title.toLowerCase().replace(" ", "-");
   const issueCount = issues.length;
   const totalPages = Math.ceil((issueCount - INITIAL_LENGTH) / PAGE_LENGTH);
+  const [issueToView, setIssueToView] = useState<Issue | undefined>();
+
+  const handleViewClick = (issue: Issue) => {
+    setIssueToView(issue);
+    showModal();
+  };
+
+  const [showModal, hideModal] = useModal(() => {
+    return (
+      <IssueModal
+        openapi={openapi}
+        fileExtension={fileExtension}
+        onClose={() => {
+          hideModal();
+        }}
+        issue={issueToView!}
+      />
+    );
+  }, [issueToView]);
 
   return (
     <div className="mb-10 flex flex-col	overflow-hidden rounded-lg bg-white p-8 shadow-md md:flex-row md:items-start md:p-10 md:pl-0">
@@ -56,7 +92,7 @@ const DetailedScoreSection = ({
         <AnimatedScore score={score} className="text-7xl" id={titleSlug} />
       </div>
       <div className="basis-3/4">
-        <table className="grid min-w-full border-collapse grid-cols-[minmax(70px,0.7fr)_minmax(100px,4fr)] gap-2">
+        <table className="grid min-w-full border-collapse grid-cols-[minmax(70px,0.7fr)_minmax(100px,4fr)] gap-2 gap-y-3">
           <thead className="contents text-left font-bold uppercase">
             <tr className="contents text-gray-400">
               <th>Severity</th>
@@ -75,22 +111,23 @@ const DetailedScoreSection = ({
                   key={`${titleSlug}-table-row-${index}`}
                 >
                   <td
+                    onClick={() => handleViewClick(issue)}
                     className={`font-bold uppercase ${getSeverityTextColor(
                       issue.severity,
-                    )}`}
+                    )} cursor-pointer`}
                   >
                     {SEVERITY_LEVEL_MAP[issue.severity]}
                   </td>
-                  <td className="flex flex-wrap gap-1 md:flex-nowrap">
-                    <span
-                      className="block overflow-hidden break-words"
-                      dangerouslySetInnerHTML={{
-                        __html: issue.message,
-                      }}
-                    ></span>
+                  <td
+                    className="flex cursor-pointer flex-wrap gap-1 md:flex-nowrap"
+                    onClick={() => handleViewClick(issue)}
+                  >
+                    <span className="block overflow-hidden break-words">
+                      {issue.message}
+                    </span>
                     {issue.count > 1 && (
                       <span className="shrink-0 text-gray-400">
-                        ({issue.count} occurances)
+                        ({issue.count} occurrences)
                       </span>
                     )}
                   </td>

@@ -10,8 +10,15 @@ import { RatingExamples } from "@/components/RatingExamples";
 // import { type RatingOutput } from "@rate-my-openapi/core";
 type RatingOutput = any;
 
-export const FullReport = ({ reportId }: { reportId: string }) => {
+export const FullReport = ({
+  reportId,
+  fileExtension,
+}: {
+  reportId: string;
+  fileExtension: "json" | "yaml";
+}) => {
   const [report, setReport] = useState<RatingOutput | null>(null);
+  const [openapi, setOpenapi] = useState<string>();
   useEffect(() => {
     const getReport = async () => {
       const downloadUrlRequest = await fetch(
@@ -37,9 +44,36 @@ export const FullReport = ({ reportId }: { reportId: string }) => {
       setReport(downloadUrlJson);
     };
 
+    const getOpenapi = async () => {
+      const downloadUrlRequest = await fetch(
+        (process.env.NEXT_PUBLIC_API_URL as string) +
+          `/file/${reportId}.${fileExtension}`,
+        {
+          next: {
+            // 1 day
+            revalidate: 60 * 60 * 24,
+          },
+        },
+      );
+
+      if (downloadUrlRequest.status !== 200) {
+        console.log("API Error getting OpenAPI file", {
+          status: downloadUrlRequest.status,
+          content: await downloadUrlRequest.text(),
+        });
+        return null;
+      }
+
+      const downloadUrlJson = await downloadUrlRequest.text();
+
+      setOpenapi(downloadUrlJson);
+    };
+
     getReport();
+    getOpenapi();
   }, []);
-  if (report === null)
+
+  if (report === null || openapi === undefined)
     return (
       <>
         <h2 className="mx-auto my-16 max-w-xl animate-pulse text-center text-4xl font-extrabold text-gray-400 md:text-7xl">
@@ -67,6 +101,8 @@ export const FullReport = ({ reportId }: { reportId: string }) => {
             title="Documentation"
             score={report?.docsScore}
             issues={report?.docsIssues}
+            openapi={openapi}
+            fileExtension={fileExtension}
           />
         ) : (
           <div className="mb-10 h-[630px] animate-pulse rounded-lg bg-slate-200 shadow-md md:h-[312px]" />
@@ -76,6 +112,8 @@ export const FullReport = ({ reportId }: { reportId: string }) => {
             title="Completeness"
             score={report?.completenessScore}
             issues={report?.completenessIssues}
+            openapi={openapi}
+            fileExtension={fileExtension}
           />
         )}
         {report?.sdkGenerationScore && (
@@ -83,6 +121,8 @@ export const FullReport = ({ reportId }: { reportId: string }) => {
             title="SDK Generation"
             score={report?.sdkGenerationScore}
             issues={report?.sdkGenerationIssues}
+            openapi={openapi}
+            fileExtension={fileExtension}
           />
         )}
         {report?.securityScore && (
@@ -90,6 +130,8 @@ export const FullReport = ({ reportId }: { reportId: string }) => {
             title="Security"
             score={report?.securityScore}
             issues={report?.securityIssues}
+            openapi={openapi}
+            fileExtension={fileExtension}
           />
         )}
       </div>

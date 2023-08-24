@@ -4,6 +4,8 @@ import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { PropsWithChildren } from "react";
+import { ModalProvider as ClientModalProvider } from "react-modal-hook";
 
 if (typeof window !== "undefined") {
   posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY || "", {
@@ -33,3 +35,7 @@ export function PostHogPageview() {
 export function PHProvider({ children }: { children: React.ReactNode }) {
   return <PostHogProvider client={posthog}>{children}</PostHogProvider>;
 }
+
+export const ModalProvider = ({ children }: PropsWithChildren) => {
+  return <ClientModalProvider>{children}</ClientModalProvider>;
+};

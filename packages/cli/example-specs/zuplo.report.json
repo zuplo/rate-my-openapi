@@ -2,9 +2,7 @@
   "issues": [
     {
       "code": "info-contact",
-      "path": [
-        "info"
-      ],
+      "path": ["info"],
       "message": "Info section is missing contact details: `contact` must be set",
       "severity": 2,
       "range": {
@@ -21,9 +19,7 @@
     },
     {
       "code": "info-license",
-      "path": [
-        "info"
-      ],
+      "path": ["info"],
       "message": "Info section should contain a license: `license` must be set",
       "severity": 2,
       "range": {
@@ -40,9 +36,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -59,9 +53,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -78,9 +70,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -97,9 +87,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -116,11 +104,7 @@
     },
     {
       "code": "operation-4xx-response",
-      "path": [
-        "paths",
-        "/openapi",
-        "get"
-      ],
+      "path": ["paths", "/openapi", "get"],
       "message": "Operation must define at least one 4xx error response",
       "severity": 2,
       "range": {
@@ -137,11 +121,7 @@
     },
     {
       "code": "operation-tags",
-      "path": [
-        "paths",
-        "/openapi",
-        "get"
-      ],
+      "path": ["paths", "/openapi", "get"],
       "message": "Tags for `get` operation at path `/openapi` are missing",
       "severity": 3,
       "range": {
@@ -268,9 +248,7 @@
     },
     {
       "code": "oas3-schema",
-      "path": [
-        "post"
-      ],
+      "path": ["post"],
       "message": "Schema: additionalProperties 'example' not allowed",
       "severity": 0,
       "range": {
@@ -331,9 +309,7 @@
     },
     {
       "code": "oas3-schema",
-      "path": [
-        "patch"
-      ],
+      "path": ["patch"],
       "message": "Schema: additionalProperties 'example' not allowed",
       "severity": 0,
       "range": {
@@ -568,11 +544,7 @@
     },
     {
       "code": "operation-tags",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get"],
       "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
       "severity": 3,
       "range": {
@@ -589,10 +561,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[1]"
-      ],
+      "path": ["parameters", "parameters[1]"],
       "message": "Schema for `keyId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -609,10 +578,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[3]"
-      ],
+      "path": ["parameters", "parameters[3]"],
       "message": "Schema for `bucketName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -629,10 +595,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[5]"
-      ],
+      "path": ["parameters", "parameters[5]"],
       "message": "Schema for `consumerName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -673,10 +636,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[7]"
-      ],
+      "path": ["parameters", "parameters[7]"],
       "message": "Schema for `bucketName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -717,10 +677,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[9]"
-      ],
+      "path": ["parameters", "parameters[9]"],
       "message": "Schema for `dev-portal-sub` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -761,10 +718,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[11]"
-      ],
+      "path": ["parameters", "parameters[11]"],
       "message": "Schema for `dev-portal-email` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -805,10 +759,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[13]"
-      ],
+      "path": ["parameters", "parameters[13]"],
       "message": "Schema for `consumerName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -849,10 +800,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[15]"
-      ],
+      "path": ["parameters", "parameters[15]"],
       "message": "Schema for `id` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -893,10 +841,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[29]"
-      ],
+      "path": ["parameters", "parameters[29]"],
       "message": "Schema for `inviteId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -937,10 +882,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[31]"
-      ],
+      "path": ["parameters", "parameters[31]"],
       "message": "Schema for `managerId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -957,10 +899,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[33]"
-      ],
+      "path": ["parameters", "parameters[33]"],
       "message": "Schema for `tag` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -977,10 +916,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[37]"
-      ],
+      "path": ["parameters", "parameters[37]"],
       "message": "Schema for `accountName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -997,10 +933,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[39]"
-      ],
+      "path": ["parameters", "parameters[39]"],
       "message": "Schema for `projectName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -1017,10 +950,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[41]"
-      ],
+      "path": ["parameters", "parameters[41]"],
       "message": "Schema for `branchName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -1037,10 +967,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[43]"
-      ],
+      "path": ["parameters", "parameters[43]"],
       "message": "Schema for `deploymentName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -1057,10 +984,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[45]"
-      ],
+      "path": ["parameters", "parameters[45]"],
       "message": "Schema for `variableName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -1217,13 +1141,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "ApiKeys",
-        "ApiKeys"
-      ],
+      "path": ["components", "schemas", "Zuplo", "ApiKeys", "ApiKeys"],
       "message": "Component `Zuplo.ApiKeys.ApiKeys` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -1240,13 +1158,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "ApiKeys",
-        "Buckets"
-      ],
+      "path": ["components", "schemas", "Zuplo", "ApiKeys", "Buckets"],
       "message": "Component `Zuplo.ApiKeys.Buckets` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -1263,13 +1175,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "ApiKeys",
-        "Consumers"
-      ],
+      "path": ["components", "schemas", "Zuplo", "ApiKeys", "Consumers"],
       "message": "Component `Zuplo.ApiKeys.Consumers` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -1286,13 +1192,7 @@
     },
     {
       "code": "oas3-unused-component",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "ApiKeys",
-        "Manager"
-      ],
+      "path": ["components", "schemas", "Zuplo", "ApiKeys", "Manager"],
       "message": "`#/components/schemas/Zuplo.ApiKeys.Manager` is potentially unused or has been orphaned",
       "severity": 1,
       "range": {
@@ -1309,9 +1209,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.ApiKeys.Manager` is not valid: `missing properties: 'sub'`",
       "severity": 1,
       "range": {
@@ -1328,13 +1226,7 @@
     },
     {
       "code": "oas3-unused-component",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "ApiKeys",
-        "ManagerInvite"
-      ],
+      "path": ["components", "schemas", "Zuplo", "ApiKeys", "ManagerInvite"],
       "message": "`#/components/schemas/Zuplo.ApiKeys.ManagerInvite` is potentially unused or has been orphaned",
       "severity": 1,
       "range": {
@@ -1351,13 +1243,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Common",
-        "ExpiresOnField"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Common", "ExpiresOnField"],
       "message": "Component `Zuplo.Common.ExpiresOnField` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -2013,9 +1899,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.DeploymentStatus.DeploymentStatus` is not valid: `missing properties: 'steps', 'buildResult'`",
       "severity": 1,
       "range": {
@@ -2170,13 +2054,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "OpenApiRoute",
-        "ApiSpec"
-      ],
+      "path": ["components", "schemas", "Zuplo", "OpenApiRoute", "ApiSpec"],
       "message": "Component `Zuplo.OpenApiRoute.ApiSpec` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -2193,9 +2071,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.OpenApiRoute.ApiSpec` is not valid: `expected object, but got string`",
       "severity": 1,
       "range": {
@@ -2212,13 +2088,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Sources",
-        "Source"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Sources", "Source"],
       "message": "Component `Zuplo.Sources.Source` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -2235,9 +2105,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.Tunnels.Tunnel` is not valid: `missing properties: 'id'`",
       "severity": 1,
       "range": {
@@ -2254,13 +2122,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Tunnels",
-        "TunnelList"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelList"],
       "message": "Component `Zuplo.Tunnels.TunnelList` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -2277,13 +2139,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Tunnels",
-        "TunnelListItem"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelListItem"],
       "message": "Component `Zuplo.Tunnels.TunnelListItem` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -2488,13 +2344,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Variables",
-        "Variable"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Variables", "Variable"],
       "message": "Component `Zuplo.Variables.Variable` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -2557,13 +2407,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "WhoAmI",
-        "WhoAmI"
-      ],
+      "path": ["components", "schemas", "Zuplo", "WhoAmI", "WhoAmI"],
       "message": "Component `Zuplo.WhoAmI.WhoAmI` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -2580,11 +2424,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "object"
-      ],
+      "path": ["components", "schemas", "object"],
       "message": "Component `object` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -2601,11 +2441,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "securitySchemes",
-        "api_key"
-      ],
+      "path": ["components", "securitySchemes", "api_key"],
       "message": "Component `api_key` of type `securitySchemes` is missing a description",
       "severity": 1,
       "range": {
@@ -2623,9 +2459,7 @@
     {
       "code": "apimatic-security-defined",
       "message": "'security' must be defined and not empty",
-      "path": [
-        "security"
-      ],
+      "path": ["security"],
       "severity": 1,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -2642,12 +2476,7 @@
     {
       "code": "owasp:api3:2019-define-error-responses-401",
       "message": "Operation is missing responses[401].",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 1,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -2664,12 +2493,7 @@
     {
       "code": "owasp:api3:2019-define-error-responses-401",
       "message": "Operation is missing responses[401].content.",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 1,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -2686,12 +2510,7 @@
     {
       "code": "owasp:api3:2019-define-error-responses-500",
       "message": "Operation is missing responses[500].",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 1,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -2708,12 +2527,7 @@
     {
       "code": "owasp:api3:2019-define-error-responses-500",
       "message": "Operation is missing responses[500].content.",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 1,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -2730,12 +2544,7 @@
     {
       "code": "owasp:api4:2019-rate-limit-responses-429",
       "message": "Operation is missing rate limiting response in responses[429].",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -2752,12 +2561,7 @@
     {
       "code": "owasp:api4:2019-rate-limit-responses-429",
       "message": "Operation is missing rate limiting response in responses[429].content.",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -2774,13 +2578,7 @@
     {
       "code": "owasp:api4:2019-rate-limit",
       "message": "All 2XX and 4XX responses should define rate limiting headers.",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses",
-        "200"
-      ],
+      "path": ["paths", "/openapi", "get", "responses", "200"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -7827,14 +7625,7 @@
     {
       "code": "apimatic-no-inline-parameter-schema",
       "message": "Parameter schema: #/paths/~1v1~1who-am-i/get/parameters/0/schema should be moved to components/schemas and referenced",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "parameters",
-        "0",
-        "schema"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "parameters", "0", "schema"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -7851,12 +7642,7 @@
     {
       "code": "owasp:api4:2019-rate-limit-responses-429",
       "message": "Operation is missing rate limiting response in responses[429].",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "responses"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -7873,12 +7659,7 @@
     {
       "code": "owasp:api4:2019-rate-limit-responses-429",
       "message": "Operation is missing rate limiting response in responses[429].content.",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "responses"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -7895,13 +7676,7 @@
     {
       "code": "owasp:api4:2019-rate-limit",
       "message": "All 2XX and 4XX responses should define rate limiting headers.",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "responses",
-        "200"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "responses", "200"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -7918,13 +7693,7 @@
     {
       "code": "owasp:api4:2019-rate-limit",
       "message": "All 2XX and 4XX responses should define rate limiting headers.",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "responses",
-        "400"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "responses", "400"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -7941,13 +7710,7 @@
     {
       "code": "owasp:api4:2019-rate-limit",
       "message": "All 2XX and 4XX responses should define rate limiting headers.",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "responses",
-        "401"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "responses", "401"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -8112,9 +7875,7 @@
   "docsIssues": [
     {
       "code": "oas3-schema",
-      "path": [
-        "post"
-      ],
+      "path": ["post"],
       "message": "Schema: additionalProperties 'example' not allowed",
       "severity": 0,
       "range": {
@@ -8131,9 +7892,7 @@
     },
     {
       "code": "oas3-schema",
-      "path": [
-        "patch"
-      ],
+      "path": ["patch"],
       "message": "Schema: additionalProperties 'example' not allowed",
       "severity": 0,
       "range": {
@@ -8150,11 +7909,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "securitySchemes",
-        "api_key"
-      ],
+      "path": ["components", "securitySchemes", "api_key"],
       "message": "Component `api_key` of type `securitySchemes` is missing a description",
       "severity": 1,
       "range": {
@@ -8171,11 +7926,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "object"
-      ],
+      "path": ["components", "schemas", "object"],
       "message": "Component `object` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -8192,13 +7943,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "ApiKeys",
-        "ApiKeys"
-      ],
+      "path": ["components", "schemas", "Zuplo", "ApiKeys", "ApiKeys"],
       "message": "Component `Zuplo.ApiKeys.ApiKeys` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -8215,13 +7960,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "ApiKeys",
-        "Buckets"
-      ],
+      "path": ["components", "schemas", "Zuplo", "ApiKeys", "Buckets"],
       "message": "Component `Zuplo.ApiKeys.Buckets` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -8238,13 +7977,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "ApiKeys",
-        "Consumers"
-      ],
+      "path": ["components", "schemas", "Zuplo", "ApiKeys", "Consumers"],
       "message": "Component `Zuplo.ApiKeys.Consumers` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -8261,13 +7994,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Common",
-        "ExpiresOnField"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Common", "ExpiresOnField"],
       "message": "Component `Zuplo.Common.ExpiresOnField` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -8583,13 +8310,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "OpenApiRoute",
-        "ApiSpec"
-      ],
+      "path": ["components", "schemas", "Zuplo", "OpenApiRoute", "ApiSpec"],
       "message": "Component `Zuplo.OpenApiRoute.ApiSpec` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -8606,13 +8327,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Sources",
-        "Source"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Sources", "Source"],
       "message": "Component `Zuplo.Sources.Source` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -8722,13 +8437,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Tunnels",
-        "TunnelList"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelList"],
       "message": "Component `Zuplo.Tunnels.TunnelList` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -8745,13 +8454,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Tunnels",
-        "TunnelListItem"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelListItem"],
       "message": "Component `Zuplo.Tunnels.TunnelListItem` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -8815,13 +8518,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Variables",
-        "Variable"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Variables", "Variable"],
       "message": "Component `Zuplo.Variables.Variable` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -8884,13 +8581,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "WhoAmI",
-        "WhoAmI"
-      ],
+      "path": ["components", "schemas", "Zuplo", "WhoAmI", "WhoAmI"],
       "message": "Component `Zuplo.WhoAmI.WhoAmI` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -8907,9 +8598,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.ApiKeys.Manager` is not valid: `missing properties: 'sub'`",
       "severity": 1,
       "range": {
@@ -8926,9 +8615,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.DeploymentStatus.DeploymentStatus` is not valid: `missing properties: 'steps', 'buildResult'`",
       "severity": 1,
       "range": {
@@ -8945,9 +8632,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.OpenApiRoute.ApiSpec` is not valid: `expected object, but got string`",
       "severity": 1,
       "range": {
@@ -8964,9 +8649,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.Tunnels.Tunnel` is not valid: `missing properties: 'id'`",
       "severity": 1,
       "range": {
@@ -9775,10 +9458,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[37]"
-      ],
+      "path": ["parameters", "parameters[37]"],
       "message": "Schema for `accountName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -9817,10 +9497,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[41]"
-      ],
+      "path": ["parameters", "parameters[41]"],
       "message": "Schema for `branchName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -9837,10 +9514,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[3]"
-      ],
+      "path": ["parameters", "parameters[3]"],
       "message": "Schema for `bucketName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -9857,10 +9531,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[7]"
-      ],
+      "path": ["parameters", "parameters[7]"],
       "message": "Schema for `bucketName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -9877,10 +9548,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[5]"
-      ],
+      "path": ["parameters", "parameters[5]"],
       "message": "Schema for `consumerName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -9897,10 +9565,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[13]"
-      ],
+      "path": ["parameters", "parameters[13]"],
       "message": "Schema for `consumerName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -9917,10 +9582,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[43]"
-      ],
+      "path": ["parameters", "parameters[43]"],
       "message": "Schema for `deploymentName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -9937,10 +9599,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[11]"
-      ],
+      "path": ["parameters", "parameters[11]"],
       "message": "Schema for `dev-portal-email` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -9957,10 +9616,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[9]"
-      ],
+      "path": ["parameters", "parameters[9]"],
       "message": "Schema for `dev-portal-sub` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -9977,10 +9633,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[15]"
-      ],
+      "path": ["parameters", "parameters[15]"],
       "message": "Schema for `id` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -9997,10 +9650,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[29]"
-      ],
+      "path": ["parameters", "parameters[29]"],
       "message": "Schema for `inviteId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -10017,10 +9667,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[1]"
-      ],
+      "path": ["parameters", "parameters[1]"],
       "message": "Schema for `keyId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -10037,10 +9684,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[31]"
-      ],
+      "path": ["parameters", "parameters[31]"],
       "message": "Schema for `managerId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -10057,10 +9701,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[39]"
-      ],
+      "path": ["parameters", "parameters[39]"],
       "message": "Schema for `projectName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -10099,10 +9740,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[33]"
-      ],
+      "path": ["parameters", "parameters[33]"],
       "message": "Schema for `tag` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -10119,10 +9757,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[45]"
-      ],
+      "path": ["parameters", "parameters[45]"],
       "message": "Schema for `variableName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -10253,11 +9888,7 @@
     },
     {
       "code": "operation-4xx-response",
-      "path": [
-        "paths",
-        "/openapi",
-        "get"
-      ],
+      "path": ["paths", "/openapi", "get"],
       "message": "Operation must define at least one 4xx error response",
       "severity": 2,
       "range": {
@@ -10295,9 +9926,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -10314,9 +9943,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -10333,9 +9960,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -10352,9 +9977,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -10371,11 +9994,7 @@
     },
     {
       "code": "operation-tags",
-      "path": [
-        "paths",
-        "/openapi",
-        "get"
-      ],
+      "path": ["paths", "/openapi", "get"],
       "message": "Tags for `get` operation at path `/openapi` are missing",
       "severity": 3,
       "range": {
@@ -10392,11 +10011,7 @@
     },
     {
       "code": "operation-tags",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get"],
       "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
       "severity": 3,
       "range": {
@@ -10436,11 +10051,7 @@
   "completenessIssues": [
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "securitySchemes",
-        "api_key"
-      ],
+      "path": ["components", "securitySchemes", "api_key"],
       "message": "Component `api_key` of type `securitySchemes` is missing a description",
       "severity": 1,
       "range": {
@@ -10457,11 +10068,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "object"
-      ],
+      "path": ["components", "schemas", "object"],
       "message": "Component `object` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -10478,13 +10085,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "ApiKeys",
-        "ApiKeys"
-      ],
+      "path": ["components", "schemas", "Zuplo", "ApiKeys", "ApiKeys"],
       "message": "Component `Zuplo.ApiKeys.ApiKeys` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -10501,13 +10102,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "ApiKeys",
-        "Buckets"
-      ],
+      "path": ["components", "schemas", "Zuplo", "ApiKeys", "Buckets"],
       "message": "Component `Zuplo.ApiKeys.Buckets` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -10524,13 +10119,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "ApiKeys",
-        "Consumers"
-      ],
+      "path": ["components", "schemas", "Zuplo", "ApiKeys", "Consumers"],
       "message": "Component `Zuplo.ApiKeys.Consumers` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -10547,13 +10136,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Common",
-        "ExpiresOnField"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Common", "ExpiresOnField"],
       "message": "Component `Zuplo.Common.ExpiresOnField` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -10869,13 +10452,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "OpenApiRoute",
-        "ApiSpec"
-      ],
+      "path": ["components", "schemas", "Zuplo", "OpenApiRoute", "ApiSpec"],
       "message": "Component `Zuplo.OpenApiRoute.ApiSpec` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -10892,13 +10469,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Sources",
-        "Source"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Sources", "Source"],
       "message": "Component `Zuplo.Sources.Source` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -11008,13 +10579,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Tunnels",
-        "TunnelList"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelList"],
       "message": "Component `Zuplo.Tunnels.TunnelList` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -11031,13 +10596,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Tunnels",
-        "TunnelListItem"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelListItem"],
       "message": "Component `Zuplo.Tunnels.TunnelListItem` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -11101,13 +10660,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "Variables",
-        "Variable"
-      ],
+      "path": ["components", "schemas", "Zuplo", "Variables", "Variable"],
       "message": "Component `Zuplo.Variables.Variable` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -11170,13 +10723,7 @@
     },
     {
       "code": "component-description",
-      "path": [
-        "components",
-        "schemas",
-        "Zuplo",
-        "WhoAmI",
-        "WhoAmI"
-      ],
+      "path": ["components", "schemas", "Zuplo", "WhoAmI", "WhoAmI"],
       "message": "Component `Zuplo.WhoAmI.WhoAmI` of type `schemas` is missing a description",
       "severity": 1,
       "range": {
@@ -11193,9 +10740,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.ApiKeys.Manager` is not valid: `missing properties: 'sub'`",
       "severity": 1,
       "range": {
@@ -11212,9 +10757,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.DeploymentStatus.DeploymentStatus` is not valid: `missing properties: 'steps', 'buildResult'`",
       "severity": 1,
       "range": {
@@ -11231,9 +10774,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.OpenApiRoute.ApiSpec` is not valid: `expected object, but got string`",
       "severity": 1,
       "range": {
@@ -11250,9 +10791,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.Tunnels.Tunnel` is not valid: `missing properties: 'id'`",
       "severity": 1,
       "range": {
@@ -12061,10 +11600,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[37]"
-      ],
+      "path": ["parameters", "parameters[37]"],
       "message": "Schema for `accountName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12103,10 +11639,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[41]"
-      ],
+      "path": ["parameters", "parameters[41]"],
       "message": "Schema for `branchName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12123,10 +11656,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[3]"
-      ],
+      "path": ["parameters", "parameters[3]"],
       "message": "Schema for `bucketName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12143,10 +11673,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[7]"
-      ],
+      "path": ["parameters", "parameters[7]"],
       "message": "Schema for `bucketName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12163,10 +11690,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[5]"
-      ],
+      "path": ["parameters", "parameters[5]"],
       "message": "Schema for `consumerName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12183,10 +11707,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[13]"
-      ],
+      "path": ["parameters", "parameters[13]"],
       "message": "Schema for `consumerName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12203,10 +11724,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[43]"
-      ],
+      "path": ["parameters", "parameters[43]"],
       "message": "Schema for `deploymentName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12223,10 +11741,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[11]"
-      ],
+      "path": ["parameters", "parameters[11]"],
       "message": "Schema for `dev-portal-email` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12243,10 +11758,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[9]"
-      ],
+      "path": ["parameters", "parameters[9]"],
       "message": "Schema for `dev-portal-sub` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12263,10 +11775,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[15]"
-      ],
+      "path": ["parameters", "parameters[15]"],
       "message": "Schema for `id` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12283,10 +11792,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[29]"
-      ],
+      "path": ["parameters", "parameters[29]"],
       "message": "Schema for `inviteId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12303,10 +11809,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[1]"
-      ],
+      "path": ["parameters", "parameters[1]"],
       "message": "Schema for `keyId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12323,10 +11826,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[31]"
-      ],
+      "path": ["parameters", "parameters[31]"],
       "message": "Schema for `managerId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12343,10 +11843,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[39]"
-      ],
+      "path": ["parameters", "parameters[39]"],
       "message": "Schema for `projectName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12385,10 +11882,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[33]"
-      ],
+      "path": ["parameters", "parameters[33]"],
       "message": "Schema for `tag` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12405,10 +11899,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[45]"
-      ],
+      "path": ["parameters", "parameters[45]"],
       "message": "Schema for `variableName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -12539,9 +12030,7 @@
     },
     {
       "code": "info-contact",
-      "path": [
-        "info"
-      ],
+      "path": ["info"],
       "message": "Info section is missing contact details: `contact` must be set",
       "severity": 2,
       "range": {
@@ -12558,9 +12047,7 @@
     },
     {
       "code": "info-license",
-      "path": [
-        "info"
-      ],
+      "path": ["info"],
       "message": "Info section should contain a license: `license` must be set",
       "severity": 2,
       "range": {
@@ -12577,11 +12064,7 @@
     },
     {
       "code": "operation-4xx-response",
-      "path": [
-        "paths",
-        "/openapi",
-        "get"
-      ],
+      "path": ["paths", "/openapi", "get"],
       "message": "Operation must define at least one 4xx error response",
       "severity": 2,
       "range": {
@@ -12619,9 +12102,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -12638,9 +12119,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -12657,9 +12136,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -12676,9 +12153,7 @@
     },
     {
       "code": "tag-description",
-      "path": [
-        "tags"
-      ],
+      "path": ["tags"],
       "message": "Tag must have a description defined: `description` must be set",
       "severity": 2,
       "range": {
@@ -12695,11 +12170,7 @@
     },
     {
       "code": "operation-tags",
-      "path": [
-        "paths",
-        "/openapi",
-        "get"
-      ],
+      "path": ["paths", "/openapi", "get"],
       "message": "Tags for `get` operation at path `/openapi` are missing",
       "severity": 3,
       "range": {
@@ -12716,11 +12187,7 @@
     },
     {
       "code": "operation-tags",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get"],
       "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
       "severity": 3,
       "range": {
@@ -12761,9 +12228,7 @@
     {
       "code": "apimatic-security-defined",
       "message": "'security' must be defined and not empty",
-      "path": [
-        "security"
-      ],
+      "path": ["security"],
       "severity": 1,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -12779,9 +12244,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.ApiKeys.Manager` is not valid: `missing properties: 'sub'`",
       "severity": 1,
       "range": {
@@ -12798,9 +12261,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.DeploymentStatus.DeploymentStatus` is not valid: `missing properties: 'steps', 'buildResult'`",
       "severity": 1,
       "range": {
@@ -12817,9 +12278,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.OpenApiRoute.ApiSpec` is not valid: `expected object, but got string`",
       "severity": 1,
       "range": {
@@ -12836,9 +12295,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        ""
-      ],
+      "path": [""],
       "message": "Example for property `Zuplo.Tunnels.Tunnel` is not valid: `missing properties: 'id'`",
       "severity": 1,
       "range": {
@@ -13383,10 +12840,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[37]"
-      ],
+      "path": ["parameters", "parameters[37]"],
       "message": "Schema for `accountName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13425,10 +12879,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[41]"
-      ],
+      "path": ["parameters", "parameters[41]"],
       "message": "Schema for `branchName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13445,10 +12896,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[3]"
-      ],
+      "path": ["parameters", "parameters[3]"],
       "message": "Schema for `bucketName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13465,10 +12913,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[7]"
-      ],
+      "path": ["parameters", "parameters[7]"],
       "message": "Schema for `bucketName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13485,10 +12930,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[5]"
-      ],
+      "path": ["parameters", "parameters[5]"],
       "message": "Schema for `consumerName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13505,10 +12947,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[13]"
-      ],
+      "path": ["parameters", "parameters[13]"],
       "message": "Schema for `consumerName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13525,10 +12964,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[43]"
-      ],
+      "path": ["parameters", "parameters[43]"],
       "message": "Schema for `deploymentName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13545,10 +12981,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[11]"
-      ],
+      "path": ["parameters", "parameters[11]"],
       "message": "Schema for `dev-portal-email` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13565,10 +12998,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[9]"
-      ],
+      "path": ["parameters", "parameters[9]"],
       "message": "Schema for `dev-portal-sub` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13585,10 +13015,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[15]"
-      ],
+      "path": ["parameters", "parameters[15]"],
       "message": "Schema for `id` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13605,10 +13032,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[29]"
-      ],
+      "path": ["parameters", "parameters[29]"],
       "message": "Schema for `inviteId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13625,10 +13049,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[1]"
-      ],
+      "path": ["parameters", "parameters[1]"],
       "message": "Schema for `keyId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13645,10 +13066,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[31]"
-      ],
+      "path": ["parameters", "parameters[31]"],
       "message": "Schema for `managerId` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13665,10 +13083,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[39]"
-      ],
+      "path": ["parameters", "parameters[39]"],
       "message": "Schema for `projectName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13707,10 +13122,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[33]"
-      ],
+      "path": ["parameters", "parameters[33]"],
       "message": "Schema for `tag` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -13727,10 +13139,7 @@
     },
     {
       "code": "oas3-valid-schema-example",
-      "path": [
-        "parameters",
-        "parameters[45]"
-      ],
+      "path": ["parameters", "parameters[45]"],
       "message": "Schema for `variableName` does not contain any examples or example data",
       "severity": 1,
       "range": {
@@ -14660,14 +14069,7 @@
     {
       "code": "apimatic-no-inline-parameter-schema",
       "message": "Parameter schema: #/paths/~1v1~1who-am-i/get/parameters/0/schema should be moved to components/schemas and referenced",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "parameters",
-        "0",
-        "schema"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "parameters", "0", "schema"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -14855,11 +14257,7 @@
     },
     {
       "code": "operation-tags",
-      "path": [
-        "paths",
-        "/openapi",
-        "get"
-      ],
+      "path": ["paths", "/openapi", "get"],
       "message": "Tags for `get` operation at path `/openapi` are missing",
       "severity": 3,
       "range": {
@@ -14876,11 +14274,7 @@
     },
     {
       "code": "operation-tags",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get"],
       "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
       "severity": 3,
       "range": {
@@ -14921,9 +14315,7 @@
     {
       "code": "apimatic-security-defined",
       "message": "'security' must be defined and not empty",
-      "path": [
-        "security"
-      ],
+      "path": ["security"],
       "severity": 1,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -14940,12 +14332,7 @@
     {
       "code": "owasp:api3:2019-define-error-responses-401",
       "message": "Operation is missing responses[401].",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 1,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -14984,12 +14371,7 @@
     {
       "code": "owasp:api3:2019-define-error-responses-401",
       "message": "Operation is missing responses[401].content.",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 1,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -15028,12 +14410,7 @@
     {
       "code": "owasp:api3:2019-define-error-responses-500",
       "message": "Operation is missing responses[500].",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 1,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -15072,12 +14449,7 @@
     {
       "code": "owasp:api3:2019-define-error-responses-500",
       "message": "Operation is missing responses[500].content.",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 1,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -15116,13 +14488,7 @@
     {
       "code": "owasp:api4:2019-rate-limit",
       "message": "All 2XX and 4XX responses should define rate limiting headers.",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses",
-        "200"
-      ],
+      "path": ["paths", "/openapi", "get", "responses", "200"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -17692,13 +17058,7 @@
     {
       "code": "owasp:api4:2019-rate-limit",
       "message": "All 2XX and 4XX responses should define rate limiting headers.",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "responses",
-        "200"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "responses", "200"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -17715,13 +17075,7 @@
     {
       "code": "owasp:api4:2019-rate-limit",
       "message": "All 2XX and 4XX responses should define rate limiting headers.",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "responses",
-        "400"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "responses", "400"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -17738,13 +17092,7 @@
     {
       "code": "owasp:api4:2019-rate-limit",
       "message": "All 2XX and 4XX responses should define rate limiting headers.",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "responses",
-        "401"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "responses", "401"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -17761,12 +17109,7 @@
     {
       "code": "owasp:api4:2019-rate-limit-responses-429",
       "message": "Operation is missing rate limiting response in responses[429].",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -18509,12 +17852,7 @@
     {
       "code": "owasp:api4:2019-rate-limit-responses-429",
       "message": "Operation is missing rate limiting response in responses[429].",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "responses"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -18531,12 +17869,7 @@
     {
       "code": "owasp:api4:2019-rate-limit-responses-429",
       "message": "Operation is missing rate limiting response in responses[429].content.",
-      "path": [
-        "paths",
-        "/openapi",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/openapi", "get", "responses"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -19279,12 +18612,7 @@
     {
       "code": "owasp:api4:2019-rate-limit-responses-429",
       "message": "Operation is missing rate limiting response in responses[429].content.",
-      "path": [
-        "paths",
-        "/v1/who-am-i",
-        "get",
-        "responses"
-      ],
+      "path": ["paths", "/v1/who-am-i", "get", "responses"],
       "severity": 2,
       "source": "example-specs/zuplo.json",
       "range": {
@@ -19300,11 +18628,7 @@
     },
     {
       "code": "operation-4xx-response",
-      "path": [
-        "paths",
-        "/openapi",
-        "get"
-      ],
+      "path": ["paths", "/openapi", "get"],
       "message": "Operation must define at least one 4xx error response",
       "severity": 2,
       "range": {
@@ -19346,11 +18670,7 @@
     "issues": [
       {
         "code": "operation-4xx-response",
-        "path": [
-          "paths",
-          "/openapi",
-          "get"
-        ],
+        "path": ["paths", "/openapi", "get"],
         "message": "Operation must define at least one 4xx error response",
         "severity": 2,
         "range": {
@@ -19367,11 +18687,7 @@
       },
       {
         "code": "operation-tags",
-        "path": [
-          "paths",
-          "/openapi",
-          "get"
-        ],
+        "path": ["paths", "/openapi", "get"],
         "message": "Tags for `get` operation at path `/openapi` are missing",
         "severity": 3,
         "range": {
@@ -19760,11 +19076,7 @@
       },
       {
         "code": "operation-tags",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get"],
         "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
         "severity": 3,
         "range": {
@@ -19826,12 +19138,7 @@
       {
         "code": "owasp:api3:2019-define-error-responses-401",
         "message": "Operation is missing responses[401].",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 1,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -19848,12 +19155,7 @@
       {
         "code": "owasp:api3:2019-define-error-responses-401",
         "message": "Operation is missing responses[401].content.",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 1,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -19870,12 +19172,7 @@
       {
         "code": "owasp:api3:2019-define-error-responses-500",
         "message": "Operation is missing responses[500].",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 1,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -19892,12 +19189,7 @@
       {
         "code": "owasp:api3:2019-define-error-responses-500",
         "message": "Operation is missing responses[500].content.",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 1,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -19914,12 +19206,7 @@
       {
         "code": "owasp:api4:2019-rate-limit-responses-429",
         "message": "Operation is missing rate limiting response in responses[429].",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -19936,12 +19223,7 @@
       {
         "code": "owasp:api4:2019-rate-limit-responses-429",
         "message": "Operation is missing rate limiting response in responses[429].content.",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -19958,13 +19240,7 @@
       {
         "code": "owasp:api4:2019-rate-limit",
         "message": "All 2XX and 4XX responses should define rate limiting headers.",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses",
-          "200"
-        ],
+        "path": ["paths", "/openapi", "get", "responses", "200"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -25011,14 +24287,7 @@
       {
         "code": "apimatic-no-inline-parameter-schema",
         "message": "Parameter schema: #/paths/~1v1~1who-am-i/get/parameters/0/schema should be moved to components/schemas and referenced",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "parameters",
-          "0",
-          "schema"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "parameters", "0", "schema"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -25035,12 +24304,7 @@
       {
         "code": "owasp:api4:2019-rate-limit-responses-429",
         "message": "Operation is missing rate limiting response in responses[429].",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "responses"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -25057,12 +24321,7 @@
       {
         "code": "owasp:api4:2019-rate-limit-responses-429",
         "message": "Operation is missing rate limiting response in responses[429].content.",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "responses"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -25079,13 +24338,7 @@
       {
         "code": "owasp:api4:2019-rate-limit",
         "message": "All 2XX and 4XX responses should define rate limiting headers.",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "responses",
-          "200"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "responses", "200"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -25102,13 +24355,7 @@
       {
         "code": "owasp:api4:2019-rate-limit",
         "message": "All 2XX and 4XX responses should define rate limiting headers.",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "responses",
-          "400"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "responses", "400"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -25125,13 +24372,7 @@
       {
         "code": "owasp:api4:2019-rate-limit",
         "message": "All 2XX and 4XX responses should define rate limiting headers.",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "responses",
-          "401"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "responses", "401"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -25524,11 +24765,7 @@
       },
       {
         "code": "operation-4xx-response",
-        "path": [
-          "paths",
-          "/openapi",
-          "get"
-        ],
+        "path": ["paths", "/openapi", "get"],
         "message": "Operation must define at least one 4xx error response",
         "severity": 2,
         "range": {
@@ -25566,11 +24803,7 @@
       },
       {
         "code": "operation-tags",
-        "path": [
-          "paths",
-          "/openapi",
-          "get"
-        ],
+        "path": ["paths", "/openapi", "get"],
         "message": "Tags for `get` operation at path `/openapi` are missing",
         "severity": 3,
         "range": {
@@ -25587,11 +24820,7 @@
       },
       {
         "code": "operation-tags",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get"],
         "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
         "severity": 3,
         "range": {
@@ -26006,11 +25235,7 @@
       },
       {
         "code": "operation-4xx-response",
-        "path": [
-          "paths",
-          "/openapi",
-          "get"
-        ],
+        "path": ["paths", "/openapi", "get"],
         "message": "Operation must define at least one 4xx error response",
         "severity": 2,
         "range": {
@@ -26048,11 +25273,7 @@
       },
       {
         "code": "operation-tags",
-        "path": [
-          "paths",
-          "/openapi",
-          "get"
-        ],
+        "path": ["paths", "/openapi", "get"],
         "message": "Tags for `get` operation at path `/openapi` are missing",
         "severity": 3,
         "range": {
@@ -26069,11 +25290,7 @@
       },
       {
         "code": "operation-tags",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get"],
         "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
         "severity": 3,
         "range": {
@@ -27071,14 +26288,7 @@
       {
         "code": "apimatic-no-inline-parameter-schema",
         "message": "Parameter schema: #/paths/~1v1~1who-am-i/get/parameters/0/schema should be moved to components/schemas and referenced",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "parameters",
-          "0",
-          "schema"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "parameters", "0", "schema"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -27119,11 +26329,7 @@
       },
       {
         "code": "operation-tags",
-        "path": [
-          "paths",
-          "/openapi",
-          "get"
-        ],
+        "path": ["paths", "/openapi", "get"],
         "message": "Tags for `get` operation at path `/openapi` are missing",
         "severity": 3,
         "range": {
@@ -27140,11 +26346,7 @@
       },
       {
         "code": "operation-tags",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get"],
         "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
         "severity": 3,
         "range": {
@@ -27186,12 +26388,7 @@
       {
         "code": "owasp:api3:2019-define-error-responses-401",
         "message": "Operation is missing responses[401].",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 1,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -27230,12 +26427,7 @@
       {
         "code": "owasp:api3:2019-define-error-responses-401",
         "message": "Operation is missing responses[401].content.",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 1,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -27274,12 +26466,7 @@
       {
         "code": "owasp:api3:2019-define-error-responses-500",
         "message": "Operation is missing responses[500].",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 1,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -27318,12 +26505,7 @@
       {
         "code": "owasp:api3:2019-define-error-responses-500",
         "message": "Operation is missing responses[500].content.",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 1,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -27362,13 +26544,7 @@
       {
         "code": "owasp:api4:2019-rate-limit",
         "message": "All 2XX and 4XX responses should define rate limiting headers.",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses",
-          "200"
-        ],
+        "path": ["paths", "/openapi", "get", "responses", "200"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -29938,13 +29114,7 @@
       {
         "code": "owasp:api4:2019-rate-limit",
         "message": "All 2XX and 4XX responses should define rate limiting headers.",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "responses",
-          "200"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "responses", "200"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -29961,13 +29131,7 @@
       {
         "code": "owasp:api4:2019-rate-limit",
         "message": "All 2XX and 4XX responses should define rate limiting headers.",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "responses",
-          "400"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "responses", "400"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -29984,13 +29148,7 @@
       {
         "code": "owasp:api4:2019-rate-limit",
         "message": "All 2XX and 4XX responses should define rate limiting headers.",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "responses",
-          "401"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "responses", "401"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -30007,12 +29165,7 @@
       {
         "code": "owasp:api4:2019-rate-limit-responses-429",
         "message": "Operation is missing rate limiting response in responses[429].",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -30755,12 +29908,7 @@
       {
         "code": "owasp:api4:2019-rate-limit-responses-429",
         "message": "Operation is missing rate limiting response in responses[429].",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "responses"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -30777,12 +29925,7 @@
       {
         "code": "owasp:api4:2019-rate-limit-responses-429",
         "message": "Operation is missing rate limiting response in responses[429].content.",
-        "path": [
-          "paths",
-          "/openapi",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/openapi", "get", "responses"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -31525,12 +30668,7 @@
       {
         "code": "owasp:api4:2019-rate-limit-responses-429",
         "message": "Operation is missing rate limiting response in responses[429].content.",
-        "path": [
-          "paths",
-          "/v1/who-am-i",
-          "get",
-          "responses"
-        ],
+        "path": ["paths", "/v1/who-am-i", "get", "responses"],
         "severity": 2,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -31546,11 +30684,7 @@
       },
       {
         "code": "operation-4xx-response",
-        "path": [
-          "paths",
-          "/openapi",
-          "get"
-        ],
+        "path": ["paths", "/openapi", "get"],
         "message": "Operation must define at least one 4xx error response",
         "severity": 2,
         "range": {
@@ -31592,11 +30726,7 @@
       "issues": [
         {
           "code": "operation-4xx-response",
-          "path": [
-            "paths",
-            "/openapi",
-            "get"
-          ],
+          "path": ["paths", "/openapi", "get"],
           "message": "Operation must define at least one 4xx error response",
           "severity": 2,
           "range": {
@@ -31613,11 +30743,7 @@
         },
         {
           "code": "operation-tags",
-          "path": [
-            "paths",
-            "/openapi",
-            "get"
-          ],
+          "path": ["paths", "/openapi", "get"],
           "message": "Tags for `get` operation at path `/openapi` are missing",
           "severity": 3,
           "range": {
@@ -31635,12 +30761,7 @@
         {
           "code": "owasp:api3:2019-define-error-responses-401",
           "message": "Operation is missing responses[401].",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 1,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -31657,12 +30778,7 @@
         {
           "code": "owasp:api3:2019-define-error-responses-401",
           "message": "Operation is missing responses[401].content.",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 1,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -31679,12 +30795,7 @@
         {
           "code": "owasp:api3:2019-define-error-responses-500",
           "message": "Operation is missing responses[500].",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 1,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -31701,12 +30812,7 @@
         {
           "code": "owasp:api3:2019-define-error-responses-500",
           "message": "Operation is missing responses[500].content.",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 1,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -31723,12 +30829,7 @@
         {
           "code": "owasp:api4:2019-rate-limit-responses-429",
           "message": "Operation is missing rate limiting response in responses[429].",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -31745,12 +30846,7 @@
         {
           "code": "owasp:api4:2019-rate-limit-responses-429",
           "message": "Operation is missing rate limiting response in responses[429].content.",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -31767,13 +30863,7 @@
         {
           "code": "owasp:api4:2019-rate-limit",
           "message": "All 2XX and 4XX responses should define rate limiting headers.",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses",
-            "200"
-          ],
+          "path": ["paths", "/openapi", "get", "responses", "200"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -31792,11 +30882,7 @@
       "docsIssues": [
         {
           "code": "operation-4xx-response",
-          "path": [
-            "paths",
-            "/openapi",
-            "get"
-          ],
+          "path": ["paths", "/openapi", "get"],
           "message": "Operation must define at least one 4xx error response",
           "severity": 2,
           "range": {
@@ -31813,11 +30899,7 @@
         },
         {
           "code": "operation-tags",
-          "path": [
-            "paths",
-            "/openapi",
-            "get"
-          ],
+          "path": ["paths", "/openapi", "get"],
           "message": "Tags for `get` operation at path `/openapi` are missing",
           "severity": 3,
           "range": {
@@ -31837,11 +30919,7 @@
       "completenessIssues": [
         {
           "code": "operation-4xx-response",
-          "path": [
-            "paths",
-            "/openapi",
-            "get"
-          ],
+          "path": ["paths", "/openapi", "get"],
           "message": "Operation must define at least one 4xx error response",
           "severity": 2,
           "range": {
@@ -31858,11 +30936,7 @@
         },
         {
           "code": "operation-tags",
-          "path": [
-            "paths",
-            "/openapi",
-            "get"
-          ],
+          "path": ["paths", "/openapi", "get"],
           "message": "Tags for `get` operation at path `/openapi` are missing",
           "severity": 3,
           "range": {
@@ -31882,11 +30956,7 @@
       "sdkGenerationIssues": [
         {
           "code": "operation-tags",
-          "path": [
-            "paths",
-            "/openapi",
-            "get"
-          ],
+          "path": ["paths", "/openapi", "get"],
           "message": "Tags for `get` operation at path `/openapi` are missing",
           "severity": 3,
           "range": {
@@ -31907,12 +30977,7 @@
         {
           "code": "owasp:api3:2019-define-error-responses-401",
           "message": "Operation is missing responses[401].",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 1,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -31929,12 +30994,7 @@
         {
           "code": "owasp:api3:2019-define-error-responses-401",
           "message": "Operation is missing responses[401].content.",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 1,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -31951,12 +31011,7 @@
         {
           "code": "owasp:api3:2019-define-error-responses-500",
           "message": "Operation is missing responses[500].",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 1,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -31973,12 +31028,7 @@
         {
           "code": "owasp:api3:2019-define-error-responses-500",
           "message": "Operation is missing responses[500].content.",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 1,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -31995,13 +31045,7 @@
         {
           "code": "owasp:api4:2019-rate-limit",
           "message": "All 2XX and 4XX responses should define rate limiting headers.",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses",
-            "200"
-          ],
+          "path": ["paths", "/openapi", "get", "responses", "200"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -32018,12 +31062,7 @@
         {
           "code": "owasp:api4:2019-rate-limit-responses-429",
           "message": "Operation is missing rate limiting response in responses[429].",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -32040,12 +31079,7 @@
         {
           "code": "owasp:api4:2019-rate-limit-responses-429",
           "message": "Operation is missing rate limiting response in responses[429].content.",
-          "path": [
-            "paths",
-            "/openapi",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/openapi", "get", "responses"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -32061,11 +31095,7 @@
         },
         {
           "code": "operation-4xx-response",
-          "path": [
-            "paths",
-            "/openapi",
-            "get"
-          ],
+          "path": ["paths", "/openapi", "get"],
           "message": "Operation must define at least one 4xx error response",
           "severity": 2,
           "range": {
@@ -32086,11 +31116,7 @@
         "issues": [
           {
             "code": "operation-4xx-response",
-            "path": [
-              "paths",
-              "/openapi",
-              "get"
-            ],
+            "path": ["paths", "/openapi", "get"],
             "message": "Operation must define at least one 4xx error response",
             "severity": 2,
             "range": {
@@ -32107,11 +31133,7 @@
           },
           {
             "code": "operation-tags",
-            "path": [
-              "paths",
-              "/openapi",
-              "get"
-            ],
+            "path": ["paths", "/openapi", "get"],
             "message": "Tags for `get` operation at path `/openapi` are missing",
             "severity": 3,
             "range": {
@@ -32129,12 +31151,7 @@
           {
             "code": "owasp:api3:2019-define-error-responses-401",
             "message": "Operation is missing responses[401].",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 1,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32151,12 +31168,7 @@
           {
             "code": "owasp:api3:2019-define-error-responses-401",
             "message": "Operation is missing responses[401].content.",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 1,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32173,12 +31185,7 @@
           {
             "code": "owasp:api3:2019-define-error-responses-500",
             "message": "Operation is missing responses[500].",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 1,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32195,12 +31202,7 @@
           {
             "code": "owasp:api3:2019-define-error-responses-500",
             "message": "Operation is missing responses[500].content.",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 1,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32217,12 +31219,7 @@
           {
             "code": "owasp:api4:2019-rate-limit-responses-429",
             "message": "Operation is missing rate limiting response in responses[429].",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32239,12 +31236,7 @@
           {
             "code": "owasp:api4:2019-rate-limit-responses-429",
             "message": "Operation is missing rate limiting response in responses[429].content.",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32261,13 +31253,7 @@
           {
             "code": "owasp:api4:2019-rate-limit",
             "message": "All 2XX and 4XX responses should define rate limiting headers.",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses",
-              "200"
-            ],
+            "path": ["paths", "/openapi", "get", "responses", "200"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32286,11 +31272,7 @@
         "docsIssues": [
           {
             "code": "operation-4xx-response",
-            "path": [
-              "paths",
-              "/openapi",
-              "get"
-            ],
+            "path": ["paths", "/openapi", "get"],
             "message": "Operation must define at least one 4xx error response",
             "severity": 2,
             "range": {
@@ -32307,11 +31289,7 @@
           },
           {
             "code": "operation-tags",
-            "path": [
-              "paths",
-              "/openapi",
-              "get"
-            ],
+            "path": ["paths", "/openapi", "get"],
             "message": "Tags for `get` operation at path `/openapi` are missing",
             "severity": 3,
             "range": {
@@ -32331,11 +31309,7 @@
         "completenessIssues": [
           {
             "code": "operation-4xx-response",
-            "path": [
-              "paths",
-              "/openapi",
-              "get"
-            ],
+            "path": ["paths", "/openapi", "get"],
             "message": "Operation must define at least one 4xx error response",
             "severity": 2,
             "range": {
@@ -32352,11 +31326,7 @@
           },
           {
             "code": "operation-tags",
-            "path": [
-              "paths",
-              "/openapi",
-              "get"
-            ],
+            "path": ["paths", "/openapi", "get"],
             "message": "Tags for `get` operation at path `/openapi` are missing",
             "severity": 3,
             "range": {
@@ -32376,11 +31346,7 @@
         "sdkGenerationIssues": [
           {
             "code": "operation-tags",
-            "path": [
-              "paths",
-              "/openapi",
-              "get"
-            ],
+            "path": ["paths", "/openapi", "get"],
             "message": "Tags for `get` operation at path `/openapi` are missing",
             "severity": 3,
             "range": {
@@ -32401,12 +31367,7 @@
           {
             "code": "owasp:api3:2019-define-error-responses-401",
             "message": "Operation is missing responses[401].",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 1,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32423,12 +31384,7 @@
           {
             "code": "owasp:api3:2019-define-error-responses-401",
             "message": "Operation is missing responses[401].content.",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 1,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32445,12 +31401,7 @@
           {
             "code": "owasp:api3:2019-define-error-responses-500",
             "message": "Operation is missing responses[500].",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 1,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32467,12 +31418,7 @@
           {
             "code": "owasp:api3:2019-define-error-responses-500",
             "message": "Operation is missing responses[500].content.",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 1,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32489,13 +31435,7 @@
           {
             "code": "owasp:api4:2019-rate-limit",
             "message": "All 2XX and 4XX responses should define rate limiting headers.",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses",
-              "200"
-            ],
+            "path": ["paths", "/openapi", "get", "responses", "200"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32512,12 +31452,7 @@
           {
             "code": "owasp:api4:2019-rate-limit-responses-429",
             "message": "Operation is missing rate limiting response in responses[429].",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32534,12 +31469,7 @@
           {
             "code": "owasp:api4:2019-rate-limit-responses-429",
             "message": "Operation is missing rate limiting response in responses[429].content.",
-            "path": [
-              "paths",
-              "/openapi",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/openapi", "get", "responses"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -32555,11 +31485,7 @@
           },
           {
             "code": "operation-4xx-response",
-            "path": [
-              "paths",
-              "/openapi",
-              "get"
-            ],
+            "path": ["paths", "/openapi", "get"],
             "message": "Operation must define at least one 4xx error response",
             "severity": 2,
             "range": {
@@ -56244,11 +55170,7 @@
       "issues": [
         {
           "code": "operation-tags",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get"],
           "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
           "severity": 3,
           "range": {
@@ -56266,14 +55188,7 @@
         {
           "code": "apimatic-no-inline-parameter-schema",
           "message": "Parameter schema: #/paths/~1v1~1who-am-i/get/parameters/0/schema should be moved to components/schemas and referenced",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "parameters",
-            "0",
-            "schema"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "parameters", "0", "schema"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56290,12 +55205,7 @@
         {
           "code": "owasp:api4:2019-rate-limit-responses-429",
           "message": "Operation is missing rate limiting response in responses[429].",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "responses"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56312,12 +55222,7 @@
         {
           "code": "owasp:api4:2019-rate-limit-responses-429",
           "message": "Operation is missing rate limiting response in responses[429].content.",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "responses"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56334,13 +55239,7 @@
         {
           "code": "owasp:api4:2019-rate-limit",
           "message": "All 2XX and 4XX responses should define rate limiting headers.",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "responses",
-            "200"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "responses", "200"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56357,13 +55256,7 @@
         {
           "code": "owasp:api4:2019-rate-limit",
           "message": "All 2XX and 4XX responses should define rate limiting headers.",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "responses",
-            "400"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "responses", "400"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56380,13 +55273,7 @@
         {
           "code": "owasp:api4:2019-rate-limit",
           "message": "All 2XX and 4XX responses should define rate limiting headers.",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "responses",
-            "401"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "responses", "401"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56405,11 +55292,7 @@
       "docsIssues": [
         {
           "code": "operation-tags",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get"],
           "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
           "severity": 3,
           "range": {
@@ -56429,11 +55312,7 @@
       "completenessIssues": [
         {
           "code": "operation-tags",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get"],
           "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
           "severity": 3,
           "range": {
@@ -56454,14 +55333,7 @@
         {
           "code": "apimatic-no-inline-parameter-schema",
           "message": "Parameter schema: #/paths/~1v1~1who-am-i/get/parameters/0/schema should be moved to components/schemas and referenced",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "parameters",
-            "0",
-            "schema"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "parameters", "0", "schema"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56477,11 +55349,7 @@
         },
         {
           "code": "operation-tags",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get"],
           "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
           "severity": 3,
           "range": {
@@ -56502,13 +55370,7 @@
         {
           "code": "owasp:api4:2019-rate-limit",
           "message": "All 2XX and 4XX responses should define rate limiting headers.",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "responses",
-            "200"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "responses", "200"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56525,13 +55387,7 @@
         {
           "code": "owasp:api4:2019-rate-limit",
           "message": "All 2XX and 4XX responses should define rate limiting headers.",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "responses",
-            "400"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "responses", "400"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56548,13 +55404,7 @@
         {
           "code": "owasp:api4:2019-rate-limit",
           "message": "All 2XX and 4XX responses should define rate limiting headers.",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "responses",
-            "401"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "responses", "401"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56571,12 +55421,7 @@
         {
           "code": "owasp:api4:2019-rate-limit-responses-429",
           "message": "Operation is missing rate limiting response in responses[429].",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "responses"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56593,12 +55438,7 @@
         {
           "code": "owasp:api4:2019-rate-limit-responses-429",
           "message": "Operation is missing rate limiting response in responses[429].content.",
-          "path": [
-            "paths",
-            "/v1/who-am-i",
-            "get",
-            "responses"
-          ],
+          "path": ["paths", "/v1/who-am-i", "get", "responses"],
           "severity": 2,
           "source": "example-specs/zuplo.json",
           "range": {
@@ -56618,11 +55458,7 @@
         "issues": [
           {
             "code": "operation-tags",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get"],
             "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
             "severity": 3,
             "range": {
@@ -56664,12 +55500,7 @@
           {
             "code": "owasp:api4:2019-rate-limit-responses-429",
             "message": "Operation is missing rate limiting response in responses[429].",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get", "responses"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -56686,12 +55517,7 @@
           {
             "code": "owasp:api4:2019-rate-limit-responses-429",
             "message": "Operation is missing rate limiting response in responses[429].content.",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get", "responses"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -56708,13 +55534,7 @@
           {
             "code": "owasp:api4:2019-rate-limit",
             "message": "All 2XX and 4XX responses should define rate limiting headers.",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get",
-              "responses",
-              "200"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get", "responses", "200"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -56731,13 +55551,7 @@
           {
             "code": "owasp:api4:2019-rate-limit",
             "message": "All 2XX and 4XX responses should define rate limiting headers.",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get",
-              "responses",
-              "400"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get", "responses", "400"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -56754,13 +55568,7 @@
           {
             "code": "owasp:api4:2019-rate-limit",
             "message": "All 2XX and 4XX responses should define rate limiting headers.",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get",
-              "responses",
-              "401"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get", "responses", "401"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -56779,11 +55587,7 @@
         "docsIssues": [
           {
             "code": "operation-tags",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get"],
             "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
             "severity": 3,
             "range": {
@@ -56803,11 +55607,7 @@
         "completenessIssues": [
           {
             "code": "operation-tags",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get"],
             "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
             "severity": 3,
             "range": {
@@ -56851,11 +55651,7 @@
           },
           {
             "code": "operation-tags",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get"],
             "message": "Tags for `get` operation at path `/v1/who-am-i` are missing",
             "severity": 3,
             "range": {
@@ -56876,13 +55672,7 @@
           {
             "code": "owasp:api4:2019-rate-limit",
             "message": "All 2XX and 4XX responses should define rate limiting headers.",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get",
-              "responses",
-              "200"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get", "responses", "200"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -56899,13 +55689,7 @@
           {
             "code": "owasp:api4:2019-rate-limit",
             "message": "All 2XX and 4XX responses should define rate limiting headers.",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get",
-              "responses",
-              "400"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get", "responses", "400"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -56922,13 +55706,7 @@
           {
             "code": "owasp:api4:2019-rate-limit",
             "message": "All 2XX and 4XX responses should define rate limiting headers.",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get",
-              "responses",
-              "401"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get", "responses", "401"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -56945,12 +55723,7 @@
           {
             "code": "owasp:api4:2019-rate-limit-responses-429",
             "message": "Operation is missing rate limiting response in responses[429].",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get", "responses"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -56967,12 +55740,7 @@
           {
             "code": "owasp:api4:2019-rate-limit-responses-429",
             "message": "Operation is missing rate limiting response in responses[429].content.",
-            "path": [
-              "paths",
-              "/v1/who-am-i",
-              "get",
-              "responses"
-            ],
+            "path": ["paths", "/v1/who-am-i", "get", "responses"],
             "severity": 2,
             "source": "example-specs/zuplo.json",
             "range": {
@@ -56995,9 +55763,7 @@
     "issues": [
       {
         "code": "info-contact",
-        "path": [
-          "info"
-        ],
+        "path": ["info"],
         "message": "Info section is missing contact details: `contact` must be set",
         "severity": 2,
         "range": {
@@ -57014,9 +55780,7 @@
       },
       {
         "code": "info-license",
-        "path": [
-          "info"
-        ],
+        "path": ["info"],
         "message": "Info section should contain a license: `license` must be set",
         "severity": 2,
         "range": {
@@ -57038,9 +55802,7 @@
     "completenessIssues": [
       {
         "code": "info-contact",
-        "path": [
-          "info"
-        ],
+        "path": ["info"],
         "message": "Info section is missing contact details: `contact` must be set",
         "severity": 2,
         "range": {
@@ -57057,9 +55819,7 @@
       },
       {
         "code": "info-license",
-        "path": [
-          "info"
-        ],
+        "path": ["info"],
         "message": "Info section should contain a license: `license` must be set",
         "severity": 2,
         "range": {
@@ -57097,9 +55857,7 @@
     "issues": [
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57116,9 +55874,7 @@
       },
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57135,9 +55891,7 @@
       },
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57154,9 +55908,7 @@
       },
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57176,9 +55928,7 @@
     "docsIssues": [
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57195,9 +55945,7 @@
       },
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57214,9 +55962,7 @@
       },
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57233,9 +55979,7 @@
       },
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57255,9 +55999,7 @@
     "completenessIssues": [
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57274,9 +56016,7 @@
       },
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57293,9 +56033,7 @@
       },
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57312,9 +56050,7 @@
       },
       {
         "code": "tag-description",
-        "path": [
-          "tags"
-        ],
+        "path": ["tags"],
         "message": "Tag must have a description defined: `description` must be set",
         "severity": 2,
         "range": {
@@ -57341,9 +56077,7 @@
       {
         "code": "apimatic-security-defined",
         "message": "'security' must be defined and not empty",
-        "path": [
-          "security"
-        ],
+        "path": ["security"],
         "severity": 1,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -57367,9 +56101,7 @@
       {
         "code": "apimatic-security-defined",
         "message": "'security' must be defined and not empty",
-        "path": [
-          "security"
-        ],
+        "path": ["security"],
         "severity": 1,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -57389,9 +56121,7 @@
       {
         "code": "apimatic-security-defined",
         "message": "'security' must be defined and not empty",
-        "path": [
-          "security"
-        ],
+        "path": ["security"],
         "severity": 1,
         "source": "example-specs/zuplo.json",
         "range": {
@@ -57676,13 +56406,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "ApiKeys",
-          "ApiKeys"
-        ],
+        "path": ["components", "schemas", "Zuplo", "ApiKeys", "ApiKeys"],
         "message": "Component `Zuplo.ApiKeys.ApiKeys` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -57699,13 +56423,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "ApiKeys",
-          "Buckets"
-        ],
+        "path": ["components", "schemas", "Zuplo", "ApiKeys", "Buckets"],
         "message": "Component `Zuplo.ApiKeys.Buckets` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -57722,13 +56440,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "ApiKeys",
-          "Consumers"
-        ],
+        "path": ["components", "schemas", "Zuplo", "ApiKeys", "Consumers"],
         "message": "Component `Zuplo.ApiKeys.Consumers` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -57745,13 +56457,7 @@
       },
       {
         "code": "oas3-unused-component",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "ApiKeys",
-          "Manager"
-        ],
+        "path": ["components", "schemas", "Zuplo", "ApiKeys", "Manager"],
         "message": "`#/components/schemas/Zuplo.ApiKeys.Manager` is potentially unused or has been orphaned",
         "severity": 1,
         "range": {
@@ -57768,13 +56474,7 @@
       },
       {
         "code": "oas3-unused-component",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "ApiKeys",
-          "ManagerInvite"
-        ],
+        "path": ["components", "schemas", "Zuplo", "ApiKeys", "ManagerInvite"],
         "message": "`#/components/schemas/Zuplo.ApiKeys.ManagerInvite` is potentially unused or has been orphaned",
         "severity": 1,
         "range": {
@@ -57791,13 +56491,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Common",
-          "ExpiresOnField"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Common", "ExpiresOnField"],
         "message": "Component `Zuplo.Common.ExpiresOnField` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -58591,13 +57285,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "OpenApiRoute",
-          "ApiSpec"
-        ],
+        "path": ["components", "schemas", "Zuplo", "OpenApiRoute", "ApiSpec"],
         "message": "Component `Zuplo.OpenApiRoute.ApiSpec` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -58614,13 +57302,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Sources",
-          "Source"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Sources", "Source"],
         "message": "Component `Zuplo.Sources.Source` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -58637,13 +57319,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Tunnels",
-          "TunnelList"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelList"],
         "message": "Component `Zuplo.Tunnels.TunnelList` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -58660,13 +57336,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Tunnels",
-          "TunnelListItem"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelListItem"],
         "message": "Component `Zuplo.Tunnels.TunnelListItem` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -58871,13 +57541,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Variables",
-          "Variable"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Variables", "Variable"],
         "message": "Component `Zuplo.Variables.Variable` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -58940,13 +57604,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "WhoAmI",
-          "WhoAmI"
-        ],
+        "path": ["components", "schemas", "Zuplo", "WhoAmI", "WhoAmI"],
         "message": "Component `Zuplo.WhoAmI.WhoAmI` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -58963,11 +57621,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "object"
-        ],
+        "path": ["components", "schemas", "object"],
         "message": "Component `object` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -58984,11 +57638,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "securitySchemes",
-          "api_key"
-        ],
+        "path": ["components", "securitySchemes", "api_key"],
         "message": "Component `api_key` of type `securitySchemes` is missing a description",
         "severity": 1,
         "range": {
@@ -59155,11 +57805,7 @@
     "docsIssues": [
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "securitySchemes",
-          "api_key"
-        ],
+        "path": ["components", "securitySchemes", "api_key"],
         "message": "Component `api_key` of type `securitySchemes` is missing a description",
         "severity": 1,
         "range": {
@@ -59176,11 +57822,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "object"
-        ],
+        "path": ["components", "schemas", "object"],
         "message": "Component `object` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -59197,13 +57839,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "ApiKeys",
-          "ApiKeys"
-        ],
+        "path": ["components", "schemas", "Zuplo", "ApiKeys", "ApiKeys"],
         "message": "Component `Zuplo.ApiKeys.ApiKeys` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -59220,13 +57856,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "ApiKeys",
-          "Buckets"
-        ],
+        "path": ["components", "schemas", "Zuplo", "ApiKeys", "Buckets"],
         "message": "Component `Zuplo.ApiKeys.Buckets` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -59243,13 +57873,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "ApiKeys",
-          "Consumers"
-        ],
+        "path": ["components", "schemas", "Zuplo", "ApiKeys", "Consumers"],
         "message": "Component `Zuplo.ApiKeys.Consumers` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -59266,13 +57890,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Common",
-          "ExpiresOnField"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Common", "ExpiresOnField"],
         "message": "Component `Zuplo.Common.ExpiresOnField` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -59588,13 +58206,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "OpenApiRoute",
-          "ApiSpec"
-        ],
+        "path": ["components", "schemas", "Zuplo", "OpenApiRoute", "ApiSpec"],
         "message": "Component `Zuplo.OpenApiRoute.ApiSpec` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -59611,13 +58223,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Sources",
-          "Source"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Sources", "Source"],
         "message": "Component `Zuplo.Sources.Source` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -59727,13 +58333,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Tunnels",
-          "TunnelList"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelList"],
         "message": "Component `Zuplo.Tunnels.TunnelList` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -59750,13 +58350,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Tunnels",
-          "TunnelListItem"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelListItem"],
         "message": "Component `Zuplo.Tunnels.TunnelListItem` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -59820,13 +58414,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Variables",
-          "Variable"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Variables", "Variable"],
         "message": "Component `Zuplo.Variables.Variable` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -59889,13 +58477,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "WhoAmI",
-          "WhoAmI"
-        ],
+        "path": ["components", "schemas", "Zuplo", "WhoAmI", "WhoAmI"],
         "message": "Component `Zuplo.WhoAmI.WhoAmI` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -60491,11 +59073,7 @@
     "completenessIssues": [
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "securitySchemes",
-          "api_key"
-        ],
+        "path": ["components", "securitySchemes", "api_key"],
         "message": "Component `api_key` of type `securitySchemes` is missing a description",
         "severity": 1,
         "range": {
@@ -60512,11 +59090,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "object"
-        ],
+        "path": ["components", "schemas", "object"],
         "message": "Component `object` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -60533,13 +59107,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "ApiKeys",
-          "ApiKeys"
-        ],
+        "path": ["components", "schemas", "Zuplo", "ApiKeys", "ApiKeys"],
         "message": "Component `Zuplo.ApiKeys.ApiKeys` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -60556,13 +59124,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "ApiKeys",
-          "Buckets"
-        ],
+        "path": ["components", "schemas", "Zuplo", "ApiKeys", "Buckets"],
         "message": "Component `Zuplo.ApiKeys.Buckets` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -60579,13 +59141,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "ApiKeys",
-          "Consumers"
-        ],
+        "path": ["components", "schemas", "Zuplo", "ApiKeys", "Consumers"],
         "message": "Component `Zuplo.ApiKeys.Consumers` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -60602,13 +59158,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Common",
-          "ExpiresOnField"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Common", "ExpiresOnField"],
         "message": "Component `Zuplo.Common.ExpiresOnField` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -60924,13 +59474,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "OpenApiRoute",
-          "ApiSpec"
-        ],
+        "path": ["components", "schemas", "Zuplo", "OpenApiRoute", "ApiSpec"],
         "message": "Component `Zuplo.OpenApiRoute.ApiSpec` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -60947,13 +59491,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Sources",
-          "Source"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Sources", "Source"],
         "message": "Component `Zuplo.Sources.Source` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -61063,13 +59601,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Tunnels",
-          "TunnelList"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelList"],
         "message": "Component `Zuplo.Tunnels.TunnelList` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -61086,13 +59618,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Tunnels",
-          "TunnelListItem"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Tunnels", "TunnelListItem"],
         "message": "Component `Zuplo.Tunnels.TunnelListItem` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -61156,13 +59682,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "Variables",
-          "Variable"
-        ],
+        "path": ["components", "schemas", "Zuplo", "Variables", "Variable"],
         "message": "Component `Zuplo.Variables.Variable` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -61225,13 +59745,7 @@
       },
       {
         "code": "component-description",
-        "path": [
-          "components",
-          "schemas",
-          "Zuplo",
-          "WhoAmI",
-          "WhoAmI"
-        ],
+        "path": ["components", "schemas", "Zuplo", "WhoAmI", "WhoAmI"],
         "message": "Component `Zuplo.WhoAmI.WhoAmI` of type `schemas` is missing a description",
         "severity": 1,
         "range": {
@@ -62592,11 +61106,7 @@
         },
         {
           "code": "component-description",
-          "path": [
-            "components",
-            "schemas",
-            "object"
-          ],
+          "path": ["components", "schemas", "object"],
           "message": "Component `object` of type `schemas` is missing a description",
           "severity": 1,
           "range": {
@@ -62616,11 +61126,7 @@
       "docsIssues": [
         {
           "code": "component-description",
-          "path": [
-            "components",
-            "schemas",
-            "object"
-          ],
+          "path": ["components", "schemas", "object"],
           "message": "Component `object` of type `schemas` is missing a description",
           "severity": 1,
           "range": {
@@ -62640,11 +61146,7 @@
       "completenessIssues": [
         {
           "code": "component-description",
-          "path": [
-            "components",
-            "schemas",
-            "object"
-          ],
+          "path": ["components", "schemas", "object"],
           "message": "Component `object` of type `schemas` is missing a description",
           "severity": 1,
           "range": {
@@ -63434,11 +61936,7 @@
         "issues": [
           {
             "code": "component-description",
-            "path": [
-              "components",
-              "schemas",
-              "object"
-            ],
+            "path": ["components", "schemas", "object"],
             "message": "Component `object` of type `schemas` is missing a description",
             "severity": 1,
             "range": {
@@ -63458,11 +61956,7 @@
         "docsIssues": [
           {
             "code": "component-description",
-            "path": [
-              "components",
-              "schemas",
-              "object"
-            ],
+            "path": ["components", "schemas", "object"],
             "message": "Component `object` of type `schemas` is missing a description",
             "severity": 1,
             "range": {
@@ -63482,11 +61976,7 @@
         "completenessIssues": [
           {
             "code": "component-description",
-            "path": [
-              "components",
-              "schemas",
-              "object"
-            ],
+            "path": ["components", "schemas", "object"],
             "message": "Component `object` of type `schemas` is missing a description",
             "severity": 1,
             "range": {
@@ -64097,11 +62587,7 @@
       "issues": [
         {
           "code": "component-description",
-          "path": [
-            "components",
-            "securitySchemes",
-            "api_key"
-          ],
+          "path": ["components", "securitySchemes", "api_key"],
           "message": "Component `api_key` of type `securitySchemes` is missing a description",
           "severity": 1,
           "range": {
@@ -64121,11 +62607,7 @@
       "docsIssues": [
         {
           "code": "component-description",
-          "path": [
-            "components",
-            "securitySchemes",
-            "api_key"
-          ],
+          "path": ["components", "securitySchemes", "api_key"],
           "message": "Component `api_key` of type `securitySchemes` is missing a description",
           "severity": 1,
           "range": {
@@ -64145,11 +62627,7 @@
       "completenessIssues": [
         {
           "code": "component-description",
-          "path": [
-            "components",
-            "securitySchemes",
-            "api_key"
-          ],
+          "path": ["components", "securitySchemes", "api_key"],
           "message": "Component `api_key` of type `securitySchemes` is missing a description",
           "severity": 1,
           "range": {
@@ -64174,11 +62652,7 @@
         "issues": [
           {
             "code": "component-description",
-            "path": [
-              "components",
-              "securitySchemes",
-              "api_key"
-            ],
+            "path": ["components", "securitySchemes", "api_key"],
             "message": "Component `api_key` of type `securitySchemes` is missing a description",
             "severity": 1,
             "range": {
@@ -64198,11 +62672,7 @@
         "docsIssues": [
           {
             "code": "component-description",
-            "path": [
-              "components",
-              "securitySchemes",
-              "api_key"
-            ],
+            "path": ["components", "securitySchemes", "api_key"],
             "message": "Component `api_key` of type `securitySchemes` is missing a description",
             "severity": 1,
             "range": {
@@ -64222,11 +62692,7 @@
         "completenessIssues": [
           {
             "code": "component-description",
-            "path": [
-              "components",
-              "securitySchemes",
-              "api_key"
-            ],
+            "path": ["components", "securitySchemes", "api_key"],
             "message": "Component `api_key` of type `securitySchemes` is missing a description",
             "severity": 1,
             "range": {

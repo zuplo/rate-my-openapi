@@ -103,7 +103,7 @@ const DetailedScoreSection = ({
             {issues
               .slice(
                 0,
-                page ? PAGE_LENGTH * page + INITIAL_LENGTH : INITIAL_LENGTH
+                page ? PAGE_LENGTH * page + INITIAL_LENGTH : INITIAL_LENGTH,
               )
               .map((issue, index: number) => (
                 <tr
@@ -113,7 +113,7 @@ const DetailedScoreSection = ({
                   <td
                     onClick={() => handleViewClick(issue)}
                     className={`font-bold uppercase ${getSeverityTextColor(
-                      issue.severity
+                      issue.severity,
                     )} cursor-pointer`}
                   >
                     {SEVERITY_LEVEL_MAP[issue.severity]}

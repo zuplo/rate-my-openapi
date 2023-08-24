@@ -10,7 +10,7 @@ const DynamicBackground = ({ score = -1 }) => (
         "from-green-100": score > 80,
         "from-red-100": score >= 0 && score <= 50,
         "from-yellow-100": score > 50 && score <= 80,
-      }
+      },
     )}
   />
 );

@@ -28,7 +28,7 @@ export const FullReport = ({
             // 1 day
             revalidate: 60 * 60 * 24,
           },
-        }
+        },
       );
 
       if (downloadUrlRequest.status !== 200) {
@@ -53,7 +53,7 @@ export const FullReport = ({
             // 1 day
             revalidate: 60 * 60 * 24,
           },
-        }
+        },
       );
 
       if (downloadUrlRequest.status !== 200) {

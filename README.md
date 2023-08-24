@@ -10,7 +10,7 @@ npm run release
 
 ## Local development
 
-### Running the API 
+### Running the API
 
 Go to `/apps/api`
 
@@ -21,19 +21,22 @@ cp .env.example .env
 export $(grep -v '^#' .env)
 ```
 
-In 3 different terminals: 
+In 3 different terminals:
 
 Start compiler in watch mode
+
 ```
 npx tsc --watch
 ```
 
 Start the server
+
 ```
 node dist/server.js
 ```
 
 Start Inngest server
+
 ```
 npx inngest-cli@latest dev -u http://localhost:3000/api/inngest
 ```
@@ -46,4 +49,5 @@ Go to `/apps/web`
 npm run dev
 ```
 
-(In case you're also updating the API concurrently, update the `.env.development` file to point to the local API: `http://localhost:3000`)
+(In case you're also updating the API concurrently, update the
+`.env.development` file to point to the local API: `http://localhost:3000`)

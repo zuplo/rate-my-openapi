@@ -2,6 +2,7 @@ import { Argv, CommandModule } from "yargs";
 import setBlocking from "../common/output.js";
 import { Arguments, generateRating } from "../handlers/generate-rating.js";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const generateRatingCommand: CommandModule<any, any> = {
   command: "generate-rating",
   describe: "Generate a rating for an OpenAPI file using Vacuum",

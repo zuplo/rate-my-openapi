@@ -1,14 +1,13 @@
 "use client";
 
-import { type FormEvent, useRef, useState, useEffect } from "react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 
 import { useUploadContext } from "@/contexts/UploadContext";
 
 import StepContainer from "@/components/StepContainer";
-import FormError from "../FormError";
-import LoadingIndicator from "../LoadingIndicator";
 import posthog from "posthog-js";
+import LoadingIndicator from "../LoadingIndicator";
 
 const EmailInput = () => {
   const { setNextStep, file, step: currentStep } = useUploadContext();

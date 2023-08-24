@@ -353,7 +353,7 @@ const getPathRatings = (
         return pathRatings;
       }
 
-      let pathRating: PathRating = {
+      const pathRating: PathRating = {
         score: 100,
         issues: issuesByPathAndOperation[path]["other"],
         docsScore: 100,
@@ -687,7 +687,7 @@ const getComponentsRatings = (
         };
         return componentCategoryRatings;
       }
-      let componentCategoryRating: ComponentRating = {
+      const componentCategoryRating: ComponentRating = {
         score: 100,
         issues: [],
         docsScore: 100,

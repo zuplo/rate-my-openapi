@@ -28,6 +28,7 @@ export const logAndReplyInternalError = ({
   fastifyRequest,
   fastifyReply,
 }: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error: any;
   fastifyRequest: FastifyRequest;
   fastifyReply: FastifyReply;

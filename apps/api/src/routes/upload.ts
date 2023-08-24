@@ -1,15 +1,15 @@
 import fastifyMultipart from "@fastify/multipart";
 import { type FastifyPluginAsync } from "fastify";
+import { load } from "js-yaml";
+import { Err, Ok, Result } from "ts-results-es";
 import { v4 as uuidv4 } from "uuid";
-import { inngestInstance } from "../services/inngest.js";
-import { getStorageBucketName, storage } from "../services/storage.js";
-import { Result, Ok, Err } from "ts-results-es";
 import {
   logAndReplyError,
   logAndReplyInternalError,
   successJsonReply,
 } from "../helpers/reply.js";
-import { load } from "js-yaml";
+import { inngestInstance } from "../services/inngest.js";
+import { getStorageBucketName, storage } from "../services/storage.js";
 
 const uploadRoute: FastifyPluginAsync = async function (server) {
   server.route({
@@ -89,7 +89,6 @@ const parseMultipartUpload = async (
 ): Promise<Result<ParseMultipartUploadResult, UserErrorResult>> => {
   let fileContent;
   let email;
-  let fileName;
   for await (const part of parts) {
     if (part.type === "file" && part.fieldname === "apiFile") {
       fileContent = await part.toBuffer();
@@ -125,12 +124,16 @@ const checkFileIsJsonOrYaml = (
   try {
     JSON.parse(fileContentString);
     return Ok("json");
-  } catch (_) {}
+  } catch (_) {
+    // Ignore
+  }
 
   try {
     load(fileContentString);
     return Ok("yaml");
-  } catch (err) {}
+  } catch (err) {
+    // Ignore
+  }
 
   return Err({
     userMessage: "Invalid file format",

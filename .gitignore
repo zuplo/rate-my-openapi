@@ -43,3 +43,7 @@ terraform.rc
 apps/api/.env
 packages/core/tsconfig.tsbuildinfo
 apps/web/.env
+
+# ESLint cache
+.eslintcache
+.vercel

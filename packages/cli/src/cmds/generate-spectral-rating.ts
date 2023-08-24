@@ -5,6 +5,7 @@ import {
   generateSpectralRating,
 } from "../handlers/generate-spectral-rating.js";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const generateSpectralCommand: CommandModule<any, any> = {
   describe: "Generate a rating for an OpenAPI file using Spectral",
   command: "generate-spectral-rating",

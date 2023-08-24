@@ -3,13 +3,13 @@
 import classNames from "classnames";
 import AnimatedScore from "../AnimatedScore";
 
-import { useState } from "react";
 import getScoreTextColor from "@/utils/get-score-test-color";
+import { useState } from "react";
 import { useModal } from "react-modal-hook";
 import IssueModal from "../IssueModal";
 
 export type Issue = {
-  code: string;
+  code: string | number;
   message: string;
   severity: number;
   range: {

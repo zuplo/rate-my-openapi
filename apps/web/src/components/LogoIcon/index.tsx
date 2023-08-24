@@ -1,4 +1,4 @@
-const LogoIcon = ({ width = 35, height = 35, className = "" }) => (
+const LogoIcon = ({ width = 35, height = 35 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={width}

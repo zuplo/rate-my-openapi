@@ -22,7 +22,7 @@ const StepContainer = ({
         posthog.reset();
       }
     };
-  }, []);
+  }, [currentStep]);
 
   return (
     <div

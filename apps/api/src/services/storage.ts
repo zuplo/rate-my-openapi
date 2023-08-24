@@ -6,7 +6,7 @@ const { GOOGLE_SERVICE_ACCOUNT_B64, GOOGLE_CLOUD_STORAGE_BUCKET: bucketName } =
 const credential = JSON.parse(
   Buffer.from(GOOGLE_SERVICE_ACCOUNT_B64 as string, "base64")
     .toString()
-    .replace(/\n/g, "")
+    .replace(/\n/g, ""),
 );
 
 export const storage = new Storage({

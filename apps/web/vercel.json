@@ -1,0 +1,4 @@
+{
+  "installCommand": "cd ../../ && npm ci --include-workspace-root --include dev && cd apps/web",
+  "buildCommand": "cd ../../ && npm run build && cd apps/web && next build"
+}

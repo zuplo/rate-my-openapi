@@ -7,12 +7,16 @@ declare global {
     userMessage: string;
     debugMessage: string;
     statusCode: number;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     context?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     error?: any;
   };
 
   export type GenericErrorResult = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     context?: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     error: any;
   };
 

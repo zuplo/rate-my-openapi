@@ -12,7 +12,6 @@ export type Issue = {
   code: string;
   message: string;
   severity: number;
-  count: number;
   range: {
     start: {
       line: number;
@@ -122,14 +121,9 @@ const DetailedScoreSection = ({
                     className="flex cursor-pointer flex-wrap gap-1 md:flex-nowrap"
                     onClick={() => handleViewClick(issue)}
                   >
-                    <span className="block overflow-hidden break-words">
+                    <span className="block overflow-hidden break-words hover:font-bold">
                       {issue.message}
                     </span>
-                    {issue.count > 1 && (
-                      <span className="shrink-0 text-gray-400">
-                        ({issue.count} occurrences)
-                      </span>
-                    )}
                   </td>
                 </tr>
               ))}

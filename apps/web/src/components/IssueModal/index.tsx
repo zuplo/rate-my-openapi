@@ -88,22 +88,6 @@ const IssueModal = ({
     windowSize.isMobile && editor.getAction("editor.action.showHover")?.run();
   };
 
-  const editorOptions = {
-    readOnly: true,
-    selectionHighlight: true,
-    renderLineHighlight: "line",
-    glyphMargin: true,
-  };
-
-  const mobileOptions = {
-    ...editorOptions,
-    minimap: {
-      enabled: false,
-    },
-    lineNumbers: "off",
-    renderIndentGuides: false,
-    folding: false,
-  };
   return (
     <Transition.Root show={true} appear={true} as="div">
       <Dialog
@@ -113,7 +97,7 @@ const IssueModal = ({
           onClose(false);
         }}
       >
-        <div className="sm:block sm:p-0 sm:pb-0 flex min-h-screen items-center justify-center px-4 text-center">
+        <div className="flex min-h-screen items-center justify-center px-4 text-center">
           <Transition.Child
             as="div"
             enter="ease-out duration-400"
@@ -143,7 +127,7 @@ const IssueModal = ({
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div
-              className={`sm:my-8 sm:p-6 sm:align-middle inline-block h-[80vh] w-[75vw] max-w-[1200px]  transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-4 text-left align-bottom shadow-xl transition-all`}
+              className={`sm:my-8 sm:p-6 sm:align-middle inline-block h-screen w-screen transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-4 text-left align-bottom shadow-xl transition-all md:h-[80vh] md:w-[75vw] md:max-w-[1200px]`}
             >
               <div className="sm:block z-40 -mr-2 -mt-4 inline-flex w-full justify-end">
                 <button
@@ -156,7 +140,7 @@ const IssueModal = ({
                 </button>
               </div>
               <div className="-mt-2 flex w-fit flex-col">
-                <div className="text-lg font-bold">{issue.message}</div>
+                <div className="font-bold md:text-lg">{issue.message}</div>
                 <div className="text-xs text-gray-400">Code: {issue.code}</div>
                 <div className="mb-4 mt-2">
                   {"urlPathFragment" in ruleData ? (
@@ -181,8 +165,22 @@ const IssueModal = ({
                 width="100%"
                 language={fileExtension === "json" ? "json" : "yaml"}
                 value={openapi}
-                // @ts-ignore - this is a valid option, but the types don't know about it
-                options={windowSize.isMobile ? mobileOptions : editorOptions}
+                options={{
+                  readOnly: true,
+                  selectionHighlight: true,
+                  renderLineHighlight: "line",
+                  glyphMargin: true,
+                  minimap: windowSize.isMobile
+                    ? {
+                        enabled: false,
+                      }
+                    : undefined,
+                  fontSize: windowSize.isMobile ? 10 : undefined,
+                  lineNumbers: windowSize.isMobile ? "off" : undefined,
+                  // @ts-ignore - this is a valid option, but the types don't know about it
+                  renderIndentGuides: windowSize.isMobile ? false : undefined,
+                  folding: windowSize.isMobile ? false : undefined,
+                }}
                 onMount={onEditorDidMount}
                 line={issue.range.start.line}
               />

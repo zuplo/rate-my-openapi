@@ -121,7 +121,7 @@ const DetailedScoreSection = ({
                     className="flex cursor-pointer flex-wrap gap-1 md:flex-nowrap"
                     onClick={() => handleViewClick(issue)}
                   >
-                    <span className="block overflow-hidden break-words hover:font-bold">
+                    <span className="block overflow-hidden break-words hover:text-gray-500">
                       {issue.message}
                     </span>
                   </td>

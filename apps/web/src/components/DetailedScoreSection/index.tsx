@@ -4,7 +4,7 @@ import classNames from "classnames";
 import AnimatedScore from "../AnimatedScore";
 
 import { useState } from "react";
-import getScoreTextColor from "@/utils/getScoreTextColor";
+import getScoreTextColor from "@/utils/get-score-test-color";
 import { useModal } from "react-modal-hook";
 import IssueModal from "../IssueModal";
 

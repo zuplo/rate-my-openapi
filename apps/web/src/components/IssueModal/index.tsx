@@ -2,11 +2,12 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon, ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import { Editor, OnMount } from "@monaco-editor/react";
 import { Issue } from "../DetailedScoreSection";
 import { getRuleData } from "../../utils/issue-utils";
 import "./IssueModal.css";
+import useWindowSize from "@/utils/use-window-size";
 
 type IssueModalProps = {
   issue: Issue;
@@ -47,7 +48,7 @@ const IssueModal = ({
   fileExtension,
   onClose,
 }: IssueModalProps) => {
-  console.log("issue", issue);
+  const windowSize = useWindowSize();
   const ruleData = getRuleData(issue.code);
 
   const onEditorDidMount: OnMount = (editor) => {
@@ -84,9 +85,25 @@ const IssueModal = ({
     ]);
     // The code below will cause the hover message to show by default
     // We may or may not want to do this in the future
-    // editor.getAction("editor.action.showHover")?.run();
+    windowSize.isMobile && editor.getAction("editor.action.showHover")?.run();
   };
 
+  const editorOptions = {
+    readOnly: true,
+    selectionHighlight: true,
+    renderLineHighlight: "line",
+    glyphMargin: true,
+  };
+
+  const mobileOptions = {
+    ...editorOptions,
+    minimap: {
+      enabled: false,
+    },
+    lineNumbers: "off",
+    renderIndentGuides: false,
+    folding: false,
+  };
   return (
     <Transition.Root show={true} appear={true} as="div">
       <Dialog
@@ -126,7 +143,7 @@ const IssueModal = ({
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div
-              className={`sm:my-8 sm:align-middle sm:p-6 inline-block h-[80vh] w-[75vw] max-w-[1200px]  transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-4 text-left align-bottom shadow-xl transition-all`}
+              className={`sm:my-8 sm:p-6 sm:align-middle inline-block h-[80vh] w-[75vw] max-w-[1200px]  transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-4 text-left align-bottom shadow-xl transition-all`}
             >
               <div className="sm:block z-40 -mr-2 -mt-4 inline-flex w-full justify-end">
                 <button
@@ -143,30 +160,29 @@ const IssueModal = ({
                 <div className="text-xs text-gray-400">Code: {issue.code}</div>
                 <div className="mb-4 mt-2">
                   {"urlPathFragment" in ruleData ? (
-                    <a
-                      target="_blank"
-                      className="w-fit text-blue-500 hover:text-blue-700"
-                      href={`https://quobix.com/vacuum/rules/${ruleData.urlPathFragment}/${issue.code}`}
-                    >
-                      Additional details
-                    </a>
+                    <div className="flex items-center text-blue-500 hover:text-blue-700">
+                      <a
+                        target="_blank"
+                        className="w-fit"
+                        href={`https://quobix.com/vacuum/rules/${ruleData.urlPathFragment}/${issue.code}`}
+                      >
+                        Additional details
+                      </a>
+                      <ArrowUpRightIcon height={12} strokeWidth={3} />
+                    </div>
                   ) : (
                     <div>{ruleData.description}</div>
                   )}
                 </div>
               </div>
               <Editor
-                className="hidden lg:block"
+                // className="hidden lg:block"
                 height="100%"
                 width="100%"
                 language={fileExtension === "json" ? "json" : "yaml"}
                 value={openapi}
-                options={{
-                  readOnly: true,
-                  selectionHighlight: true,
-                  renderLineHighlight: "line",
-                  glyphMargin: true,
-                }}
+                // @ts-ignore - this is a valid option, but the types don't know about it
+                options={windowSize.isMobile ? mobileOptions : editorOptions}
                 onMount={onEditorDidMount}
                 line={issue.range.start.line}
               />

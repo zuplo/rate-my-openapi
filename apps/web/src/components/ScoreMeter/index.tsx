@@ -4,7 +4,7 @@ import classNames from "classnames";
 import AnimatedScore from "../AnimatedScore";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
-import getScoreTextColor from "@/utils/getScoreTextColor";
+import getScoreTextColor from "@/utils/get-score-test-color";
 
 const SVG_SIZE = 210;
 const STROKE_WIDTH = 18;

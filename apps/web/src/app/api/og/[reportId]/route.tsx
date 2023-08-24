@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/server";
-import classNames from "classnames";
 import { getSimpleReport } from "../../../report/[id]/simple-report-request";
+import classNames from "classnames";
 
 export const runtime = "edge";
 
@@ -9,7 +9,6 @@ export async function GET(
   { params }: { params: { reportId: string } },
 ) {
   const report = await getSimpleReport(params.reportId);
-
   if (!report) {
     console.error("Report not found", params.reportId);
     return new Response("Not found", { status: 404 });
@@ -20,43 +19,41 @@ export async function GET(
       <div
         style={{
           display: "flex",
-          backgroundColor: "white",
+          fontFamily: "Roboto, sans-serif",
         }}
       >
-        <div tw="flex flex-col w-full h-full items-center justify-center bg-white font-bold">
-          <div tw="flex w-full">
-            <div tw="flex flex-col md:flex-row w-full py-12 px-4 md:items-center justify-around p-8">
-              <h2 tw="flex flex-col text-6xl font-bold tracking-tight text-gray-900 text-left">
-                <span tw="text-indigo-600">OpenAPI Rating for</span>
-                <span tw="text-pink-500">{report?.title}</span>
-                <span tw="mt-5">Get yours at</span>
-                <span>ratemyopenapi.com</span>
-              </h2>
-              <div tw="flex md:mt-0">
-                <div
-                  tw={classNames(
-                    "flex items-center justify-center rounded-full text-base font-medium text-white h-54 w-54 border-8	text-6xl font-bold",
-                    {
-                      "border-green-500 text-green-500 bg-green-200":
-                        report.score > 66,
-                      "border-yellow-500 text-yellow-500 bg-yellow-200":
-                        report.score > 33 && report.score <= 66,
-                      "border-red-500 text-red-500 bg-red-200":
-                        report.score <= 33,
-                    },
-                  )}
-                >
-                  {report.score}
-                </div>
-              </div>
+        <div tw="flex ">
+          <img
+            tw="absolute z-[-1]"
+            width="1200"
+            height="630"
+            src={`https://cdn.zuplo.com/assets/517742cf-0c08-448c-8f81-18b03c3a7144.png`}
+          />
+          <div tw="flex ml-80 mt-30 items-center">
+            <div tw="flex text-white text-6xl text-wrap break-words w-100 h-30 font-extrabold text-center items-center justify-center mr-15">
+              {report.title} - {report.version}
+            </div>
+            <div
+              tw={classNames(
+                "flex items-center justify-center rounded-full text-base text-white h-80 w-80 border-8	text-9xl font-bold border-white",
+                {
+                  "border-green-500 text-green-500 bg-green-200":
+                    report.score > 66,
+                  "border-yellow-500 text-yellow-500 bg-yellow-200":
+                    report.score > 33 && report.score <= 66,
+                  "border-red-500 text-red-500 bg-red-200": report.score <= 33,
+                },
+              )}
+            >
+              {report.score}
             </div>
           </div>
         </div>
       </div>
     ),
     {
-      width: 800,
-      height: 400,
+      width: 1200,
+      height: 630,
     },
   );
 }

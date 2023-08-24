@@ -10,7 +10,7 @@ export type SimpleReport = {
 };
 
 export const getSimpleReport = async (
-  id: string,
+  id: string
 ): Promise<SimpleReport | null> => {
   const downloadUrlRequest = await fetch(
     (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${id}/simplified`,
@@ -19,7 +19,7 @@ export const getSimpleReport = async (
         // 1 day
         revalidate: 60 * 60 * 24,
       },
-    },
+    }
   );
 
   if (downloadUrlRequest.status !== 200) {

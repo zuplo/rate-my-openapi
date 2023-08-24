@@ -44,10 +44,11 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
     notFound();
   }
 
+  const fileExtension = simpleReport?.fileExtension;
   return (
     <>
       <HeroScore simpleReport={simpleReport} />
-      <FullReport reportId={params.id} />
+      <FullReport reportId={params.id} fileExtension={fileExtension} />
     </>
   );
 };

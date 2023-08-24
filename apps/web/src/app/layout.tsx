@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 import { Roboto, Roboto_Mono, IBM_Plex_Sans } from "next/font/google";
 
-import { PHProvider, PostHogPageview } from "./providers";
+import { ModalProvider, PHProvider, PostHogPageview } from "./providers";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -46,13 +46,15 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     <Suspense>
       <PostHogPageview />
     </Suspense>
-    <PHProvider>
-      <body className="container mx-auto flex h-full flex-col justify-between text-base">
-        <Header />
-        {children}
-        <Footer />
-      </body>
-    </PHProvider>
+    <ModalProvider>
+      <PHProvider>
+        <body className="container mx-auto flex h-full flex-col justify-between text-base">
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </PHProvider>
+    </ModalProvider>
   </html>
 );
 

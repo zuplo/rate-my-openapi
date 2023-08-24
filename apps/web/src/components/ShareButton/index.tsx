@@ -16,7 +16,7 @@ const ShareButton = ({
       onClick={() => {
         setCopied(true);
         navigator.clipboard.writeText(window.location.href);
-        setTimeout(() => setCopied(false), 7000);
+        setTimeout(() => setCopied(false), 2000);
       }}
       disabled={copied}
       className={`${

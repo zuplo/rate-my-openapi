@@ -70,9 +70,7 @@
     },
     "/v1/accounts/{accountName}/key-buckets": {
       "get": {
-        "tags": [
-          "API Keys - Buckets"
-        ],
+        "tags": ["API Keys - Buckets"],
         "operationId": "ApiKeyBucketsService_list",
         "summary": "Lists buckets",
         "description": "Lists all buckets belonging to this account.",
@@ -140,9 +138,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "API Keys - Buckets"
-        ],
+        "tags": ["API Keys - Buckets"],
         "operationId": "ApiKeyBucketsService_create",
         "summary": "Creates a bucket",
         "description": "Creates a new bucket for this account.",
@@ -221,9 +217,7 @@
     },
     "/v1/accounts/{accountName}/key-buckets/{bucketName}": {
       "get": {
-        "tags": [
-          "API Keys - Buckets"
-        ],
+        "tags": ["API Keys - Buckets"],
         "operationId": "ApiKeyBucketsService_read",
         "summary": "Gets the details for a bucket",
         "description": "Returns the details for a bucket, including the token used to connect to the bucket.",
@@ -304,9 +298,7 @@
         ]
       },
       "patch": {
-        "tags": [
-          "API Keys - Buckets"
-        ],
+        "tags": ["API Keys - Buckets"],
         "operationId": "ApiKeyBucketsService_update",
         "summary": "Updates the bucket",
         "description": "Updates a bucket, and returns the updated value.",
@@ -396,9 +388,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "API Keys - Buckets"
-        ],
+        "tags": ["API Keys - Buckets"],
         "operationId": "ApiKeyBucketsService_delete",
         "summary": "Deletes a bucket",
         "description": "Deletes a bucket and any related resources",
@@ -474,9 +464,7 @@
     },
     "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers": {
       "get": {
-        "tags": [
-          "API Keys - Consumers"
-        ],
+        "tags": ["API Keys - Consumers"],
         "operationId": "ApiKeyConsumersService_list",
         "summary": "Lists consumers",
         "description": "Lists all consumers belonging to this account.",
@@ -587,9 +575,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "API Keys - Consumers"
-        ],
+        "tags": ["API Keys - Consumers"],
         "operationId": "ApiKeyConsumersService_create",
         "summary": "Creates a consumer",
         "description": "Creates a new consumer for this account.",
@@ -674,9 +660,7 @@
     },
     "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers/{consumerName}": {
       "get": {
-        "tags": [
-          "API Keys - Consumers"
-        ],
+        "tags": ["API Keys - Consumers"],
         "operationId": "ApiKeyConsumersService_read",
         "summary": "Gets a consumer",
         "description": "Gets a consumer given a bucket name and consumer name.",
@@ -775,9 +759,7 @@
         ]
       },
       "patch": {
-        "tags": [
-          "API Keys - Consumers"
-        ],
+        "tags": ["API Keys - Consumers"],
         "operationId": "ApiKeyConsumersService_update",
         "summary": "Updates the consumer",
         "description": "Update the consumer with the matching consumer name.",
@@ -873,9 +855,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "API Keys - Consumers"
-        ],
+        "tags": ["API Keys - Consumers"],
         "operationId": "ApiKeyConsumersService_delete",
         "summary": "Deletes a consumer",
         "description": "Deletes a consumer and any related resources",
@@ -957,9 +937,7 @@
     },
     "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers/{consumerName}/keys": {
       "get": {
-        "tags": [
-          "API Keys - Keys"
-        ],
+        "tags": ["API Keys - Keys"],
         "operationId": "ApiKeyKeysService_list",
         "summary": "Lists keys",
         "description": "Lists all keys for this consumer.",
@@ -1055,9 +1033,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "API Keys - Keys"
-        ],
+        "tags": ["API Keys - Keys"],
         "operationId": "ApiKeyKeysService_create",
         "summary": "Creates an API key",
         "description": "Creates a new API key for this consumer.",
@@ -1142,9 +1118,7 @@
     },
     "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers/{consumerName}/keys/$bulk": {
       "post": {
-        "tags": [
-          "API Keys - Keys"
-        ],
+        "tags": ["API Keys - Keys"],
         "operationId": "ApiKeyKeysService_bulkCreate",
         "summary": "Creates multiple API keys",
         "description": "Creates multiple new API keys for this consumer.",
@@ -1253,9 +1227,7 @@
     },
     "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers/{consumerName}/keys/{keyId}": {
       "get": {
-        "tags": [
-          "API Keys - Keys"
-        ],
+        "tags": ["API Keys - Keys"],
         "operationId": "ApiKeyKeysService_get",
         "summary": "Gets an API key",
         "description": "Retrieves an API key for this consumer.",
@@ -1348,9 +1320,7 @@
         ]
       },
       "patch": {
-        "tags": [
-          "API Keys - Keys"
-        ],
+        "tags": ["API Keys - Keys"],
         "operationId": "ApiKeyKeysService_update",
         "summary": "Updates an API key",
         "description": "Updates an API key for this consumer.",
@@ -1454,9 +1424,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "API Keys - Keys"
-        ],
+        "tags": ["API Keys - Keys"],
         "operationId": "ApiKeyKeysService_delete",
         "summary": "Deletes an API key",
         "description": "Deletes an API key for this consumer.",
@@ -1541,9 +1509,7 @@
     },
     "/v1/accounts/{accountName}/key-buckets/{bucketName}/consumers/{consumerName}/roll-key": {
       "post": {
-        "tags": [
-          "API Keys - Consumers"
-        ],
+        "tags": ["API Keys - Consumers"],
         "operationId": "ApiKeyConsumersService_rollKey",
         "summary": "Roll consumer keys",
         "description": "Set expiration for keys with no expiration date and creates a new key.",
@@ -1594,9 +1560,7 @@
     },
     "/v1/accounts/{accountName}/projects/{projectName}/branches/{branchName}/variables": {
       "post": {
-        "tags": [
-          "Variables"
-        ],
+        "tags": ["Variables"],
         "operationId": "VariablesService_create",
         "summary": "Create a new variable",
         "description": "Creates a new environment variable in a branch for a given project",
@@ -1681,9 +1645,7 @@
     },
     "/v1/accounts/{accountName}/projects/{projectName}/branches/{branchName}/variables/{variableName}": {
       "patch": {
-        "tags": [
-          "Variables"
-        ],
+        "tags": ["Variables"],
         "operationId": "VariablesService_update",
         "summary": "Update value of a variable",
         "description": "Update the value of a variable in a branch for a given project",
@@ -1781,9 +1743,7 @@
     },
     "/v1/accounts/{accountName}/projects/{projectName}/deployment-status/{statusId}": {
       "get": {
-        "tags": [
-          "Deployments"
-        ],
+        "tags": ["Deployments"],
         "operationId": "V1_deploymentStatus",
         "summary": "Gets deployment status",
         "description": "Gets the deployment status of your upload. Use the UUID of the uploaded sources as the statusId.",
@@ -1874,9 +1834,7 @@
     },
     "/v1/accounts/{accountName}/projects/{projectName}/deployments": {
       "get": {
-        "tags": [
-          "Deployments"
-        ],
+        "tags": ["Deployments"],
         "operationId": "DeploymentsService_list",
         "summary": "Lists deployments",
         "description": "Lists the deployments for the specified account and project.",
@@ -2021,9 +1979,7 @@
     },
     "/v1/accounts/{accountName}/tunnels": {
       "get": {
-        "tags": [
-          "Tunnels"
-        ],
+        "tags": ["Tunnels"],
         "operationId": "TunnelService_list",
         "summary": "Lists tunnels",
         "description": "Lists all tunnels belonging to this account.",
@@ -2091,9 +2047,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "Tunnels"
-        ],
+        "tags": ["Tunnels"],
         "operationId": "TunnelService_create",
         "summary": "Creates a tunnel",
         "description": "Creates a new tunnel for this account.",
@@ -2172,9 +2126,7 @@
     },
     "/v1/accounts/{accountName}/tunnels/{tunnelId}": {
       "get": {
-        "tags": [
-          "Tunnels"
-        ],
+        "tags": ["Tunnels"],
         "operationId": "TunnelService_read",
         "summary": "Gets the details for a tunnel",
         "description": "Returns the details for a tunnel, including the token used to connect to the tunnel.",
@@ -2255,9 +2207,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Tunnels"
-        ],
+        "tags": ["Tunnels"],
         "operationId": "TunnelService_delete",
         "summary": "Deletes a tunnel",
         "description": "Deletes a tunnel and any services that it has.",
@@ -2340,9 +2290,7 @@
     },
     "/v1/accounts/{accountName}/tunnels/{tunnelId}/$rotate-token": {
       "post": {
-        "tags": [
-          "Tunnels"
-        ],
+        "tags": ["Tunnels"],
         "operationId": "TunnelService_update",
         "summary": "Rotates the token",
         "description": "Rotates the token used to connect to the tunnel.",
@@ -2425,9 +2373,7 @@
     },
     "/v1/accounts/{accountName}/tunnels/{tunnelId}/provisioning-operations/{operationId}": {
       "get": {
-        "tags": [
-          "Tunnel Services"
-        ],
+        "tags": ["Tunnel Services"],
         "operationId": "TunneledServicesService_getProvisioningStatus",
         "summary": "Gets the provisioning status for the tunnel",
         "description": "This endpoint returns the status of the services that the tunnel is currently configured for. Provisioning the services is an asynchronous process so this endpoint allows you to poll the status.",
@@ -2503,9 +2449,7 @@
     },
     "/v1/accounts/{accountName}/tunnels/{tunnelId}/services-configuration": {
       "get": {
-        "tags": [
-          "Tunnel Services"
-        ],
+        "tags": ["Tunnel Services"],
         "operationId": "TunneledServicesService_getServiceConfiguration",
         "summary": "Gets the service configuration for the tunnel",
         "description": "This endpoint returns a snapshot of the services that the tunnel is currently configured for.",
@@ -2576,9 +2520,7 @@
         ]
       },
       "put": {
-        "tags": [
-          "Tunnel Services"
-        ],
+        "tags": ["Tunnel Services"],
         "operationId": "TunneledServicesService_putServiceConfiguration",
         "summary": "Configures the services that the tunnel connects to",
         "description": "This endpoint reads the request body and creates/updates/delete the services that the tunnel connects to.",
@@ -2660,9 +2602,7 @@
     },
     "/v1/accounts/{accountName}/tunnels/{tunnelId}/teardown-operations/{operationId}": {
       "get": {
-        "tags": [
-          "Tunnels"
-        ],
+        "tags": ["Tunnels"],
         "operationId": "TunnelService_getProvisioningStatus",
         "summary": "Gets the teardown provisioning status for the tunnel",
         "description": "This endpoint returns the status of the deletion of the tunnel. Tearing down the tunnel is an asynchronous process so this endpoint allows you to poll the status.",
@@ -2738,9 +2678,7 @@
     },
     "/v1/deployments/{deploymentName}": {
       "delete": {
-        "tags": [
-          "Deployments"
-        ],
+        "tags": ["Deployments"],
         "operationId": "DeployService_delete",
         "summary": "Deletes deployment",
         "description": "Deletes the specified deployment.",
@@ -2803,9 +2741,7 @@
     },
     "/v1/deployments/{deploymentName}/deploy": {
       "post": {
-        "tags": [
-          "Deployments"
-        ],
+        "tags": ["Deployments"],
         "operationId": "DeployService_create",
         "summary": "Performs a deployment",
         "description": "Deploys the specified deployment.",
@@ -3054,11 +2990,7 @@
         "description": "The format of the key to return.\n'none': Key is completely hidden.\n'visible': Key is completely visible.\n'masked': Part of key suffix is visible.",
         "schema": {
           "type": "string",
-          "enum": [
-            "none",
-            "visible",
-            "masked"
-          ],
+          "enum": ["none", "visible", "masked"],
           "example": "masked"
         },
         "example": "masked"
@@ -3238,11 +3170,7 @@
           }
         },
         "description": "A Consumer can have any number of API keys associated with it. Each API Key shares the same identity (i.e. Consumer) when authenticating with this service. Keys can have their own description to note the use of the key and can have an expiration date. Expired keys will not be permitted to authenticate after their expiration.",
-        "required": [
-          "createdOn",
-          "updatedOn",
-          "id"
-        ],
+        "required": ["createdOn", "updatedOn", "id"],
         "example": {
           "createdOn": "2023-04-20T05:54:34.408Z",
           "updatedOn": "2023-04-20T05:54:34.408Z",
@@ -3301,9 +3229,7 @@
             "format": "uint32"
           }
         },
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "example": {
           "data": [
             {
@@ -3370,12 +3296,7 @@
           }
         },
         "description": "Top level group for API key mangement. A bucket could be used with a single Zuplo environment or shared among multiple environments or projects. By default a Zuplo API Gateway project will be created with several buckets that map to production, preview, and working copy environments.",
-        "required": [
-          "createdOn",
-          "updatedOn",
-          "id",
-          "name"
-        ],
+        "required": ["createdOn", "updatedOn", "id", "name"],
         "example": {
           "id": "bckt_pCcNMjERFSoh5xIQir7o99Z6KDoLp36e",
           "name": "my-bucket",
@@ -3414,9 +3335,7 @@
             }
           }
         },
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "example": {
           "name": "my-bucket",
           "description": "Bucket for zuplo consumers",
@@ -3477,9 +3396,7 @@
             "format": "uint32"
           }
         },
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "example": {
           "data": [
             {
@@ -3544,12 +3461,7 @@
           }
         },
         "description": "Consumers are the core of the API Key service. The consumer is the 'identity' of any API Keys that are created. ",
-        "required": [
-          "createdOn",
-          "updatedOn",
-          "id",
-          "name"
-        ],
+        "required": ["createdOn", "updatedOn", "id", "name"],
         "example": {
           "id": "csmr_brw0leTAVw478VFKD4F6OqVI",
           "name": "zup-inc",
@@ -3627,9 +3539,7 @@
             "description": "Generic metadata associated with the consumer"
           }
         },
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "example": {
           "name": "zup-inc",
           "description": "Consumer for zup inc",
@@ -3639,9 +3549,7 @@
           "metadata": {
             "id": "zup-id-343"
           },
-          "managers": [
-            "mgr@zuplo-inc-example.com"
-          ]
+          "managers": ["mgr@zuplo-inc-example.com"]
         }
       },
       "Zuplo.ApiKeys.ConsumerUpdateBody": {
@@ -3703,9 +3611,7 @@
             "format": "uint32"
           }
         },
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "example": {
           "data": [
             {
@@ -3776,12 +3682,7 @@
           }
         },
         "description": "Managers are users that have access to a consumer. Managers can be invited to a consumer using the manager-invites endpoint.",
-        "required": [
-          "createdOn",
-          "id",
-          "email",
-          "sub"
-        ],
+        "required": ["createdOn", "id", "email", "sub"],
         "example": {
           "createdOn": "2023-04-20T05:54:34.408Z",
           "id": "managerId",
@@ -3820,13 +3721,7 @@
           }
         },
         "description": "Manager invites are used to invite managers to a consumer. The invitation code can be sent to the manager for them to gain access to the consumer.",
-        "required": [
-          "createdOn",
-          "id",
-          "expiresOn",
-          "inviteCode",
-          "email"
-        ],
+        "required": ["createdOn", "id", "expiresOn", "inviteCode", "email"],
         "example": {
           "createdOn": "2023-04-20T05:54:34.408Z",
           "id": "inviteId",
@@ -3845,9 +3740,7 @@
             "example": "2050-04-18T05:54:34.408Z"
           }
         },
-        "required": [
-          "expiresOn"
-        ],
+        "required": ["expiresOn"],
         "example": {
           "expiresOn": "2050-04-18T05:54:34.408Z"
         }
@@ -3879,12 +3772,7 @@
             "readOnly": true
           }
         },
-        "required": [
-          "consumer",
-          "timeStamp",
-          "totalCalls",
-          "callsByStatusCode"
-        ]
+        "required": ["consumer", "timeStamp", "totalCalls", "callsByStatusCode"]
       },
       "Zuplo.ConsumerAnalytics.RecentCallsData": {
         "type": "object",
@@ -3898,9 +3786,7 @@
             "readOnly": true
           }
         },
-        "required": [
-          "data"
-        ]
+        "required": ["data"]
       },
       "Zuplo.ConsumerAnalytics.ReponseStatsByStatusCodeData": {
         "type": "object",
@@ -3914,9 +3800,7 @@
             "readOnly": true
           }
         },
-        "required": [
-          "data"
-        ]
+        "required": ["data"]
       },
       "Zuplo.ConsumerAnalytics.RequestData": {
         "type": "object",
@@ -4000,22 +3884,14 @@
             "readOnly": true
           }
         },
-        "required": [
-          "totalCalls",
-          "consumer",
-          "callsByStatusCode"
-        ]
+        "required": ["totalCalls", "consumer", "callsByStatusCode"]
       },
       "Zuplo.DeploymentStatus.DeploymentStatus": {
         "type": "object",
         "properties": {
           "status": {
             "type": "string",
-            "enum": [
-              "SUCCESS",
-              "ERROR",
-              "IN_PROGRESS"
-            ],
+            "enum": ["SUCCESS", "ERROR", "IN_PROGRESS"],
             "x-typespec-name": "SUCCESS | ERROR | IN_PROGRESS",
             "example": "SUCCESS"
           },
@@ -4031,12 +3907,7 @@
           }
         },
         "description": "Status of a Zuplo project deployment, including the status, build results, and a URL to view more details.",
-        "required": [
-          "status",
-          "url",
-          "steps",
-          "buildResult"
-        ],
+        "required": ["status", "url", "steps", "buildResult"],
         "example": {
           "status": "SUCCESS",
           "url": "https://api.zuplo.com/v1/deployments/1234"
@@ -4053,9 +3924,7 @@
             "x-typespec-name": "Zuplo.Deployments.SimplifiedDeployment[]"
           }
         },
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "example": {
           "data": [
             {
@@ -4090,10 +3959,7 @@
           }
         },
         "description": "A single deployment of a Zup.",
-        "required": [
-          "name",
-          "url"
-        ],
+        "required": ["name", "url"],
         "example": {
           "name": "prod-deployment",
           "url": "https://api.zuplo.com/deployments/1234"
@@ -4106,9 +3972,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "status"
-        ],
+        "required": ["status"],
         "example": {
           "status": "request enqueued"
         }
@@ -4118,21 +3982,14 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "https://httpproblems.com/http-status/400"
-            ]
+            "enum": ["https://httpproblems.com/http-status/400"]
           },
           "title": {
             "type": "string",
-            "enum": [
-              "Bad Request"
-            ]
+            "enum": ["Bad Request"]
           }
         },
-        "required": [
-          "type",
-          "title"
-        ],
+        "required": ["type", "title"],
         "allOf": [
           {
             "type": "object",
@@ -4150,10 +4007,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "type",
-              "title"
-            ],
+            "required": ["type", "title"],
             "x-typespec-name": "Zuplo.HttpProblemDetails.ProblemResponse<400>"
           }
         ],
@@ -4168,21 +4022,14 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "https://httpproblems.com/http-status/500"
-            ]
+            "enum": ["https://httpproblems.com/http-status/500"]
           },
           "title": {
             "type": "string",
-            "enum": [
-              "Internal Server Error"
-            ]
+            "enum": ["Internal Server Error"]
           }
         },
-        "required": [
-          "type",
-          "title"
-        ],
+        "required": ["type", "title"],
         "allOf": [
           {
             "type": "object",
@@ -4200,10 +4047,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "type",
-              "title"
-            ],
+            "required": ["type", "title"],
             "x-typespec-name": "Zuplo.HttpProblemDetails.ProblemResponse<500>"
           }
         ],
@@ -4218,21 +4062,14 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "https://httpproblems.com/http-status/404"
-            ]
+            "enum": ["https://httpproblems.com/http-status/404"]
           },
           "title": {
             "type": "string",
-            "enum": [
-              "Not Found"
-            ]
+            "enum": ["Not Found"]
           }
         },
-        "required": [
-          "type",
-          "title"
-        ],
+        "required": ["type", "title"],
         "allOf": [
           {
             "type": "object",
@@ -4250,10 +4087,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "type",
-              "title"
-            ],
+            "required": ["type", "title"],
             "x-typespec-name": "Zuplo.HttpProblemDetails.ProblemResponse<404>"
           }
         ],
@@ -4268,21 +4102,14 @@
         "properties": {
           "type": {
             "type": "string",
-            "enum": [
-              "https://httpproblems.com/http-status/401"
-            ]
+            "enum": ["https://httpproblems.com/http-status/401"]
           },
           "title": {
             "type": "string",
-            "enum": [
-              "Unauthorized"
-            ]
+            "enum": ["Unauthorized"]
           }
         },
-        "required": [
-          "type",
-          "title"
-        ],
+        "required": ["type", "title"],
         "allOf": [
           {
             "type": "object",
@@ -4300,10 +4127,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "type",
-              "title"
-            ],
+            "required": ["type", "title"],
             "x-typespec-name": "Zuplo.HttpProblemDetails.ProblemResponse<401>"
           }
         ],
@@ -4326,9 +4150,7 @@
             "example": "https://storage.googleapis.com/[..]1fac8da132b9"
           }
         },
-        "required": [
-          "uploadUrl"
-        ],
+        "required": ["uploadUrl"],
         "example": {
           "uploadUrl": "https://storage.googleapis.com/[..]1fac8da132b9"
         }
@@ -4355,11 +4177,7 @@
           }
         },
         "description": "Tunnels allow you to expose services running on bare metal, on-premises, or other non-cloud providers to the Zuplo platform. [Further reading](https://zuplo.com/docs/articles/secure-tunnel).",
-        "required": [
-          "id",
-          "name",
-          "token"
-        ],
+        "required": ["id", "name", "token"],
         "example": {
           "tunnelId": "tnl_JcHFzTcJ9y4GU69lKBOaxFYU",
           "name": "api-service-tunnel",
@@ -4391,9 +4209,7 @@
             "format": "uint32"
           }
         },
-        "required": [
-          "data"
-        ],
+        "required": ["data"],
         "example": {
           "data": [
             {
@@ -4418,10 +4234,7 @@
             "example": "api-service-tunnel"
           }
         },
-        "required": [
-          "id",
-          "name"
-        ]
+        "required": ["id", "name"]
       },
       "Zuplo.Tunnels.TunnelTeardownOperation": {
         "type": "object",
@@ -4433,11 +4246,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "in-progress",
-              "success",
-              "error"
-            ],
+            "enum": ["in-progress", "success", "error"],
             "x-typespec-name": "in-progress | success | error",
             "example": "success"
           },
@@ -4449,10 +4258,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "status"
-        ]
+        "required": ["id", "status"]
       },
       "Zuplo.Tunnels.TunneledServiceConfiguration": {
         "type": "object",
@@ -4482,11 +4288,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "enum": [
-                      "working-copy",
-                      "preview",
-                      "production"
-                    ],
+                    "enum": ["working-copy", "preview", "production"],
                     "x-typespec-name": "working-copy | preview | production"
                   },
                   "x-typespec-name": "working-copy | preview | production[]",
@@ -4494,21 +4296,14 @@
                   "example": "['preview', 'production']"
                 }
               },
-              "required": [
-                "project",
-                "accessibleBy"
-              ],
+              "required": ["project", "accessibleBy"],
               "x-typespec-name": "Zuplo.Tunnels.(anonymous model)"
             },
             "x-typespec-name": "Zuplo.Tunnels.(anonymous model)[]",
             "description": "A list of projects that should have access to this tunneled service under the service://name URL scheme."
           }
         },
-        "required": [
-          "name",
-          "endpoint",
-          "configurations"
-        ]
+        "required": ["name", "endpoint", "configurations"]
       },
       "Zuplo.Tunnels.TunneledServicesConfiguration": {
         "type": "object",
@@ -4527,10 +4322,7 @@
             "x-typespec-name": "Zuplo.Tunnels.TunneledServiceConfiguration[]"
           }
         },
-        "required": [
-          "version",
-          "services"
-        ]
+        "required": ["version", "services"]
       },
       "Zuplo.Tunnels.TunneledServicesProvisioningOperation": {
         "type": "object",
@@ -4542,11 +4334,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "in-progress",
-              "success",
-              "error"
-            ],
+            "enum": ["in-progress", "success", "error"],
             "x-typespec-name": "in-progress | success | error",
             "example": "success"
           },
@@ -4558,10 +4346,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "status"
-        ]
+        "required": ["id", "status"]
       },
       "Zuplo.Variables.Variable": {
         "type": "object",
@@ -4629,11 +4414,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "name",
-          "isSecret",
-          "value"
-        ],
+        "required": ["name", "isSecret", "value"],
         "example": {
           "name": "PORTAL_ID",
           "isSecret": false,
@@ -4659,9 +4440,7 @@
             "example": "chocolate_blizzard_treat"
           }
         },
-        "required": [
-          "account"
-        ]
+        "required": ["account"]
       },
       "object": {
         "type": "object",

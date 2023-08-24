@@ -612,7 +612,7 @@ const getComponentsRatings = (
         issuesByComponent[componentKey] = {};
       }
       // Will never be a number in practice, so we can safely cast to string
-      const componentName = componentIssue.path.at(2) as string | undefined;
+      let componentName = componentIssue.path.at(2) as string | undefined;
       if (!componentName) {
         console.warn(
           "Found component issue with no component name. Skipping.",
@@ -620,6 +620,35 @@ const getComponentsRatings = (
         );
         return issuesByComponent;
       }
+
+      const categoryComponents = components[componentKey];
+      if (categoryComponents && !categoryComponents[componentName]) {
+        const componentNamePathSegments = componentIssue.path.slice(3);
+        let tempComponentName = componentName;
+        let trueComponentName = undefined;
+        // Likely caused by https://github.com/daveshanley/vacuum/issues/295
+        // Essentially . delimited component names are not supported by Vacuum
+        for (const pathSegment of componentNamePathSegments) {
+          if (typeof pathSegment === "number") {
+            break;
+          }
+          // We build up the true component name by appending the path segments
+          tempComponentName = `${tempComponentName}.${pathSegment}`;
+          if (categoryComponents[tempComponentName]) {
+            trueComponentName = tempComponentName;
+            break;
+          }
+        }
+        if (!trueComponentName) {
+          console.warn(
+            "Found component issue with incorrect component name. Skipping.",
+            componentIssue,
+          );
+          return issuesByComponent;
+        }
+        componentName = trueComponentName;
+      }
+
       if (!issuesByComponent[componentKey][componentName]) {
         issuesByComponent[componentKey][componentName] = [];
       }
@@ -892,20 +921,24 @@ const getPathIssueDelta = (pathIssues: SpectralReport) => {
   }, 0);
 };
 
+/**
+ * Sometimes vacuum/spectral mess up the path, but we can try and figure out
+ * what part of the file they are referring to
+ */
 const inferAreaFromIssue = (issue: SpectralReport[0]): string | undefined => {
   if (issue.path.length > 0) {
-    const areaHint = issue.path[0];
-    if (areaHint.toString().includes("info")) {
+    const areaHint = issue.path[0].toString();
+    if (areaHint.includes("info")) {
       return "info";
-    } else if (areaHint.toString().includes("server")) {
+    } else if (areaHint.includes("server")) {
       return "servers";
-    } else if (areaHint.toString().includes("path")) {
+    } else if (areaHint.includes("path")) {
       return "paths";
-    } else if (areaHint.toString().includes("component")) {
+    } else if (areaHint.includes("component")) {
       return "components";
-    } else if (areaHint.toString().includes("security")) {
+    } else if (areaHint.includes("security")) {
       return "security";
-    } else if (areaHint.toString().includes("tag")) {
+    } else if (areaHint.includes("tag")) {
       return "tags";
     }
   }

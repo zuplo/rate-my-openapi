@@ -7,10 +7,10 @@ const DynamicBackground = ({ score = -1 }) => (
       "fixed inset-0 z-[-1] h-full w-full bg-gradient-radial transition-colors",
       {
         "from-blue-100": score === -1,
-        "from-green-100": score > 66,
-        "from-red-100": score >= 0 && score <= 33,
-        "from-yellow-100": score > 33 && score <= 66,
-      },
+        "from-green-100": score > 80,
+        "from-red-100": score >= 0 && score <= 50,
+        "from-yellow-100": score > 50 && score <= 80,
+      }
     )}
   />
 );

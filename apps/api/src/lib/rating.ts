@@ -14,8 +14,8 @@ import { exec } from "node:child_process";
 import * as fs from "node:fs";
 import { join } from "node:path";
 import util from "node:util";
-import { getStorageBucketName, storage } from "../services/storage.js";
 import { Err, Ok, Result } from "ts-results-es";
+import { getStorageBucketName, storage } from "../services/storage.js";
 const { Spectral, Document } = spectralCore;
 
 const execAwait = util.promisify(exec);
@@ -273,9 +273,15 @@ const getReport = async (
 
   const simpleReport = {
     version:
+      // TODO: Clean this up
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (openApiSpectralDoc.data as any)?.info?.version ||
+      // TODO: Clean this up
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (openApiSpectralDoc.data as any)?.openapi ||
       "",
+    // TODO: Clean this up
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     title: (openApiSpectralDoc.data as any)?.info?.title || "OpenAPI",
     fileExtension: input.fileExtension,
     docsScore: output.docsScore,

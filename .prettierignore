@@ -5,3 +5,4 @@ node_modules/
 temp/
 package-lock.json
 generated/
+packages/cli/example-specs/

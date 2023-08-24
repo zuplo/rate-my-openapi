@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
 }
 
 main,
@@ -16,11 +16,11 @@ header {
 }
 
 .icon-button-submit {
-  @apply icon-button bg-pink-600 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:bg-none transition-all hover:bg-pink-500;
+  @apply icon-button bg-pink-600 transition-all hover:bg-pink-500 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:bg-none;
 }
 
 .button {
-  @apply text-center rounded-lg p-4 font-medium transition-colors border;
+  @apply rounded-lg border p-4 text-center font-medium transition-colors;
 }
 
 .button-dark {

@@ -4,16 +4,24 @@
   "scripts": {
     "build": "tsc --build",
     "format": "prettier --write .",
+    "lint": "npm run lint --workspaces",
     "release": "npm version minor",
     "version": "npm version $npm_package_version --workspaces && git add **/package.json",
-    "postversion": "git push --tags && git push"
+    "postversion": "git push --tags && git push",
+    "prepare": "npx husky install"
+  },
+  "lint-staged": {
+    "**/*.{ts,json,md,yml,js,css,html}": [
+      "prettier --write"
+    ]
   },
   "workspaces": [
-    "apps/api",
+    "apps/*",
     "packages/*"
   ],
   "devDependencies": {
-    "@tsconfig/node18": "^18.2.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "prettier": "^3.0.1",
     "typescript": "^5.1.6"
   }

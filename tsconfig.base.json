@@ -1,12 +1,16 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
+    "lib": ["es2023"],
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "useUnknownInCatchVariables": false,
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext"
+    "useUnknownInCatchVariables": false
   }
 }

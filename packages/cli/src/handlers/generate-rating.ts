@@ -8,12 +8,12 @@ import Parsers, { IParser } from "@stoplight/spectral-parsers";
 import { bundleAndLoadRuleset } from "@stoplight/spectral-ruleset-bundler/with-loader";
 import spectralRuntime from "@stoplight/spectral-runtime";
 import { exec } from "child_process";
+import { load } from "js-yaml";
 import * as fs from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join, relative } from "node:path";
 import util from "node:util";
 import { printCriticalFailureToConsoleAndExit } from "../common/output.js";
-import { load } from "js-yaml";
 
 const { Spectral, Document } = spectralCore;
 const { fetch } = spectralRuntime;
@@ -25,7 +25,6 @@ export interface Arguments {
 
 export async function generateRating(argv: Arguments) {
   try {
-    const opStartTime = Date.now();
     const format = argv.format;
     const filepath = argv.filepath;
     const pathName = join(relative(process.cwd(), filepath));
@@ -36,7 +35,6 @@ export async function generateRating(argv: Arguments) {
       "rulesets/rules.vacuum.yaml",
     );
     const openApiFile = await readFile(pathName);
-    const startTime = Date.now();
     const { stdout, stderr } = await execAwait(
       `vacuum spectral-report -r ${rulesetPath} -o ${pathName}`,
       { maxBuffer: undefined },
@@ -91,7 +89,6 @@ export async function generateRating(argv: Arguments) {
     );
     outputReport = [...outputReport, ...spectralOutputReport];
 
-    const endTime = Date.now();
     const outputContent =
       format === "json"
         ? JSON.parse(openApiFile.toString())
@@ -101,7 +98,6 @@ export async function generateRating(argv: Arguments) {
       outputContent,
     );
     console.log(JSON.stringify(output, null, 2));
-    const opFinishTime = Date.now();
     // Commented out for now so users can write the output as a valid JSON file
     // console.log("Time to run Vacuum: ", endTime - startTime, "ms");
     // console.log("Time to run operation: ", opFinishTime - opStartTime, "ms");

@@ -1,13 +1,13 @@
 "use client";
 
-import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import { XMarkIcon, ArrowUpRightIcon } from "@heroicons/react/24/outline";
-import { Editor, OnMount } from "@monaco-editor/react";
-import { Issue } from "../DetailedScoreSection";
-import { getRuleData } from "../../utils/issue-utils";
-import "./IssueModal.css";
 import useWindowSize from "@/utils/use-window-size";
+import { Dialog, Transition } from "@headlessui/react";
+import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Editor, OnMount } from "@monaco-editor/react";
+import { Fragment } from "react";
+import { getRuleData } from "../../utils/issue-utils";
+import { Issue } from "../DetailedScoreSection";
+import "./IssueModal.css";
 
 type IssueModalProps = {
   issue: Issue;

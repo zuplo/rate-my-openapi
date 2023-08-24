@@ -37,7 +37,8 @@ export const inngestHandler: ServeHandler = (nameOrInngest, fns, opts) => {
     opts,
     (
       req: FastifyRequest<{ Querystring: QueryString; Headers: Headers }>,
-      _reply: FastifyReply
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      _reply: FastifyReply,
     ) => {
       const hostname = req.headers["host"];
       const protocol = hostname?.includes("://") ? "" : `${req.protocol}://`;
@@ -67,7 +68,7 @@ export const inngestHandler: ServeHandler = (nameOrInngest, fns, opts) => {
             return {
               isIntrospection: Object.hasOwnProperty.call(
                 req.query,
-                queryKeys.Introspect
+                queryKeys.Introspect,
               ),
             };
           }
@@ -80,7 +81,7 @@ export const inngestHandler: ServeHandler = (nameOrInngest, fns, opts) => {
       }
       reply.code(actionRes.status);
       return reply.send(actionRes.body);
-    }
+    },
   );
 
   return handler.createHandler();

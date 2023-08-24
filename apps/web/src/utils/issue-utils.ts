@@ -192,6 +192,6 @@ const RULE_DESCRIPTIONS: Record<
   },
 };
 
-export const getRuleData = (ruleCode: string) => {
+export const getRuleData = (ruleCode: string | number) => {
   return RULE_DESCRIPTIONS[ruleCode];
 };

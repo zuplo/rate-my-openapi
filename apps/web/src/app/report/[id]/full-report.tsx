@@ -1,14 +1,13 @@
 "use client";
 
-import { DetailedScoreLoading } from "@/components/DetailedScoreSection/Loading";
-import { useEffect, useState } from "react";
 import ScoreDetailsSection from "@/components/DetailedScoreSection";
-import ShareButton from "@/components/ShareButton";
-import Link from "next/link";
+import { DetailedScoreLoading } from "@/components/DetailedScoreSection/Loading";
 import { RatingExamples } from "@/components/RatingExamples";
-
-// import { type RatingOutput } from "@rate-my-openapi/core";
-type RatingOutput = any;
+import ShareButton from "@/components/ShareButton";
+import { type RatingOutput } from "@rate-my-openapi/core";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+// type RatingOutput = any;
 
 export const FullReport = ({
   reportId,
@@ -71,7 +70,7 @@ export const FullReport = ({
 
     getReport();
     getOpenapi();
-  }, []);
+  }, [fileExtension, reportId]);
 
   if (report === null || openapi === undefined)
     return (

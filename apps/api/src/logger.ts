@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FastifyReply, FastifyRequest } from "fastify";
 import { Writable } from "node:stream";
 import pino, { LogFn, Logger } from "pino";
@@ -47,7 +48,7 @@ interface LoggerOpts {
       this: Logger,
       args: Parameters<LogFn>,
       method: LogFn,
-      level: number
+      level: number,
     ) => void;
   };
 }
@@ -60,7 +61,7 @@ function logMethod(
   this: Logger,
   args: Parameters<LogFn>,
   method: LogFn,
-  level: number
+  level: number,
 ) {
   if (args.length === 2 && typeof args[1] === "object" && args[1] !== null) {
     args[0] = `${args[0]} ${JSON.stringify(args[1])}`;
@@ -87,7 +88,6 @@ function logMethod(
   let originalChindings;
   try {
     const chindings = `{${
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this?.[pino.symbols.chindingsSym]?.slice(1) || ""
     }}`;
@@ -123,7 +123,7 @@ function logMethod(
               !s.includes("node_modules/pino") &&
               !s.includes("node_modules\\pino") &&
               !s.includes("node_modules/launchdarkly-node-server-sdk") &&
-              !s.includes("node_modules\\launchdarkly-node-server-sdk")
+              !s.includes("node_modules\\launchdarkly-node-server-sdk"),
           )
           [STACKTRACE_OFFSET].substr(LINE_OFFSET);
         originalChindings["caller"] = caller;
@@ -132,8 +132,6 @@ function logMethod(
       if (originalChindings["caller"] && level < 50) {
         delete originalChindings.caller;
       }
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this[pino.symbols.chindingsSym] = `,${flatJSONString(originalChindings)}`;
 
@@ -148,7 +146,7 @@ function logMethod(
 
 export function createNewLogger(
   defaultLabels: Record<string, string> = {},
-  { logStream }: { logStream?: Writable } = {}
+  { logStream }: { logStream?: Writable } = {},
 ): pino.Logger {
   const loggerOptions: LoggerOpts = {
     /**
@@ -251,7 +249,7 @@ export function createNewLogger(
               userAgent: res.request ? res.request.headers["user-agent"] : "",
               latency: `${truncateToDecimalPlace(
                 res.getResponseTime() / 1000,
-                9
+                9,
               )}s`,
               remoteIp: res.request ? res.request.ip : "",
               protocol: res.request ? res.request.protocol : "",

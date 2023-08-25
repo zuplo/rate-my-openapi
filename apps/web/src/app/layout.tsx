@@ -48,7 +48,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     </Suspense>
     <ModalProvider>
       <PHProvider>
-        <body className="container mx-auto flex h-full flex-col justify-between text-base">
+        <body className="container mx-auto flex min-h-screen flex-col justify-between text-base">
           <Header />
           {children}
           <Footer />

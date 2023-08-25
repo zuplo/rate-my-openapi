@@ -35,6 +35,8 @@ that your journey of governing your API is going to be harder than it should.
 https://ratemyopenapi.com is an easy way to upload your OpenAPI definition and
 get a score for it. That simple, no strings attached.
 
+https://github.com/zuplo/rate-my-openapi/assets/27779735/0ee1ebfe-491b-4602-b05e-378aaaa0455b
+
 ## Using the CLI
 
 You can also use the CLI to get a score for your OpenAPI definition.

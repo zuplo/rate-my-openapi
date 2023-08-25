@@ -136,6 +136,10 @@ export const generateRatingInngest = inngestInstance.createFunction(
 
     await step.run("Send Slack Message", async () => {
       try {
+        if (event.data.email.endsWith("@zuplo.com")) {
+          return;
+        }
+
         return await slack.chat.postMessage({
           channel: slackChannelId,
           text: `Generated rating for ${event.data.email}. Report URL: https://ratemyopenapi.com/report/${event.data.id}`,

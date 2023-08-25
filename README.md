@@ -9,7 +9,9 @@
   <a href="#openapi---introduction
   "><strong>Introduction</strong></a> · 
   <a href="#ratemyopenapi.com
-  "><strong>Introduction</strong></a>
+  "><strong>Website</strong></a> · 
+   <a href="#using-the-cli
+  "><strong>CLI</strong></a>
 </p>
 </p>
 </div>

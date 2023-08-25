@@ -3,7 +3,7 @@ import Fastify from "fastify";
 import { createNewLogger } from "./logger.js";
 import { fileRoute } from "./routes/file.js";
 import healthRoute from "./routes/health.js";
-import { inngestRoute } from "./routes/inggest/route.js";
+import { inngestRoute } from "./routes/inngest.js";
 import { reportRoute } from "./routes/report.js";
 import uploadRoute from "./routes/upload.js";
 import cors from "@fastify/cors";

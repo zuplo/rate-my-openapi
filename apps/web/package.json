@@ -23,7 +23,7 @@
     "react-dom": "18.2.0",
     "react-intersection-observer": "^9.5.2",
     "react-modal-hook": "^3.0.2",
-    "typescript": "5.1.6"
+    "typescript": "5.2.2"
   },
   "devDependencies": {
     "@stoplight/spectral-core": "^1.18.3",

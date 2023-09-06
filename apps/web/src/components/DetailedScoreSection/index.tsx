@@ -7,6 +7,7 @@ import getScoreTextColor from "@/utils/get-score-test-color";
 import { useState } from "react";
 import { useModal } from "react-modal-hook";
 import IssueModal from "../IssueModal";
+import { DocumentMagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export type Issue = {
   code: string | number;
@@ -113,17 +114,22 @@ const DetailedScoreSection = ({
                     onClick={() => handleViewClick(issue)}
                     className={`font-bold uppercase ${getSeverityTextColor(
                       issue.severity,
-                    )} cursor-pointer`}
+                    )} cursor-pointer hover:underline`}
                   >
                     {SEVERITY_LEVEL_MAP[issue.severity]}
                   </td>
                   <td
-                    className="flex cursor-pointer flex-wrap gap-1 md:flex-nowrap"
+                    className="flex cursor-pointer flex-wrap items-center gap-1 md:flex-nowrap"
                     onClick={() => handleViewClick(issue)}
                   >
-                    <span className="block overflow-hidden break-words hover:text-gray-500">
-                      {issue.message}
-                    </span>
+                    <div className="flex flex-row items-center">
+                      <span className="block overflow-hidden break-words hover:underline">
+                        {issue.message}
+                      </span>
+                      <div className="rounded p-1 hover:bg-gray-200">
+                        <DocumentMagnifyingGlassIcon className="h-4 w-auto" />
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ))}

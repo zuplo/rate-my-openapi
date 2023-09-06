@@ -2,21 +2,29 @@
 
 ## Installation
 
-1. Install [Vacuum](https://quobix.com/vacuum/)
+1. Build the CLI 
+
+**From the root of the project** run: 
+
+```
+npm install
+
+npm run build
+```
+
+2. Install [Vacuum](https://quobix.com/vacuum/)
 
 ```
 npm install -g @quobix/vacuum
 ```
 
-2. Install this CLI
+3. Run the CLI
 
 ```
-npm install -g .
+cd packages/cli
+
+node rate-my-openapi.js generate-rating --filepath example-specs/zuplo.json
 ```
-
-## Usage
-
-Invoke via `rate-my-openapi`.
 
 ### Commands
 

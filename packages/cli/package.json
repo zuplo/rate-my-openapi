@@ -41,7 +41,7 @@
     "typescript": "5.1.6"
   },
   "dependencies": {
-    "@quobix/vacuum": "^0.3.1",
+    "@quobix/vacuum": "^0.3.10",
     "@rate-my-openapi/core": "*",
     "@stoplight/spectral-core": "^1.18.3",
     "@stoplight/spectral-functions": "^1.7.2",

@@ -11,6 +11,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 0
+    allow:
+      - dependency-type: "production"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
@@ -19,6 +22,9 @@ updates:
       - npm-github
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 0
+    allow:
+      - dependency-type: "production"
 
   - package-ecosystem: "npm"
     directory: "/apps/web"
@@ -26,8 +32,14 @@ updates:
       - npm-github
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 0
+    allow:
+      - dependency-type: "production"
 
   - package-ecosystem: "docker"
     directory: "/apps/api"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 0
+    allow:
+      - dependency-type: "production"

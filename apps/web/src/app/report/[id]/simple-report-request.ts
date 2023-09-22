@@ -7,6 +7,7 @@ export type SimpleReport = {
   fileExtension: "json" | "yaml";
   title: string;
   version: string;
+  summary?: string;
 };
 
 export const getSimpleReport = async (

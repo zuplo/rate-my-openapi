@@ -24,5 +24,8 @@
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.1",
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "openai": "^4.8.0"
   }
 }

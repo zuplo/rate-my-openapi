@@ -17,12 +17,70 @@ import util from "node:util";
 import { Err, Ok, Result } from "ts-results-es";
 import { getStorageBucketName, storage } from "../services/storage.js";
 const { Spectral, Document } = spectralCore;
+import OpenAI from "openai";
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 const execAwait = util.promisify(exec);
 
 type GenerateRatingInput = {
   reportId: string;
   fileExtension: "json" | "yaml";
+};
+
+const getReportMinified = (fullReport: RatingOutput) => {
+  const issues = fullReport.issues;
+  return issues
+    .map(({ code, message, severity }) => {
+      return { code, message, severity };
+    })
+    .reduce(
+      (groupedIssues, issue) => {
+        const { code, severity } = issue;
+        if (!groupedIssues[severity]) {
+          groupedIssues[severity] = {};
+        }
+        if (!groupedIssues[severity][code]) {
+          groupedIssues[severity][code] = {
+            occurrences: 1,
+          };
+          return groupedIssues;
+        }
+        groupedIssues[severity][code] = {
+          ...groupedIssues[severity][code],
+          occurrences: groupedIssues[severity][code].occurrences + 1,
+        };
+        return groupedIssues;
+      },
+      {} as Record<number, Record<string, { occurrences: number }>>,
+    );
+};
+
+const getOpenAiSummary = async (issueSummary: object) => {
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are an expert in REST API Development and know everything about OpenAPI and what makes a good API. You like chatting in a playful, and a somewhat snarky manner. Don't make fun of the user though.",
+      },
+      {
+        role: "user",
+        content: `Here's a summary of issues found in an OpenAPI file. The format is a JSON, where the first level indicates the severity of the issue (the lower the key, the more severe), the second level is the name of the issue. These mostly match up to existing spectral rulesets, so you can infer what the issue is. The third level contains the number of occurrences of that issue.\n\nI would like a succinct summary of the issues and advice on how to fix them.  Focus on the most common issues and the highest severity. Keep the tone casual and playful, and a bit snarky. Also, no bullet points. Maximum of 3 issues please. Rank by severity and then occurrences.\n\nHere's the issue summary\n ${JSON.stringify(
+          issueSummary,
+        )}`,
+      },
+    ],
+    temperature: 0.5,
+    max_tokens: 400,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0,
+  });
+  console.log("response", response);
+  return response.choices[0].message.content;
 };
 
 export const uploadReport = async ({
@@ -162,6 +220,7 @@ export type SimpleReport = Pick<
   fileExtension: "json" | "yaml";
   title: string;
   version: string;
+  summary?: string;
 };
 
 type GetReportOutput = {
@@ -271,6 +330,8 @@ const getReport = async (
     });
   }
 
+  const issueSummary = getReportMinified(output);
+  const openAiSummary = await getOpenAiSummary(issueSummary);
   const simpleReport = {
     version:
       // TODO: Clean this up
@@ -289,6 +350,7 @@ const getReport = async (
     score: output.score,
     securityScore: output.securityScore,
     sdkGenerationScore: output.sdkGenerationScore,
+    summary: openAiSummary ?? undefined,
   };
 
   return Ok({

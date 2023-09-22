@@ -5,18 +5,7 @@ import ScoreMeter from "@/components/ScoreMeter";
 import ShareButton from "@/components/ShareButton";
 import DynamicBackground from "@/components/DynamicBackground";
 import { FullReport } from "./full-report";
-import { getSimpleReport } from "./simple-report-request";
-
-type SimpleReport = {
-  docsScore: number;
-  completenessScore: number;
-  score: number;
-  securityScore: number;
-  sdkGenerationScore: number;
-  fileExtension: "json" | "yaml";
-  title: string;
-  version: string;
-};
+import { SimpleReport, getSimpleReport } from "./simple-report-request";
 
 const HeroScore = async ({ simpleReport }: { simpleReport: SimpleReport }) => {
   return (
@@ -48,6 +37,7 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       <HeroScore simpleReport={simpleReport} />
+      {simpleReport.summary ? <div>{simpleReport.summary}</div> : null}
       <FullReport reportId={params.id} fileExtension={fileExtension} />
     </>
   );

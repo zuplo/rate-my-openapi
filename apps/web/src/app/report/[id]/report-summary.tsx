@@ -15,7 +15,7 @@ const ReportSummary = ({ summary, score }: ReportSummaryProps) => {
       >
         Summary (AI Generated)
       </h3>
-      <p className="text-base">{summary}</p>
+      <p className="whitespace-pre-wrap text-base">{summary}</p>
     </div>
   );
 };

@@ -96,7 +96,7 @@ const DetailedScoreSection = ({
           <thead className="contents text-left font-bold uppercase">
             <tr className="contents text-gray-400">
               <th>Severity</th>
-              <th>Suggestion</th>
+              <th>Issue</th>
             </tr>
           </thead>
           <tbody className="contents">

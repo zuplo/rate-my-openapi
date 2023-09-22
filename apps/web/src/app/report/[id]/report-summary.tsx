@@ -6,6 +6,7 @@ type ReportSummaryProps = {
 };
 
 const ReportSummary = ({ summary, score }: ReportSummaryProps) => {
+  console.log("Summary raw", summary);
   const scoreTextColor = getScoreTextColor(score);
   return (
     <div className="my-10 flex flex-col	overflow-hidden rounded-lg bg-white p-8 shadow-md md:p-10">

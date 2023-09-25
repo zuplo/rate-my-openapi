@@ -27,10 +27,10 @@ const ReportSummary = ({
         {isExpanded ? longSummary : shortSummary}
       </p>
       <button
-        className="mt-4 text-blue-500 hover:text-blue-700"
+        className="button-transparent mt-4"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        {isExpanded ? "Show less" : "Show more"}
+        {isExpanded ? "Hide advice" : "Show advice"}
       </button>
     </div>
   );

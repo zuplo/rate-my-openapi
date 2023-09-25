@@ -38,9 +38,10 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       <HeroScore simpleReport={simpleReport} />
-      {simpleReport.summary ? (
+      {simpleReport.shortSummary && simpleReport.longSummary ? (
         <ReportSummary
-          summary={simpleReport.summary}
+          shortSummary={simpleReport.shortSummary}
+          longSummary={simpleReport.longSummary}
           score={simpleReport.score}
         />
       ) : null}

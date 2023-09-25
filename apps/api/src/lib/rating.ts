@@ -85,7 +85,7 @@ const getOpenAiLongSummary = async (issueSummary: object) => {
     },
     {
       role: "user",
-      content: `Here's a summary of issues found in an OpenAPI file. The format is a JSON, where the first level indicates the severity of the issue (the lower the key, the more severe), the second level is the name of the issue. These mostly match up to existing spectral rulesets, so you can infer what the issue is. The third level contains the number of occurrences of that issue.\n\nI would like a succinct summary of the issues and advice on how to fix them.  Focus on the highest severity issues. Keep the tone casual and playful, and a bit snarky. Do not insult the user or API creator or the API. Also, no bullet points. Maximum of 3 issues please. Rank by severity and then occurrences.\n\nHere's the issue summary\n ${JSON.stringify(
+      content: `Here's a summary of issues found in an OpenAPI file. The format is a JSON, where the first level indicates the severity of the issue (the lower the key, the more severe), the second level is the name of the issue. These mostly match up to existing spectral rulesets, so you can infer what the issue is. The third level contains the number of occurrences of that issue.\n\nI would like a succinct summary of the issues and advice on how to fix them.  Focus on the highest severity issues. Keep the tone casual and playful, and a bit snarky. Do not insult the user or API creator or the API. Also, no bullet points. Maximum of 3 issues please. Only talk about the highest severity issues. \n\nHere's the issue summary\n ${JSON.stringify(
         issueSummary,
       )}`,
     },

@@ -29,6 +29,10 @@ type GenerateRatingInput = {
   fileExtension: "json" | "yaml";
 };
 
+/**
+ * @description produces a stripped down version of the report which can be fed
+ * to LLM models.
+ */
 const getReportMinified = (fullReport: RatingOutput) => {
   const issues = fullReport.issues;
   return issues
@@ -57,30 +61,51 @@ const getReportMinified = (fullReport: RatingOutput) => {
     );
 };
 
-const getOpenAiSummary = async (issueSummary: object) => {
+const getOpenAiResponse = async (
+  messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
+) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "system",
-        content:
-          "You are an expert in REST API Development and know everything about OpenAPI and what makes a good API. You like chatting in a playful, and a somewhat snarky manner. Don't make fun of the user though.",
-      },
-      {
-        role: "user",
-        content: `Here's a summary of issues found in an OpenAPI file. The format is a JSON, where the first level indicates the severity of the issue (the lower the key, the more severe), the second level is the name of the issue. These mostly match up to existing spectral rulesets, so you can infer what the issue is. The third level contains the number of occurrences of that issue.\n\nI would like a succinct summary of the issues and advice on how to fix them.  Focus on the most common issues and the highest severity. Keep the tone casual and playful, and a bit snarky. Also, no bullet points. Maximum of 3 issues please. Rank by severity and then occurrences.\n\nHere's the issue summary\n ${JSON.stringify(
-          issueSummary,
-        )}`,
-      },
-    ],
+    messages,
     temperature: 0.5,
     max_tokens: 400,
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
   });
-  console.log("response", response);
   return response.choices[0].message.content;
+};
+
+const getOpenAiLongSummary = async (issueSummary: object) => {
+  return await getOpenAiResponse([
+    {
+      role: "system",
+      content:
+        "You are an expert in REST API Development and know everything about OpenAPI and what makes a good API. You like chatting in a playful, and a somewhat snarky manner. Don't make fun of the user though.",
+    },
+    {
+      role: "user",
+      content: `Here's a summary of issues found in an OpenAPI file. The format is a JSON, where the first level indicates the severity of the issue (the lower the key, the more severe), the second level is the name of the issue. These mostly match up to existing spectral rulesets, so you can infer what the issue is. The third level contains the number of occurrences of that issue.\n\nI would like a succinct summary of the issues and advice on how to fix them.  Focus on the most common issues and the highest severity. Keep the tone casual and playful, and a bit snarky. Also, no bullet points. Maximum of 3 issues please. Rank by severity and then occurrences.\n\nHere's the issue summary\n ${JSON.stringify(
+        issueSummary,
+      )}`,
+    },
+  ]);
+};
+
+const getOpenAiShortSummary = async (issueSummary: object) => {
+  return await getOpenAiResponse([
+    {
+      role: "system",
+      content:
+        "You are an expert in REST API Development and know everything about OpenAPI and what makes a good API. You like chatting in a playful, and a somewhat snarky manner. Don't make fun of the user though.",
+    },
+    {
+      role: "user",
+      content: `Here's a summary of issues found in an OpenAPI file. The format is a JSON, where the first level indicates the severity of the issue (the lower the key, the more severe), the second level is the name of the issue. These mostly match up to existing spectral rulesets, so you can infer what the issue is. The third level contains the number of occurrences of that issue.\n\nI would like a succinct summary of the issues  in 2 lines. Keep the tone casual and playful, and a bit snarky. Do not insult the user or API creator or the API. Also, no bullet points. Only talk about the highest severity issues.\n\nHere's the issue summary\n ${JSON.stringify(
+        issueSummary,
+      )}`,
+    },
+  ]);
 };
 
 export const uploadReport = async ({
@@ -331,7 +356,10 @@ const getReport = async (
   }
 
   const issueSummary = getReportMinified(output);
-  const openAiSummary = await getOpenAiSummary(issueSummary);
+  const [openAiLongSummary, openAiShortSummary] = await Promise.all([
+    getOpenAiLongSummary(issueSummary),
+    getOpenAiShortSummary(issueSummary),
+  ]);
   const simpleReport = {
     version:
       // TODO: Clean this up
@@ -350,7 +378,8 @@ const getReport = async (
     score: output.score,
     securityScore: output.securityScore,
     sdkGenerationScore: output.sdkGenerationScore,
-    summary: openAiSummary ?? undefined,
+    shortSummary: openAiShortSummary ?? undefined,
+    longSummary: openAiLongSummary ?? undefined,
   };
 
   return Ok({

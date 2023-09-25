@@ -6,6 +6,7 @@ import ShareButton from "@/components/ShareButton";
 import DynamicBackground from "@/components/DynamicBackground";
 import { FullReport } from "./full-report";
 import { SimpleReport, getSimpleReport } from "./simple-report-request";
+import ReportSummary from "./report-summary";
 
 const HeroScore = async ({ simpleReport }: { simpleReport: SimpleReport }) => {
   return (
@@ -37,7 +38,13 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
   return (
     <>
       <HeroScore simpleReport={simpleReport} />
-      {simpleReport.summary ? <div>{simpleReport.summary}</div> : null}
+      {simpleReport.shortSummary && simpleReport.longSummary ? (
+        <ReportSummary
+          shortSummary={simpleReport.shortSummary}
+          longSummary={simpleReport.longSummary}
+          score={simpleReport.score}
+        />
+      ) : null}
       <FullReport reportId={params.id} fileExtension={fileExtension} />
     </>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import getScoreTextColor from "@/utils/get-score-test-color";
 import { useState } from "react";
 

@@ -121,6 +121,7 @@ const DetailedScoreSection = ({
                   <td
                     className="flex cursor-pointer flex-wrap items-center gap-1 md:flex-nowrap"
                     onClick={() => handleViewClick(issue)}
+                    title={"Click to view issue details"}
                   >
                     <div className="flex flex-row items-center">
                       <span className="block overflow-hidden break-words hover:underline">

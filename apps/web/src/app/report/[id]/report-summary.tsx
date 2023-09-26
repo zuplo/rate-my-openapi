@@ -34,7 +34,7 @@ const ReportSummary = ({
         </h3>
         <p className="whitespace-pre-wrap text-base">{shortSummary}</p>
         {isExpanded ? (
-          <p className="whitespace-pre-wrap text-base">longSummary</p>
+          <p className="whitespace-pre-wrap text-base">{longSummary}</p>
         ) : null}
         <button
           className="button-transparent mt-4"

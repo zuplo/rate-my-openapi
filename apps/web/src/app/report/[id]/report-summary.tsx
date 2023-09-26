@@ -22,7 +22,9 @@ const ReportSummary = ({
     <>
       <h2 className="mx-auto my-16 max-w-xl text-center text-4xl font-extrabold md:text-7xl">
         {scoreHeadline.headline}
-        <div className="text-xl font-bold">{scoreHeadline.sub}</div>
+        <div className="mt-2 text-xl font-bold text-gray-500">
+          {scoreHeadline.sub}
+        </div>
       </h2>
       <div className="my-10 flex flex-col	overflow-hidden rounded-lg bg-white p-8 shadow-md md:p-10">
         <h3

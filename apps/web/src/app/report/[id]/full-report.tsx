@@ -89,11 +89,6 @@ export const FullReport = ({
 
   return (
     <>
-      <h2 className="mx-auto my-16 max-w-xl text-center text-4xl font-extrabold md:text-7xl">
-        Here is your
-        <br />
-        breakdown
-      </h2>
       <div className="mb-10">
         {report?.docsScore ? (
           <ScoreDetailsSection

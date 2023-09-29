@@ -18,7 +18,7 @@ export default function Footer() {
           <Link
             href="https://twitter.com/zuplo"
             className="group mr-3"
-            aria-label="TaxPal on Twitter"
+            aria-label="Zuplo on Twitter"
           >
             <svg
               aria-hidden="true"
@@ -30,7 +30,7 @@ export default function Footer() {
           <Link
             href="https://github.com/zuplo"
             className="group"
-            aria-label="TaxPal on GitHub"
+            aria-label="Zuplo on GitHub"
           >
             <svg
               aria-hidden="true"

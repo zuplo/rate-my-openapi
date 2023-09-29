@@ -3,15 +3,15 @@ import Link from "next/link";
 const EXAMPLES: { title: string; slug: string }[] = [
   {
     title: "Asana",
-    slug: "378c2bb4-e4f0-4654-ac42-4a6bca6a572c",
+    slug: "31bae2fb-bda1-471b-8c1d-142816e2fa10",
   },
   {
     title: "Zapier",
-    slug: "f865aeb5-0e2f-41aa-922c-1195a300b529",
+    slug: "26e31dbc-784a-47ca-b47d-72bf502b58cb",
   },
   {
     title: "Zuplo",
-    slug: "109a3e82-2f6f-4825-880a-9039949112df",
+    slug: "d7d4e329-bd95-478c-88c8-45854be1706e",
   },
 ];
 

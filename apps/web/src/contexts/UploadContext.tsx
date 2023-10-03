@@ -1,5 +1,6 @@
 "use client";
 
+import posthog from "posthog-js";
 import {
   createContext,
   type Dispatch,
@@ -30,6 +31,14 @@ const UploadContextProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const setNextStep = () => {
+    switch (step) {
+      case 1:
+        posthog.capture("step_uploaded_file_completed");
+        break;
+      case 2:
+        posthog.capture("step_entered_email_completed");
+        break;
+    }
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);

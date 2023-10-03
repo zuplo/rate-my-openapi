@@ -16,14 +16,6 @@ const StepContainer = ({
 
   const isCurrentStep = currentStep === step;
 
-  useEffect(() => {
-    return () => {
-      if (currentStep === 3) {
-        posthog.reset();
-      }
-    };
-  }, [currentStep]);
-
   return (
     <div
       className={classNames(

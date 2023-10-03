@@ -41,16 +41,18 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html
     lang="en"
-    className={`h-full ${roboto.variable} ${robotoMono.variable} ${ibmPlexSans.variable}`}
+    className={`${roboto.variable} ${robotoMono.variable} ${ibmPlexSans.variable}`}
   >
     <Suspense>
       <PostHogPageview />
     </Suspense>
     <ModalProvider>
       <PHProvider>
-        <body className="container mx-auto flex h-full flex-col justify-between text-base">
+        <body className="container mx-auto flex h-screen flex-col text-base">
           <Header />
-          {children}
+          <div className="flex grow items-center justify-center">
+            {children}
+          </div>
           <Footer />
         </body>
       </PHProvider>

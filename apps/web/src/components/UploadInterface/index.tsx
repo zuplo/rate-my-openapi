@@ -186,7 +186,7 @@ const UploadInterface = () => {
               />
 
               <p className="text-xl font-bold text-gray-500">
-                Drop your OpenAPI here
+                Drop your OpenAPI 3.x file here
               </p>
             </div>
           </div>
@@ -205,10 +205,10 @@ const UploadInterface = () => {
           className="w-full border-none bg-transparent pr-3 text-lg outline-none"
           placeholder={
             !isLocalUpload
-              ? "Drop your OpenAPI file or enter your OpenAPI file URL here"
+              ? "Drop your OpenAPI 3.x file or enter your OpenAPI file URL here"
               : ""
           }
-          aria-label="Enter OpenAPI file URL here"
+          aria-label="Enter OpenAPI 3.x file URL here"
           disabled={!!file}
         />
 

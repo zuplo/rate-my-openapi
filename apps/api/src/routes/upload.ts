@@ -105,6 +105,20 @@ const parseMultipartUpload = async (
     });
   }
   const fileContentString = fileContent.toString();
+  if (
+    !fileContentString.includes("3.0.0") ||
+    !fileContentString.includes("3.0.1") ||
+    !fileContentString.includes("3.0.2") ||
+    !fileContentString.includes("3.0.3") ||
+    !fileContentString.includes("3.1.0")
+  ) {
+    return Err({
+      userMessage: "Invalid OpenAPI version. Only OpenAPI v3.x is supported",
+      debugMessage: "Invalid OpenAPI version",
+      statusCode: 400,
+    });
+  }
+
   const fileIsJsonOrYamlResult = checkFileIsJsonOrYaml(fileContentString);
 
   if (fileIsJsonOrYamlResult.err) {

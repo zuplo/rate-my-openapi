@@ -15,8 +15,9 @@ export const FeedbackPopover = () => {
 
     // open the popover after 45 seconds
     setTimeout(() => {
-      if (ref.current) {
+      if (ref.current && !localStorage.getItem("feedbackPopover")) {
         ref.current.open();
+        localStorage.setItem("feedbackPopover", "true");
       }
     }, 45000);
   }, []);

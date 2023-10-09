@@ -7,7 +7,6 @@ import ShareButton from "@/components/ShareButton";
 import { type RatingOutput } from "@rate-my-openapi/core";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-// type RatingOutput = any;
 
 export const FullReport = ({
   reportId,

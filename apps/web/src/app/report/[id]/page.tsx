@@ -7,6 +7,7 @@ import DynamicBackground from "@/components/DynamicBackground";
 import { FullReport } from "./full-report";
 import { SimpleReport, getSimpleReport } from "./simple-report-request";
 import ReportSummary from "./report-summary";
+import { FeedbackPopover } from "./feedback-popup";
 
 const HeroScore = async ({ simpleReport }: { simpleReport: SimpleReport }) => {
   return (
@@ -46,6 +47,7 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
         />
       ) : null}
       <FullReport reportId={params.id} fileExtension={fileExtension} />
+      <FeedbackPopover />
     </>
   );
 };

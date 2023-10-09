@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { ImageResponse } from "next/server";
-import { getSimpleReport } from "../../../report/[id]/simple-report-request";
+import { getSimpleReport } from "../../../../components/ReportPage/simple-report-request";
 
 export const runtime = "edge";
 

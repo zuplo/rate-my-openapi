@@ -1,6 +1,5 @@
 import fastifyMultipart from "@fastify/multipart";
 import { type FastifyPluginAsync } from "fastify";
-import { load } from "js-yaml";
 import { Err, Ok, Result } from "ts-results-es";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -10,6 +9,9 @@ import {
 } from "../helpers/reply.js";
 import { inngestInstance } from "../services/inngest.js";
 import { getStorageBucketName, storage } from "../services/storage.js";
+import validateOpenapi, {
+  checkFileIsJsonOrYaml,
+} from "../lib/validate-openapi.js";
 
 const uploadRoute: FastifyPluginAsync = async function (server) {
   server.route({
@@ -105,13 +107,7 @@ const parseMultipartUpload = async (
     });
   }
   const fileContentString = fileContent.toString();
-  if (
-    !fileContentString.includes("3.0.0") ||
-    !fileContentString.includes("3.0.1") ||
-    !fileContentString.includes("3.0.2") ||
-    !fileContentString.includes("3.0.3") ||
-    !fileContentString.includes("3.1.0")
-  ) {
+  if (!validateOpenapi(fileContentString)) {
     return Err({
       userMessage: "Invalid OpenAPI version. Only OpenAPI v3.x is supported",
       debugMessage: "Invalid OpenAPI version",
@@ -120,7 +116,6 @@ const parseMultipartUpload = async (
   }
 
   const fileIsJsonOrYamlResult = checkFileIsJsonOrYaml(fileContentString);
-
   if (fileIsJsonOrYamlResult.err) {
     return fileIsJsonOrYamlResult;
   }
@@ -129,30 +124,6 @@ const parseMultipartUpload = async (
     fileContentString,
     email,
     fileExtension: fileIsJsonOrYamlResult.val,
-  });
-};
-
-const checkFileIsJsonOrYaml = (
-  fileContentString: string,
-): Result<"yaml" | "json", UserErrorResult> => {
-  try {
-    JSON.parse(fileContentString);
-    return Ok("json");
-  } catch (_) {
-    // Ignore
-  }
-
-  try {
-    load(fileContentString);
-    return Ok("yaml");
-  } catch (err) {
-    // Ignore
-  }
-
-  return Err({
-    userMessage: "Invalid file format",
-    debugMessage: "File can only be json or yaml",
-    statusCode: 400,
   });
 };
 

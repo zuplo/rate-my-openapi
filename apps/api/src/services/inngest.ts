@@ -87,8 +87,8 @@ export const generateRatingInngest = inngestInstance.createFunction(
       });
 
       if (ratingResult.err) {
-        logger.error("Step Generate Rating failed: ", ratingResult.err);
-        throw ratingResult.err;
+        logger.error("Step Generate Rating failed: ", ratingResult.val);
+        throw ratingResult.val;
       }
 
       const uploadResult = await uploadReport({
@@ -98,8 +98,8 @@ export const generateRatingInngest = inngestInstance.createFunction(
       });
 
       if (uploadResult.err) {
-        logger.error("Step Upload Report failed: ", uploadResult.err);
-        throw uploadResult.err;
+        logger.error("Step Upload Report failed: ", uploadResult.val);
+        throw uploadResult.val;
       }
 
       return uploadResult.val;

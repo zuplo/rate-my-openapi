@@ -19,7 +19,7 @@
     "eslint-config-next": "13.4.12",
     "js-yaml": "^4.1.0",
     "next": "13.4.12",
-    "posthog-js": "^1.75.3",
+    "posthog-js": "^1.83.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-intersection-observer": "^9.5.2",

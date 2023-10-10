@@ -2,8 +2,7 @@
 
 import { useUploadContext } from "@/contexts/UploadContext";
 import classNames from "classnames";
-import posthog from "posthog-js";
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 const StepContainer = ({
   children,

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import LogoIcon from "../LogoIcon";
 
 const Header = () => (

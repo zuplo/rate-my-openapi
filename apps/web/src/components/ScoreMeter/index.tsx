@@ -1,7 +1,6 @@
 "use client";
 
 import classNames from "classnames";
-import AnimatedScore from "../AnimatedScore";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 import getScoreTextColor from "@/utils/get-score-test-color";
@@ -50,11 +49,9 @@ const ScoreMeter = ({ score = 0 }: { score: number }) => {
   return (
     <div className="relative">
       <div className="absolute flex h-full w-full items-center justify-center">
-        <AnimatedScore
-          score={score}
-          className={`bold ${textColor} font-plex-sans text-[85px]`}
-          id="main"
-        />
+        <span className={`bold ${textColor} font-plex-sans text-[85px]`}>
+          {score}
+        </span>
       </div>
 
       <svg

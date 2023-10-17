@@ -1,7 +1,6 @@
 "use client";
 
 import classNames from "classnames";
-import AnimatedScore from "../AnimatedScore";
 
 import getScoreTextColor from "@/utils/get-score-test-color";
 import { useState } from "react";
@@ -89,7 +88,7 @@ const DetailedScoreSection = ({
         >
           {title}
         </h3>
-        <AnimatedScore score={score} className="text-7xl" id={titleSlug} />
+        <span className="text-7xl">{score}</span>
       </div>
       <div className="basis-3/4">
         <table className="grid min-w-full border-collapse grid-cols-[minmax(70px,0.7fr)_minmax(100px,4fr)] gap-2 gap-y-3">

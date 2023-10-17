@@ -1,7 +1,6 @@
 import {
   Rating,
   RatingOutput,
-  SpectralReport,
   generateOpenApiRating,
 } from "@rate-my-openapi/core";
 import spectralCore from "@stoplight/spectral-core";
@@ -10,19 +9,17 @@ import { bundleAndLoadRuleset } from "@stoplight/spectral-ruleset-bundler/with-l
 import esMain from "es-main";
 import { readFile, unlink, writeFile } from "fs/promises";
 import { load as loadYAML } from "js-yaml";
-import { exec } from "node:child_process";
 import * as fs from "node:fs";
 import { join } from "node:path";
-import util from "node:util";
 import { Err, Ok, Result } from "ts-results-es";
 import { getStorageBucketName, storage } from "../services/storage.js";
-const { Spectral, Document } = spectralCore;
 import OpenAI from "openai";
+
+const { Spectral, Document } = spectralCore;
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-
-const execAwait = util.promisify(exec);
 
 type GenerateRatingInput = {
   reportId: string;
@@ -256,44 +253,6 @@ type GetReportOutput = {
 const getReport = async (
   input: GetReportInput,
 ): Promise<Result<GetReportOutput, GenericErrorResult>> => {
-  const rulesetPath = join(process.cwd(), "rulesets/rules.vacuum.yaml");
-
-  let vacuumCliReport;
-  try {
-    const vacuumCommand =
-      `vacuum spectral-report -r ${rulesetPath} -o ${input.openAPIFilePath}`.replace(
-        /\n/g,
-        "",
-      );
-    const { stdout, stderr } = await execAwait(vacuumCommand, {
-      maxBuffer: undefined,
-    });
-
-    if (stderr) {
-      return Err({
-        error: `Vacuum CLI command failed for report ${input.reportId}: ${stderr}`,
-      });
-    }
-
-    if (!stdout) {
-      return Err({
-        error: `Vacuum CLI command succeeded but did not generate a report for report ${input.reportId}`,
-      });
-    }
-
-    vacuumCliReport = stdout;
-  } catch (e) {
-    return Err({
-      error: `Vacuum CLI command failed for report ${input.reportId}: ${e}`,
-    });
-  }
-
-  if (!vacuumCliReport) {
-    return Err({
-      error: `Vacuum CLI command succeeded but did not generate a report for report ${input.reportId}`,
-    });
-  }
-
   let spectralOutputReport;
   let openApiSpectralDoc: spectralCore.Document;
   try {
@@ -311,7 +270,7 @@ const getReport = async (
     const spectral = new Spectral();
     const spectralRulesetFilepath = join(
       process.cwd(),
-      "rulesets/.spectral-supplement.yaml",
+      "rulesets/.spectral.yaml",
     );
 
     try {
@@ -338,17 +297,12 @@ const getReport = async (
 
   let output;
   try {
-    const initialOutputReport: SpectralReport = JSON.parse(vacuumCliReport);
-    const outputReport = spectralOutputReport
-      ? [...initialOutputReport, ...spectralOutputReport]
-      : initialOutputReport;
-
     const outputContent =
       input.fileExtension === "json"
         ? JSON.parse(input.fileContent)
         : loadYAML(input.fileContent, { json: true });
 
-    output = generateOpenApiRating(outputReport, outputContent);
+    output = generateOpenApiRating(spectralOutputReport, outputContent);
   } catch (err) {
     return Err({
       error: `Unable to generate rating for file ${input.reportId}: ${err}`,

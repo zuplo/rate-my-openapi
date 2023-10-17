@@ -54,9 +54,9 @@ const IssueModal = ({
   const onEditorDidMount: OnMount = (editor) => {
     editor.revealLine(issue.range.start.line - 5);
     const selection = {
-      startLineNumber: issue.range.start.line,
+      startLineNumber: issue.range.start.line + 1,
       startColumn: issue.range.start.character,
-      endLineNumber: issue.range.end.line,
+      endLineNumber: issue.range.end.line + 1,
       endColumn: issue.range.end.character,
     };
     editor.setSelection(selection);

@@ -1,19 +1,19 @@
 const getScoreHeadline = (score: number) => {
-  if (score > 80) {
+  if (score >= 80) {
     return {
       headline: "You deserve a round of API-lause!",
       sub: "But don't REST on your laurels",
     };
   }
 
-  if (score > 60) {
+  if (score > 65) {
     return {
       headline: "You're on the right track",
       sub: "Here's some tips to make your endpoints more API-ling",
     };
   }
 
-  if (score > 40) {
+  if (score > 50) {
     return {
       headline: "We API-reciate the effort",
       sub: "But you're not quite there yet",

@@ -47,11 +47,11 @@ export async function GET(
               tw={classNames(
                 "flex items-center justify-center rounded-full text-base text-white h-80 w-80 border-8	text-9xl font-bold border-white",
                 {
-                  "text-green-500 bg-green-200": report.score > 80,
+                  "text-green-500 bg-green-200": report.score >= 80,
                   "text-yellow-500 bg-yellow-200":
-                    report.score > 50 && report.score <= 80,
+                    report.score >= 50 && report.score < 80,
                   "text-red-500 bg-red-200":
-                    report.score > 0 && report.score <= 50,
+                    report.score > 0 && report.score < 50,
                   "text-gray-500 bg-gray-200": report.score === 0,
                 },
               )}

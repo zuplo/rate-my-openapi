@@ -2,13 +2,13 @@
 
 <div align="center">
 <h1>Rate My OpenAPI</h1>
-  <a href="https://twitter.com/steventey">
-    <img src="https://img.shields.io/twitter/follow/zuplo?style=flat&label=zuplo&logo=twitter&color=ff00bd&logoColor=fff" alt="Steven Tey Twitter follower count" />
+  <a href="https://twitter.com/zuplo">
+    <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/zuplo">
   </a>
   <p align="center">
   <a href="#openapi---introduction
   "><strong>Introduction</strong></a> · 
-  <a href="#ratemyopenapi.com
+  <a href="#ratemyopenapicom
   "><strong>Website</strong></a> · 
    <a href="#using-the-cli
   "><strong>CLI</strong></a>
@@ -36,8 +36,6 @@ that your journey of governing your API is going to be harder than it should.
 
 https://ratemyopenapi.com is an easy way to upload your OpenAPI definition and
 get a score for it. That simple, no strings attached.
-
-https://github.com/zuplo/rate-my-openapi/assets/27779735/0ee1ebfe-491b-4602-b05e-378aaaa0455b
 
 ## Using the CLI
 

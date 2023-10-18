@@ -11,9 +11,9 @@ const STROKE_WIDTH = 18;
 const getScoreStrokeColor = (score: number) =>
   classNames({
     "stroke-gray-200": score === 0,
-    "stroke-green-500": score > 80,
-    "stroke-yellow-500": score > 50 && score <= 80,
-    "stroke-red-500": score > 0 && score <= 50,
+    "stroke-green-500": score >= 80,
+    "stroke-yellow-500": score >= 50 && score < 80,
+    "stroke-red-500": score > 0 && score < 50,
   });
 
 const calculateDash = (score: number, circumference: number) =>

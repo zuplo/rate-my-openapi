@@ -39,7 +39,7 @@ export const fileRoute: FastifyPluginAsync = async function (server) {
           return logAndReplyError({
             errorResult: {
               debugMessage: `File ${fileName} does not exist`,
-              userMessage: `File ${fileName} does not exist`,
+              userMessage: `File ${fileName} does not exist.`,
               statusCode: 404,
             },
             fastifyRequest: request,

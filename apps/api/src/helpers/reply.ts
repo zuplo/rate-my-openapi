@@ -35,7 +35,7 @@ export const logAndReplyInternalError = ({
 }) => {
   return logAndReplyError({
     errorResult: {
-      userMessage: "Internal server error",
+      userMessage: "Internal server error.",
       debugMessage: "Internal server error",
       statusCode: 500,
       error,

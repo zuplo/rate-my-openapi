@@ -28,9 +28,9 @@ export default function Footer() {
             </svg>
           </Link>
           <Link
-            href="https://github.com/zuplo"
+            href="https://github.com/zuplo/rate-my-openapi"
             className="group"
-            aria-label="Zuplo on GitHub"
+            aria-label="rate-my-openapi on GitHub"
           >
             <svg
               aria-hidden="true"

@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
 import {
   createContext,
@@ -8,6 +9,7 @@ import {
   type SetStateAction,
   useContext,
   useState,
+  useEffect,
 } from "react";
 
 type UploadContextType = {
@@ -29,16 +31,44 @@ const UploadContextProvider = ({ children }: { children: ReactNode }) => {
   const [step, setStep] = useState(1);
   const [file, setFile] = useState<File | undefined>();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (!router) {
+      return;
+    }
+
+    const currentStep = searchParams.get("step");
+
+    switch (currentStep) {
+      case null:
+        router.push("?step=upload");
+        break;
+      case "upload":
+        setStep(1);
+        break;
+      case "email":
+        setStep(2);
+        break;
+      case "analyzing":
+        setStep(3);
+        break;
+    }
+  }, [router, searchParams]);
 
   const setNextStep = () => {
     switch (step) {
       case 1:
         posthog.capture("step_uploaded_file_completed");
+        router.push("?step=email");
         break;
       case 2:
         posthog.capture("step_entered_email_completed");
+        router.push("?step=analyzing");
         break;
     }
+
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);

@@ -6,14 +6,14 @@ const getScoreHeadline = (score: number) => {
     };
   }
 
-  if (score > 65) {
+  if (score >= 65) {
     return {
       headline: "You're on the right track",
       sub: "Here's some tips to make your endpoints more API-ling",
     };
   }
 
-  if (score > 50) {
+  if (score >= 50) {
     return {
       headline: "We API-reciate the effort",
       sub: "But you're not quite there yet",

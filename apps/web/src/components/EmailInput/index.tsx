@@ -64,9 +64,14 @@ const EmailInput = () => {
         );
 
         if (!uploadResponse.ok) {
-          setError(
-            `Upload failed with status ${uploadResponse.status}. Try again?`,
-          );
+          const text = await uploadResponse.text();
+          if (text.includes("userMessage")) {
+            setError(JSON.parse(text).userMessage);
+          } else {
+            setError(
+              `Upload failed with status ${uploadResponse.status}. We've been notified and will fix this ASAP.`,
+            );
+          }
           setIsSubmitting(false);
           return;
         }
@@ -75,6 +80,7 @@ const EmailInput = () => {
 
         await posthog.identify(emailInput?.value);
 
+        setIsSubmitting(false);
         setNextStep();
       } catch (e) {
         console.error((e as Error).message);

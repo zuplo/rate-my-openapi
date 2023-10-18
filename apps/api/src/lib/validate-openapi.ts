@@ -20,7 +20,7 @@ export const checkFileIsJsonOrYaml = (
   }
 
   return Err({
-    userMessage: "Invalid file format",
+    userMessage: "Invalid file format. Only JSON and YAML are supported.",
     debugMessage: "File can only be json or yaml",
     statusCode: 400,
   });

@@ -101,7 +101,7 @@ const parseMultipartUpload = async (
 
   if (!fileContent || !email) {
     return Err({
-      userMessage: "Invalid request body",
+      userMessage: "Invalid request body.",
       debugMessage: "Invalid request body",
       statusCode: 400,
     });
@@ -109,7 +109,7 @@ const parseMultipartUpload = async (
   const fileContentString = fileContent.toString();
   if (!validateOpenapi(fileContentString)) {
     return Err({
-      userMessage: "Invalid OpenAPI version. Only OpenAPI v3.x is supported",
+      userMessage: "Invalid OpenAPI version. Only OpenAPI v3.x is supported.",
       debugMessage: "Invalid OpenAPI version",
       statusCode: 400,
     });

@@ -60,17 +60,23 @@ const getReportMinified = (fullReport: RatingOutput) => {
 
 const getOpenAiResponse = async (
   messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
-) => {
-  const response = await openai.chat.completions.create({
-    model: "gpt-3.5-turbo",
-    messages,
-    temperature: 0.5,
-    max_tokens: 400,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-  });
-  return response.choices[0].message.content;
+): Promise<Result<string | null, GenericErrorResult>> => {
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages,
+      temperature: 0.5,
+      max_tokens: 400,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+    });
+    return Ok(response.choices[0].message.content);
+  } catch (err) {
+    return Err({
+      error: `Could not get OpenAI response: ${err}`,
+    });
+  }
 };
 
 const getOpenAiLongSummary = async (issueSummary: object) => {
@@ -314,6 +320,15 @@ const getReport = async (
     getOpenAiLongSummary(issueSummary),
     getOpenAiShortSummary(issueSummary),
   ]);
+
+  if (openAiLongSummary.err) {
+    return openAiLongSummary;
+  }
+
+  if (openAiShortSummary.err) {
+    return openAiShortSummary;
+  }
+
   const simpleReport = {
     version:
       // TODO: Clean this up
@@ -332,8 +347,8 @@ const getReport = async (
     score: output.score,
     securityScore: output.securityScore,
     sdkGenerationScore: output.sdkGenerationScore,
-    shortSummary: openAiShortSummary ?? undefined,
-    longSummary: openAiLongSummary ?? undefined,
+    shortSummary: openAiShortSummary.val ?? undefined,
+    longSummary: openAiLongSummary.val ?? undefined,
   };
 
   return Ok({

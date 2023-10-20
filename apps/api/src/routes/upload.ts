@@ -12,6 +12,7 @@ import { getStorageBucketName, storage } from "../services/storage.js";
 import validateOpenapi, {
   checkFileIsJsonOrYaml,
 } from "../lib/validate-openapi.js";
+import { slack, slackChannelId } from "src/services/slack.js";
 
 const uploadRoute: FastifyPluginAsync = async function (server) {
   server.route({
@@ -32,6 +33,11 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
       const parseResult = await parseMultipartUpload(parts);
 
       if (parseResult.err) {
+        await slack.chat.postMessage({
+          channel: slackChannelId,
+          text: `Failed to upload file with error: ${parseResult.val.userMessage}. Request ID: ${request.id}`,
+        });
+
         return logAndReplyError({
           errorResult: parseResult.val,
           fastifyRequest: request,

@@ -66,20 +66,13 @@ const UploadInterface = () => {
   });
 
   const onLocalFileUpload = (newFile: File) => {
-    if (
-      newFile.type === "application/json" ||
-      newFile.type === "application/x-yaml"
-    ) {
-      setFile(newFile);
-      setError(undefined);
-      setIsLocalUpload(true);
+    setFile(newFile);
+    setError(undefined);
+    setIsLocalUpload(true);
 
-      // Timeout used to avoid a bit of a race condition with
-      // button being disabled
-      setTimeout(() => submitButtonRef.current?.focus(), 50);
-    } else {
-      setError("File must be JSON or YAML");
-    }
+    // Timeout used to avoid a bit of a race condition with
+    // button being disabled
+    setTimeout(() => submitButtonRef.current?.focus(), 50);
   };
 
   const onLocalFileUploadClick = () => {
@@ -111,16 +104,6 @@ const UploadInterface = () => {
     const fileName = fileUrl.pathname.substring(
       fileUrl.pathname.lastIndexOf("/") + 1,
     );
-
-    const isValidFileExtension =
-      fileName.endsWith(".json") ||
-      fileName.endsWith(".yml") ||
-      fileName.endsWith(".yaml");
-
-    if (fileName.indexOf(".") !== -1 && !isValidFileExtension) {
-      setError("File must be JSON or YAML");
-      return;
-    }
 
     try {
       const response = await fetch(fileUrl);

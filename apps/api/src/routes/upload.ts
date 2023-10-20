@@ -12,7 +12,7 @@ import { getStorageBucketName, storage } from "../services/storage.js";
 import validateOpenapi, {
   checkFileIsJsonOrYaml,
 } from "../lib/validate-openapi.js";
-import { slack, slackChannelId } from "src/services/slack.js";
+import { slack, slackChannelId } from "../services/slack.js";
 
 const uploadRoute: FastifyPluginAsync = async function (server) {
   server.route({

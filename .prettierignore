@@ -6,3 +6,4 @@ temp/
 package-lock.json
 generated/
 packages/cli/example-specs/
+.next/

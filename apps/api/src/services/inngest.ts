@@ -1,8 +1,8 @@
 import { EventSchemas, Inngest } from "inngest";
 import { sendFailureEmail, sendReportEmail } from "../lib/email/index.js";
 import { generateRating, uploadReport } from "../lib/rating.js";
-import { slack, slackChannelId } from "./slack.js";
-import { posthog } from "./posthog.js";
+import { getPostHogClient } from "./posthog.js";
+import { postSlackMessage } from "./slack.js";
 
 type FileUploaded = {
   data: {
@@ -39,10 +39,9 @@ export const generateRatingInngest = inngestInstance.createFunction(
 
       await step.run("Send Failed Slack Message", async () => {
         try {
-          return await slack.chat.postMessage({
-            channel: slackChannelId,
-            text: `Failed to generate rating for ${originalEvent.data.email} and Report ID ${originalEvent.data.id} with error: ${error.message}`,
-          });
+          return await postSlackMessage(
+            `Failed to generate rating for ${originalEvent.data.email} and Report ID ${originalEvent.data.id} with error: ${error.message}`,
+          );
         } catch (err) {
           throw new Error("Step Send Failed Slack Message failed: ", err);
         }
@@ -50,7 +49,7 @@ export const generateRatingInngest = inngestInstance.createFunction(
 
       await step.run("Trigger failure event", async () => {
         try {
-          return await posthog.capture({
+          return getPostHogClient()?.capture({
             distinctId: originalEvent.data.email,
             properties: {
               reportId: originalEvent.data.id,
@@ -67,7 +66,7 @@ export const generateRatingInngest = inngestInstance.createFunction(
   async ({ event, step, logger }) => {
     await step.run("Trigger upload event", async () => {
       try {
-        return await posthog.capture({
+        return getPostHogClient()?.capture({
           distinctId: event.data.email,
           properties: {
             reportId: event.data.id,
@@ -140,10 +139,9 @@ export const generateRatingInngest = inngestInstance.createFunction(
           return;
         }
 
-        return await slack.chat.postMessage({
-          channel: slackChannelId,
-          text: `Generated rating for ${event.data.email}. Report URL: https://ratemyopenapi.com/report/${event.data.id}`,
-        });
+        return await postSlackMessage(
+          `Generated rating for ${event.data.email}. Report URL: https://ratemyopenapi.com/report/${event.data.id}`,
+        );
       } catch (err) {
         logger.error("Step Send Slack Message failed: ", err);
         throw err;
@@ -152,7 +150,7 @@ export const generateRatingInngest = inngestInstance.createFunction(
 
     await step.run("Trigger successful event", async () => {
       try {
-        return await posthog.capture({
+        return getPostHogClient()?.capture({
           distinctId: event.data.email,
           properties: {
             reportId: event.data.id,

@@ -1,9 +1,9 @@
 import { type FastifyPluginAsync } from "fastify";
-import { getStorageBucketName, storage } from "../services/storage.js";
 import {
   logAndReplyError,
   logAndReplyInternalError,
 } from "../helpers/reply.js";
+import { getStorageBucketName, storage } from "../services/storage.js";
 
 export const fileRoute: FastifyPluginAsync = async function (server) {
   server.route({
@@ -50,7 +50,7 @@ export const fileRoute: FastifyPluginAsync = async function (server) {
         reply.hijack();
         reply.raw.setHeader("Content-Type", "application/json; charset=utf-8");
         reply.raw.setHeader("Access-Control-Allow-Origin", "*");
-        return await storage
+        return storage
           .bucket(getStorageBucketName())
           .file(fileName)
           .createReadStream()

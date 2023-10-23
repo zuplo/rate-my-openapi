@@ -7,6 +7,7 @@ import { useUploadContext } from "@/contexts/UploadContext";
 
 import StepContainer from "@/components/StepContainer";
 import posthog from "posthog-js";
+import { NEXT_PUBLIC_API_URL } from "../../utils/env";
 import LoadingIndicator from "../LoadingIndicator";
 
 const EmailInput = () => {
@@ -55,13 +56,10 @@ const EmailInput = () => {
         formData.append("emailAddress", emailInput?.value);
         formData.append("apiFile", file);
 
-        const uploadResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/upload`,
-          {
-            method: "POST",
-            body: formData,
-          },
-        );
+        const uploadResponse = await fetch(`${NEXT_PUBLIC_API_URL}/upload`, {
+          method: "POST",
+          body: formData,
+        });
 
         if (!uploadResponse.ok) {
           const text = await uploadResponse.text();
@@ -78,7 +76,7 @@ const EmailInput = () => {
 
         localStorage.setItem("lastUsedEmailAddress", emailInput?.value);
 
-        await posthog.identify(emailInput?.value);
+        posthog.identify(emailInput?.value);
 
         setIsSubmitting(false);
         setNextStep();

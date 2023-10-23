@@ -1,9 +1,13 @@
 import sgMail, { MailDataRequired } from "@sendgrid/mail";
 import esMain from "es-main";
-import { getSuccesfulEmailHtml } from "./succesfull-email.js";
 import { Err, Ok, Result } from "ts-results-es";
+import { getSuccesfulEmailHtml } from "./succesfull-email.js";
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
+if (process.env.SENDGRID_API_KEY) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+} else {
+  console.warn("No environment variable set for SENDGRID_API_KEY");
+}
 
 type SendEmailResult = {
   statusCode: number;

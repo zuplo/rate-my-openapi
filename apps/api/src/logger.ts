@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FastifyReply, FastifyRequest } from "fastify";
-import { Writable } from "node:stream";
 import pino, { LogFn, Logger } from "pino";
 import { parse as parseStack } from "stacktrace-parser";
 
@@ -146,8 +145,7 @@ function logMethod(
 
 export function createNewLogger(
   defaultLabels: Record<string, string> = {},
-  { logStream }: { logStream?: Writable } = {},
-): pino.Logger {
+): pino.Logger | undefined {
   const loggerOptions: LoggerOpts = {
     /**
      * The logging level is a minimum level based on the associated value of that level.
@@ -192,7 +190,6 @@ export function createNewLogger(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       log(object: any) {
         const labels: Record<string, string> = defaultLabels;
-
         // Attempt to parse the source location from an error
         if (object.err && object.err.stack) {
           try {
@@ -278,20 +275,10 @@ export function createNewLogger(
         return undefined;
       },
     };
-  } else {
-    loggerOptions.transport = {
-      target: "pino-pretty",
-      options: { destination: 1 },
-    };
+    return pino.default(loggerOptions);
   }
 
-  if (logStream) {
-    // @ts-ignore
-    return pino(loggerOptions, logStream);
-  } else {
-    // @ts-ignore
-    return pino(loggerOptions);
-  }
+  return undefined;
 }
 
 const enum PinoLogLevels {

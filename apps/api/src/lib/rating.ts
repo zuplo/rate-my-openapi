@@ -11,15 +11,12 @@ import { readFile, unlink, writeFile } from "fs/promises";
 import { load as loadYAML } from "js-yaml";
 import * as fs from "node:fs";
 import { join } from "node:path";
+import OpenAI from "openai";
 import { Err, Ok, Result } from "ts-results-es";
 import { getStorageBucketName, storage } from "../services/storage.js";
-import OpenAI from "openai";
-
 const { Spectral, Document } = spectralCore;
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+let openai: OpenAI | undefined;
 
 type GenerateRatingInput = {
   reportId: string;
@@ -61,6 +58,14 @@ const getReportMinified = (fullReport: RatingOutput) => {
 const getOpenAiResponse = async (
   messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
 ) => {
+  if (!openai) {
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error("No environment variable set for OPENAI_API_KEY");
+    }
+    openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+  }
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages,

@@ -2,6 +2,7 @@
   "name": "rate-my-openapi",
   "version": "1.18.0",
   "scripts": {
+    "dev": "concurrently 'npm run build:watch --workspace apps/api' 'npm run dev:api --workspace apps/api' 'npm run dev:inngest --workspace apps/api' 'npm run dev --workspace apps/web'",
     "build": "tsc --build",
     "format": "prettier --write .",
     "lint": "npm run lint --workspaces",
@@ -20,6 +21,7 @@
     "packages/*"
   ],
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "prettier": "^3.0.1",

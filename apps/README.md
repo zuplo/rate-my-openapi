@@ -5,6 +5,25 @@ https://ratemyopenapi.com
 
 ## Local development
 
+Setup the local environment in the `apps/api` folder
+
+```
+cp .env.example .env
+export $(grep -v '^#' .env)
+```
+
+In order to authenticate to the GCP storage bucket run:
+
+```
+gcloud auth login
+```
+
+To run the entire app locally simply run the following command:
+
+```
+npm run dev
+```
+
 ### Running the API
 
 Go to `/apps/api`

@@ -84,9 +84,8 @@ export async function generateRating(argv: Arguments) {
     spectral.setRuleset(
       await bundleAndLoadRuleset(rulesetFilepath, { fs, fetch }),
     );
-    const spectralOutputReport: SpectralReport = await spectral.run(
-      openApiSpectralDoc,
-    );
+    const spectralOutputReport: SpectralReport =
+      await spectral.run(openApiSpectralDoc);
     outputReport = [...outputReport, ...spectralOutputReport];
 
     const outputContent =

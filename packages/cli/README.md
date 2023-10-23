@@ -2,9 +2,9 @@
 
 ## Installation
 
-1. Build the CLI 
+1. Build the CLI
 
-**From the root of the project** run: 
+**From the root of the project** run:
 
 ```
 npm install

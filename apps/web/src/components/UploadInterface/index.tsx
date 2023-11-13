@@ -181,7 +181,7 @@ const UploadInterface = () => {
         id="upload-form"
         onSubmit={onSubmit}
       >
-        {!isLocalUpload && !file && !isValidUrlInput && (
+        {!isLocalUpload && !file && (
           <input
             type="url"
             ref={urlInputRef}

@@ -1,6 +1,18 @@
 import { WebClient } from "@slack/web-api";
 
-const token = process.env.SLACK_TOKEN;
+let slack: WebClient | undefined;
 
-export const slackChannelId = process.env.SLACK_CHANNEL_ID || "";
-export const slack = new WebClient(token);
+export function postSlackMessage(text: string) {
+  if (!slack && process.env.SLACK_TOKEN) {
+    slack = new WebClient(process.env.SLACK_TOKEN);
+  }
+  const channel = process.env.SLACK_CHANNEL_ID;
+  if (!channel) {
+    console.warn("No environment variable set for SLACK_CHANNEL_ID");
+    return;
+  }
+  return slack?.chat.postMessage({
+    channel,
+    text,
+  });
+}

@@ -1,3 +1,5 @@
+import { NEXT_PUBLIC_API_URL } from "../../../utils/env";
+
 export type SimpleReport = {
   docsScore: number;
   completenessScore: number;
@@ -15,7 +17,7 @@ export const getSimpleReport = async (
   id: string,
 ): Promise<SimpleReport | null> => {
   const downloadUrlRequest = await fetch(
-    (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${id}/simplified`,
+    `${NEXT_PUBLIC_API_URL}/report/${id}/simplified`,
     {
       next: {
         // 1 day

@@ -11,15 +11,12 @@ import { readFile, unlink, writeFile } from "fs/promises";
 import { load as loadYAML } from "js-yaml";
 import * as fs from "node:fs";
 import { join } from "node:path";
+import OpenAI from "openai";
 import { Err, Ok, Result } from "ts-results-es";
 import { getStorageBucketName, storage } from "../services/storage.js";
-import OpenAI from "openai";
-
 const { Spectral, Document } = spectralCore;
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+let openai: OpenAI | undefined;
 
 type GenerateRatingInput = {
   reportId: string;

@@ -7,6 +7,7 @@ import ShareButton from "@/components/ShareButton";
 import { type RatingOutput } from "@rate-my-openapi/core";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { NEXT_PUBLIC_API_URL } from "../../../utils/env";
 
 export const FullReport = ({
   reportId,
@@ -20,7 +21,7 @@ export const FullReport = ({
   useEffect(() => {
     const getReport = async () => {
       const downloadUrlRequest = await fetch(
-        (process.env.NEXT_PUBLIC_API_URL as string) + `/report/${reportId}`,
+        `${NEXT_PUBLIC_API_URL}/report/${reportId}`,
         {
           next: {
             // 1 day
@@ -44,8 +45,7 @@ export const FullReport = ({
 
     const getOpenapi = async () => {
       const downloadUrlRequest = await fetch(
-        (process.env.NEXT_PUBLIC_API_URL as string) +
-          `/file/${reportId}.${fileExtension}`,
+        `${NEXT_PUBLIC_API_URL}/file/${reportId}.${fileExtension}`,
         {
           next: {
             // 1 day

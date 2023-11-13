@@ -1,3 +1,4 @@
+import cors from "@fastify/cors";
 import fastifyMultipart from "@fastify/multipart";
 import Fastify from "fastify";
 import { createNewLogger } from "./logger.js";
@@ -6,7 +7,6 @@ import healthRoute from "./routes/health.js";
 import { inngestRoute } from "./routes/inngest.js";
 import { reportRoute } from "./routes/report.js";
 import uploadRoute from "./routes/upload.js";
-import cors from "@fastify/cors";
 
 const fastify = Fastify({
   logger: createNewLogger(),

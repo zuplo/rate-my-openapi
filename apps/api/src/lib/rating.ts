@@ -23,6 +23,15 @@ type GenerateRatingInput = {
   fileExtension: "json" | "yaml";
 };
 
+function getOpenAIClient(): OpenAI | undefined {
+  if (!openai) {
+    openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+  }
+  return openai;
+}
+
 /**
  * @description produces a stripped down version of the report which can be fed
  * to LLM models.
@@ -58,11 +67,8 @@ const getReportMinified = (fullReport: RatingOutput) => {
 const getOpenAiResponse = async (
   messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
 ): Promise<Result<string | null, GenericErrorResult>> => {
-  if (!openai) {
-    return Ok("Placeholder OpenAI response");
-  }
   try {
-    const response = await openai.chat.completions.create({
+    const response = await getOpenAIClient()?.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages,
       temperature: 0.5,
@@ -71,7 +77,11 @@ const getOpenAiResponse = async (
       frequency_penalty: 0,
       presence_penalty: 0,
     });
-    return Ok(response.choices[0].message.content);
+    return Ok(
+      response
+        ? response.choices[0].message.content
+        : "Placeholder OpenAI response",
+    );
   } catch (err) {
     return Err({
       error: `Could not get OpenAI response: ${err}`,

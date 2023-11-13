@@ -5,6 +5,7 @@
   "main": "dist/server.js",
   "type": "module",
   "scripts": {
+    "dev": "concurrently -n watch,dev,inngest 'npm run build:watch' 'npm run dev:api' 'npm run dev:inngest'",
     "dev:api": "PORT=3001 nodemon dist/server.js | pino-pretty",
     "dev:inngest": "npx inngest-cli@latest dev -u http://localhost:3000/inngest",
     "build": "tsc --build",
@@ -30,15 +31,17 @@
     "@stoplight/spectral-core": "^1.18.3",
     "@stoplight/spectral-parsers": "^1.0.3",
     "@stoplight/spectral-ruleset-bundler": "^1.5.2",
+    "dotenv": "^16.3.1",
     "es-main": "^1.2.0",
     "fastify": "^4.21.0",
-    "inngest": "^2.6.0",
+    "inngest": "^3.6.0",
     "js-yaml": "^4.1.0",
     "pino": "^8.15.1",
     "posthog-node": "^3.1.1",
     "serialize-error": "^11.0.1",
     "stacktrace-parser": "^0.1.10",
     "ts-results-es": "^3.6.1",
+    "typescript": "^5.2.2",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

@@ -58,6 +58,9 @@ const getReportMinified = (fullReport: RatingOutput) => {
 const getOpenAiResponse = async (
   messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
 ): Promise<Result<string | null, GenericErrorResult>> => {
+  if (!openai) {
+    return Ok("Placeholder OpenAI response");
+  }
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",

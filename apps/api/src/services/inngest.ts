@@ -1,4 +1,4 @@
-import { EventSchemas, Inngest } from "inngest";
+import { EventSchemas, Inngest, slugify } from "inngest";
 import { sendFailureEmail, sendReportEmail } from "../lib/email/index.js";
 import { generateRating, uploadReport } from "../lib/rating.js";
 import { getPostHogClient } from "./posthog.js";
@@ -17,13 +17,13 @@ type Events = {
 };
 
 export const inngestInstance = new Inngest({
-  name: "Rate My OpenAPI",
+  id: slugify("Rate My OpenAPI"),
   schemas: new EventSchemas().fromRecord<Events>(),
 });
 
 export const generateRatingInngest = inngestInstance.createFunction(
   {
-    name: "Generate Rating For OpenAPI and Send Email",
+    id: slugify("Generate Rating For OpenAPI and Send Email"),
     onFailure: async ({ error, event, step }) => {
       const originalEvent = event.data.event;
 

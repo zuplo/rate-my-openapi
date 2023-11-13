@@ -47,3 +47,4 @@ apps/web/.env
 # ESLint cache
 .eslintcache
 .vercel
+.env

@@ -1,7 +1,12 @@
+import { config } from "dotenv";
+config();
+
 import cors from "@fastify/cors";
 import fastifyMultipart from "@fastify/multipart";
 import Fastify from "fastify";
+import { apiKeyAuthPlugin } from "./api-key-auth.js";
 import { createNewLogger } from "./logger.js";
+import bulkUploadRoute from "./routes/bulk.js";
 import { fileRoute } from "./routes/file.js";
 import healthRoute from "./routes/health.js";
 import { inngestRoute } from "./routes/inngest.js";
@@ -16,13 +21,24 @@ const fastify = Fastify({
 });
 
 async function build() {
+  await fastify.register(cors);
   await fastify.register(fastifyMultipart);
+
+  // Only add the bulk route if the api key service is configured
+  if (process.env.AUTH_API_URL) {
+    await fastify.register(apiKeyAuthPlugin, {
+      apiKeyServiceUrl: process.env.AUTH_API_URL,
+    });
+    await fastify.register(bulkUploadRoute);
+  } else {
+    console.warn("No environment variable set for AUTH_API_URL");
+  }
+
   await fastify.register(healthRoute);
   await fastify.register(uploadRoute);
   await fastify.register(inngestRoute);
   await fastify.register(reportRoute);
   await fastify.register(fileRoute);
-  await fastify.register(cors);
 }
 
 const start = async () => {

@@ -7,12 +7,12 @@ import {
   logAndReplyInternalError,
   successJsonReply,
 } from "../helpers/reply.js";
-import { inngestInstance } from "../services/inngest.js";
-import { getStorageBucketName, storage } from "../services/storage.js";
 import validateOpenapi, {
   checkFileIsJsonOrYaml,
 } from "../lib/validate-openapi.js";
-import { slack, slackChannelId } from "../services/slack.js";
+import { inngestInstance } from "../services/inngest.js";
+import { postSlackMessage } from "../services/slack.js";
+import { getStorageBucketName, storage } from "../services/storage.js";
 
 const uploadRoute: FastifyPluginAsync = async function (server) {
   server.route({
@@ -33,13 +33,24 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
       const parseResult = await parseMultipartUpload(parts);
 
       if (parseResult.err) {
-        await slack.chat.postMessage({
-          channel: slackChannelId,
-          text: `Failed to upload file with error: ${parseResult.val.userMessage}. Request ID: ${request.id}`,
-        });
+        await postSlackMessage(
+          `Failed to upload file with error: ${parseResult.val.userMessage}. Request ID: ${request.id}`,
+        );
 
         return logAndReplyError({
           errorResult: parseResult.val,
+          fastifyRequest: request,
+          fastifyReply: reply,
+        });
+      }
+
+      if (!parseResult.val.email) {
+        return logAndReplyError({
+          errorResult: Err({
+            userMessage: "Invalid request body. No email provided.",
+            debugMessage: "Invalid request body. No email provided",
+            statusCode: 400,
+          }).val,
           fastifyRequest: request,
           fastifyReply: reply,
         });
@@ -88,13 +99,13 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
 
 type ParseMultipartUploadResult = {
   fileContentString: string;
-  email: string;
+  email?: string;
   fileExtension: string;
 };
 
-const parseMultipartUpload = async (
+export async function parseMultipartUpload(
   parts: AsyncIterableIterator<fastifyMultipart.Multipart>,
-): Promise<Result<ParseMultipartUploadResult, UserErrorResult>> => {
+): Promise<Result<ParseMultipartUploadResult, UserErrorResult>> {
   let fileContent;
   let email;
   for await (const part of parts) {
@@ -105,7 +116,7 @@ const parseMultipartUpload = async (
     }
   }
 
-  if (!fileContent || !email) {
+  if (!fileContent) {
     return Err({
       userMessage: "Invalid request body.",
       debugMessage: "Invalid request body",
@@ -131,6 +142,6 @@ const parseMultipartUpload = async (
     email,
     fileExtension: fileIsJsonOrYamlResult.val,
   });
-};
+}
 
 export default uploadRoute;

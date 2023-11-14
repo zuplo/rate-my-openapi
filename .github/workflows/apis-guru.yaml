@@ -1,8 +1,8 @@
 name: APIs Guru Ratings
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: "0 17,22 * * 1-5"
+  schedule:
+    - cron: 0 0 * * 0
 
 jobs:
   generate:
@@ -15,14 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: main
-          token: ${{ secrets.GH_TOKEN_COMMIT_AND_BYPASS_BRANCH_PROTECTION }}
-
-      - name: Setup Git
-        run: |
-          git config user.name "Integration Service"
-          git config user.email "<integrations@zuplo.com>"
 
       - id: "auth-gcp"
         name: "Authenticate to Google Cloud"
@@ -53,10 +45,11 @@ jobs:
           GOOGLE_CLOUD_PROJECT_ID: zuplo-marketing
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
-      - name: git add changed files
-        run: git add apis-guru.json
-
-      - name: Commit Updated API Ratings
-        run: |
-          git commit -m "Updated API Ratings"
-          git push origin main
+      - name: Upload Package.json
+        uses: "google-github-actions/upload-cloud-storage@v1"
+        with:
+          path: apis-guru.json
+          destination: rate-my-openapi-public
+          parent: false
+          headers: |-
+            content-type: application/json

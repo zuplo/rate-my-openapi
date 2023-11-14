@@ -31,17 +31,17 @@ await fs.promises.writeFile(ratingsPath, reportJson, "utf-8");
 
 async function rateFile(file) {
   console.log(`Processing ${file}`);
+  const relativeFile = path.relative(baseDir, file);
 
   const { stdout } = await execa(
     "git",
-    ["log", "-1", "--format=%ad", "--", path.relative(baseDir, file)],
+    ["log", "-1", "--format=%ad", "--", relativeFile],
     { cwd: baseDir },
   );
 
   const lastModified = new Date(stdout);
 
-  const report =
-    ratings.find((r) => r.file === path.relative(baseDir, file)) || {};
+  const report = ratings.find((r) => r.file === relativeFile) || {};
   if (
     report.lastModified ? new Date(report.lastModified) >= lastModified : false
   ) {
@@ -53,11 +53,10 @@ async function rateFile(file) {
 
   await createReportFromLocal(file, reportId);
 
-  report.file = path.relative(baseDir, file);
+  report.file = relativeFile;
   report.lastModified = lastModified.toISOString();
   report.reportId = reportId;
 
   ratings.push(report);
-
-  console.log({ reportId });
+  console.log(report);
 }

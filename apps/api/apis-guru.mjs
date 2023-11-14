@@ -24,7 +24,7 @@ const response = await fetch(
 );
 let ratings = await response.json();
 
-await queue.addAll(files[0].map((file) => () => rateFile(file)));
+await queue.addAll(files.map((file) => () => rateFile(file)));
 
 const reportJson = JSON.stringify(ratings, null, 2);
 await fs.promises.writeFile(ratingsPath, reportJson, "utf-8");

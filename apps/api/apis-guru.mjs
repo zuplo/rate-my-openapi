@@ -23,11 +23,22 @@ const response = await fetch(
   "https://storage.googleapis.com/rate-my-openapi-public/apis-guru.json",
 );
 let ratings = await response.json();
+let updatedRatings = [];
 
-await queue.addAll(files.map((file) => () => rateFile(file)));
+try {
+  await queue.addAll(files.map((file) => () => rateFile(file)));
+} finally {
+  const outputRatings = ratings.map((r) => {
+    const updatedRating = updatedRatings.find((ur) => ur.file === r.file);
+    if (updatedRating) {
+      return updatedRating;
+    }
+    return r;
+  });
 
-const reportJson = JSON.stringify(ratings, null, 2);
-await fs.promises.writeFile(ratingsPath, reportJson, "utf-8");
+  const reportJson = JSON.stringify(outputRatings, null, 2);
+  await fs.promises.writeFile(ratingsPath, reportJson, "utf-8");
+}
 
 async function rateFile(file) {
   console.log(`Processing ${file}`);
@@ -58,6 +69,6 @@ async function rateFile(file) {
   report.reportId = reportId;
   report.score = reportResult.simpleReport.score;
 
-  ratings.push(report);
+  updatedRatings.push(report);
   console.log(report);
 }

@@ -15,15 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: "Authenticate to Google Cloud"
-        uses: "google-github-actions/auth@v1"
-        with:
-          token_format: "access_token"
-          workload_identity_provider: projects/196494084534/locations/global/workloadIdentityPools/github-actions-wi-pool/providers/github-actions-wi-provider
-          service_account: "github-actions@zuplo-marketing.iam.gserviceaccount.com"
-          access_token_lifetime: 3600
-
       - uses: actions/checkout@v4
         with:
           repository: "APIs-guru/openapi-directory"
@@ -38,6 +29,16 @@ jobs:
       - run: npm ci
       - run: npm run build
 
+      # Do this right before the script as the checkout takes a bit of time
+      # and we dont want the token to expire before we use it.
+      - name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v1"
+        with:
+          token_format: "access_token"
+          workload_identity_provider: projects/196494084534/locations/global/workloadIdentityPools/github-actions-wi-pool/providers/github-actions-wi-provider
+          service_account: "github-actions@zuplo-marketing.iam.gserviceaccount.com"
+          access_token_lifetime: 3600
+
       - run: node apis-guru.mjs
         working-directory: apps/api
         env:
@@ -46,7 +47,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
       # Reauthenticate to Google Cloud because its possible this job takes
-      # more than 1 hour to run.
+      # more than 1 hour to run and we want to make sure we save any updates
       - name: "Authenticate to Google Cloud"
         uses: "google-github-actions/auth@v1"
         if: always()
@@ -65,3 +66,4 @@ jobs:
           parent: false
           headers: |-
             content-type: application/json
+            cache-control: no-cache

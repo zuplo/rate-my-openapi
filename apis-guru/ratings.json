@@ -1,0 +1,3099 @@
+[
+  {
+    "file": "APIs/zuora.com/2021-08-20/openapi.yaml",
+    "lastModified": "2023-11-13T23:21:58.000Z",
+    "reportId": "0e9561d9-2ddf-49c0-9465-4512314aa5d9",
+    "hash": "204073a9642562169ef896910a5f5b27a08d4ec5a672540e646a7cfeaed856c5",
+    "score": 78
+  },
+  {
+    "file": "APIs/zenoti.com/1.0.0/openapi.yaml",
+    "hash": "30dd7dc63854c3b712ebe1872578e04cb04ef506b8a99ba73ab408f08629648f",
+    "reportId": "70c53422-d019-4362-b2d8-65192cdc7ad7",
+    "score": null
+  },
+  {
+    "file": "APIs/zoom.us/2.0.0/openapi.yaml",
+    "hash": "dfb27518884bb1b5940763ded19c8f848e2e519ce5f29a37420ec4e5312390d2",
+    "reportId": "d38e9b45-807f-49e9-8975-784ddcac1d8a",
+    "score": 77
+  },
+  {
+    "file": "APIs/zalando.com/v1.0/swagger.yaml",
+    "hash": "b7088a3d53a7738258621e3ee8fef6d623f7ad7e21b175e3b9bde54880660971",
+    "reportId": "2886ba04-1c78-4324-b3ec-44a1ffa7c9e0",
+    "score": 52
+  },
+  {
+    "file": "APIs/zeit.co/v2019-01-07/openapi.yaml",
+    "hash": "ea221113f81f4cd34a485ff05473ecc793379048e34a0d9eeffcb635bcec63cc",
+    "reportId": "6c08694c-458b-4517-970a-6e22d0c335dc",
+    "score": 73
+  },
+  {
+    "file": "APIs/zappiti.com/4.15.174/swagger.yaml",
+    "hash": "5807ebc5496a80c980b37146707e8b8609450f196fa349c07543f7087b7418a1",
+    "reportId": "0cef9579-d52b-4cdd-9fce-8bf3cd0e4125",
+    "score": 47
+  },
+  {
+    "file": "APIs/zoomconnect.com/1/swagger.yaml",
+    "hash": "c6966dab95abcaf6fb88eb447ccb70d587f3cd1a7f64f66cc3df27568263a13c",
+    "reportId": "81037c24-e0c6-4406-bdc4-8553a18039ba",
+    "score": 71
+  },
+  {
+    "file": "APIs/yodlee.com/1.1.0/openapi.yaml",
+    "hash": "125e45c11effc0a04bdde63f43325b8e032d957a74e249f827e0e9e62e62a81e",
+    "reportId": "a07c1c37-7baf-4034-a2b4-52c6d1a933aa",
+    "score": 81
+  },
+  {
+    "file": "APIs/zeno.fm/0.6-99cfdac/openapi.yaml",
+    "hash": "088a882d99bd1a019e7edb1c033d9bc8d5a47b2f385f677962e9eb7ed1e65a9c",
+    "reportId": "1631dc25-fe97-48c1-909d-0db568be6caf",
+    "score": 61
+  },
+  {
+    "file": "APIs/youneedabudget.com/1.0.0/openapi.yaml",
+    "hash": "af593b41d0352a6a0136ab1fff7f9f25324f167116578eea399c1c6b34d3dc4f",
+    "reportId": "83feee22-7999-420c-a85e-f8ce420eef92",
+    "score": 82
+  },
+  {
+    "file": "APIs/xkcd.com/1.0.0/openapi.yaml",
+    "hash": "4beddc7a8d7767d22edcb9e42956cd816fd80882f69a1aa6a3b9ec2a69431994",
+    "reportId": "29835cbd-6065-4ec2-8063-325118f3a9b3",
+    "score": 50
+  },
+  {
+    "file": "APIs/wyjyt-geo-calculate.azurewebsites.net/1.0.0/openapi.yaml",
+    "hash": "244e4ec94bb1880d4633e12d894fafd750c26b86013030214c466bb55106a1e3",
+    "reportId": "dcca16e7-fa4d-4173-9a8c-61b945a43207",
+    "score": 69
+  },
+  {
+    "file": "APIs/wordassociations.net/1.0/swagger.yaml",
+    "hash": "c098dcc54efdcf42c959074329c564b2600b5980248caa8b49aa54b1377de28f",
+    "reportId": "3161e463-5ef1-409c-a496-bbbe55d2cd6d",
+    "score": 60
+  },
+  {
+    "file": "APIs/xtrf.eu/2.0/openapi.yaml",
+    "hash": "eda89cb3a929304efebcfdc82fd4e8c52e333b4eb3704ba630321cf64c6558a9",
+    "reportId": "9830a1ed-0ed7-40eb-ac13-5d986af6f173",
+    "score": 75
+  },
+  {
+    "file": "APIs/wolframalpha.com/v0.1/openapi.yaml",
+    "hash": "5eeb391e903122a844ddb93b218e989b4f0e52d06e29add10d6bc9d63ad083bc",
+    "reportId": "37bb4055-62ce-40ea-b9e8-66682d33c529",
+    "score": 66
+  },
+  {
+    "file": "APIs/wordnik.com/4.0/openapi.yaml",
+    "hash": "643c91decaa14e2688084b6158a189d461a917579e600a921bcd05286cd88270",
+    "reportId": "d663bf50-6c96-49ab-aed8-15ed5cb33c5a",
+    "score": 74
+  },
+  {
+    "file": "APIs/wikipathways.org/1.0/openapi.yaml",
+    "hash": "fb796a1676e8c676993d5fc331e1615f421d50f2c061d316220ec7713f3affca",
+    "reportId": "56bc418b-38c5-4344-9550-e63b7477c1d9",
+    "score": 44
+  },
+  {
+    "file": "APIs/worldtimeapi.org/20210108/openapi.yaml",
+    "hash": "b224311d71d990cc70a0c0c38693fc2d346c3382659a00154bb41d462021ae25",
+    "reportId": "59259f88-03a3-44fb-bf81-c2836bd85c04",
+    "score": 46
+  },
+  {
+    "file": "APIs/who-hosts-this.com/0.0.1/swagger.yaml",
+    "hash": "c8e96bd63644e7863d7bbe28e76658c59e55086336840f6f94b9e6a6a476c94f",
+    "reportId": "639221fd-fd71-4a19-a003-7dda52c022c9",
+    "score": 52
+  },
+  {
+    "file": "APIs/wheretocredit.com/1.0/openapi.yaml",
+    "hash": "f0cfe4129ce34157082a68a1dad7f5970a6d5f73be92b9461e9b45d3006fd7cb",
+    "reportId": "9d9fa6da-8f21-4f91-882d-56641a6900ae",
+    "score": 48
+  },
+  {
+    "file": "APIs/wowza.com/1/swagger.yaml",
+    "hash": "602b876ee06193da9262d7d56e6dbd57cbdae9f2ea05dc1f1bad4eb5b547f00c",
+    "reportId": "83456db4-057b-4e17-9076-34edac2b7760",
+    "score": 83
+  },
+  {
+    "file": "APIs/winsms.co.za/1.0.0/swagger.yaml",
+    "hash": "c0fbc4f2a76b5cbee521e791f5a56a9d38259f4ed840fd190e2263135a3fba3e",
+    "reportId": "2b362d8b-6708-4bce-a645-c30437f8c70e",
+    "score": 78
+  },
+  {
+    "file": "APIs/whatsapp.local/1.0/openapi.yaml",
+    "hash": "6ca05f8bcc5cfe38785a6b1ced898b843b1e323e4e14d21fd05e3723845667d7",
+    "reportId": "1a851a30-12d3-4e2c-a03b-36a8c5614b79",
+    "score": 71
+  },
+  {
+    "file": "APIs/wikimedia.org/1.0.0/swagger.yaml",
+    "hash": "98e86faea93fb1f8f2d200a223f909fa0dbac757e9eb28f481bd182ec39c3f51",
+    "reportId": "38121dab-ad1a-47ec-9d36-6b9d60101045",
+    "score": 56
+  },
+  {
+    "file": "APIs/wellknown.ai/1.0.0/openapi.yaml",
+    "hash": "6f96060989c6c9007d1d600bf18a4e9bb9d99c9066cad1023ca4c43be3f7e20d",
+    "reportId": "20f59db6-32ec-48db-b552-c8eca6e07e66",
+    "score": null
+  },
+  {
+    "file": "APIs/webscraping.ai/3.0.0/openapi.yaml",
+    "hash": "5f208b9b16ade48411162fb97b92e23514e6d0a8bec9c72a036a08b4d2fd940c",
+    "reportId": "9f9c02ea-0bf0-495a-93bb-87f1084e43ea",
+    "score": 90
+  },
+  {
+    "file": "APIs/weatherbit.io/2.0.0/swagger.yaml",
+    "hash": "5ce8950fb56967ea81e655f5046459ca95b62fe8f8dd96c85162e49480761414",
+    "reportId": "acea3f69-2c69-4cfd-9141-7a6415af11a9",
+    "score": 47
+  },
+  {
+    "file": "APIs/webflow.com/2023-03-23T154040Z/openapi.yaml",
+    "hash": "390d03664d0779d86f87683253b91842c67777869cf4da35e5ddd4dd0ad3959c",
+    "reportId": "fb4db5f3-2a3f-4366-8303-13c5c2a96b43",
+    "score": 41
+  },
+  {
+    "file": "APIs/weber-gesamtausgabe.de/1.0.0/swagger.yaml",
+    "hash": "0abcc07a692402ae6c1ab3da1456dc42274c1f983c78623d73b2cd7bb46e64f8",
+    "reportId": "3755fb52-d822-4de6-8a02-b3e7e03075a3",
+    "score": 61
+  },
+  {
+    "file": "APIs/wealthreader.com/1.0.0/openapi.yaml",
+    "hash": "0638e61f34ca9d305400bd9b5c76c5a234f28772c03453e19416d318d52f10e1",
+    "reportId": "b8148eed-ae12-4e65-89f0-c8a78c240e97",
+    "score": 64
+  },
+  {
+    "file": "APIs/waterlinked.com/1.0.0/swagger.yaml",
+    "hash": "978767a9d2c38676b6fdb387d129caca3392903383f88812304831c86f3c95a9",
+    "reportId": "48055967-4ae3-4628-a061-871dd8297a1a",
+    "score": 63
+  },
+  {
+    "file": "APIs/voodoomfg.com/2.0.0/swagger.yaml",
+    "hash": "4dfe87919daf3586317c57b4f08f7e9ebfa078e71f2273c3d4a348100fcb50fa",
+    "reportId": "1a3b5f8e-48cc-479c-910e-ab4fb02bcc8d",
+    "score": 57
+  },
+  {
+    "file": "APIs/watchful.li/1.0.0/swagger.yaml",
+    "hash": "cb9c775fbb4428546714b420ff67b88ac3f5ab175c254a535e592394a3547188",
+    "reportId": "0dd42c6b-bba3-43fb-b4be-4d3607cf2465",
+    "score": 70
+  },
+  {
+    "file": "APIs/vocadb.net/1.0/openapi.yaml",
+    "hash": "e21ba29d1f0622ab55e308a4d368df8c31003bb1e3eda669f00dae989dd3ec7c",
+    "reportId": "e8dfbe1b-92a7-4aca-a5e2-06b1c2ad9829",
+    "score": 33
+  },
+  {
+    "file": "APIs/visualstudio.com/v1/openapi.yaml",
+    "hash": "a0bd29a9ae19cb1b39aeef5a51b1bfc3e13362235eb5d829795ba42552a42651",
+    "reportId": "3530a17f-d97d-4ddf-8c1e-7af5dd80d523",
+    "score": 47
+  },
+  {
+    "file": "APIs/visma.net/1.0.14.784/openapi.yaml",
+    "hash": "f038bfdb3d3443ee04ddbfe8a6b7474b200da84925a9a2468e5b1a85a02a63bb",
+    "reportId": "f9f4f66d-ced4-4af3-a025-a2db7c7b42f7",
+    "score": 71
+  },
+  {
+    "file": "APIs/visma.net/9.66.02.1023/openapi.yaml",
+    "hash": "d9eabd1170373b7ffb4b3b4178863f19928aad5cc9869de162898924668cc9bc",
+    "reportId": "5b1b6764-cf0f-488b-9d37-46eb0725fb03",
+    "score": 60
+  },
+  {
+    "file": "APIs/visiblethread.com/1.0/swagger.yaml",
+    "hash": "d46aa45b96982a98c61dbc078828da950bc4adc494a7b2e3dafe7eeeeb67e0c1",
+    "reportId": "e887c60c-98cd-479e-93a7-a8ef41a41733",
+    "score": 66
+  },
+  {
+    "file": "APIs/victorops.com/0.0.3/swagger.yaml",
+    "hash": "99c4e1026f1fd0ef8b533627c7283e9ea840850bdd954b806e8cf1d6616ccfce",
+    "reportId": "b3e616d2-bed8-4407-9299-e2b369c53f7c",
+    "score": 73
+  },
+  {
+    "file": "APIs/visagecloud.com/1.1/swagger.yaml",
+    "hash": "a6e15cfe5820969de1d4764d880e86a6c15ec1bef38de6c636bad4eb1cb14eb2",
+    "reportId": "9b61f125-387c-4494-b6e5-5be7bb1b8ed8",
+    "score": 70
+  },
+  {
+    "file": "APIs/visma.com/1.0/openapi.yaml",
+    "hash": "36f29698fa3ca6982cf05a978088c9a84b447b92977840187ca96771afc1ff2c",
+    "reportId": "20eade62-ba87-4f6e-89b1-10973dc0758e",
+    "score": 59
+  },
+  {
+    "file": "APIs/viator.com/1.0.0/openapi.yaml",
+    "hash": "d6a83d78bde34cda3166cc2aafc3af394fd5e3afe4c74366fa8d561534aaec89",
+    "reportId": "6d1426da-2535-4556-8386-a02634ffa15f",
+    "score": 84
+  },
+  {
+    "file": "APIs/vimeo.com/3.4/openapi.yaml",
+    "hash": "3c3376025d9f36348ba64a2c50c4326fe864a72880451b2eccf2eab986cf9c58",
+    "reportId": "694b8b6d-0080-4c2d-b80d-8eaa5ef4add8",
+    "score": 70
+  },
+  {
+    "file": "APIs/vercel.com/0.0.1/openapi.yaml",
+    "hash": "65e9c34eefc5925ec44f6a375912deabcd7354f9e15d1af94533cf98b7bb2b48",
+    "reportId": "d071f73e-694d-41a9-91f0-094215893e4d",
+    "score": 64
+  },
+  {
+    "file": "APIs/useapi.net/1.0/openapi.yaml",
+    "hash": "5c09cb78535b2a783bc69a0d3a22d936a46f855f0213ba5625410a5851f146cb",
+    "reportId": "a7cb7463-fd66-485d-b71b-465760f97d63",
+    "score": 62
+  },
+  {
+    "file": "APIs/urlbox.io/v1/openapi.yaml",
+    "hash": "803c92283eeb122de18f87dd8b390c933c4fb4f94da78ea8e5c16e12517bd8ba",
+    "reportId": "71427414-9a33-4130-95bb-c050dc91d11c",
+    "score": 77
+  },
+  {
+    "file": "APIs/versioneye.com/v1/openapi.yaml",
+    "hash": "cb3fbea99de88392211f3c9ed64832414f4644db4203349cf8dee5c1c1e29aad",
+    "reportId": "29d742aa-de68-428a-94ee-fcd264ab6a54",
+    "score": 38
+  },
+  {
+    "file": "APIs/vatapi.com/1/swagger.yaml",
+    "hash": "be7562f8f98316cff4bc2e432ddd7d968a629b1c1e3b0d3224f6177c883a3f1f",
+    "reportId": "3b7237cb-3c60-4e92-adcb-557feee97eea",
+    "score": 72
+  },
+  {
+    "file": "APIs/vectara.io/1.0.0/openapi.yaml",
+    "hash": "7cf4bd6975e4d55359c224697613cf34500404693199e242cbeedce3421ee661",
+    "reportId": "131d69c0-b61b-400f-be65-132bf8220564",
+    "score": 77
+  },
+  {
+    "file": "APIs/up.com.au/v1/openapi.yaml",
+    "hash": "d6d647033b401a43b8f3715e6a21d412b99466a5ab9bb6676e3595fe1291f165",
+    "reportId": "0d0e4200-d285-4002-ad9f-0535417b976a",
+    "score": 71
+  },
+  {
+    "file": "APIs/uscann.net/1.0/swagger.yaml",
+    "hash": "232f738aa56285010488d1d54d4f1cad0b63af996fc6cc3c09d4a92102d588d8",
+    "reportId": "c3c3d173-d7bd-4bc0-bf9d-47c5a25fc6ad",
+    "score": 71
+  },
+  {
+    "file": "APIs/vestorly.com/1.0.0/swagger.yaml",
+    "hash": "b2f72cd530dab0fefaefcc198c2994c2d59bcd3d145e7390c519624e28c68ee5",
+    "reportId": "2456f844-cb35-4166-a8c3-007e0e24f917",
+    "score": 59
+  },
+  {
+    "file": "APIs/velopayments.com/2.35.57/openapi.yaml",
+    "hash": "a2b5868353e77c96386a5be3d948a575e318a2d9e48dbf8b016e4664eefed133",
+    "reportId": "0678d021-ce68-43b2-8e66-94a50f1a81ae",
+    "score": 82
+  },
+  {
+    "file": "APIs/unicourt.com/1.0.0/openapi.yaml",
+    "hash": "d8d536ea8daca766a98ec0db6599041cfdcc449b71f689df9046b88b9796a79d",
+    "reportId": "a18fe2bb-dd5a-49c2-8cb0-1400cfc014ce",
+    "score": 81
+  },
+  {
+    "file": "APIs/tyk.com/1.9/swagger.yaml",
+    "hash": "8dd340666b52222f0557eb4d2f3d87dd761668300e1afb6a16cdd0cfd9fd9b2e",
+    "reportId": "fa0cd540-d77a-4803-89dc-08b4cfad5fec",
+    "score": 47
+  },
+  {
+    "file": "APIs/tvmaze.com/1.0/openapi.yaml",
+    "hash": "d74e37b951a03b17ccd271777c0083053992f91b9c58e8681a51ca88af4eab62",
+    "reportId": "feabbbee-3f1b-46ec-a492-550a361332f5",
+    "score": 50
+  },
+  {
+    "file": "APIs/uebermaps.com/2.0/swagger.yaml",
+    "hash": "f96e7d42dd30fec64bac8a0fcca799b382083ef30f0aa74508ea44db067c208e",
+    "reportId": "26aa7629-bbfd-410b-9270-e25226dbfe35",
+    "score": 52
+  },
+  {
+    "file": "APIs/tsapi.net/v1/openapi.yaml",
+    "hash": "8a4631b3cf1dd5ada913c9782232c433ba404721411969a4c3941e83d41974db",
+    "reportId": "40f34d94-8e49-477c-8c55-d5a95bd82256",
+    "score": 39
+  },
+  {
+    "file": "APIs/truanon.com/1.0.0/openapi.yaml",
+    "hash": "db1c35de4d2863ace3008140468e4217862dca07be316c5ddeca9365547a8748",
+    "reportId": "498f68b2-9c59-4da6-b223-8ef6242d6624",
+    "score": 72
+  },
+  {
+    "file": "APIs/twinehealth.com/v7.78.1/openapi.yaml",
+    "hash": "b33ee59510fbf5a4d9532b6095807d3e2ddd43d41ad1dbdea378fd14d9175bdb",
+    "reportId": "f9579d1d-74dd-4342-9a84-6e0178057644",
+    "score": 80
+  },
+  {
+    "file": "APIs/truesight.local/11.1.00/openapi.yaml",
+    "hash": "8d81e4d29af488c20f42f068ed2d28bf4899d7c017eb54b748c0c0bfa8d4c026",
+    "reportId": "f586f24e-2ea2-40ce-8aac-334b23d6a057",
+    "score": 79
+  },
+  {
+    "file": "APIs/truora.com/1.0.0/openapi.yaml",
+    "hash": "64e88d40935662b5a72b72041bfcfbc2e5d45ec7bb94f1feaee7ba603a345229",
+    "reportId": "fa61be55-1494-43d5-8d43-a8f920329f1b",
+    "score": 79
+  },
+  {
+    "file": "APIs/turbinelabs.io/1.0/swagger.yaml",
+    "hash": "9ca127c0ad2c2be068736bd93781ad0f87aea2be21000bd69b027d2d0f77d2f8",
+    "reportId": "daf2c296-889f-4042-8256-f05936888591",
+    "score": 66
+  },
+  {
+    "file": "APIs/trapstreet.com/1.0.0/openapi.yaml",
+    "hash": "8b0ff33cf0a1033eca7211a6ae6a4e142014383dee9169289553a0aaa93b1488",
+    "reportId": "7fe963c7-281a-4829-b8b8-90df6face166",
+    "score": 38
+  },
+  {
+    "file": "APIs/trello.com/1.0/openapi.yaml",
+    "hash": "d563070894491a9c2da6563cda530d3dd9ad11627ef477aed1dbe6d29997047e",
+    "reportId": "e19f164f-298c-4e7d-aa38-824e97361c00",
+    "score": 71
+  },
+  {
+    "file": "APIs/trashnothing.com/1.3/openapi.yaml",
+    "hash": "727ec3dc7b8c1c96725e452e704ec794a549d67a92c226b42d00a5c400bab286",
+    "reportId": "3ef0959c-ce8d-4c24-b8e2-65c9db04406d",
+    "score": 71
+  },
+  {
+    "file": "APIs/transitfeeds.com/1.0.0/swagger.yaml",
+    "hash": "9468ba60768d9814d7f8f4cfaf6fc98ae7ad507b86d7736192bf964144628a2c",
+    "reportId": "dd9acb1a-8dac-4b66-90cc-81fc94c6c767",
+    "score": 70
+  },
+  {
+    "file": "APIs/transavia.com/1.0/swagger.yaml",
+    "hash": "cf8239199b338b98d2bd36174f79fcd81eca5e7579f271171b36b05576d1488b",
+    "reportId": "1272ff73-2df9-4dd3-a818-0a9784c51fe2",
+    "score": 76
+  },
+  {
+    "file": "APIs/tradematic.com/1.0.2/swagger.yaml",
+    "hash": "6509f8f98cd4cbae00ad792be1fb3aab92f057d63671006862c7cbb1473526fe",
+    "reportId": "9ada1778-bf7f-4682-95c7-8b1643c22f37",
+    "score": 66
+  },
+  {
+    "file": "APIs/trakt.tv/1.0.0/openapi.yaml",
+    "hash": "f2eefef6e418561b7f73116823321c84a600eb986903d3946c6cb87916c516d7",
+    "reportId": "204581fd-c11a-4966-8913-7a9be97e13ca",
+    "score": 67
+  },
+  {
+    "file": "APIs/traccar.org/5.6/openapi.yaml",
+    "hash": "99a0bcb4ebd610f5e27c9f83392558ef6d9247a69a0906025863a971efcd7791",
+    "reportId": "03516c20-07a8-4d14-ae8a-dc6d6918a101",
+    "score": 63
+  },
+  {
+    "file": "APIs/tinyuid.com/1.0.0/swagger.yaml",
+    "hash": "648e3eca7e8b1837c12fe44040ac708f6aad60b941577b0786e244b8d9ed5b9f",
+    "reportId": "e711b0e2-ffe3-4c76-bf0a-6b336931df91",
+    "score": 50
+  },
+  {
+    "file": "APIs/tokenmetrics.com/1.0.0/openapi.yaml",
+    "hash": "f69903d239d15ce61dc8b427e78e7bd20469fc6aaca2e8dbe6ee3c9ba1a0bafd",
+    "reportId": "c4bcddcc-162b-4382-bb2f-6d3f7e6f9425",
+    "score": 63
+  },
+  {
+    "file": "APIs/tisane.ai/1.0.0/openapi.yaml",
+    "hash": "9c579e689e03168aa0704ece30c6ed6be042af89fb5e4c3e5189b86bbf4fefdd",
+    "reportId": "d7271776-bd6f-439b-a8fb-6d7b3611e853",
+    "score": 77
+  },
+  {
+    "file": "APIs/tokenjay.app/1.0.0/openapi.yaml",
+    "hash": "5ea68d196b94541da0d448cd01452e747862d05f0f831eedb012257b02b531b5",
+    "reportId": "fb698a69-86f1-4271-8df6-8d0d9798278f",
+    "score": 60
+  },
+  {
+    "file": "APIs/tl-api.azurewebsites.net/2020-08-10_6-22/openapi.yaml",
+    "hash": "d251e4139b6ed82ba45becb558b9fce9603a8cd90081efa03a380ea9b25bfe52",
+    "reportId": "338b8928-4394-413d-aebd-122115957ffd",
+    "score": 66
+  },
+  {
+    "file": "APIs/thenounproject.com/1.0.0/swagger.yaml",
+    "hash": "ea185c11abae576c4660620f22b857caea20f68e29e3c7127bbb6bf25c37f473",
+    "reportId": "a970cab6-e72a-4cf4-b326-7d60e1e7ccd7",
+    "score": 72
+  },
+  {
+    "file": "APIs/thesmsworks.co.uk/1.8.0/swagger.yaml",
+    "hash": "fddd1b714e4f743968ca8ab9ba109487a0d1dad793cf409c822d294b121697f0",
+    "reportId": "0a2a6e54-1fc0-4015-8364-7b0ac5cea5a3",
+    "score": 46
+  },
+  {
+    "file": "APIs/text2data.org/v3.4/swagger.yaml",
+    "hash": "44bc7dbca217ee132b341df4c0e2db2f78960b6d55c7bb5f3f172f6ed2560795",
+    "reportId": "07807e33-362a-4393-9f44-121d4759def9",
+    "score": 60
+  },
+  {
+    "file": "APIs/theracingapi.com/1.0.0/openapi.yaml",
+    "hash": "24e03db214637a49a0dbc4adba80818eeedd79442ea5b57f5893f49b77ac27c6",
+    "reportId": "9716cb31-252f-4540-9798-45fac021dc4a",
+    "score": 63
+  },
+  {
+    "file": "APIs/thebluealliance.com/3.8.2/openapi.yaml",
+    "hash": "79af868df416fb1454d288d85fb41d3941a5ee8338b1532218e29e9f3b59ba6d",
+    "reportId": "2b8dbd2e-dca8-4357-9f5e-ee0e9cad4209",
+    "score": 75
+  },
+  {
+    "file": "APIs/threatjammer.com/1.2.27/openapi.yaml",
+    "hash": "7f0528b8c16528361aa8ecc2729be684a71cbe37b93da383a94b88ee1c34532a",
+    "reportId": "156f56e6-b5bc-494e-8756-66ca53e85334",
+    "score": 58
+  },
+  {
+    "file": "APIs/thetvdb.com/3.0.0/swagger.yaml",
+    "hash": "d17584e8d34b99f20131c9fca3e58cc77fd6addfd48e65f90debe2b8cc9d0c19",
+    "reportId": "a7b2c62f-5a7d-4f6a-ad60-e92c01c413cd",
+    "score": 59
+  },
+  {
+    "file": "APIs/tfl.gov.uk/v1/openapi.yaml",
+    "hash": "b364a37acb82eef7534168f97da6e81a6a871ccb5963705cd08c8923645a5895",
+    "reportId": "4e7f6b4c-db6c-4ef2-8a7b-61015dd8913d",
+    "score": 54
+  },
+  {
+    "file": "APIs/telstra.com/3.x/openapi.yaml",
+    "hash": "b5ed5b32857576d310e4c8857c1f1ece35445f3fa2342451b2f93b73ea9283d6",
+    "reportId": "59b8881e-3a32-464c-b334-15bf5ccac1bd",
+    "score": 86
+  },
+  {
+    "file": "APIs/telematicssdk.com/1.0.0/openapi.yaml",
+    "hash": "1dc088c3c82b79ef5744fefbf60ce26ad9d3aca78ae403f844c2d360409ba466",
+    "reportId": "01f3338b-de01-4fc0-88d4-44231d476b9b",
+    "score": 68
+  },
+  {
+    "file": "APIs/tcgdex.net/2.0.0/openapi.yaml",
+    "hash": "3a94bc6783eb72bcf79d6601efe4712acd270187d6a2f67fc047e27b51731763",
+    "reportId": "cb6e7fca-83d9-4697-9ce8-8e1ab2050019",
+    "score": 51
+  },
+  {
+    "file": "APIs/telnyx.com/2.0.0/openapi.yaml",
+    "hash": "32bcade2361d93161327af6c12bf0ac615668e652eb0a9b12cf6b20fcaa8689c",
+    "reportId": "3fb1872d-2d0e-41ef-8f28-d04f1e3f0ac1",
+    "score": 81
+  },
+  {
+    "file": "APIs/telegram.org/5.0.0/openapi.yaml",
+    "hash": "956b48ef6f9fff1f937fd4fd7bde345b4f09a1663023542919298f661c28aa8d",
+    "reportId": "849035d9-29e4-466e-a16e-95195ef93aa8",
+    "score": 50
+  },
+  {
+    "file": "APIs/taxrates.io/1.0.0/openapi.yaml",
+    "hash": "18bfe3037488b43290d715fe47b3208c1738274f8b33ea20056cec9e05b6b7b0",
+    "reportId": "b3dc5034-7702-4abf-8ac2-5d14e1c3d323",
+    "score": 79
+  },
+  {
+    "file": "APIs/tafqit.herokuapp.com/v1/openapi.yaml",
+    "hash": "59f5f60dfc50cc9c59d8543a90a03715719dd69b7a49f5e5f8a90740d1a23ccb",
+    "reportId": "60ebbea1-2d09-43b6-a92b-63c956818210",
+    "score": 64
+  },
+  {
+    "file": "APIs/surevoip.co.uk/9dcb0dc8/openapi.yaml",
+    "hash": "3663cf8a1d4fd9e4a872e384019e1c39db5d8148ae31405e87289d1a19c06b70",
+    "reportId": "15384625-b11b-46c0-8e6b-a0d5bd232cdd",
+    "score": 68
+  },
+  {
+    "file": "APIs/swaggerhub.com/1.0.66/swagger.yaml",
+    "hash": "49e5f754a1a0aceac1a30ec76dd6b1e64f34f750764e48b391af7c31497b2967",
+    "reportId": "2f6eb0d7-ac3f-43d3-bc16-92d832595391",
+    "score": 71
+  },
+  {
+    "file": "APIs/symanto.net/1.0/openapi.yaml",
+    "hash": "842e4d345fe40755f15cac80ad3958c56d2c166852cb0bc6c577140323b5111e",
+    "reportId": "5a6560da-1f4f-4514-a5a2-1df3a30e7223",
+    "score": 66
+  },
+  {
+    "file": "APIs/svix.com/1.4/openapi.yaml",
+    "hash": "e26d1f4cacebe41f895ea2254dd06f548ce6cf2902b2d51caa3a38780986ad43",
+    "reportId": "760e1c08-3664-43b8-880f-5d460ad65319",
+    "score": 69
+  },
+  {
+    "file": "APIs/taggun.io/1.15.0/swagger.yaml",
+    "hash": "4871d66c73f85f0e3f1dca6934672ba37a58dc769f7f69bd6941ee6bd0b72ae1",
+    "reportId": "7ef179d8-4069-49fd-b832-dc798b03352b",
+    "score": 52
+  },
+  {
+    "file": "APIs/stripe.com/2022-11-15/openapi.yaml",
+    "hash": "fba83fd7ff9ce87eafa0fbbc15c382b176dac204ca21b72df1a8c361441d9ecf",
+    "reportId": "a9ed458c-7860-4eda-9a52-df0f3178ce95",
+    "score": 64
+  },
+  {
+    "file": "APIs/stream-io-api.com/v80.2.0/openapi.yaml",
+    "hash": "54c5ea5b50cd9950e9373b769843137e51b7f33bb29ecfc80582be4825671d37",
+    "reportId": "0f7512c5-fa6e-4b99-8512-c442385516fa",
+    "score": 67
+  },
+  {
+    "file": "APIs/stormglass.io/1.0.1/swagger.yaml",
+    "hash": "6fa31d392ad611ed5bc8c45d0f7529a2df73278beaa9cde047e3a6bd46bf2a00",
+    "reportId": "102812ac-7d99-4c9c-a791-216ff72096fd",
+    "score": 74
+  },
+  {
+    "file": "APIs/stellastra.com/1.0/openapi.yaml",
+    "hash": "8662af0cdd6ae1110dc246ae57fb81c7584a2efd4bf9f03d5ca14a45dc46f690",
+    "reportId": "4e10fcec-6add-44c3-9eac-ef39cc8d60c0",
+    "score": 39
+  },
+  {
+    "file": "APIs/stoplight.io/api-v1/openapi.yaml",
+    "hash": "37c46f457b3b19183b7192bfbe63d3d21fc4da55539e50c1285e775e12144c6c",
+    "reportId": "5383bf80-3783-4445-ab8d-8946ca818ec4",
+    "score": 63
+  },
+  {
+    "file": "APIs/storecove.com/2.0.1/openapi.yaml",
+    "hash": "3155c65971a8e4652a408e0bc4dfb937b395f490e738635dbbaba0671e1165b0",
+    "reportId": "41710d92-c9f4-4484-b178-289a0792bace",
+    "score": 84
+  },
+  {
+    "file": "APIs/statsocial.com/1.0.0/openapi.yaml",
+    "hash": "c3b224437092e09cbca32b29d2b87e97952f865eef91a5b9a5ca7c8d71747af8",
+    "reportId": "d67fbb40-fdb7-4934-ba60-370154eff723",
+    "score": 67
+  },
+  {
+    "file": "APIs/synq.fm/1.9.1/swagger.yaml",
+    "hash": "61685e082be3be6d769f1b68c8615dbdf8c793f08131728b144b3e59f9c30d3f",
+    "reportId": "46ba9041-ea8a-42bc-a9c3-b1c05e8c2e86",
+    "score": 63
+  },
+  {
+    "file": "APIs/taxamo.com/1/swagger.yaml",
+    "hash": "bdd24229f5ba8f36acd3df803109b5ae157802d81d69f2951faa200831d7d771",
+    "reportId": "4bfa75c2-8d5b-4bfa-b981-401b9f2460ba",
+    "score": 70
+  },
+  {
+    "file": "APIs/spotify.com/1.0.0/openapi.yaml",
+    "hash": "4edb1dbfc6a5fec53e52d738561c56817b9a66f5c171dc236222a0bb43142b83",
+    "reportId": "8f79e075-3477-4b4a-9f7b-50c0006f205d",
+    "score": 72
+  },
+  {
+    "file": "APIs/staging-ecotaco.com/1.0.0/openapi.yaml",
+    "hash": "4f369dc5548930a4961006aaa399e94538e3e74bff4200d7687ed40aead78aaf",
+    "reportId": "79ec2f9b-7e24-4b23-ace4-417366371bb1",
+    "score": 63
+  },
+  {
+    "file": "APIs/stackexchange.com/2.0/openapi.yaml",
+    "hash": "cab7d6b6379f982ed0e3b0102b1a91c33ea74073f9697f8c9daaa8eba65a916c",
+    "reportId": "9e039833-8efe-4907-8b6a-c8bb1b2c9db0",
+    "score": 61
+  },
+  {
+    "file": "APIs/spinitron.com/1.0.0/openapi.yaml",
+    "hash": "9c1a3b4863b64a26fb02c0b88d82a61f5bfa47ed19bf3458d497b670940709bc",
+    "reportId": "4aef0ea8-0ef7-4d06-933a-31a98825f6d0",
+    "score": 67
+  },
+  {
+    "file": "APIs/squareup.com/2.0/openapi.yaml",
+    "hash": "3e820f5ce38aae3ea91999433f5b4798512e0170128bc4bea85dfccab492db01",
+    "reportId": "c232520e-88be-4f72-b5df-0ed4ebd82d17",
+    "score": 67
+  },
+  {
+    "file": "APIs/spoonacular.com/1.1/openapi.yaml",
+    "hash": "bd2f8b16a625e78d99cf71bdcd5531537050b58973950d96ff5865f257297764",
+    "reportId": "bc79a768-6180-46cb-8cab-ffe595481e59",
+    "score": 85
+  },
+  {
+    "file": "APIs/sonar.trading/1.0/swagger.yaml",
+    "hash": "711a6254f039c95dd4da53074ad9bd870c0b34d02abcccea040f564e5a9b306c",
+    "reportId": "f8f3d15c-7e1a-46b5-8d5a-e4f98507dfc8",
+    "score": 44
+  },
+  {
+    "file": "APIs/spectrocoin.com/1.0.0/swagger.yaml",
+    "hash": "856f3c4827fa1bfc6ae05357137d86f79d6cf11627c0c9f92889686960ea8d23",
+    "reportId": "47808334-8a9d-4097-abf3-4d182ef53a13",
+    "score": 67
+  },
+  {
+    "file": "APIs/snyk.io/1.0.0/openapi.yaml",
+    "hash": "d23d5df216b90cd0614acbceffebb971d119720fad018ba152e703e127578f79",
+    "reportId": "d384ffd5-b337-42d1-9740-96b434b28741",
+    "score": 63
+  },
+  {
+    "file": "APIs/spacetraders.io/2.0.0/openapi.yaml",
+    "hash": "edf1be77b9fe7fbf0fea27d7a57f47efc4a02b6ac59c90c48aa6a49a1513be32",
+    "reportId": "d94a3696-6370-470f-a963-ff47740a390d",
+    "score": 77
+  },
+  {
+    "file": "APIs/spinbot.net/1.0/swagger.yaml",
+    "hash": "5549165e4dde0b49c57bdab9c7d0cfe1368170481ca90709d285646eeac96a6a",
+    "reportId": "6a6f3553-cf39-4d60-8195-220edb1755b0",
+    "score": 68
+  },
+  {
+    "file": "APIs/soundcloud.com/1.0.0/openapi.yaml",
+    "hash": "c8d58d233020f749a3691b8d2b4ce6ca6d25e23ce37dfa8cc0ce527b3bcd2bbc",
+    "reportId": "cdc0cc97-491b-421c-baa9-90c5238ab1a2",
+    "score": 64
+  },
+  {
+    "file": "APIs/solarvps.com/1.0.0/swagger.yaml",
+    "hash": "f48c8cb8de1668fc655395c807c34a1f8e5a194c7c5d0f1d3f6ad1ce9116b3f2",
+    "reportId": "ad47a3b0-242f-4be6-91cc-a6abb2824db9",
+    "score": 63
+  },
+  {
+    "file": "APIs/sms77.io/1.0.0/openapi.yaml",
+    "hash": "d2d47416fa5c43148f125d6d9b0cd923ac97586c71c3a2f4a3cd8ecf5ee13bd0",
+    "reportId": "55edd406-6b37-43cb-bf35-f71cab933080",
+    "score": 65
+  },
+  {
+    "file": "APIs/slmonitor.com/2.1/openapi.yaml",
+    "hash": "0638fa83e6049c14a94f8d0ac78c3513436c0ad48b1804d5643ed8e21dea5007",
+    "reportId": "a8bdd6e8-c620-4042-a7fd-74444077990a",
+    "score": 66
+  },
+  {
+    "file": "APIs/smart-me.com/v1/openapi.yaml",
+    "hash": "0c48769bb41d5b0b52ceb3f9921a24e9bad79d1ca5d35c1bcef7fd9cfbed92f1",
+    "reportId": "42c0e880-0924-4fa1-957d-55e2a645f89b",
+    "score": 58
+  },
+  {
+    "file": "APIs/slicebox.local/2.0/swagger.yaml",
+    "hash": "6cb48d94bc3ee5319e6db0c25b57368547477e7f3dad408d9c7db1dad9ed45da",
+    "reportId": "6766dc69-f8eb-46f8-a385-3d22b9888f7f",
+    "score": 56
+  },
+  {
+    "file": "APIs/simplyrets.com/1.0.0/swagger.yaml",
+    "hash": "cabc7e755185ccd752d431a8496af85ea6abb7d9eb0f7aa8d8f27a36956a6388",
+    "reportId": "16c721c3-8524-4f56-96c4-24fb101ffcd4",
+    "score": 63
+  },
+  {
+    "file": "APIs/skynewz-api-fortnite.herokuapp.com/3.1.5/swagger.yaml",
+    "hash": "451b121186ac9a2232ea9dd5261d19a2bce4cee91296c5f33e72362772222597",
+    "reportId": "cd87cfa8-ab44-4125-9486-82e29d1ed050",
+    "score": 55
+  },
+  {
+    "file": "APIs/slideroom.com/v2/swagger.yaml",
+    "hash": "f48de352b38f1ded0195f628117cfb3fe7c1d580b5d48fca9ac8f3219ce4e767",
+    "reportId": "62644c74-8fa8-465a-9020-4eaca1bb8777",
+    "score": 59
+  },
+  {
+    "file": "APIs/simplivpn.net/1.0/openapi.yaml",
+    "hash": "5c7364a037ca7df4cfb6d32a57b20e64ce5272c9e917ae55cc911cbae7bbf2ba",
+    "reportId": "e652563d-093b-4a19-836b-3bb68d47b555",
+    "score": 63
+  },
+  {
+    "file": "APIs/slack.com/1.7.0/openapi.yaml",
+    "hash": "01c97099c4eb149567d42eb870cb2e0b89e68dabf8bc8ad46f02f448351a5387",
+    "reportId": "a0c06b95-ccdc-4f84-8c01-cc0b28ca745c",
+    "score": 57
+  },
+  {
+    "file": "APIs/sinao.app/1.1.0/openapi.yaml",
+    "hash": "331129d305926453a776f8eb2b181fa2720a67583a516abffd350f9b0acd623c",
+    "reportId": "66a90277-03f0-4665-815d-fd9ac121e9c8",
+    "score": 60
+  },
+  {
+    "file": "APIs/shop.app/v1/openapi.yaml",
+    "hash": "1a5c1f85369e8c8c85fb73fced5e95fdce621b91c972064dd79d863819babf07",
+    "reportId": "33c3e56d-0b8d-481b-b4cb-dd7fc5af5d67",
+    "score": 64
+  },
+  {
+    "file": "APIs/shipstation.com/1.0.0/openapi.yaml",
+    "hash": "49ffeac58e2a122e9021403dd59c7ddcd88f2e43d3c7e478bf8b0f4cc4abc2bc",
+    "reportId": "599feac1-25f3-4783-b2c7-6ba41a12791c",
+    "score": 30
+  },
+  {
+    "file": "APIs/signl4.com/v1/openapi.yaml",
+    "hash": "6e62f95eb00233334cd104134f1005a1c90a9ce902c1a315f6ae74362f745a91",
+    "reportId": "58909a9e-08f3-478c-b56c-6d2b7b79d57c",
+    "score": 70
+  },
+  {
+    "file": "APIs/shutterstock.com/1.1.32/openapi.yaml",
+    "hash": "5e69bb331ede4cf9117a54d68a158576691048eb88f0507d3a50b4aab3386592",
+    "reportId": "17b58014-681b-4d57-a502-d6d83f78ee5b",
+    "score": 68
+  },
+  {
+    "file": "APIs/shotstack.io/v1/openapi.yaml",
+    "hash": "766863896024cfe65c662aa1f2c5b566959e298bb5297e3f22e596448cc1487e",
+    "reportId": "76c8f1bd-bc4e-4df7-bb6f-0b3a13860e84",
+    "score": 67
+  },
+  {
+    "file": "APIs/setlist.fm/1.0/swagger.yaml",
+    "hash": "e434caa98fc5353579f23c37f4161ee3cd7c27b60d9adace8d06cb9c4a5075fc",
+    "reportId": "7e56ef0f-2623-4480-893b-df2913a298dd",
+    "score": 73
+  },
+  {
+    "file": "APIs/shorten.rest/1.0.0/openapi.yaml",
+    "hash": "9d5e8292a9f8c420069c3090690a97fb038d2c8becdba7596c4dd234b2c82abb",
+    "reportId": "1c51dc2b-a73b-4080-8660-155618791e58",
+    "score": 76
+  },
+  {
+    "file": "APIs/shipengine.com/1.1.202304191404/openapi.yaml",
+    "hash": "0ffbaa8f901705569a79b04b61632db75e7c44afd340df04cc3edf786b413cbe",
+    "reportId": "bb14141a-577f-47fe-a716-1481ea29fe2f",
+    "score": 86
+  },
+  {
+    "file": "APIs/sheerseo.com/0.0.1/swagger.yaml",
+    "hash": "d199eaf8dc209917dcb0a9c715b72a297a24a09f657b84c314c12545c4b308f2",
+    "reportId": "de7ba504-8dd5-437e-8a6c-797c8ee6cd1c",
+    "score": 65
+  },
+  {
+    "file": "APIs/semantria.com/4.0/swagger.yaml",
+    "hash": "255d06eb5c21ebe4a3a7d2afc258b8ea99e4abb740ce41ddee54f86796884357",
+    "reportId": "04dbbde4-6ff1-4451-871d-ab93416403a2",
+    "score": 85
+  },
+  {
+    "file": "APIs/shop-pro.jp/1.0.0/openapi.yaml",
+    "hash": "65f01113ffe814fbe567479b22c9fad10388817818b58295525ddafbb9527028",
+    "reportId": "7eb42ddd-c101-4fa0-b565-81608e9be1c7",
+    "score": 64
+  },
+  {
+    "file": "APIs/selectpdf.com/1.0.0/swagger.yaml",
+    "hash": "c5d5e4c1365d0164201a390ecdb90d2984a26bfc9251bfe3a49b84ede7d99df5",
+    "reportId": "6d8320f1-3575-43dd-b5c7-cdb04af8c81e",
+    "score": 61
+  },
+  {
+    "file": "APIs/scrapewebsite.email/0.1/swagger.yaml",
+    "hash": "13f272b2599a59dd580d131871225910da14dd580adf311ae607c9aec2773cf5",
+    "reportId": "bc370e45-94ac-49aa-8c2d-adec6cf77a8e",
+    "score": 69
+  },
+  {
+    "file": "APIs/schooldigger.com/v2.0/swagger.yaml",
+    "hash": "13dd003288fbdaf0d248b9062285384d4c3641cece580acb8bb7b80f5745f257",
+    "reportId": "e0f5603f-8449-40f6-bc6c-1ec65b4c1515",
+    "score": 59
+  },
+  {
+    "file": "APIs/sendgrid.com/1.0.0/openapi.yaml",
+    "hash": "a3794ef6ff4338a61cb4285a195214b38e7ebe754858ff8830fa63c521f4a2ed",
+    "reportId": "d0faae47-ddfd-4032-8b36-4d82ff8a9b8d",
+    "score": 67
+  },
+  {
+    "file": "APIs/schooldigger.com/v1/swagger.yaml",
+    "hash": "69dd73aa019a2439bf5ff89bcb77ede31de0966955cf733fe17b18285031fac9",
+    "reportId": "09ab823c-d592-4bf1-baa9-434ff15b492c",
+    "score": 61
+  },
+  {
+    "file": "APIs/sakari.io/1.0.1/openapi.yaml",
+    "hash": "652fab48aa9c5b4f019bb4f77bbb74d99a60fdf7b823fe8c5ce637a2b7e71cab",
+    "reportId": "3f1063d0-e8c8-426c-b13a-d941a5653e5c",
+    "score": 72
+  },
+  {
+    "file": "APIs/salesloft.com/v2/openapi.yaml",
+    "hash": "f7c1fa28e23dc3c360146afa6c38b8a735ed62490ffe62bd9e936eec8555637e",
+    "reportId": "0c79dac7-cb41-45f0-8a6f-e4ecee428dcf",
+    "score": 66
+  },
+  {
+    "file": "APIs/runscope.com/1.0.0/swagger.yaml",
+    "hash": "6af5641166882716425507ea13e86fefe2760c8f331ed055349bd5955a7f7f39",
+    "reportId": "931492e0-c721-4de3-aaf8-d93e240a99bf",
+    "score": 51
+  },
+  {
+    "file": "APIs/rumble.run/2.15.0/openapi.yaml",
+    "hash": "f19592f8c97ec102f267f76c3c5a9d9025c1de8ee78b157165cc7243a94be2de",
+    "reportId": "0297b5ca-91e1-42bc-9444-19b75b452a80",
+    "score": 71
+  },
+  {
+    "file": "APIs/rudder.example.local/17/openapi.yaml",
+    "hash": "0440db3db0ca062f0169e020d20be0137b454c1e496bb5d9edf72b04c4e365c8",
+    "reportId": "d36d4fc5-643b-4dca-8ee8-4d58be715dc6",
+    "score": 81
+  },
+  {
+    "file": "APIs/rottentomatoes.com/1.0/swagger.yaml",
+    "hash": "8e9f478244cfd08d9ba56c5d0cafd04859a5b0d84283949e9d6fc85089864b19",
+    "reportId": "6e3e70c1-b899-41b5-b7dc-893e0597ca8f",
+    "score": 65
+  },
+  {
+    "file": "APIs/rubrikinc.github.io/v1/openapi.yaml",
+    "hash": "1e6b586567de6e093930927cd08aadbd18571091ebf97c5be5c23b37130b6196",
+    "reportId": "e5848922-eee2-4982-923e-d0fbbec1348b",
+    "score": 82
+  },
+  {
+    "file": "APIs/ritekit.com/1.0.0/openapi.yaml",
+    "hash": "44fa885fc5add079378f8aab85858f0541c732ecbd8cf6db01a327b40d30bc9c",
+    "reportId": "11b4cf46-89d1-4a8d-9732-49a2cacac29d",
+    "score": 30
+  },
+  {
+    "file": "APIs/ritc.io/1.0.0/swagger.yaml",
+    "hash": "e4972e424eade591e54b333291cd280675f2be7189dd8368be2dad9a97d8f7df",
+    "reportId": "aad8aee8-f2fc-4f5c-ba56-b4052eb36536",
+    "score": 56
+  },
+  {
+    "file": "APIs/roaring.io/1.0/swagger.yaml",
+    "hash": "b31f41fd569ac4b5fe7ef73d6f8c43a9a8fa0c40a872ec1f1ac8883f05b07ecb",
+    "reportId": "84544a83-9313-4443-9f4f-07d62d72dd41",
+    "score": 44
+  },
+  {
+    "file": "APIs/reversepp.com/1.0/swagger.yaml",
+    "hash": "4ac8dc3268bb51b95347e44055e5db0ce64dcf5d33a296d68d2c258e996e3f3c",
+    "reportId": "2a9859d3-cd2a-42b4-95e4-c661a4ee1919",
+    "score": 65
+  },
+  {
+    "file": "APIs/refugerestrooms.org/0.0.1/swagger.yaml",
+    "hash": "03e85f12add1aea7620a94ef7f624701d2e27fcdadc40de886d57876e8940d50",
+    "reportId": "5eebe688-14d5-402c-8e30-d4c05bf77daf",
+    "score": 67
+  },
+  {
+    "file": "APIs/reloadly.com/1.0.0/openapi.yaml",
+    "hash": "2bac0401f50a1f9f0043b196488d8fae2e32d15bf62abd6f2196803f61b60365",
+    "reportId": "87e48fc8-f92d-4d6b-a34f-4544799a3c05",
+    "score": 29
+  },
+  {
+    "file": "APIs/restful4up.local/1.0.0/openapi.yaml",
+    "hash": "9d2c9e4892182adf1df953c15136f910af1f76212099d97e40b6bb6272658533",
+    "reportId": "77c9947f-c6c2-40e1-a873-6d5e003afe8b",
+    "score": 67
+  },
+  {
+    "file": "APIs/rentcast.io/1.0/openapi.yaml",
+    "hash": "e0739d3f6759c4ba9a0666d2ec1d22c31561ac2fcc6c3a3af773ad3af223c278",
+    "reportId": "7215e871-c5cd-4e68-8842-c0112923f8b0",
+    "score": 74
+  },
+  {
+    "file": "APIs/remove.bg/1.0.0/openapi.yaml",
+    "hash": "2a7a0955711fe5d5f443cb114a784472547685c21ee4890f8cc1ea6449e8810b",
+    "reportId": "7782b4c8-a8da-410e-b01f-5a4786e0dda0",
+    "score": 58
+  },
+  {
+    "file": "APIs/rev.ai/v1/openapi.yaml",
+    "hash": "81ef47e1cb0bb5045b7aab76d6edee3746fabc6e1a67d62ad5ea13eabd85431f",
+    "reportId": "98f0a26c-8c57-4f70-aadd-94d960d0d5c9",
+    "score": 76
+  },
+  {
+    "file": "APIs/redirection.io/1.1.0/swagger.yaml",
+    "hash": "89d82e19bc03612983e9918c9da56d07262c86848582a139f949558d1b4abb91",
+    "reportId": "0ca04b6d-a1c8-4bb8-a7ac-ef2eda6856a2",
+    "score": 60
+  },
+  {
+    "file": "APIs/reverb.com/3.0/openapi.yaml",
+    "hash": "8b1a6ea18de65a458bb544631a5228c66f9fce58ad3e576886ccda3c0ef51676",
+    "reportId": "118f14fc-46b2-41cb-a738-dc18a468fe1b",
+    "score": 41
+  },
+  {
+    "file": "APIs/regcheck.org.uk/1.0.0/swagger.yaml",
+    "hash": "d1284e49616d179730196a8510e74fe8267c77bccdf362d7eed8151aabc5013e",
+    "reportId": "d0dd2431-3b56-497c-827f-5ae56cd54f9b",
+    "score": 71
+  },
+  {
+    "file": "APIs/rebilly.com/2.1/openapi.yaml",
+    "hash": "c26e9458d8af126719e412ccee6101ab07ffe22f10f4f9cb1128bd34ca1340fe",
+    "reportId": "09d45656-697a-41bd-9dfd-e398f987c588",
+    "score": 88
+  },
+  {
+    "file": "APIs/rawg.io/v1.0/openapi.yaml",
+    "hash": "ae5ed33f52e673b36619df52cf7f6771971eb5fe82ff72733eb564f6d29997ac",
+    "reportId": "38379902-be57-457a-bc8f-7ca906aa72aa",
+    "score": 54
+  },
+  {
+    "file": "APIs/randomlovecraft.com/1.0/openapi.yaml",
+    "hash": "d837c1ee4708b52c693adbf68d45aba3ba29cc283cb8c43edda7aff38f83b83a",
+    "reportId": "5376fc83-6b43-46be-b5b1-323d72bd74d5",
+    "score": 65
+  },
+  {
+    "file": "APIs/rapidapi.com/1.0.0/openapi.yaml",
+    "hash": "d4740359b657c687ff1327b3a109e2a2cfb892af1cd3b6a4f3d74aae7208e568",
+    "reportId": "c155f3f7-887d-48ba-90df-794788fd59a9",
+    "score": 65
+  },
+  {
+    "file": "APIs/readme.io/2.0.0/openapi.yaml",
+    "hash": "ad842e273a12e0fe498cf6ed3cf6f208c2c5e40ac5ca766edab3e2e7901d4306",
+    "reportId": "894de801-5e8a-4dfa-b096-3d0b37b451e0",
+    "score": 66
+  },
+  {
+    "file": "APIs/rbaskets.in/1.0.0/swagger.yaml",
+    "hash": "0211c5e2e158f9a147072dc2f166c655efe66a0c221d78a952af3cdc9b396b79",
+    "reportId": "3840b4f9-091d-4938-a6a1-87856d48af0a",
+    "score": 66
+  },
+  {
+    "file": "APIs/quotes.rest/5.1/openapi.yaml",
+    "hash": "48c20216fc7470e2be1b2b79f7f4f0542c20b98a17f34fb896e105475c49a83c",
+    "reportId": "05bc69ef-a0f9-4681-ab10-1b3a272bf7c3",
+    "score": 60
+  },
+  {
+    "file": "APIs/randommer.io/v1/openapi.yaml",
+    "hash": "d4fb5cd6f74912cccea8be7c8ff221d3f4603fe94f9c571055112a1163d73c95",
+    "reportId": "a81166e1-2b2f-438d-816f-69ff62cc0e3f",
+    "score": 38
+  },
+  {
+    "file": "APIs/quarantine.country/1.0/swagger.yaml",
+    "hash": "b9c151dfc5b6eb315a0bc7d103498f0eca31522c6ce7e2d2d494175fdfc51f5e",
+    "reportId": "f9285bf8-2d81-4419-b8bb-ff15863f9eee",
+    "score": 56
+  },
+  {
+    "file": "APIs/quickchart.io/1.0.0/openapi.yaml",
+    "hash": "7efc2b1af2a26dc8c62f9161fe47c2e217a2b3be9026f4e61f521fb6787d0fc2",
+    "reportId": "e730e365-38ce-41ae-a220-3cd60017e838",
+    "score": 56
+  },
+  {
+    "file": "APIs/qualtrics.com/0.2/openapi.yaml",
+    "hash": "7b9da56420aed101c10d1e866d25495880a522364d4fef2c69bfbac6b3e9a890",
+    "reportId": "8800be47-06a6-4f20-8771-80c162baafb9",
+    "score": 72
+  },
+  {
+    "file": "APIs/qualpay.com/1.7.0/swagger.yaml",
+    "hash": "529a4c72bb5575933a5edf806a387b2f3a4de19b21b72dd296898cfa1b5df787",
+    "reportId": "e469709c-a1c2-422d-881b-7476408afdd7",
+    "score": 84
+  },
+  {
+    "file": "APIs/prss.org/2.0.0/openapi.yaml",
+    "hash": "fc57f3196a35b8e0ee5c089a22692e0eec426b77f926ff894836633b6e2db88b",
+    "reportId": "2f199e0e-7d2c-4cfc-9650-7e46c89ce20d",
+    "score": 53
+  },
+  {
+    "file": "APIs/proxykingdom.com/v1/openapi.yaml",
+    "hash": "eb42c5b07978e2967187e7087b8e0afde1633c1efe86fa5d9964366be8aca642",
+    "reportId": "3c46c195-8ca3-4f30-8111-28652bc3dc5a",
+    "score": 40
+  },
+  {
+    "file": "APIs/ptv.vic.gov.au/v3/openapi.yaml",
+    "hash": "d7d5b0040f37e243a1444b1e969ecba5b36688ad2b38b3c9fc004855fe3d2db9",
+    "reportId": "4733b2a1-74af-4afc-b49f-7db1b52943b9",
+    "score": 59
+  },
+  {
+    "file": "APIs/powerdns.local/0.0.13/swagger.yaml",
+    "hash": "99347fb9a0ba82b4316258051421e73e535419ccb0e4c7e1037b9ab92d2074b1",
+    "reportId": "7e559009-fe8f-4ad4-806f-ae42159635d7",
+    "score": 63
+  },
+  {
+    "file": "APIs/polygon.io/1.0.0/swagger.yaml",
+    "hash": "588a87efdb88730d0bec63a76b8fc54503e54dd05e460a3c30040a1f6490e4d9",
+    "reportId": "d8596589-6b01-4020-9fce-9b41fd4b5a45",
+    "score": 57
+  },
+  {
+    "file": "APIs/pressassociation.io/2.0/openapi.yaml",
+    "hash": "7b8fea0dfab1c965583b73287b710219da8fad976e5727c172a4174342472b6a",
+    "reportId": "c96a7f0d-7124-4b3d-82c3-5a58ea2e072b",
+    "score": 60
+  },
+  {
+    "file": "APIs/probely.com/1.2.0/openapi.yaml",
+    "hash": "43e67b89387389354d9147b0ac84efca541f797f796db45aa4216a8d0c38043a",
+    "reportId": "c70a54e9-852c-4429-b509-ba8a35d91de7",
+    "score": 67
+  },
+  {
+    "file": "APIs/portfoliooptimizer.io/1.0.9/openapi.yaml",
+    "hash": "e124b85626331479ca8658122f558c0062e4507d1eb8c25803b32c06d565dd30",
+    "reportId": "76a0479b-cb61-421b-98fe-dfd590278f71",
+    "score": 60
+  },
+  {
+    "file": "APIs/pocketsmith.com/2.0/openapi.yaml",
+    "hash": "079a04188b98c17b2d65a392ad09ffed160cc89e1861ab2d83af7005318a4948",
+    "reportId": "f9a90f67-d379-4ab3-8684-00ab0c782447",
+    "score": 60
+  },
+  {
+    "file": "APIs/poemist.com/1.0/swagger.yaml",
+    "hash": "f44117eec5b871b075fd5bdd75ae514936e70dbd25a1dd1cf9e41aafae3e3a28",
+    "reportId": "093d581e-e2ce-4297-ad97-990a9a3286c1",
+    "score": 52
+  },
+  {
+    "file": "APIs/pinecone.io/20230406.1/openapi.yaml",
+    "hash": "3c7cb8f66222f49ef0a48ab695e1f89a20ad60f5cd5e045aa2a9d0bd2b439c5a",
+    "reportId": "cb40ec76-93e4-4884-8c17-a24a2e1bcd70",
+    "score": 84
+  },
+  {
+    "file": "APIs/placekit.co/1.0.0/openapi.yaml",
+    "hash": "c2306867ef8b261bd145a4ca36f894245e6fbb1310d331c3701a9f88be2d6811",
+    "reportId": "1449bc5e-1461-46a8-a167-c5f8d896b217",
+    "score": 83
+  },
+  {
+    "file": "APIs/peoplefinderspro.com/1.0.0/openapi.yaml",
+    "hash": "67b4f2badf52cfbc20a4c2fd4136415bf4f8197e3441e371d1b796ce0af9b4ea",
+    "reportId": "c7b77805-dab5-4bbc-a5e1-35dcf4289739",
+    "score": 30
+  },
+  {
+    "file": "APIs/peel-ci.com/1.0.0/swagger.yaml",
+    "hash": "19cadbb3161f389a55d4ccf3e7a544dfa2475643d89d073de0566050c2940e0f",
+    "reportId": "059cbeb2-c589-4be4-bfeb-0f844578f0ea",
+    "score": 71
+  },
+  {
+    "file": "APIs/pims.io/1.0/swagger.yaml",
+    "hash": "344cd7b25755ec3a25b79477276e8664b1d0eb5f39cab11b17594b0106158f2f",
+    "reportId": "552ca98b-8ad5-4e5d-a8f7-b33dd3b97623",
+    "score": 73
+  },
+  {
+    "file": "APIs/pdfgeneratorapi.com/3.1.1/openapi.yaml",
+    "hash": "b8ff208a0fe74819b285b45a6e9d39b8ca2804da8b0f9d3d0d09995479c029cf",
+    "reportId": "6db49b34-0e47-4de4-ba54-1d23eab1badd",
+    "score": 86
+  },
+  {
+    "file": "APIs/plaid.com/2020-09-14_1.345.1/openapi.yaml",
+    "hash": "79291d99cc1de9909805841b30b2795b8c9327563d76b94d37a2df3733176bda",
+    "reportId": "7e6b22be-e557-4ff8-83e7-6fa06cb6104e",
+    "score": 84
+  },
+  {
+    "file": "APIs/peoplegeneratorapi.live/v0/openapi.yaml",
+    "hash": "925978fdbad0d4f5032a9a8bdf0c25f870a09751b0cf29a97b06cea6513e4281",
+    "reportId": "6dba8469-3fac-40b1-9173-7a161888e64e",
+    "score": 48
+  },
+  {
+    "file": "APIs/pendo.io/1.0.0/swagger.yaml",
+    "hash": "a82a5b285bb4a26540edfc1d07adb8648ef8ea1ff7125b1cd7751867c095a361",
+    "reportId": "0fe671f0-0264-400a-bdcf-2d2bd4ceaaa2",
+    "score": 52
+  },
+  {
+    "file": "APIs/phantauth.net/1.0.0/openapi.yaml",
+    "hash": "caef3d40f40fe3bddc22668e0db280696d672329fb484902ae1522689570147d",
+    "reportId": "7cdae5a0-b499-49d8-bbd6-c17f38f37739",
+    "score": 65
+  },
+  {
+    "file": "APIs/pdfbroker.io/v1/openapi.yaml",
+    "hash": "24700e855a12176fe9e752e84918aa36b518e517681be254c3d81524ea83d910",
+    "reportId": "7f59283c-21f9-484e-8f4d-971d14d849c9",
+    "score": 46
+  },
+  {
+    "file": "APIs/pdfblocks.com/1.5.0/openapi.yaml",
+    "hash": "e087bf683827d1338f200cd3679d20228a9a4e42c42548882a6c19edfea26437",
+    "reportId": "e8344f68-b5b3-4445-9b32-b2aa55b556ae",
+    "score": 77
+  },
+  {
+    "file": "APIs/paypi.dev/1.0.0/openapi.yaml",
+    "hash": "d25bab07c9cbbf16d7d63ebaf814ac5f4457fdc6b75c1ad2a8f14ac8cd012580",
+    "reportId": "a546a1ac-f4ee-41e0-b8c3-eca3a5a30113",
+    "score": 42
+  },
+  {
+    "file": "APIs/payrun.io/23.24.2.136/openapi.yaml",
+    "hash": "1c8569b3deac56f41c4897ba7aca8e73341ec92fd8412ffa326376c9173915be",
+    "reportId": "b9cc014d-6a14-40b6-9e2a-25b175357f3b",
+    "score": 77
+  },
+  {
+    "file": "APIs/paylocity.com/2/openapi.yaml",
+    "hash": "e29f87bcff647727502a449a934ff4a493a116f475b0e7901f085307ba66d0f0",
+    "reportId": "90582f5a-35d2-419e-a963-591c994e6a78",
+    "score": 70
+  },
+  {
+    "file": "APIs/patientview.org/1.0/openapi.yaml",
+    "hash": "702af0c0ebccba0533552c6b4baeee6b27307f169912622671178c520f717cce",
+    "reportId": "c2fb199c-3f5e-4995-aaa3-62883c26b838",
+    "score": 79
+  },
+  {
+    "file": "APIs/paccurate.io/0.1.1/swagger.yaml",
+    "hash": "2401a4a5b29abe37e5bd8ba43e39ad6b8a2ef0e5a103120ea176563dab0ac561",
+    "reportId": "cc4ecbbb-2125-4836-b1e7-e7f127c80616",
+    "score": 55
+  },
+  {
+    "file": "APIs/patrowl.local/1.0.0/openapi.yaml",
+    "hash": "8831cd8cbdf7b66a3fe73dad96d40fbd1e146286a793e4b95496049601ad8c88",
+    "reportId": "b7e25b09-541e-475f-a60a-bd56ee5ea6f3",
+    "score": 79
+  },
+  {
+    "file": "APIs/passwordutility.net/v1/swagger.yaml",
+    "hash": "c54d7778e64bb9ed302b104bf02965af6ca6ea4a5fb9c5051046a9fab82c474e",
+    "reportId": "732b1fdd-a0bf-4e71-a9e8-0aecaa9d2d79",
+    "score": 48
+  },
+  {
+    "file": "APIs/pandorabots.com/1.0.0/swagger.yaml",
+    "hash": "e8eeb2a99eead0fdba9fd290b932a8bdcbe9235f05b93090dde7afd222008a1c",
+    "reportId": "7c943441-73f5-4443-8f84-ddd8657200d0",
+    "score": 79
+  },
+  {
+    "file": "APIs/pandascore.co/2.23.1/openapi.yaml",
+    "hash": "c897eef05f5948bf9329516408143580ab063b288c646b86fc5338a29b050d50",
+    "reportId": "aa96d17f-11bd-4588-b737-f37dc56d02f7",
+    "score": 77
+  },
+  {
+    "file": "APIs/oxforddictionaries.com/1.11.0/openapi.yaml",
+    "hash": "f11fc5d1f4984649c60ed4026f6ba7701c36f608c3b64eef085ec4b2c32f252a",
+    "reportId": "5787fcf5-369a-4d5b-92a0-ad2fb4be7b1a",
+    "score": 55
+  },
+  {
+    "file": "APIs/owler.com/1.0.0/swagger.yaml",
+    "hash": "01a6d33cb0bff88e2489153cebf03691d16c657f03332881bf34f110ea160351",
+    "reportId": "0f9809ec-2733-497d-a830-4e1b2f2cdd70",
+    "score": 78
+  },
+  {
+    "file": "APIs/osisoft.com/1.11.1.5383/swagger.yaml",
+    "hash": "0f76f7644ef875bc65899dc03e4a2ba25610ae7dff5c5c7220a275021c297c94",
+    "reportId": "377288ba-43e3-47fd-a6a7-8e019b9d40a0",
+    "score": 58
+  },
+  {
+    "file": "APIs/orbit.love/v1/openapi.yaml",
+    "hash": "2e5c6dce384d979a4fabfc44ef86371849cf63fb1c508f9bc66df98063e07b59",
+    "reportId": "e959432e-798a-438e-a28c-35a87fcb4db0",
+    "score": 54
+  },
+  {
+    "file": "APIs/orthanc-server.com/1.12.0/openapi.yaml",
+    "hash": "30ddd13f304167ba55d01503763db087778df7c781fc8e71c9af94fc4b0531f6",
+    "reportId": "7e7ca7a7-2712-49af-949d-a0e5c742d86a",
+    "score": 53
+  },
+  {
+    "file": "APIs/osf.io/2.0/openapi.yaml",
+    "hash": "cdcf786527cbc25296204b370846686f3e76083f12c7a50e419b19aa53b03e5b",
+    "reportId": "b134258e-8012-4b5b-a10e-582f8cade653",
+    "score": 52
+  },
+  {
+    "file": "APIs/opentrials.local/0.0.1/swagger.yaml",
+    "hash": "012a66caaeb7149c0d3e14610a5da305c78307cd55e5faa79606f96af25b9d76",
+    "reportId": "d6176bab-88da-4217-9e5b-2cbb8220ffd4",
+    "score": 56
+  },
+  {
+    "file": "APIs/openuv.io/v1/openapi.yaml",
+    "hash": "ca8c43b54c2417cbce448e15c961ae3a3087dd8ce6d1b0f073aafe7112a2241f",
+    "reportId": "8331ac21-b07c-4fda-a3db-d6bd5631c6d5",
+    "score": 52
+  },
+  {
+    "file": "APIs/opentargets.io/19.02.1/openapi.yaml",
+    "hash": "6753fc5f43aed4b7b6b28d72185157075c21e983fdae02a4ea36c765681d1876",
+    "reportId": "ee016bb1-5884-43a0-a279-c30b5f881d7a",
+    "score": 78
+  },
+  {
+    "file": "APIs/optimade.local/1.1.0~develop/openapi.yaml",
+    "hash": "4075c2601e27c4e14a0df2b37b061e7ed2f2dec3703c7c9be45b06c8d8af118e",
+    "reportId": "aba835dc-5ac1-4726-a444-6c2c3f664c88",
+    "score": 60
+  },
+  {
+    "file": "APIs/orghunter.com/1.0.0/swagger.yaml",
+    "hash": "7db836d8f055f6ac7b9f376edf90d0645740df13841fe8af4d4e1d91a9ff9023",
+    "reportId": "a1c07ccf-7ddc-49a9-bac6-00fc91486ea3",
+    "score": 69
+  },
+  {
+    "file": "APIs/openfintech.io/2017-08-24/swagger.yaml",
+    "hash": "df9b6d039faea7a9281fdd526c8543b4bafd9d1ddfb90b31ab25f7b12bdab99a",
+    "reportId": "9ca76d12-12ca-4bb7-ad5f-473b83502c14",
+    "score": 63
+  },
+  {
+    "file": "APIs/openfigi.com/1.4.0/openapi.yaml",
+    "hash": "5488d40156db6d0dabcf8ccb3ec394ba53b0832c31164b0120336d22d58cb729",
+    "reportId": "525684ad-fc3b-4e4e-9c34-137d308a4660",
+    "score": 66
+  },
+  {
+    "file": "APIs/openstates.org/2021.11.12/openapi.yaml",
+    "hash": "cb5438e48126b094b76c3fa67d0f7291df7152709b095b63b91967023b6dface",
+    "reportId": "d9a4041c-c02d-4592-9934-0bef62010781",
+    "score": 56
+  },
+  {
+    "file": "APIs/openstf.io/2.3.0/swagger.yaml",
+    "hash": "70bc7dadaca8a40863549200b0df10cca7515c33025084b8da884405c7b5b818",
+    "reportId": "86442c05-4e42-4394-be65-1b0ece1fe3e6",
+    "score": 77
+  },
+  {
+    "file": "APIs/openpolicy.local/0.28.0/openapi.yaml",
+    "hash": "23aedfb9b5dc947e5243f438c1370c9e8708a33f17d1f2ed3e01ab30b99b9d1a",
+    "reportId": "2e2306e7-63dd-48fe-977c-b64c6770c2bb",
+    "score": 82
+  },
+  {
+    "file": "APIs/openindex.ai/1.0.0/openapi.yaml",
+    "hash": "b8500eb83adb5ce2bbd8652acb451d878126f21b05c0ab67aff99df21c52ab90",
+    "reportId": "0ce630e4-319a-46e1-925a-7a4a883b4476",
+    "score": 73
+  },
+  {
+    "file": "APIs/opendatasoft.com/2.1.0/swagger.yaml",
+    "hash": "deaa324504ace6cd408012d96eea620a7158c5f5eae61446048b939c90142576",
+    "reportId": "b2266e10-2c62-4f55-9604-7f91d0bf8027",
+    "score": 66
+  },
+  {
+    "file": "APIs/opendatanetwork.com/1.0.0/openapi.yaml",
+    "hash": "cadaf5e9ea991712398ad3e319f15953c48aaf454e394e12ebefd6db2674848e",
+    "reportId": "f5d13b21-85f1-4451-8716-bf858ca39774",
+    "score": 29
+  },
+  {
+    "file": "APIs/openapi.space/1.0.0/swagger.yaml",
+    "hash": "2bed369db276338b2cf49ddc6cee65448951828fd109f690dba413bb7a7350a9",
+    "reportId": "ea6d7cc2-0959-4899-b608-49611b1a9cc0",
+    "score": 68
+  },
+  {
+    "file": "APIs/opencagedata.com/1/swagger.yaml",
+    "hash": "94f387f40d453cc77fdc8cd1b545f8c511a25e0608bbcf421db808b6f744f7e5",
+    "reportId": "71ac14fd-cea4-422a-9264-7301b78a772f",
+    "score": 56
+  },
+  {
+    "file": "APIs/openaq.local/2.0.0/openapi.yaml",
+    "hash": "468bf5eff16a3ec71979ee470a4e80f233c8f6ce67e93e118457fbe8e8efab91",
+    "reportId": "0bab8cf2-09d9-4b6d-a167-8300e390eac2",
+    "score": 56
+  },
+  {
+    "file": "APIs/openbankingproject.ch/1.3.8_2020-12-14 - Swiss edition 1.3.8.1-CH/openapi.yaml",
+    "hash": "b40c6c190c9a2b6e5b2bfcfd8754056d6882861367df342330921d4e2b5cb5f1",
+    "reportId": "fc09489b-a429-4e1e-bcec-8cc047369397",
+    "score": 100
+  },
+  {
+    "file": "APIs/openapi-generator.tech/6.5.0/openapi.yaml",
+    "hash": "a73298d879ae2d207828fa76c0f29b5620ede274dce11b81fce50954441a063a",
+    "reportId": "3fa48a46-1c37-4fa7-be5a-05789d5a18d6",
+    "score": 68
+  },
+  {
+    "file": "APIs/openai.com/1.2.0/openapi.yaml",
+    "hash": "a0b0676b9737dd2b9f3ac1838c67eb11838540b824513420b3968015e4ed933a",
+    "reportId": "080c2c78-db6e-4b0d-904f-996184e88073",
+    "score": 70
+  },
+  {
+    "file": "APIs/okta.local/1.0.0/openapi.yaml",
+    "hash": "0af68dd9a8a31dd2cd6e866ea807f491b553f33c8e41ca68bfe7dca14e99d693",
+    "reportId": "09ad0a8f-f012-45a2-9500-d220794da345",
+    "score": 67
+  },
+  {
+    "file": "APIs/openbanking.org.uk/v1.3/openapi.yaml",
+    "hash": "1c2505a8e6f1027fb087a793027997e23f1a1bbd3091f2965ac5333753f9ae35",
+    "reportId": "0dd424f5-aa83-41d8-bf7a-4c2a0b75f176",
+    "score": 55
+  },
+  {
+    "file": "APIs/omdbapi.com/1/swagger.yaml",
+    "hash": "c4caf155105f33f745223da772938661f14bfc06dbb63ea80c216d350dcdecc6",
+    "reportId": "1cc4b06e-bcfd-4280-a71a-dd6a6617c7e3",
+    "score": 62
+  },
+  {
+    "file": "APIs/openalpr.com/3.0.1/swagger.yaml",
+    "hash": "4254df91ed3b81dd3dac11e6ca497b97fb7508442c36f3ced150373c8e2a29e9",
+    "reportId": "7265b102-5772-483b-abe3-a25463ba00c8",
+    "score": 64
+  },
+  {
+    "file": "APIs/nsidc.org/1.0.0/openapi.yaml",
+    "hash": "f4ddc31ff4d62ef8f529dbf5547214e5d7db2c164f883a5f98cc79b53e4f8658",
+    "reportId": "3d387205-31aa-4166-ad7d-d4856e3ac785",
+    "score": 73
+  },
+  {
+    "file": "APIs/nowpayments.io/1.0.0/openapi.yaml",
+    "hash": "4fe77836b8bcf07cae03edca57ec3a5258012685a4fa9c6476757d60d2ed2d1a",
+    "reportId": "687249dd-75c3-4a3f-a946-8b4457f33e2c",
+    "score": 65
+  },
+  {
+    "file": "APIs/ntropy.network/1.0.0/openapi.yaml",
+    "hash": "e8ee0f79bcef3787cfce45a5167ab6046ddf96b1b26a49be640a4342572c559c",
+    "reportId": "3cd76dc3-f16e-4d87-ae57-51efce1ff20c",
+    "score": 79
+  },
+  {
+    "file": "APIs/notion.com/1.0.0/openapi.yaml",
+    "hash": "9bc037c3d9d66ae4c85e1996319cf67a38867dbbd23bed4f5d8a633cca32c226",
+    "reportId": "3248d7f6-bf09-4f93-a913-0ab77d4cbf4e",
+    "score": 37
+  },
+  {
+    "file": "APIs/oceandrivers.com/1.0/openapi.yaml",
+    "hash": "8898d4b4ce5ba20e4f95bab969f696546d09433797eecb751d212cfd56db7c95",
+    "reportId": "4b8bdfc8-bf64-4da9-b258-6d3b27206c18",
+    "score": 66
+  },
+  {
+    "file": "APIs/obono.at/1.4.0.0/openapi.yaml",
+    "hash": "8dcbb8deceb58af0bd0d4d039dcbd76b4e7afbd906c9308e59900cf519483a71",
+    "reportId": "34c8def8-878f-4055-9ac1-f190e549d44d",
+    "score": 60
+  },
+  {
+    "file": "APIs/nlpcloud.io/1.0.0/openapi.yaml",
+    "hash": "db7b93cdd3b60d0efeb3e27f1c1e4f6c9726929ed7e119814eced2656104755b",
+    "reportId": "bab17f09-d866-4ced-a8c1-6544ad7ff749",
+    "score": 63
+  },
+  {
+    "file": "APIs/nordigen.com/2.0 (v2)/openapi.yaml",
+    "hash": "0b10434e9e52a7adcb1aeee0386fd7c1ec40a339a4d7e1b213f7cf1d236d3816",
+    "reportId": "cc6e6631-2630-44e6-bf9f-7fb905c9c3c1",
+    "score": 53
+  },
+  {
+    "file": "APIs/netlify.com/2.16.0/swagger.yaml",
+    "hash": "4062d09821a3ed212b48c5709650032a5fa4ad7cbed2c98bcf9cda1cdec4eea0",
+    "reportId": "bc581733-ac89-45c3-97f5-8dbcc37f5faa",
+    "score": 64
+  },
+  {
+    "file": "APIs/nfusionsolutions.biz/1/openapi.yaml",
+    "hash": "e2536a2ea1ca0cb9a39f6d59fa632c07c6f5805fda01949dbc2ce8333bd5e5e4",
+    "reportId": "6fe3bd63-80d0-4987-b6c8-a4c4428767bf",
+    "score": 72
+  },
+  {
+    "file": "APIs/neutrinoapi.net/3.6.4/openapi.yaml",
+    "hash": "7433c5c2dc429a456b20d9019666b4d681ff92d64d7ac12d6709cbf57dee9863",
+    "reportId": "1eec0277-7f0d-48d0-b788-d3b9d4d60df2",
+    "score": 87
+  },
+  {
+    "file": "APIs/noosh.com/1.0/openapi.yaml",
+    "hash": "b20ecc3d974c822324a8e930f7d0af7439691583603aa6c581b0cd151a81d9ec",
+    "reportId": "46c41d22-b581-4bcf-b5c0-c1455cbdb3dd",
+    "score": 69
+  },
+  {
+    "file": "APIs/netatmo.net/1.1.5/openapi.yaml",
+    "hash": "2d2a6102ff74d98c3e9970df4cf0c8270b30959b9062e0280ec84fd0eda65795",
+    "reportId": "9450675f-6413-4bcf-93c1-010b106230f7",
+    "score": 71
+  },
+  {
+    "file": "APIs/netlicensing.io/2.x/openapi.yaml",
+    "hash": "2bbe7e49a8df46b0f562ca6581bc8de0aca5ca2ac3d2e7249989b62f0aa9fc15",
+    "reportId": "f52da03b-7f8a-457d-b219-87c15a218b09",
+    "score": 80
+  },
+  {
+    "file": "APIs/netboxdemo.com/2.4/openapi.yaml",
+    "hash": "64dbba7a4afce8e7d1d2594a13b7e4a5837c31d8a220db8df359669d6bf5e54d",
+    "reportId": "d94de910-2798-4e4b-b6f1-af9279a508db",
+    "score": 50
+  },
+  {
+    "file": "APIs/netboxdemo.com/2.8/openapi.yaml",
+    "hash": "c77be765d49bebf90623a940d124dd846eadc06c67d1871f801a5979d552a53f",
+    "reportId": "47f2d5b0-461c-4931-8914-e7f44a32f389",
+    "score": 53
+  },
+  {
+    "file": "APIs/nativeads.com/1.0.0/swagger.yaml",
+    "hash": "93b5695284fd6c3debff30655b91e71d465b8adc08bfa5a78099ee2592633446",
+    "reportId": "0abe6b43-aaed-4f82-9f63-5a7ee8a375ad",
+    "score": 44
+  },
+  {
+    "file": "APIs/neowsapp.com/1.0/openapi.yaml",
+    "hash": "591cc7c95c8a4f8087e71cda6df0b238a1e1ca551e5321a6c31552181543c35f",
+    "reportId": "fd9f168f-451d-4630-b2ea-70474fc299e0",
+    "score": 80
+  },
+  {
+    "file": "APIs/netbox.dev/3.4/openapi.yaml",
+    "hash": "730d1a4411490466a0faa83895bf81679318857f444108e10471905aaf38275d",
+    "reportId": "b0db3e9b-9590-4b78-b4b1-ef96f78e169c",
+    "score": 51
+  },
+  {
+    "file": "APIs/n-auth.com/2.2/swagger.yaml",
+    "hash": "ccc3ced72be05540f10886beeb9e6305f8a102c2165dd61dc936931d1615de7c",
+    "reportId": "1a7ab8ba-9e61-49c5-8263-861950e7ea85",
+    "score": 78
+  },
+  {
+    "file": "APIs/nebl.io/1.3.0/openapi.yaml",
+    "hash": "8c609177f7e3907ec0b612760c96fcd6c351d9e3daf593f083859cc30cdc5d17",
+    "reportId": "777d0a6c-aded-49a2-853a-a6b0601eb31d",
+    "score": 67
+  },
+  {
+    "file": "APIs/namsor.com/2.0.24/openapi.yaml",
+    "hash": "b0fbc7d70b866f423936c361eeb27c54a5b9cd32400c64d76acac582307412eb",
+    "reportId": "05247450-9221-4555-bb37-b2d6eac497f8",
+    "score": 75
+  },
+  {
+    "file": "APIs/mux.com/v1/openapi.yaml",
+    "hash": "8edaf1192ac00288f59e73d908e5e1f65507789c5b271252f7faa14e1e0e3347",
+    "reportId": "b0e8b052-b29a-415e-84c1-c295362df560",
+    "score": 84
+  },
+  {
+    "file": "APIs/nbg.gr/v3.1.5/openapi.yaml",
+    "hash": "4405cdb1efff698a27f737955330f25e67796fa289e93b95ffa06b225f9d068d",
+    "reportId": "d1ffb06e-f666-4dfd-b8b1-83a14c760068",
+    "score": 66
+  },
+  {
+    "file": "APIs/musixmatch.com/1.1.0/swagger.yaml",
+    "hash": "c11d29372b4fdb8baf21d23f169686345c13deb07069e5347db19b6efec988d1",
+    "reportId": "2ed7c731-25a5-406c-8491-a68e25e82ca0",
+    "score": 53
+  },
+  {
+    "file": "APIs/nba.com/version/swagger.yaml",
+    "hash": "83ba0a00ad66ba30c11463ad65298e4b3f3ff58f2ceb83e19964475cee1d867b",
+    "reportId": "5497d4d3-9559-46ea-bf71-9d5d83ed8bb5",
+    "score": 42
+  },
+  {
+    "file": "APIs/modelpubsub.com/0.1/openapi.yaml",
+    "hash": "74e67d289f1e8434f270e463f4119eb56f02550f49c10f0b6316e755747eb97c",
+    "reportId": "7e4405da-e635-41e4-a3c0-8aebe488ed90",
+    "score": 55
+  },
+  {
+    "file": "APIs/moderatecontent.com/1.0.0/swagger.yaml",
+    "hash": "e28f9668314603fd447e1facb6329f8f231b4ec844cfd106fd2763f1dd9748b2",
+    "reportId": "bfc86849-eb32-4a03-bafc-de95574d0ddb",
+    "score": 48
+  },
+  {
+    "file": "APIs/mtaa-api.herokuapp.com/1.0/openapi.yaml",
+    "hash": "364b2dd88a5d691f0aa28f43f6fe5eb6f5c03954ecd8decf66c502925b2d9ac2",
+    "reportId": "94a4f361-415f-4bd7-87d4-8a860325056d",
+    "score": 67
+  },
+  {
+    "file": "APIs/mineskin.org/1.0.0/openapi.yaml",
+    "hash": "8cc6e5e2e8858f9eb73e8b4f4590a76851ad2adf6b51aeed0dcabadfb17264f0",
+    "reportId": "3028c48a-cdcf-4bea-a048-4d7cdf0b02ce",
+    "score": 54
+  },
+  {
+    "file": "APIs/moonmoonmoonmoon.com/1.0/swagger.yaml",
+    "hash": "dfbc642cce568fc7eba4a441e31000fdd7511ecc6ed863715b6d5d8f56c94e75",
+    "reportId": "68310b64-94f8-40be-ba44-c8aefa723116",
+    "score": 74
+  },
+  {
+    "file": "APIs/microcks.local/1.7.0/openapi.yaml",
+    "hash": "bbbc3ce5a75a792ea1aee3c9f7341972ae5cb75c4bfa96538ec20028f6768b17",
+    "reportId": "cc0def3f-98ec-4e7e-8b47-74fbdd08d3f1",
+    "score": 77
+  },
+  {
+    "file": "APIs/mon-voyage-pas-cher.com/0.0.1/swagger.yaml",
+    "hash": "79ca29415f4eef7cdeff4793c5e42c669655a9ab8e10754d6f14a2d2f8dd361d",
+    "reportId": "3659191c-a375-4bca-8397-7362fa5fb974",
+    "score": 62
+  },
+  {
+    "file": "APIs/motaword.com/1.0/openapi.yaml",
+    "hash": "a24150d9ddaed9b9070861deee24e1fb82f5d1c113cdb8bc7f4e387f0b444016",
+    "reportId": "59a7af54-4c0f-4dc0-a20c-dce4ab9c400f",
+    "score": 69
+  },
+  {
+    "file": "APIs/monarchinitiative.org/1.1.14/openapi.yaml",
+    "hash": "c1612d881d2fc503bc89d8087203f6877111130d6df0cf26591f8c405688c6ff",
+    "reportId": "9657a6aa-4fdd-404d-9c53-6557873122f4",
+    "score": 68
+  },
+  {
+    "file": "APIs/miataru.com/1.0.0/swagger.yaml",
+    "hash": "6a60382c69f837cbb40478d1c96804f3bbcaab0688bf5693ae281c318c34f406",
+    "reportId": "36302131-dfb9-4d3a-a69a-ea659ad3e2d4",
+    "score": 45
+  },
+  {
+    "file": "APIs/mercure.local/0.3.2/openapi.yaml",
+    "hash": "8420bc1ad59c1a3d5009d18ed24dcc5b8eda57a112e222eeb7c2c5ad317550c1",
+    "reportId": "01bce04e-6b8e-4ee8-bc64-10e9f0165e6c",
+    "score": 59
+  },
+  {
+    "file": "APIs/meteosource.com/v1/openapi.yaml",
+    "hash": "c45fb4e2ad25962fd4800d2e76666e56e4edf8c709e2f454305fee894372e352",
+    "reportId": "cf546c95-2941-47ed-b3ff-81ecbb08fa21",
+    "score": 66
+  },
+  {
+    "file": "APIs/meshery.local/0.4.27/openapi.yaml",
+    "hash": "1235de375f867fc8d63c4537f4aa8faf8997f10b1a3dea91c64ff9852a87ab85",
+    "reportId": "6792e311-8741-4e3a-bffd-1fd288464222",
+    "score": 72
+  },
+  {
+    "file": "APIs/mist.com/0.37.7/openapi.yaml",
+    "hash": "ca5888bce5171481c95b5d40e16e594763dfaf676cc8aed7f5dc43dceaba971d",
+    "reportId": "acc89eb1-1693-4a57-9b39-f84411a92e83",
+    "score": 84
+  },
+  {
+    "file": "APIs/metadapi.com/1.0/openapi.yaml",
+    "hash": "4f51ecd6f816a47856c713739cdb0e762c3586fab8d7a42d583c0a6ca021128e",
+    "reportId": "2bd7e907-a39c-49cd-975c-360ac59a1df5",
+    "score": 33
+  },
+  {
+    "file": "APIs/meilisearch.com/1.0.0/openapi.yaml",
+    "hash": "09da58f244e6d112ffac23eddde0ff3bcf1cc6e90d9d95734cf3ffea110852dc",
+    "reportId": "72953e08-79a9-402c-ad10-c511a94b7b58",
+    "score": 75
+  },
+  {
+    "file": "APIs/medium.com/1.0/openapi.yaml",
+    "hash": "d0cf79da50750535c7c00261b31394d964e50dd75d17f63a552f6ec0a9d011e9",
+    "reportId": "671087b8-9cfb-47c7-b74c-54507a17f92b",
+    "score": 62
+  },
+  {
+    "file": "APIs/meraki.com/0.0.0-streaming/openapi.yaml",
+    "hash": "659e1424c04d27b4795d7be77cf7800eb6d7143fbb2483a95a691812d749b10e",
+    "reportId": "f8c9094e-b8e4-43f9-8829-7aa6a9fa7413",
+    "score": 75
+  },
+  {
+    "file": "APIs/meraki.com/1.32.0/openapi.yaml",
+    "hash": "c8885aec1bc26086f013522bf9ed938773dbc5c7fc334e755ff8ce44a8e2e8ca",
+    "reportId": "e41600ce-03e9-4ddf-9858-fe9e44cf5cc8",
+    "score": 75
+  },
+  {
+    "file": "APIs/medcorder.com/1.0.0/swagger.yaml",
+    "hash": "8577b0d0fdb67a76fde518205c073b6b2fd6725d882945a025cdc8faa1f0b4ac",
+    "reportId": "2ff4e88c-39dc-4fb2-929b-7d665fc80a6c",
+    "score": 61
+  },
+  {
+    "file": "APIs/magick.nu/1.0/swagger.yaml",
+    "hash": "00532a3b0f9b1205f940488ee8de15aec3e576f53c2b176697821caab22195e9",
+    "reportId": "b7283ad6-f9c5-4700-85dc-3671a37b5d60",
+    "score": 66
+  },
+  {
+    "file": "APIs/mandrillapp.com/1.0/swagger.yaml",
+    "hash": "7ed2f7aba228fd4fa4cd708c4b482f726f846ca02f6a0c8d0bde0cd1c68d8e63",
+    "reportId": "7bbf07c8-877f-47ff-bad2-f864eb89e0de",
+    "score": 50
+  },
+  {
+    "file": "APIs/mailscript.com/0.4.0/openapi.yaml",
+    "hash": "9122423c52514376e78bc7dd571c6f4b7adb8c4982c26afea1b6e2f3a3f9e407",
+    "reportId": "aa77dac2-8025-4df2-a3eb-f6f6bbe24f9f",
+    "score": 63
+  },
+  {
+    "file": "APIs/mastodon.local/1.0/openapi.yaml",
+    "hash": "1c84b3f27d6f4e86f13442daa73893b4c884f33cbd0e00b0f0df02ac663e6039",
+    "reportId": "d5b46397-c300-4d7b-a8f4-205bfb79d967",
+    "score": 51
+  },
+  {
+    "file": "APIs/math.tools/1.5/openapi.yaml",
+    "hash": "94c81e5bbaea874f19151275ebc8caaf49462e6b20ce4887e91bfb200a484a86",
+    "reportId": "59840714-97ad-400f-9d8d-adedb76b5737",
+    "score": 62
+  },
+  {
+    "file": "APIs/mbus.local/0.3.5/openapi.yaml",
+    "hash": "d3aacb203499646e297b5bfe04d62342d76435ef086fd51d435c9a77fa08c91c",
+    "reportId": "2992c2c2-b64a-4403-a551-bcd5251a2db3",
+    "score": 63
+  },
+  {
+    "file": "APIs/mcw.edu/1.1/openapi.yaml",
+    "hash": "d00da4507631ed5ea7b1fa4248f57a1be364beb31643e2ecdd22885d86129cb9",
+    "reportId": "81d04d6a-dd98-4bd2-8ac3-919eafa3c5f4",
+    "score": 72
+  },
+  {
+    "file": "APIs/mailchimp.com/3.0.55/openapi.yaml",
+    "hash": "73f5015350af370aa2b5a2d538d491654c275dbb43881b15e8911641729fa181",
+    "reportId": "f694dbd0-c671-4246-9541-45d675621163",
+    "score": 61
+  },
+  {
+    "file": "APIs/lotadata.com/2.0.0/swagger.yaml",
+    "hash": "c1dba6954a1fa9cc09be7b94f6176ec3958325a877cb8351d2b41f82db6228c9",
+    "reportId": "03c00413-f8f2-4d17-8c1f-5f9ff6545b87",
+    "score": 49
+  },
+  {
+    "file": "APIs/lyft.com/1.0.0/swagger.yaml",
+    "hash": "a512fc6464f75c88c11ba501a133877ee2fa59939a9b03616681b0d57f1154a3",
+    "reportId": "75c841ba-e063-4522-b8a0-b03654d1afdb",
+    "score": 80
+  },
+  {
+    "file": "APIs/lumminary.com/1.0/swagger.yaml",
+    "hash": "2533c2d1a01c11053fcfad91001ab8baeb04af624eb425bc237d2c387bd5f04c",
+    "reportId": "43194ccb-b46d-468d-b372-bf3e3772ae6d",
+    "score": 71
+  },
+  {
+    "file": "APIs/magento.com/2.2.10/openapi.yaml",
+    "hash": "2f12b35bbd2629b2318a2517cc25c8719a0e547f493a85eb3c8d0ed5d79a397c",
+    "reportId": "9483825d-8184-4f0d-9573-6fdc389e24a0",
+    "score": 75
+  },
+  {
+    "file": "APIs/logoraisr.com/v1/openapi.yaml",
+    "hash": "3304139d1343bb191d1828632eaef5307f81ffc4b58c13cb0ce67bfe3ea56cf3",
+    "reportId": "faa090b1-5d11-4d16-8278-3dbba45c493a",
+    "score": 64
+  },
+  {
+    "file": "APIs/listennotes.com/2.0/openapi.yaml",
+    "hash": "51b15eb0e703c26eece40c964245c0434cb0e8ff7a419be2cd6fd9dcebd93216",
+    "reportId": "b7d39daa-57fc-437a-a07c-4451b475d1bc",
+    "score": 86
+  },
+  {
+    "file": "APIs/linqr.app/2.0/openapi.yaml",
+    "hash": "8d5d2c513906fe673696678db824f3bc51d78bff469e532ef5dd6df03e50034e",
+    "reportId": "34a1586f-789f-4f2e-b804-58c3c6544791",
+    "score": 80
+  },
+  {
+    "file": "APIs/libretranslate.local/1.3.10/openapi.yaml",
+    "hash": "8a3450a76f81cc1cc334a42681fe2d4e96c81457265c8b5fe531d64eb3065999",
+    "reportId": "c350d29e-0ed8-4805-81c9-a7f925b64e26",
+    "score": 51
+  },
+  {
+    "file": "APIs/linode.com/4.151.1/openapi.yaml",
+    "hash": "f53d21652132a4c958ef4ed68d9c6cd6b9d572b9edef9254e73a1e8753168be9",
+    "reportId": "7d988a17-ac45-4324-81a8-56ab75ff2b98",
+    "score": 74
+  },
+  {
+    "file": "APIs/loket.nl/V2/openapi.yaml",
+    "hash": "8040ca048d5611a1c8f8015eb784432b454661d50f95b8602158614ddb0c18f4",
+    "reportId": "8b4dce94-3ac9-4e88-bb0f-46df3fb87854",
+    "score": 63
+  },
+  {
+    "file": "APIs/koomalooma.com/1.0/swagger.yaml",
+    "hash": "b474dbafdffaefd13d696644b081d2492654f21d1fa3a28a72f4a8bedf090f32",
+    "reportId": "b7758c10-145f-45bd-816c-f8c6fa772c2c",
+    "score": 54
+  },
+  {
+    "file": "APIs/kubernetes.io/v1.10.0/swagger.yaml",
+    "hash": "8bef25b9ddf1aed1389880912a0b6ebea6f74b1bb7dd869f12f3b07a5e6e5e75",
+    "reportId": "09459ce1-0730-483d-9ce3-32e3a876a127",
+    "score": 61
+  },
+  {
+    "file": "APIs/learnifier.com/1.1.0/swagger.yaml",
+    "hash": "0cb86e26192b883b717157c37d51a40ad9cd4bfe708e82d913ecedad4d7f0f01",
+    "reportId": "42dd6d1d-a160-4638-8781-cbaea223d9b4",
+    "score": 51
+  },
+  {
+    "file": "APIs/lambdatest.com/1.0.1/openapi.yaml",
+    "hash": "8dd313f2913da8cfe15abef61b12e005fe10c6bc35bd90af3038c4171bd870eb",
+    "reportId": "1c9fe759-ef7e-48b5-8ee0-b34603cb3dd3",
+    "score": 67
+  },
+  {
+    "file": "APIs/keyserv.solutions/1.4.5/openapi.yaml",
+    "hash": "7edd79beb9c490240ae09a653602cc5260ab66a422751d889ca7d63705b1552c",
+    "reportId": "0e3938a6-2a83-45f2-9aca-ba67e5b76a2e",
+    "score": 46
+  },
+  {
+    "file": "APIs/launchdarkly.com/5.3.0/swagger.yaml",
+    "hash": "243831bbc39d1d89543aed6f6928353386777c31d13af17307bc88fec9c45eba",
+    "reportId": "76d78cd8-f1c7-48fc-a10b-307760bc612c",
+    "score": 64
+  },
+  {
+    "file": "APIs/lgtm.com/v1.0/openapi.yaml",
+    "hash": "269a8141dfeb81ae10e4bf09ae4a54b3d5a9bee1f4bb23b496f1897d9e5a2a37",
+    "reportId": "a37f6368-a627-4980-83ef-96b24dc56f3d",
+    "score": 76
+  },
+  {
+    "file": "APIs/keycloak.local/1/openapi.yaml",
+    "hash": "0a9eeb3620f3719f2b8d26bfb71736e2341d9a92ec2b83c80a9bbd031fd24322",
+    "reportId": "65805728-5153-4957-ac67-705a93e2bea3",
+    "score": 45
+  },
+  {
+    "file": "APIs/languagetool.org/1.1.2/swagger.yaml",
+    "hash": "1021dbe1bb6411f636e8be9094fb67cfe96dc570388127b228c9402adf840269",
+    "reportId": "139b6847-84f2-41cc-bdda-4f45e96c3a08",
+    "score": 55
+  },
+  {
+    "file": "APIs/jirafe.com/2.0.0/swagger.yaml",
+    "hash": "13977ffc952721f9cdb26421f4def32a7525cda4d0b8793880e71552515f331b",
+    "reportId": "b89428c5-609b-48c9-86e9-0a50f8d71650",
+    "score": 67
+  },
+  {
+    "file": "APIs/json2video.com/2.0.0/openapi.yaml",
+    "hash": "1c30b68e4c585eed07a2b70c1e5e73bc56c9df608f6b367333f512d80dc8bf32",
+    "reportId": "839f6233-d667-467e-a126-fee1eac72559",
+    "score": 72
+  },
+  {
+    "file": "APIs/just-eat.co.uk/1.0.0/openapi.yaml",
+    "hash": "5a2df999178fd6aa09781edf4d87082bf79ce95431ff3426c259a622c9862e2a",
+    "reportId": "8f4da59f-c01e-4a54-aee0-6e8aaec71f7c",
+    "score": 59
+  },
+  {
+    "file": "APIs/link.fish/2018-07-05/swagger.yaml",
+    "hash": "a01a252d2a8beec17ed19157e92c191276660f20f63f9d3a25a812053ef56891",
+    "reportId": "176057c2-4b77-4886-9a71-27a5b69e8446",
+    "score": 74
+  },
+  {
+    "file": "APIs/jumpseller.com/1.0.0/openapi.yaml",
+    "hash": "3aa50861384a74e93cae054e08e3838b297b8c4003e5aa512882846078475037",
+    "reportId": "01e34e11-d30a-495c-9091-ffb2dd0694a8",
+    "score": 49
+  },
+  {
+    "file": "APIs/journy.io/1.0.0/openapi.yaml",
+    "hash": "9031af6a2a41d511b3ef2bf110a262d5c0099cb26a19fee8df49890362b11d32",
+    "reportId": "bea00810-26e4-4fdd-9f21-37080e06d0ff",
+    "score": 92
+  },
+  {
+    "file": "APIs/isendpro.com/1.1.1/openapi.yaml",
+    "hash": "1a07499b8f1f5f9e0334f6bb420eb892e92f781ead92c93534e4825712b0683b",
+    "reportId": "8f14f95e-6ab4-4b84-9916-e77c884e8675",
+    "score": 67
+  },
+  {
+    "file": "APIs/iva-api.com/2.0/swagger.yaml",
+    "hash": "2dc80cfb5bd3c5c9e9017193bf5db562cead665c790a71ddd51c7fad1221f9e9",
+    "reportId": "3d52b577-ad33-4a14-8f5e-faf450ef25da",
+    "score": null
+  },
+  {
+    "file": "APIs/ix-api.net/2.1.0/openapi.yaml",
+    "hash": "f02d58646bc157ab4ed670cfebec52bbbb7760649ea010c3c547397948c7c223",
+    "reportId": "66bb448a-d546-40ef-98f9-056c2895c9fc",
+    "score": 74
+  },
+  {
+    "file": "APIs/jokes.one/1.1/swagger.yaml",
+    "hash": "8e027e02e84e70f20a01e07c9228d7b43d684d47e4f5a814b204ed44740fa259",
+    "reportId": "83255491-ec5b-426b-88d2-31ac53140723",
+    "score": 57
+  },
+  {
+    "file": "APIs/javatpoint.com/v1/openapi.yaml",
+    "hash": "70c98bb03aaf6e1ead6da1aeee1308cc637718b3a6aaf10c53a4ff1cd34baf84",
+    "reportId": "4898583c-9251-410e-aef5-e9db0a8a15b9",
+    "score": 70
+  },
+  {
+    "file": "APIs/kumpeapps.com/5.0.0/openapi.yaml",
+    "hash": "0f2405527fec7cc45a127ed1752461542b4bdb7f7a1608db7f3c00bad4dfddd7",
+    "reportId": "36c0adc8-7941-452b-a5f0-e147704014ca",
+    "score": 82
+  },
+  {
+    "file": "APIs/jellyfin.local/v1/openapi.yaml",
+    "hash": "5fc9ae253184f0ed56e56cff90b9c130b30bd4ddd1db7328779a5657ed01b2f2",
+    "reportId": "4fe0d956-9567-4a4a-87fa-b134b4799b87",
+    "score": 59
+  },
+  {
+    "file": "APIs/iptwist.com/1.0.0/openapi.yaml",
+    "hash": "1c02f1b122135185234414de3cd857ee7623c1a5fa940f3cd2c1fa0fa4a5b6c9",
+    "reportId": "49beb6e2-1552-492b-94e8-18fa5fbc659d",
+    "score": 57
+  },
+  {
+    "file": "APIs/ipqualityscore.com/1.0.0/openapi.yaml",
+    "hash": "bd29910787ea008a8db342dc17f8026e6c86b8509d57b015ed33216796fee8f9",
+    "reportId": "84f19d9c-baec-4502-b340-4de0d78e8089",
+    "score": 76
+  },
+  {
+    "file": "APIs/ip2whois.com/1.0/openapi.yaml",
+    "hash": "ade57f7bf0cd500174a0b2e643f0f840b63437131827f7c04cd53f05865bd38b",
+    "reportId": "64a97955-6630-4827-95ae-b97d131593e6",
+    "score": 52
+  },
+  {
+    "file": "APIs/ip2location.io/1.0/openapi.yaml",
+    "hash": "678b9bdad00e589169d27f634c689d3b075f701fa7b0a26d9a7290087de9adbf",
+    "reportId": "15b4a23b-db74-4a7d-bb00-11419dd9ebab",
+    "score": 53
+  },
+  {
+    "file": "APIs/ipinfodb.com/1.0.0/openapi.yaml",
+    "hash": "8d7d661bd3b200223ffde420cd1b9ca74869ec7bc53bf1cb74c007b47a66f4b4",
+    "reportId": "538e7769-85f8-42f3-ab74-efe3545ee489",
+    "score": null
+  },
+  {
+    "file": "APIs/iqualify.com/v1/openapi.yaml",
+    "hash": "0b4b193085f5800b52d64ae6bf559c03c40825a2e60bd47a52cd0a2bb2e976a1",
+    "reportId": "f8dac7a1-7ac2-4c65-8970-9d536c6c8b14",
+    "score": 66
+  },
+  {
+    "file": "APIs/ip2proxy.com/1.0/openapi.yaml",
+    "hash": "0a8161d89fae288f2bec44214c163c5a1c0d590e70ef1923c172aa741dbfcd31",
+    "reportId": "19e9e74b-2983-4fed-b9c0-918f50eee7de",
+    "score": 51
+  },
+  {
+    "file": "APIs/isbndb.com/1.0.1/swagger.yaml",
+    "hash": "3d658a0486958ff487fe60b647e8be5819d79212fb69a0e7397d0a27ab498b32",
+    "reportId": "15bc3ea7-ebc3-405b-bd5e-28aa191c8919",
+    "score": 52
+  },
+  {
+    "file": "APIs/jira.local/1.0.0/swagger.yaml",
+    "hash": "56b26630d101639e065c3340408a79b92d6857d9102ceb5d3452ba2a9a207c58",
+    "reportId": "de2b846e-33e2-4f35-af9a-f20d02e7f95e",
+    "score": 56
+  },
+  {
+    "file": "APIs/interactivebrokers.com/1.0.0/openapi.yaml",
+    "hash": "21af371b297e8aa3b23d61749adf7ed461f35e4757618b2cc0dc2f2d823edcd1",
+    "reportId": "e3e0c10e-3a16-4b62-b7c8-df35917bb5f7",
+    "score": 62
+  },
+  {
+    "file": "APIs/instagram.com/1.0.0/swagger.yaml",
+    "hash": "1322eed5d75236032a14740783f579c786b7a821a5201dfabaa602ce6edf663e",
+    "reportId": "08e4b538-ca84-4390-a4e0-034282e8fff2",
+    "score": 63
+  },
+  {
+    "file": "APIs/inboxroute.com/0.9/swagger.yaml",
+    "hash": "53d12e96e2f3a295fe0e566891cc69c4a508721c989a5809bcf9f46aac11cbd0",
+    "reportId": "45424244-98ad-4b87-9f29-1e9e30e0451f",
+    "score": 54
+  },
+  {
+    "file": "APIs/influxdata.com/2.0.0/openapi.yaml",
+    "hash": "0faafaaf7ec6fe809f1b6d40a3050881d5503e5046c765f61ff9d20174e9f27c",
+    "reportId": "4294c870-228e-4ce4-85b2-ebf273f91850",
+    "score": 59
+  },
+  {
+    "file": "APIs/infermedica.com/v2/swagger.yaml",
+    "hash": "0ffa1c4035ba1f04607484f620de7e2bad99fb1b5a47a54b23b97d9f6d158f08",
+    "reportId": "03940cae-9875-4eea-9ff5-8d48167ec23e",
+    "score": 73
+  },
+  {
+    "file": "APIs/intellifi.nl/2.23.4+0.gb463b49.dirty/openapi.yaml",
+    "hash": "cb07c78d0e83f2b69079144d25b58649f06d2e988e37604710ab791d2263400d",
+    "reportId": "31320100-1252-49c6-8a87-d9af4f919c8e",
+    "score": 76
+  },
+  {
+    "file": "APIs/idtbeyond.com/1.1.7/swagger.yaml",
+    "hash": "05985538fcb9bcf5b82c7e249cd6b49975cfcdac65a376213fb20dff4c164da4",
+    "reportId": "041a9fbf-dc70-4434-a1f1-caad6df66473",
+    "score": 52
+  },
+  {
+    "file": "APIs/ijenko.net/3.0.0/swagger.yaml",
+    "hash": "2dcb029bb8b8dc2270dab62a9bc92f1806060b42d83febf696946b34eb4d4493",
+    "reportId": "a01a0617-a427-4665-948c-e7290e5277d4",
+    "score": 79
+  },
+  {
+    "file": "APIs/increase.com/0.0.1/openapi.yaml",
+    "hash": "fb0f7c943a616959f87dd6cb4901b4416b045981c2ecb3d358fb72c0e7d0f7c3",
+    "reportId": "c6445a59-ef39-4fd2-a8b9-76239c5dcadc",
+    "score": 68
+  },
+  {
+    "file": "APIs/image-charts.com/6.1.19/swagger.yaml",
+    "hash": "093827771a5ff7259c44a1a3921242b49b6fcc6f9587a0d04e8d5de8a8af8db7",
+    "reportId": "f79fad19-8b66-475d-b38d-6731118d79d7",
+    "score": 52
+  },
+  {
+    "file": "APIs/illumidesk.com/1.0/swagger.yaml",
+    "hash": "76936653e9b6ca90763dd738d2db28ffa56e798340dec8f01d4cea6af9844785",
+    "reportId": "9b0385d2-1650-45c9-bd06-797716a108ef",
+    "score": 56
+  },
+  {
+    "file": "APIs/ideal-postcodes.co.uk/3.7.0/openapi.yaml",
+    "hash": "882d87021732f17bad51095a5ac51f72456867bd2d5062dea58968f70bf4446e",
+    "reportId": "9d2961b9-bd8a-416e-afe6-1f5caf672e6e",
+    "score": 74
+  },
+  {
+    "file": "APIs/icons8.com/1.0.0/openapi.yaml",
+    "hash": "8e9f5ee49eea360345d9f8c2e588720c72fdc86eeb5b49edb6a66421ab3f600a",
+    "reportId": "ba0ea24e-bb89-4ac8-9203-9da3145f630c",
+    "score": 31
+  },
+  {
+    "file": "APIs/hubhopper.com/v5/swagger.yaml",
+    "hash": "18409acdc63aae4925d43f7304731747043635794c5eea82d59f0b0bdbb3f63c",
+    "reportId": "17bae73f-39ca-485d-8893-95b84f75da94",
+    "score": 59
+  },
+  {
+    "file": "APIs/hydramovies.com/1.1/swagger.yaml",
+    "hash": "a6015f7f4691d97c0b039d1c642f29f361fc7d8eb9a0da4e6a002c5b6d570870",
+    "reportId": "72a0fe93-da8a-42f4-b421-bf94b9a76ed3",
+    "score": 63
+  },
+  {
+    "file": "APIs/i-cue.solutions/v1/openapi.yaml",
+    "hash": "5472b626d5f260a8d1808b5eafd7c3009fe3feb4804d6fb5563c1d9ecfa7ec25",
+    "reportId": "4348e6af-86b7-4833-9c7b-86cc6622c70e",
+    "score": 46
+  },
+  {
+    "file": "APIs/id4i.de/1.0.2/openapi.yaml",
+    "hash": "2f8c36b995bb40086c763694d2ea7f1570178060dcdbe6ae582ce4a43a5d2a10",
+    "reportId": "60236c24-cf94-4508-a285-229e7b44104e",
+    "score": 84
+  },
+  {
+    "file": "APIs/ibanapi.com/1.0.0/openapi.yaml",
+    "hash": "b26495cbb54830954f81ce81fed27bb96a3c00274fbe3c853bec8e7969a8e1df",
+    "reportId": "5db5f23b-38b8-46de-820c-7c6f35b4efdf",
+    "score": 78
+  },
+  {
+    "file": "APIs/highwaysengland.co.uk/v1/openapi.yaml",
+    "hash": "7491d14d1f50110ae31d6b84d645d27eaf969d4ad4c61283e49f8603e747ab3e",
+    "reportId": "4b4a185d-90a8-4264-b62e-7d3db7c8e209",
+    "score": 53
+  },
+  {
+    "file": "APIs/hetzner.cloud/1.0.0/openapi.yaml",
+    "hash": "70bf0dbbe366f68bb3ccd53b3e3927e708131e4a075386bb5627c7296f7ae0f7",
+    "reportId": "6e3bd7ab-bd59-4b75-adc7-f2cd98a3d6ee",
+    "score": 64
+  },
+  {
+    "file": "APIs/hackathonwatch.com/0.1/openapi.yaml",
+    "hash": "0b7888b5cc6ec97b2403f75a4bdb3c3006b1cf6bedd9888902e6b3922b8abbe7",
+    "reportId": "6a3a03a0-ae42-47df-b58a-8b01d3b1912c",
+    "score": 69
+  },
+  {
+    "file": "APIs/handwrytten.com/1.0.0/swagger.yaml",
+    "hash": "a72b3db77e5802d6c18ceb2024e95f9ce05e97ac1317cdace091cb012ece4284",
+    "reportId": "239dd319-d07c-4cbb-8ada-ad9bfaae8a40",
+    "score": 64
+  },
+  {
+    "file": "APIs/healthcare.gov/1.0.0/openapi.yaml",
+    "hash": "16b3ca821ffe80d7defdbe6002292a165abe087698829b3ef0c0be98cc2bbe8e",
+    "reportId": "c68fc65d-33f4-42ae-94e3-0f9abeeee4f5",
+    "score": 48
+  },
+  {
+    "file": "APIs/hhs.gov/2/openapi.yaml",
+    "hash": "28de9fceb0ea320f0b8eb91fd8a4059cfceb71d9b7054f963fb31dcbdb19e31a",
+    "reportId": "90fffc88-fcb9-4281-9478-ddd79abfdeb4",
+    "score": 67
+  },
+  {
+    "file": "APIs/gsa.gov/0.1/swagger.yaml",
+    "hash": "9923b43b29abbcf931d793c4fcb6766746f2b75b6b61b574ab8a37043fee3d89",
+    "reportId": "eaede63c-fc49-44a1-8905-3059d6b5a760",
+    "score": 71
+  },
+  {
+    "file": "APIs/groundhog-day.com/1.2.1/openapi.yaml",
+    "hash": "e650f1b3c7a245d65e9f10c82c60906bd2a97a04defb1ded1c0523334125ecaf",
+    "reportId": "3ed2168f-cd26-42d6-a20c-41b6ca374648",
+    "score": 78
+  },
+  {
+    "file": "APIs/gsmtasks.com/2.4.13/openapi.yaml",
+    "hash": "0dcf00c0aa2faec293394c1b8c237748593586a6c639ea3fc59620a79ce9a7ff",
+    "reportId": "6e18a6e8-f6e8-434d-bd0a-e0155dd98d13",
+    "score": 39
+  },
+  {
+    "file": "APIs/google.home/2.0/openapi.yaml",
+    "hash": "f6c3bbcaf9cec8d5fb687559bdb00f394cc6fd6869bcbfa8d6b571747628957d",
+    "reportId": "042462c1-68ef-43e6-aa68-2569e389fd8c",
+    "score": 83
+  },
+  {
+    "file": "APIs/greip.io/1.0.0/openapi.yaml",
+    "hash": "6bdd90eb0884285c43111751db298126ec72f80337dbcca39c63b9b69747f520",
+    "reportId": "96aa29e0-9492-4d5d-8916-abf3696fb55c",
+    "score": 55
+  },
+  {
+    "file": "APIs/greenpeace.org/1.0.0/swagger.yaml",
+    "hash": "ce6fe6130378bce998d61519685e9c694359a484bca7bc0bdc51e75a7e4f00f2",
+    "reportId": "c25cfb7e-1482-4ced-838e-5c49929e7416",
+    "score": 50
+  },
+  {
+    "file": "APIs/goog.io/0.1.0/openapi.yaml",
+    "hash": "b211c2f114a071514f90dae1046d9bab8f170e62e8efff0189cf1fe420e528e0",
+    "reportId": "b47b7ef3-cc1e-4b6e-9eb5-cb846952f2e9",
+    "score": 66
+  },
+  {
+    "file": "APIs/google.com/v3/openapi.yaml",
+    "hash": "9035230ef2016ebb42c2ce0d349701e677350e89b3c777a88fd4249cc0718739",
+    "reportId": "cb6a844f-7af4-43cf-a877-35ec65eba8d6",
+    "score": 70
+  },
+  {
+    "file": "APIs/graphhopper.com/1.0.0/openapi.yaml",
+    "hash": "33d6a0b7c4c9d9c7f3c300efc82dd6cb905c0f316b058d87e13c8ab0c1bc82eb",
+    "reportId": "e4d39e18-aa60-431c-aee8-ba7653280bf4",
+    "score": 85
+  },
+  {
+    "file": "APIs/github.com/v0.1/openapi.yaml",
+    "hash": "55ee4066528bb30b032bced3d919a18512babd89ff6845ae4a346efb4e43c7a3",
+    "reportId": "c7a205fd-5e70-47a7-ab3e-cfaca7c6638e",
+    "score": 64
+  },
+  {
+    "file": "APIs/go-upc.com/1.0.0/openapi.yaml",
+    "hash": "d064c7829f21537e871142b062bc5e06b97f56f28387e1a75ce9119427dba0e5",
+    "reportId": "2642c6e9-5453-4723-a2a4-208d62d5d98a",
+    "score": 59
+  },
+  {
+    "file": "APIs/globalwinescore.com/8234aab51481d37a30757d925b7f4221a659427e/openapi.yaml",
+    "hash": "01a2f431532ebd2ca50abf72d7a2c1704271419552c49120e8113e70ef3d70a5",
+    "reportId": "fb5691b8-2add-4b3d-8add-b521860aa394",
+    "score": 62
+  },
+  {
+    "file": "APIs/httpbin.org/0.9.2/openapi.yaml",
+    "hash": "69cdd7bc0f303557ef8e2f624e73b3477654eddbac7298a5cfcdde8889848446",
+    "reportId": "a2face0e-a4be-4c94-8cc9-e9b5c939e99a",
+    "score": 57
+  },
+  {
+    "file": "APIs/gisgraphy.com/4.0.0/swagger.yaml",
+    "hash": "9e5af4ddd67cafe66332cd34e9570ae1ccfcac5fb270720159dee3d5ddb6cf70",
+    "reportId": "f0f77120-cb02-4f14-a86b-6fc10746c06e",
+    "score": 77
+  },
+  {
+    "file": "APIs/getsandbox.com/v1/swagger.yaml",
+    "hash": "e6468b864629410342de75c763bfdebe46f4b76fb819bd0ff96f85491aa502df",
+    "reportId": "3c66cf81-7a2e-4c8b-a1b7-fd91097a23e1",
+    "score": 63
+  },
+  {
+    "file": "APIs/giphy.com/1.0/openapi.yaml",
+    "hash": "e188d557d77215e249abee4f63e636d8228134da7fda109886399f34dc4a928d",
+    "reportId": "a26f9d85-7cca-49f2-a87d-a1db5eefbbbf",
+    "score": 84
+  },
+  {
+    "file": "APIs/geodatasource.com/1.0/openapi.yaml",
+    "hash": "f23e67333f26fd2581192ea54beaaf18741abe2a6418924ac7721d9bac54e037",
+    "reportId": "ddb14c40-aeba-4882-8149-e349aefc4db4",
+    "score": 44
+  },
+  {
+    "file": "APIs/gitlab.com/v3/swagger.yaml",
+    "hash": "aae66a180a52a47915964c54e4350ccb54c89104b6afff0774294fae839edf1d",
+    "reportId": "763441d3-4e06-4bd5-98a5-032911ab22b4",
+    "score": 79
+  },
+  {
+    "file": "APIs/gettyimages.com/3/openapi.yaml",
+    "hash": "1a4b82c92fcd14ad4c178c209923feeb0c06d0a378ec136272e1e1b246b9e600",
+    "reportId": "44cf381c-604d-4cda-86fc-24efbbb66010",
+    "score": 55
+  },
+  {
+    "file": "APIs/getpostman.com/1.20.0/openapi.yaml",
+    "hash": "6efaf82339f2dc8035ed077ca361b9fc56eb1bd30c44b355409736c521bbe1af",
+    "reportId": "2df95b46-e73f-44d0-95f1-2dc66a253a21",
+    "score": 66
+  },
+  {
+    "file": "APIs/gitea.io/1.20.0+dev-539-g5e389228f/openapi.yaml",
+    "hash": "267d96c28ecbe356e6237fc6c2fdf11b7af5c38cde73dec95f7abb40b9adbdcd",
+    "reportId": "a6660ee3-8a1f-4c90-ad94-c4f8bc31ceab",
+    "score": 64
+  },
+  {
+    "file": "APIs/gerermesaffaires.com/1.0.6/openapi.yaml",
+    "hash": "7365b46730f8704e5e7523ef669adfbd1a0861e8d2e01935b617661313ada8f7",
+    "reportId": "156fe92f-78ea-4a43-916a-240441e67869",
+    "score": 55
+  },
+  {
+    "file": "APIs/furkot.com/1.0.0/swagger.yaml",
+    "hash": "9f9a29d5c8a07435f3879b5cf0eabaa7dd5aad396635c8f24d5aaa6cbdc24fed",
+    "reportId": "8173c87e-a217-48d7-bb39-701e448bbee8",
+    "score": 54
+  },
+  {
+    "file": "APIs/fulfillment.com/2.0/openapi.yaml",
+    "hash": "e93184bc2e0f3b10859d1540b3915db5947e1e59954b0d8ba7df1ef03de51780",
+    "reportId": "4a3893d7-64f1-4e71-977c-f03408fe2213",
+    "score": 78
+  },
+  {
+    "file": "APIs/geneea.com/1.0/swagger.yaml",
+    "hash": "8fb90cc97f534a20777072e80ae370b8d3fd98b6c2fcd09fc6f8abfc76aa9b62",
+    "reportId": "b92aefe4-0b53-42a2-b374-7b7de46453c2",
+    "score": 83
+  },
+  {
+    "file": "APIs/freesound.org/2.0.0/swagger.yaml",
+    "hash": "90a914fb62f0f75ff6dae0e51abee06637a31077babe50276a2ad55ceea77361",
+    "reportId": "a3665d5b-2b62-4fd5-ab67-7b7ae3e93e55",
+    "score": 75
+  },
+  {
+    "file": "APIs/freetv-app.com/v1/openapi.yaml",
+    "hash": "64de62feacf9fe0ad6f4a44c6f06659f0d5e7f6e5c56f5a3a8fb6c063110528a",
+    "reportId": "06800b55-3627-4d20-a4f5-743e1db47008",
+    "score": 61
+  },
+  {
+    "file": "APIs/geodesystems.com/1.0.0/openapi.yaml",
+    "hash": "4ffc832250e21d2c0217950772f062550f43b5c03b96edee7f3a5b4314a6f943",
+    "reportId": "400fc8d6-ef4e-4ac3-8912-74520a5d39d0",
+    "score": 77
+  },
+  {
+    "file": "APIs/frankiefinancial.io/1.5.3/swagger.yaml",
+    "hash": "c2109bf7d57a7d527bda50cec08612907e2121c1acdeaa75acd0343291fb246e",
+    "reportId": "420327b2-ad3e-4204-a69b-b19dec4b35df",
+    "score": 93
+  },
+  {
+    "file": "APIs/flickr.com/1.0.0/openapi.yaml",
+    "hash": "39d570ab7a76af8e839b961671ecc21f94c22362f566d2cce42167111279d863",
+    "reportId": "014cb533-22cf-4c9c-aa7e-8c2c8d100237",
+    "score": 46
+  },
+  {
+    "file": "APIs/formapi.io/v1/openapi.yaml",
+    "hash": "3c1ad78e6d66d532d5e23044fb2696c38f1d9cb6a15021a02b778b076e9f5f1a",
+    "reportId": "e99ad253-9ec9-4b89-8a46-216eb37c4358",
+    "score": 54
+  },
+  {
+    "file": "APIs/fisheye.local/1.0.0/swagger.yaml",
+    "hash": "7b1e357533cf558dcbc9ea4cdfc9fcc8f6a19651ae12044066e815e1b2bdcabc",
+    "reportId": "9d2bffe6-358f-4176-9c03-60068ef4df6b",
+    "score": 58
+  },
+  {
+    "file": "APIs/firebrowse.org/1.1.38/swagger.yaml",
+    "hash": "93475b4025c372db5450a589881bbb7e6a510bd7de763c5be16340f8b3b5e6f1",
+    "reportId": "1a75ffa5-677b-4ce7-ab25-246f9d2a28b0",
+    "score": 73
+  },
+  {
+    "file": "APIs/firstinspires.org/1.0.0/openapi.yaml",
+    "hash": "afb03cdc9ea2ff29c3fda51f0712f26396825a2e2c6dea5dd0b7b1f348d409f2",
+    "reportId": "7b7fa3f2-adef-4bac-a2bf-2b1d41adcdcf",
+    "score": null
+  },
+  {
+    "file": "APIs/faretrotter.com/2.0/swagger.yaml",
+    "hash": "5754e42c592271f798ed2c9265397645d13a27143ebfe85574bed542af1726df",
+    "reportId": "efa036e3-98a8-4834-bcdd-f8369a473517",
+    "score": 64
+  },
+  {
+    "file": "APIs/flat.io/2.13.0/openapi.yaml",
+    "hash": "73d5286ea1a94c520aae4f6fd7ca12f1f02b6425fa42dfd114353a3633c4d1af",
+    "reportId": "26fb6936-990b-41bb-9940-9ea04afe9e24",
+    "score": 75
+  },
+  {
+    "file": "APIs/figshare.com/2.0.0/openapi.yaml",
+    "hash": "f67ddb8e41c100509420066e3069ece7d4930fe953b0bf692d2eff317723c1d8",
+    "reportId": "e402fa0c-85d8-470c-8168-7801b045b075",
+    "score": 66
+  },
+  {
+    "file": "APIs/fecru.local/1.0.0/swagger.yaml",
+    "hash": "2b0560424a6a26577c59dc438fba8f609f8ef7d21f6428c63ad4b948fcbfee48",
+    "reportId": "2adb8c7f-f306-424d-9b80-17f2bfca8d38",
+    "score": 56
+  },
+  {
+    "file": "APIs/files.com/0.0.1/openapi.yaml",
+    "hash": "1b44c0b79d1d8ad6f6d3d271c3fd25b35aff0ad91117f71c7f238435dc9be542",
+    "reportId": "048196c3-344b-4e68-8343-56a3ac175ba7",
+    "score": 78
+  },
+  {
+    "file": "APIs/fire.com/1.0/openapi.yaml",
+    "hash": "38946a8b52be83821a8fd61bec61d9dc8e8f015744f0703441b0f78463cfbd5d",
+    "reportId": "f5956547-7a1c-4509-996b-fdb5db9ed89b",
+    "score": 61
+  },
+  {
+    "file": "APIs/faceidentity-beta.azurewebsites.net/1.0/swagger.yaml",
+    "hash": "2e89fdb4cfba02494f0f0a90cc7d34ea64618652ed17a283cf041770a274c194",
+    "reportId": "ca612981-3a0e-4db8-9a03-bb705c36615b",
+    "score": 71
+  },
+  {
+    "file": "APIs/exude-api.herokuapp.com/1.0.0/openapi.yaml",
+    "hash": "760d965172f53552a7a9190b7c4b2d68ba69893ff19c874a22e2e316794e65ff",
+    "reportId": "7dd2e03e-cc83-439a-ac96-8ccf85923782",
+    "score": 58
+  },
+  {
+    "file": "APIs/exhibitday.com/v1/swagger.yaml",
+    "hash": "0ff99725f651996bedb12c458daa5f3093bda651eacab0ad40b12a01e64d9ca6",
+    "reportId": "435eee4b-7a6a-4bdd-8743-c6d54faedd26",
+    "score": 54
+  },
+  {
+    "file": "APIs/facecheck.id/v1.02/openapi.yaml",
+    "hash": "9acf0ab5f90ecbb5a9d4cb8f381d75f0f67aed2019fcdc066b28ce4d9288dcfc",
+    "reportId": "587da112-f521-45fe-95e5-3bddb66bb4dd",
+    "score": 43
+  },
+  {
+    "file": "APIs/extpose.com/1.0.0/openapi.yaml",
+    "hash": "c9ffc8c8795345da92b93b0db97e41a535c2f1b34fdb0a3660839398e2953267",
+    "reportId": "b3c51b39-e4f0-4255-88ec-8e631fae4bda",
+    "score": 74
+  },
+  {
+    "file": "APIs/exchangerate-api.com/4/openapi.yaml",
+    "hash": "3ff649b61a0123f1824b3ab37fc6d920f2be578f165f41f1ff250b773d4546cc",
+    "reportId": "62ac7d16-8d97-4abf-8ef6-09949c90b249",
+    "score": 52
+  },
+  {
+    "file": "APIs/exoapi.dev/1.0.0/openapi.yaml",
+    "hash": "24c7271d6b0f5cc6275eeb8b3df4414723e8982176e15ed4ddb87e446a4cfac3",
+    "reportId": "d2dcf2fa-2a5d-4e5b-ae5b-83fa8d8df476",
+    "score": 76
+  },
+  {
+    "file": "APIs/fec.gov/1.0/openapi.yaml",
+    "hash": "89ee10079f57715bd7b8d417caeeb01f542b15c5fabe57fe1bab6df0b74d00cf",
+    "reportId": "6017a92b-f29b-4cdd-816c-b2e1d1920a54",
+    "score": 47
+  },
+  {
+    "file": "APIs/exavault.com/2.0/openapi.yaml",
+    "hash": "e29ae0aacb82ca43b01194d71030d3abb7a73d1361f99054ac9fd2ec460a22a9",
+    "reportId": "7b46158a-6333-4da3-a2a5-011ed95a0b3a",
+    "score": 70
+  },
+  {
+    "file": "APIs/evetech.net/0.8.6/swagger.yaml",
+    "hash": "1853b651dffc9d4ec1dc63a493a7d3cdd9583ad7040cee708cceb6e18ef38da4",
+    "reportId": "14ad6dbf-51e8-4da4-b0df-3a1ac3f721c0",
+    "score": 68
+  },
+  {
+    "file": "APIs/etmdb.com/1.0.0/openapi.yaml",
+    "hash": "396637ec207d623a300833e929283580fc683ba1a544147e6d4d5e516ac4df04",
+    "reportId": "cc1ea32a-34e2-4ab7-905a-09faac3acdf1",
+    "score": 59
+  },
+  {
+    "file": "APIs/esgenterprise.com/1.0.0/openapi.yaml",
+    "hash": "ba317419124608cc836a0bebb194693a42a6c159dee7ba3acee08530943abf92",
+    "reportId": "cb64f7a3-4673-49fb-a397-5a31c818d62a",
+    "score": 45
+  },
+  {
+    "file": "APIs/evemarketer.com/1.0.1/swagger.yaml",
+    "hash": "ed4fdf8474d90b0aac1d939f4fcebd02c9174141c38f14a036288f10d24ce8e1",
+    "reportId": "042c8b83-c710-4743-9722-a588a1a42668",
+    "score": 55
+  },
+  {
+    "file": "APIs/europeana.eu/version unknown/swagger.yaml",
+    "hash": "61e5b028d6d935d8f842e76bec0dcc1d807a4254d963e26671e84348288536bb",
+    "reportId": "fe58af84-da99-49cd-b95b-06d924cdfdb6",
+    "score": 71
+  },
+  {
+    "file": "APIs/eos.local/1.0.0/openapi.yaml",
+    "hash": "c3ef76e03e2334ec46c3008a6f95eb5dd07bd2f1a3722f03c4e003630b2a591f",
+    "reportId": "1b069add-04c6-4bcb-9d37-cf56858203f0",
+    "score": 68
+  },
+  {
+    "file": "APIs/enode.io/1.3.10/openapi.yaml",
+    "hash": "6c7b9369e9d667ccdbca803d8fc79444e2f768043a4787a37fc9cbc81bfc6212",
+    "reportId": "4e2b895d-9b74-4c2d-8448-fa07967fa780",
+    "score": 63
+  },
+  {
+    "file": "APIs/envoice.in/v1/openapi.yaml",
+    "hash": "33f59ed728b792305e3bde64b915161f5e5bb4c2fc48a6deea1ce33abe428163",
+    "reportId": "9bddfe89-73c7-4942-820a-d8e1535e0e56",
+    "score": 46
+  },
+  {
+    "file": "APIs/elmah.io/v3/openapi.yaml",
+    "hash": "7656afcdb20724aff6c9f96b6cf0e0c738e56266cabdbb491cb8cbf990baff5e",
+    "reportId": "ffc6d641-a9e4-4d23-9327-7a9bb9e617aa",
+    "score": 71
+  },
+  {
+    "file": "APIs/etherpad.local/1.2.15/openapi.yaml",
+    "hash": "e9de0e3c0e54d45f7f7fa41bb777d7b8bfb46dcef68b246bda16d8eff2e04b2d",
+    "reportId": "c1f1088d-7c04-4a0f-b81e-f52b5263dc7a",
+    "score": 46
+  },
+  {
+    "file": "APIs/elevenlabs.io/1.0/openapi.yaml",
+    "hash": "c6219fd5c477780a8ef5cf230b7db982a27a7d62bfb8647cea6467a35c57c768",
+    "reportId": "228d3e27-e967-4ff3-beac-aaedfe392ada",
+    "score": 71
+  },
+  {
+    "file": "APIs/dropx.io/1.0.0/swagger.yaml",
+    "hash": "ef7b02a35e8dd5676f768fb1be8d762222211a850c10966b5aa62610a3fce0f0",
+    "reportId": "65caf0f1-ab5e-4c61-a1ac-2097fcb93840",
+    "score": 62
+  },
+  {
+    "file": "APIs/ean-search.org/1.50.0/swagger.yaml",
+    "hash": "6af9d0af92bf45b2b73ba5e2b992c95378714f336c5ac83c97b0814292e928c5",
+    "reportId": "16e124d0-afca-4c24-9d96-9f88745ce2a7",
+    "score": 69
+  },
+  {
+    "file": "APIs/e-conomic.com/v20.0.0/openapi.yaml",
+    "hash": "9bb2bb1b54b814f5f5ad69b4255a1faed30f651bfd3fdad1abc4328726ff6078",
+    "reportId": "ad1bc7ae-0c3f-47e8-84d9-6a76994be23e",
+    "score": 86
+  },
+  {
+    "file": "APIs/ebi.ac.uk/1.0/swagger.yaml",
+    "hash": "7cb3f3a0310c6a0d54e11d84b354bb6d1176be4614304f273074a5269bd20f1a",
+    "reportId": "76d9dd27-ed42-403c-abc1-ecea3c008d54",
+    "score": 70
+  },
+  {
+    "file": "APIs/dweet.io/2.0/swagger.yaml",
+    "hash": "484eead7be0266356a19277bfed4aa5631166e0f3f52ff124e06f665e14160c0",
+    "reportId": "cf211256-2b5e-4b34-bfdd-bb5714eec981",
+    "score": 64
+  },
+  {
+    "file": "APIs/edrv.io/v1/openapi.yaml",
+    "hash": "84e9ae602c93666692b1ff9bc09bcb7aba97ef733c4bb04bde370773d285a0c3",
+    "reportId": "39b8530f-96d5-4e00-90ab-e392b0e6eccf",
+    "score": 64
+  },
+  {
+    "file": "APIs/easypdfserver.com/1/openapi.yaml",
+    "hash": "bc841b3703b78a5d1850b527c51f8b61c088d433b203cb18f8c12eb2cebd0cfa",
+    "reportId": "3dff4144-0b6b-4183-b147-713e9a082fed",
+    "score": 52
+  },
+  {
+    "file": "APIs/drchrono.com/v4 (Hunt Valley)/openapi.yaml",
+    "hash": "dc89b86d0bce1dfe5f0a018f8141e6ca5bd4c6df4641dea2cdadf81d72d90417",
+    "reportId": "11d710b4-2023-4516-93a5-56b2a68eb779",
+    "score": 72
+  },
+  {
+    "file": "APIs/dnd5eapi.co/0.1/openapi.yaml",
+    "hash": "a7d78ae4416d0df99174f47630572f2cb7790a096f7c9c9d62f302c509a45f3b",
+    "reportId": "16874244-b59e-4745-9188-4686b0ee2c2b",
+    "score": 58
+  },
+  {
+    "file": "APIs/discourse.local/latest/openapi.yaml",
+    "hash": "c33959469abd6fc4bb64480bf7d034d4b5f6f0e8a83751cc433387de11f4a70e",
+    "reportId": "aca84d22-5f29-4e7b-a242-36994d0c47d5",
+    "score": 53
+  },
+  {
+    "file": "APIs/domainsdb.info/1.0/openapi.yaml",
+    "hash": "c2edac244dedececc145ba63060e5663ea60ce3fd128230405a71f13598a70ed",
+    "reportId": "3e6bed77-971b-4329-b909-88b2aea04919",
+    "score": 56
+  },
+  {
+    "file": "APIs/dodo.ac/1.6.0/openapi.yaml",
+    "hash": "5af3263b202d6aa6705bc5a039beab3b9e2d41fe09b35b22bd406a438719db25",
+    "reportId": "03be1170-3ac1-4a76-be7e-03975c070aed",
+    "score": 71
+  },
+  {
+    "file": "APIs/dracoon.team/4.42.3/openapi.yaml",
+    "hash": "b5298ec0c42729965060708636666c2dddf878ca41f7d2c3293265353284bbb3",
+    "reportId": "0d12507d-0b03-491c-aa97-0fd2b97c6f5d",
+    "score": 84
+  },
+  {
+    "file": "APIs/doqs.dev/1.0/openapi.yaml",
+    "hash": "72effd54d55e516417de171233397b7b08bd9bcf622a2f8ed43e3e10056bc8dd",
+    "reportId": "864797ed-0ca3-47a5-bd91-c7e8929b6625",
+    "score": 60
+  },
+  {
+    "file": "APIs/digitalocean.com/2.0/openapi.yaml",
+    "hash": "5bd3a4800c4396372cb80d99cc82b49463e4a3f136b63d1794c19f13da37cf63",
+    "reportId": "96eae789-486d-4d43-9b05-778000bf94c5",
+    "score": 98
+  },
+  {
+    "file": "APIs/dev.to/1.0.0/openapi.yaml",
+    "hash": "b36c073ecc3fe164c135b3691812a36ce6d99a6307533e995abdcf212de4b60c",
+    "reportId": "2afa41f0-07d5-4a85-a99d-8aeb57b87f78",
+    "score": 69
+  },
+  {
+    "file": "APIs/docusign.net/v2.1/openapi.yaml",
+    "hash": "2a9e86d5bab61f0466fffcd228a580f9ff07c743d721d5714bfb635595fd356b",
+    "reportId": "f5cc3868-e576-4c11-baa5-f5aca58f3f18",
+    "score": 77
+  },
+  {
+    "file": "APIs/datasette.local/v1/openapi.yaml",
+    "hash": "80bc2d6e270f15d03e879c5d059782921c3480203b33791ffd1fe9bc69d30d3f",
+    "reportId": "8774a921-878a-44b5-b93e-7f66bb2027cf",
+    "score": 74
+  },
+  {
+    "file": "APIs/datumbox.com/1.0/openapi.yaml",
+    "hash": "a9d57b13131cfa9c93fc4e0e81f32069a493d5228c5913137c161ba2b7f9a9bd",
+    "reportId": "e00d8337-d0cf-444b-a9e0-56e7553d36cc",
+    "score": 78
+  },
+  {
+    "file": "APIs/departureboard.io/2.0/openapi.yaml",
+    "hash": "8f305e871c6cd526daa6f25cc26343bf6c2b8e5c145aae695cab3c61c3b1521a",
+    "reportId": "a3de9158-8472-4e1c-a6b1-e5ff8745ead5",
+    "score": 71
+  },
+  {
+    "file": "APIs/dataatwork.org/1.0/swagger.yaml",
+    "hash": "3c864a7b06dcb8d82994a38e87285f7d07b86cffb9bb90fc56f33cf0c081b3d1",
+    "reportId": "2592e109-6b1f-41b6-b10e-51900fb3a0b3",
+    "score": 57
+  },
+  {
+    "file": "APIs/deeparteffects.com/2017-02-10T162446Z/swagger.yaml",
+    "hash": "e12c844e8756fce89504f99343566dfd3c0d4e73218c02a54b816939fe238a3b",
+    "reportId": "807f424b-72ec-408f-a780-486b412ad9d8",
+    "score": 41
+  },
+  {
+    "file": "APIs/digitalnz.org/3/openapi.yaml",
+    "hash": "3128ee33d6787307ca0033e4f73bf58afc2be6e5f394bd878d5d265659158255",
+    "reportId": "712f9d3a-892a-4d0f-bbcb-79933fc6eb19",
+    "score": 68
+  },
+  {
+    "file": "APIs/digitallinguistics.io/0.3.1/swagger.yaml",
+    "hash": "a3f94c97ca4edb6d0c252a57c1568d57dafbc6b83d4d931115927bfb346b20f4",
+    "reportId": "7b599fe1-ae21-47d2-88e8-f7d6d02c4e4f",
+    "score": 75
+  },
+  {
+    "file": "APIs/dataflowkit.com/1.3/openapi.yaml",
+    "hash": "07315342ad6929ec9adb6a7a4d930a004a50c825208b5737754a8bc0bf027bb7",
+    "reportId": "5528ed62-bbef-4aa0-a642-6db20d7b1230",
+    "score": 94
+  },
+  {
+    "file": "APIs/data.gov/3.0/swagger.yaml",
+    "hash": "3ea8cf61c3bd9b58a7af7c41710dbc8e53e061d5eb734a5c4a04a2dac7d6e4c9",
+    "reportId": "474990ae-fc5f-4a38-a805-41a2e8503563",
+    "score": 75
+  },
+  {
+    "file": "APIs/data2crm.com/1/swagger.yaml",
+    "hash": "2fd653d40e2164e0c3a935e4132ef103b6e57f591047cd9ae177f0df302987d2",
+    "reportId": "b96c1d3d-9d48-4e9d-9011-0d403417aba3",
+    "score": 74
+  },
+  {
+    "file": "APIs/cycat.org/0.9/swagger.yaml",
+    "hash": "6fa490d0770f644d381e42be2fc45bd41be76b411dc0f5b1e258a7436fab14db",
+    "reportId": "6ac63cad-575b-41d5-a15b-d2100583ee46",
+    "score": 67
+  },
+  {
+    "file": "APIs/daniweb.com/4/openapi.yaml",
+    "hash": "5ea2e1160610ee13ef2cc4e80074d952355048b0ffae9327a15e9ffc98d8625c",
+    "reportId": "b0b0f3ce-eb35-42c7-bf9a-72ce1d9507c2",
+    "score": 54
+  },
+  {
+    "file": "APIs/d7networks.com/1.0.2/openapi.yaml",
+    "hash": "0078519322d1e4cd09b73d5a8f7080169728d959b6da397df1487aba4a69d95b",
+    "reportId": "c6b7ad09-6b92-46d6-9ad9-f65703b80f40",
+    "score": 74
+  },
+  {
+    "file": "APIs/crossbrowsertesting.com/3.0.0/openapi.yaml",
+    "hash": "b30c860bb7a2a18b2617203f84f47f3c1dff1c40c8822e96d5e50e4d44d186f4",
+    "reportId": "a8b5c073-7b33-4c23-8c08-5bfdc7338a2e",
+    "score": 59
+  },
+  {
+    "file": "APIs/crucible.local/1.0.0/swagger.yaml",
+    "hash": "105ffa63dd5ebb81bfc10acf06269ac6808c2726bc0b9b9c781045ede00418af",
+    "reportId": "96f6abff-31cd-4008-aed1-6c630e5d089a",
+    "score": 58
+  },
+  {
+    "file": "APIs/covid19-api.com/1.2.6/openapi.yaml",
+    "hash": "72cd0914d92d29074ec47b713098fcfa4258a5832a7f01023489dee764b88dd4",
+    "reportId": "b6aa4ac9-d16e-4c3c-9fda-13ca88d1d161",
+    "score": 56
+  },
+  {
+    "file": "APIs/corrently.io/2.0.0/openapi.yaml",
+    "hash": "2c08e583ed4b1644fcfe3d66e1d1eba2bf8e98ca1691ef9463cf1efb64fc663a",
+    "reportId": "5de92770-c5a1-4979-884c-57e6c5f7a690",
+    "score": 76
+  },
+  {
+    "file": "APIs/currencytick.com/1.0.0/openapi.yaml",
+    "hash": "284829baadeac6d35c8bd009408a7842e2759f9cdb1e4a5593e5ca16e2061fcf",
+    "reportId": "787a08c6-18e2-44be-99bb-e0f255514221",
+    "score": 80
+  },
+  {
+    "file": "APIs/cybertaxonomy.eu/1.0/swagger.yaml",
+    "hash": "3551a21652cce21b23a955fd155f506afac7fe0f20a6c81a6b14343189c16f7a",
+    "reportId": "5dc44d23-4c3d-4614-8ea1-afc1ceef8809",
+    "score": 78
+  },
+  {
+    "file": "APIs/core.ac.uk/2.0/swagger.yaml",
+    "hash": "6f656bab01e4110a89d2bbdb9c1c933b0faebd6709f7b2d5b11f6eb88f477cd7",
+    "reportId": "e536b0c6-613e-4345-98df-ac231deb9ff5",
+    "score": 81
+  },
+  {
+    "file": "APIs/contribly.com/1.0.0/openapi.yaml",
+    "hash": "50b46856542f0618c8e136a299ad12aa29cdc0c9e0e4b6d90e6f9d614513a640",
+    "reportId": "e985a727-c5e4-48d9-8528-ec2c82e71f26",
+    "score": 60
+  },
+  {
+    "file": "APIs/contentgroove.com/1.0.0/openapi.yaml",
+    "hash": "17bce77c086ab9623e1714c6244ca11bac87b149f19757eb375094a337ecd80f",
+    "reportId": "9881c9ff-5e98-41d1-bef4-56809bb402bc",
+    "score": 68
+  },
+  {
+    "file": "APIs/consumerfinance.gov/1.0/swagger.yaml",
+    "hash": "4a8f5f8bbdc73c5b18f1771913d0f4425f5f416cafb05aba94dbaeec44898f7d",
+    "reportId": "2fdbe42b-c447-4d7e-9b7f-4cb51a80bf9a",
+    "score": 67
+  },
+  {
+    "file": "APIs/contract-p.fit/1.0/openapi.yaml",
+    "hash": "a957fc8449c44de7a066ba0e1ff83c624835acc21bf9dd14906c1576d6e27f66",
+    "reportId": "60554223-8633-44f2-b7b0-f86159caa381",
+    "score": 72
+  },
+  {
+    "file": "APIs/configcat.com/v1/openapi.yaml",
+    "hash": "b9966a13821c28bfa7663eb53e04b7994fc1cb82e46e3dba22e72f2886238dfe",
+    "reportId": "ed6928cb-1e32-4fbb-bcf3-f3544775825a",
+    "score": 83
+  },
+  {
+    "file": "APIs/combell.com/v2/openapi.yaml",
+    "hash": "9d9e1c8b016a6847ed3a935dd6fc22c2cf945627234b0e53974beb31cb60105b",
+    "reportId": "9949c4d4-9747-4a50-9cfb-6893e23c700d",
+    "score": 71
+  },
+  {
+    "file": "APIs/color.pizza/1.0.0/openapi.yaml",
+    "hash": "7458e3c76178d905ba40c9710e5c83ac910366cf3d935b62f7a246a852c32975",
+    "reportId": "25e4ccf7-14c2-464e-8436-7128ec6ad4ab",
+    "score": 50
+  },
+  {
+    "file": "APIs/conjur.local/5.3.0/openapi.yaml",
+    "hash": "e6547afbb381896b28ad8ba4a2552804ae632bfe5e5f4b3fa83d34fa3eda2b19",
+    "reportId": "e97c1577-e555-4f0c-96ca-469120cb9d1f",
+    "score": 90
+  },
+  {
+    "file": "APIs/collegefootballdata.com/4.4.12/openapi.yaml",
+    "hash": "f6a52a1251d510988413fc2785647dfeefb72a5a8b2e47972a6580693d834937",
+    "reportId": "126b2e81-1580-486f-b5c1-46f2715e3590",
+    "score": 82
+  },
+  {
+    "file": "APIs/code-scan.com/1.0.0/swagger.yaml",
+    "hash": "0c7abc31006212a2419ecd209b0106155c671500db92a059556ef9fc0f4751bb",
+    "reportId": "9c79ce29-28d7-4795-9adb-132edbffd94c",
+    "score": 58
+  },
+  {
+    "file": "APIs/clubhouseapi.com/1/openapi.yaml",
+    "hash": "1a61f68c44c589066b80770b7c66af7f17f4018edb7a1583a37e44ab04af59af",
+    "reportId": "a0f32240-2b8e-494f-8902-5674f46aa83d",
+    "score": 51
+  },
+  {
+    "file": "APIs/codesearch.debian.net/1.4.0/openapi.yaml",
+    "hash": "266d68e1e6f7bce1b1416a776da476839bb4efef993414f75d68d0635395473b",
+    "reportId": "c4ea9b77-5efa-4977-8599-fd81d711bd5e",
+    "score": 77
+  },
+  {
+    "file": "APIs/climatekuul.com/1.0/openapi.yaml",
+    "hash": "3d1cce7b1e34a1c1cc6bee90002f108ace17b2c2e685af9cdd5246b6eafe8484",
+    "reportId": "fa6f84c5-febb-462f-8281-5f1bc6fba524",
+    "score": 57
+  },
+  {
+    "file": "APIs/climate.com/4.0.11/openapi.yaml",
+    "hash": "787e3faef6ed9f14a890d640a3ec3bfb7f6957440088b2efbb59634f3d47b8f6",
+    "reportId": "831b4e0f-4473-4679-b26a-fa421e49fca2",
+    "score": 85
+  },
+  {
+    "file": "APIs/clickup.com/1.0.0/openapi.yaml",
+    "hash": "55ca1f4f93a936c0fd023a8b6e47e5bda1d24393b1ec56349d14a239b6e30ab2",
+    "reportId": "bae40080-d83c-42c0-82ea-b783ea5f73c6",
+    "score": 30
+  },
+  {
+    "file": "APIs/cloudrf.com/2.0.0/openapi.yaml",
+    "hash": "081fd7aba8fc7bbdb6508d64f7dba51652dcc4e5b9172db4e4765cf05657e65e",
+    "reportId": "4f68291a-9b01-4292-b987-daa880519b5e",
+    "score": 75
+  },
+  {
+    "file": "APIs/cnab-online.herokuapp.com/1.0.0/swagger.yaml",
+    "hash": "abc4e7f42035455d7c500a5b27bc93e8610caa9321bdf03c769fcb8a08f3c747",
+    "reportId": "9e666581-c010-4492-b172-feb99c7278b3",
+    "score": 46
+  },
+  {
+    "file": "APIs/clicksend.com/1.0.0/openapi.yaml",
+    "hash": "6f2b9896456907ed689a4e37e696154f65d7c970447f3075345fd5ab1dcec66f",
+    "reportId": "8da76389-5346-4a4e-b18b-4f48ea6fe677",
+    "score": 60
+  },
+  {
+    "file": "APIs/clever.com/1.2.0/openapi.yaml",
+    "hash": "4b2349b7204ea82bca193b9ea824847a0ba5e39bd4a4989b95c7e2b258845f1d",
+    "reportId": "2d23629b-4226-4c12-9957-8e80a2590b9f",
+    "score": 57
+  },
+  {
+    "file": "APIs/clickmeter.com/v2/openapi.yaml",
+    "hash": "cbbb05b3bc68faf074620a7e5d60616f232d8a51dda1d9dc1e5676572315cfaa",
+    "reportId": "53c1bad6-cb7a-49b8-bd69-d9b1b5b6c4db",
+    "score": 72
+  },
+  {
+    "file": "APIs/clever-cloud.com/1.0.0/openapi.yaml",
+    "hash": "d8d069462b3b933a721efcf10b506d1f1326df3f09fe9c2781f4248cfb519159",
+    "reportId": "e42eca53-a6d9-4c24-9c14-dd7eec454eb2",
+    "score": 40
+  },
+  {
+    "file": "APIs/cisco.com/0.0.3/swagger.yaml",
+    "hash": "2288e5870fa0f8d3c251e7d6b83bc8e850959e3155e7102b77f6d243c903d4ff",
+    "reportId": "f2ac5f96-37b6-4048-b5ba-d42f5b3f73ce",
+    "score": 49
+  },
+  {
+    "file": "APIs/citycontext.com/1.0.0/swagger.yaml",
+    "hash": "2b9e8c49ef26c51f4d6d22f4eb55f586283df96e29a6f56fbfcf4b912f8e5415",
+    "reportId": "c88a8d4c-6869-4969-b96f-283b5546278e",
+    "score": 72
+  },
+  {
+    "file": "APIs/clarify.io/1.3.7/swagger.yaml",
+    "hash": "9a02ef8c760ecfc76cc408b83b0656916149f4ec2aa5350ddd1142913f228d5d",
+    "reportId": "27a88f2d-834e-4030-af63-d4b158dde079",
+    "score": 67
+  },
+  {
+    "file": "APIs/clearblade.com/3.0/swagger.yaml",
+    "hash": "f996b7014f537929f714ada1b4898b7eb211c335d443dea1c6759df75d0f018d",
+    "reportId": "b584b8ca-d1cd-4e2f-8870-770910eee433",
+    "score": 76
+  },
+  {
+    "file": "APIs/circleci.com/v1/openapi.yaml",
+    "hash": "5d4a1a3cc0473a44b0c8098a4e649bb4a1343a6ba3ac025f87a89f7a1c6dc599",
+    "reportId": "b83f3e8d-9a42-4025-a397-e788aca01e17",
+    "score": 58
+  },
+  {
+    "file": "APIs/chompthis.com/1.0.0-oas3/openapi.yaml",
+    "hash": "51e31f2b7bf55aa4c2ae2c76915f57412288daafbf175b65a85e334c9e25c6ef",
+    "reportId": "f436d6ac-864f-4ed1-80f7-7b30fd592e2d",
+    "score": 72
+  },
+  {
+    "file": "APIs/circuitsandbox.net/2.9.235/openapi.yaml",
+    "hash": "2b62c2aff0b0b89bc49cb55329e05e7f401d73263a4b4e2c0381966c920e5770",
+    "reportId": "424ae199-8dcd-445c-abff-67958c7ce852",
+    "score": 76
+  },
+  {
+    "file": "APIs/change.local/v1/openapi.yaml",
+    "hash": "df535c3a3a0d9eba7f794b35f6849e9fdb6b6a8dd26b6c68d68138b696b13157",
+    "reportId": "e9b9f1bc-aa66-4620-9325-ddb12ebc5ec4",
+    "score": 58
+  },
+  {
+    "file": "APIs/channel4.com/1.0.0/swagger.yaml",
+    "hash": "6ae16ae60e006f90b501810bdb963d3fe54f7c3923caf82ccfd30247ace85a07",
+    "reportId": "658c7e28-d039-4f1d-b7bb-dc7da046a9d6",
+    "score": 80
+  },
+  {
+    "file": "APIs/chaingateway.io/1.0/openapi.yaml",
+    "hash": "17325f8c34bf99671c58ced0e819c5fbf419a0aa7b3f9d3fb080795610a5ead1",
+    "reportId": "75fb1fc3-1fe7-4571-b7fb-731b9a90f4cd",
+    "score": 77
+  },
+  {
+    "file": "APIs/chaingateway.io/1.0.0/openapi.yaml",
+    "hash": "55fca685f7fe74115aaeb572e386cb5c77058847fbe7cd8361391456f3780ace",
+    "reportId": "82833efb-7736-4b04-b596-c12a5974c34a",
+    "score": 74
+  },
+  {
+    "file": "APIs/cenit.io/v1/swagger.yaml",
+    "hash": "375af0b222eb87202e0dc9419c39a51fd7ddd6c55ce190462c5404822b10659d",
+    "reportId": "a565c9d1-b890-4a64-bca7-81c41cf47725",
+    "score": 66
+  },
+  {
+    "file": "APIs/carbone.io/1.2.0/openapi.yaml",
+    "hash": "34ea2e8ca3811b3e907a59285899d4bdcf05cdbdd1c4f7d94366eb9c2eb8b675",
+    "reportId": "e52f1dbe-02c5-4afc-8afe-ecb44c6bde21",
+    "score": 69
+  },
+  {
+    "file": "APIs/carbondoomsday.com/v1/swagger.yaml",
+    "hash": "e221747bdb19d26d7e0ec93330d1b34d77c561ab12f04663e2e178cfb8838090",
+    "reportId": "bb7dea32-0eb5-4ce0-af01-1a564362f6d8",
+    "score": 57
+  },
+  {
+    "file": "APIs/byautomata.io/1.0.1/openapi.yaml",
+    "hash": "46fa7bbbeab21b518a8a35296ec990f2c78c12efc48f3209c153b8be31267320",
+    "reportId": "6c8be73e-2552-47f7-9b52-89b19bad6c08",
+    "score": 48
+  },
+  {
+    "file": "APIs/calorieninjas.com/1.0.0/openapi.yaml",
+    "hash": "634509a01ab2237285c2dda13789aeca9c06eb11973287cdd0a3182955dbc220",
+    "reportId": "38e950c7-86fe-4325-a25d-38b924be57d1",
+    "score": 55
+  },
+  {
+    "file": "APIs/canada-holidays.ca/1.8.0/openapi.yaml",
+    "hash": "8c532ab671f9f0ebabc120a6d1d7d5fd8ca348676b2d3156c3d0c08db95bc8d2",
+    "reportId": "449f9741-a5e2-4ddc-bcd9-2e5f6bd534e6",
+    "score": 77
+  },
+  {
+    "file": "APIs/callcontrol.com/2015-11-01/swagger.yaml",
+    "hash": "056fe8410bb2bb52861d70ebccb09f3902428a450fcfc69b124cb303edc1d63c",
+    "reportId": "57de2988-9aa3-439f-90a3-b52c79c791f0",
+    "score": 59
+  },
+  {
+    "file": "APIs/c19qrserver.local/1.1/openapi.yaml",
+    "hash": "7bd4da7a5dec95450ad5ddf3def7a42c5b9f67e5b6d60f02ec3801ebfaa82477",
+    "reportId": "88218495-ff3c-484e-8e83-30f21e6378fd",
+    "score": 74
+  },
+  {
+    "file": "APIs/callfire.com/V2/openapi.yaml",
+    "hash": "f663dc3500d9bb547e31ec8814320f9f1be82763072c6d5db896c4eb2d78c58e",
+    "reportId": "0729b1f4-e8f7-44d1-a96e-37cedf64b8a0",
+    "score": 85
+  },
+  {
+    "file": "APIs/cambase.io/1.0/swagger.yaml",
+    "hash": "6f2b15f5314f03fa6650d599170d1455eb70b2dc17917ef626136e6312e4b7c2",
+    "reportId": "8e56f667-9eb3-4b59-8722-a1e00810e5b3",
+    "score": 68
+  },
+  {
+    "file": "APIs/bufferapp.com/1/swagger.yaml",
+    "hash": "1f143665a64fd776e9a68f06bba5102eb98b15e00a8c2041de24f2ddd39c7d5a",
+    "reportId": "d2d134d2-a90a-43bc-84ba-dd57317a7f69",
+    "score": 54
+  },
+  {
+    "file": "APIs/britbox.co.uk/3.730.300-ref-1-39-0/openapi.yaml",
+    "hash": "3b28a9e14de5c7ddafdc0292955fdafdce1e4711e0a89b9f5e11a751b63c1b62",
+    "reportId": "9c96e48f-5220-4315-bc5c-e1951cfa5e3d",
+    "score": 66
+  },
+  {
+    "file": "APIs/bunq.com/1.0/openapi.yaml",
+    "hash": "d19e8698545140c66f260d2b361bc4a393bddf2cec3041cbc9e98263e666a3ac",
+    "reportId": "2bbeab0d-9ade-4048-8fa3-c8b7fa62ffe1",
+    "score": 68
+  },
+  {
+    "file": "APIs/bulksms.com/1.0.0/openapi.yaml",
+    "hash": "438e58642af7e14caec63594742688b2e77a79c8622467684934964a4c18ebb3",
+    "reportId": "46d8fa49-9809-435c-b736-eb22886a254b",
+    "score": 66
+  },
+  {
+    "file": "APIs/bridgedb.org/0.9.0/swagger.yaml",
+    "hash": "e9a0be951686ac240d0aabd9e1130807c87b6c0ea03a059cd18d47ba853ff85a",
+    "reportId": "5efc002d-fe61-4f06-93d1-11b430178485",
+    "score": 43
+  },
+  {
+    "file": "APIs/breadcrumbs.one/v1/openapi.yaml",
+    "hash": "25670c5c3664151b9cd1eb2bccef62482f70fc727a1c20149ace5fcad2cd5e79",
+    "reportId": "5c532c28-7d1c-46c4-8db3-8362fe5e7472",
+    "score": 55
+  },
+  {
+    "file": "APIs/brainbi.net/1.0.0/openapi.yaml",
+    "hash": "25609d62c66f0f436cc021e8e2d0429821534c21f04285f6d520e519d3648b7d",
+    "reportId": "f81ce322-fcaa-4740-96a9-e29b46533c73",
+    "score": 71
+  },
+  {
+    "file": "APIs/browshot.com/1.17.0/swagger.yaml",
+    "hash": "b66a6d1f7eaf8692752591b30b6cf4fb0beac447556f705bc8d461f0414bf041",
+    "reportId": "1c61c0a9-7a9f-435d-aeb5-b503693d38a7",
+    "score": 68
+  },
+  {
+    "file": "APIs/brandlovers.com/1.0.0/swagger.yaml",
+    "hash": "19bf7353fd23213197d38be0c838a1e00122cc3ceedbeac07b1b36e787557b2d",
+    "reportId": "934c3efa-44b4-4efa-82e7-1e1eff3b4ed0",
+    "score": 67
+  },
+  {
+    "file": "APIs/braze.com/1.0.0/openapi.yaml",
+    "hash": "0c56278f7e32d14bafabb3718f67c25b046ee3bf6f28403eaba7743e6f3399ac",
+    "reportId": "0409cf1f-bcee-44ae-aa84-e8dbf8fd47a8",
+    "score": 78
+  },
+  {
+    "file": "APIs/brex.io/2021.12/openapi.yaml",
+    "hash": "e891bd77b116f78c5c80013ff2083b3114bf47b9f7cd0da61939e9f8a444e28f",
+    "reportId": "5254c77f-e4f7-48f1-a879-28fefe28d489",
+    "score": 78
+  },
+  {
+    "file": "APIs/chain49.com/2.0/openapi.yaml",
+    "hash": "9015f0db73f3c023ea9bed808bba1af8d689a47cd5ea0bb228b93f62aff53b46",
+    "reportId": "0e4a2d66-5460-4496-9537-78a0c6be0821",
+    "score": 83
+  },
+  {
+    "file": "APIs/bungie.net/2.18.0/openapi.yaml",
+    "hash": "d9464561cfff2ca93e6425607ed1a9f9316340c8334d8255530fbb949e8f8d20",
+    "reportId": "761a54b5-8514-483c-85ae-c812b752455e",
+    "score": 65
+  },
+  {
+    "file": "APIs/bintable.com/1.0.0-oas3/openapi.yaml",
+    "hash": "c2b12993c003798cb3846a693033d01365d1d295e13625a6a15d02ee8f67ae36",
+    "reportId": "6aa781e0-29fa-43ac-b3f9-a4d06e8d41f5",
+    "score": 80
+  },
+  {
+    "file": "APIs/biztoc.com/v1/openapi.yaml",
+    "hash": "d5488f399486c3059846562538e3845cca8bb7a658a12f6a4b280a673b600caa",
+    "reportId": "3b82104c-d0e5-4aa4-a017-74ae4e589c57",
+    "score": 64
+  },
+  {
+    "file": "APIs/botschaft.local/0.1.0/openapi.yaml",
+    "hash": "b089bfcdf2e6eec28062a512a0ba3bdf2750ac79fcedcf581a7990158bf087fc",
+    "reportId": "c155f32b-150f-48ad-9276-056d4e3372ea",
+    "score": 51
+  },
+  {
+    "file": "APIs/blazemeter.com/4/swagger.yaml",
+    "hash": "6c051f117073f6cf64feb20972bc9209612ad465f0c0a7aa87f26eee868ba024",
+    "reportId": "83aa8515-4fd6-46a6-90c1-1191122ae6ba",
+    "score": 67
+  },
+  {
+    "file": "APIs/botify.com/1.0.0/openapi.yaml",
+    "hash": "7a43a9d1311c8883bffd8c9021c8ac74ec761aba17ce5f9d835cd6d40879cbe2",
+    "reportId": "2e9e4fa2-4051-427f-865d-021a58d9160d",
+    "score": 67
+  },
+  {
+    "file": "APIs/box.com/2.0.0/openapi.yaml",
+    "hash": "8fdc22ddf19d734dd3372a5545324ac43eae55e169651e22bb31b85f0623bc9e",
+    "reportId": "b345aa7c-4b9b-4e6e-afdb-5328f451fd63",
+    "score": 83
+  },
+  {
+    "file": "APIs/billingo.hu/3.0.7/openapi.yaml",
+    "hash": "77f6a774061b8f4f7e7f5a5061d73601cb08666b4ec0b5cf73b9ca86203c684d",
+    "reportId": "d1ba73e5-26e2-49a8-9d47-1c116d7ad125",
+    "score": 83
+  },
+  {
+    "file": "APIs/bkk.hu/1.0.1/openapi.yaml",
+    "hash": "1856afa8d04e96b02c9896bb5a09d019356e057c13d6a810d7a479d7a8eae81f",
+    "reportId": "58f15fb4-5c2e-4c02-bdd2-08530276f8c9",
+    "score": 58
+  },
+  {
+    "file": "APIs/bitbucket.org/2.0/openapi.yaml",
+    "hash": "1765d8a44451249986f9aeaa99d9dda8134cd68e447af4d68460826daff47a85",
+    "reportId": "08feb607-a2ac-42be-89b4-dc4ff88f03da",
+    "score": 68
+  }
+]

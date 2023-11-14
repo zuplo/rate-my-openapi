@@ -18,6 +18,9 @@ const files = await glob(
 const queue = new PQueue({ concurrency: 10 });
 
 const outputPath = path.resolve(process.cwd(), "../../apis-guru");
+if (!fs.existsSync(outputPath)) {
+  fs.mkdirSync(outputPath);
+}
 const ratingsPath = path.resolve(outputPath, "ratings.json");
 const logPath = path.resolve(outputPath, `${Date.now()}.log`);
 
@@ -27,6 +30,9 @@ function sleep(ms) {
 
 const response = await fetch(
   "https://storage.googleapis.com/rate-my-openapi-public/apis-guru/ratings.json",
+  {
+    cache: "no-cache",
+  },
 );
 let ratings = await response.json();
 let updatedRatings = [];
@@ -57,7 +63,11 @@ async function rateFile(file) {
   const report = ratings.find((r) => r.file === relativeFile) || {};
   const reportId = report.reportId || randomUUID();
 
-  const reportResult = await createReportFromLocal(file, reportId, report.hash);
+  const reportResult = await createReportFromLocal(
+    file,
+    reportId,
+    report?.hash,
+  );
 
   report.file = relativeFile;
   report.hash = reportResult.hash;

@@ -52,7 +52,7 @@ try {
           env: process.env,
         });
         worker.on("error", (err) => {
-          console.log(err);
+          console.error(err ?? "Unknown error on worker");
         });
         worker.on("exit", (code) => {
           if (code === 0) {
@@ -63,13 +63,13 @@ try {
         });
         setTimeout(() => {
           worker.terminate();
-          reject();
+          reject(new Error("Job timed out"));
         }, 3600 * 1000);
       });
     }),
   );
 } catch (err) {
-  console.error(err);
+  console.error(err ?? "Unknown error");
 } finally {
   console.log("Ratings complete");
   await writeRatings();

@@ -20,9 +20,9 @@ async function rateFile() {
     report.reportId = reportId;
     report.score = reportResult.simpleReport
       ? isNaN(reportResult.simpleReport.score)
-        ? undefined
+        ? null
         : reportResult.simpleReport.score
-      : undefined;
+      : null;
   } else {
     console.log(`Skipping because it hasn't changed`);
   }

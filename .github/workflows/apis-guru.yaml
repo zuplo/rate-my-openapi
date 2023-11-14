@@ -5,9 +5,13 @@ on:
   #   - cron: "0 17,22 * * 1-5"
 
 jobs:
-  build:
+  generate:
     name: Update API Ratings
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: "read"
+      id-token: "write"
 
     steps:
       - uses: actions/checkout@v4

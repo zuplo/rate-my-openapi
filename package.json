@@ -22,7 +22,6 @@
   ],
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "execa": "^8.0.1",
     "glob": "^10.3.10",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",

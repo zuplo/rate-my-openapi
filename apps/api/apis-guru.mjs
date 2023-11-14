@@ -2,10 +2,10 @@ import { config } from "dotenv";
 config();
 
 import { randomUUID } from "crypto";
-import { execa } from "execa";
 import fs from "fs";
 import { glob } from "glob";
 import PQueue from "p-queue";
+import pRetry from "p-retry";
 import path from "path";
 import { createReportFromLocal } from "./dist/lib/local.js";
 
@@ -15,9 +15,13 @@ const files = await glob(
   "../../openapi-directory/**/{openapi,swagger}.{json,yaml}",
 );
 
-const queue = new PQueue({ concurrency: 25 });
+const queue = new PQueue({ concurrency: 10 });
 
 const ratingsPath = path.resolve(process.cwd(), "../../apis-guru.json");
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 const response = await fetch(
   "https://storage.googleapis.com/rate-my-openapi-public/apis-guru.json",
@@ -26,10 +30,20 @@ let ratings = await response.json();
 let updatedRatings = [];
 
 try {
-  await queue.addAll(files.map((file) => () => rateFile(file)));
+  await queue.addAll(
+    files.map((file) => () => {
+      return pRetry(() => rateFile(file), {
+        retries: 3,
+        randomize: true,
+        onFailedAttempt: async (error) => {
+          console.log("Waiting for 1 second before retrying");
+          await sleep(1000);
+        },
+      });
+    }),
+  );
 } catch (err) {
   console.error(err);
-  process.exit(1);
 } finally {
   const outputRatings = ratings.map((r) => {
     const updatedRating = updatedRatings.find((ur) => ur.file === r.file);
@@ -44,33 +58,22 @@ try {
 }
 
 async function rateFile(file) {
-  console.log(`Processing ${file}`);
   const relativeFile = path.relative(baseDir, file);
-
-  const { stdout } = await execa(
-    "git",
-    ["log", "-1", "--format=%ad", "--", relativeFile],
-    { cwd: baseDir },
-  );
-
-  const lastModified = new Date(stdout);
+  console.log(`Processing ${relativeFile}`);
 
   const report = ratings.find((r) => r.file === relativeFile) || {};
-  if (
-    report.lastModified ? new Date(report.lastModified) >= lastModified : false
-  ) {
-    console.log(`Skipping ${file} because it hasn't changed`);
-    return;
-  }
-
   const reportId = report.reportId || randomUUID();
 
-  const reportResult = await createReportFromLocal(file, reportId);
+  const reportResult = await createReportFromLocal(file, reportId, report.hash);
 
   report.file = relativeFile;
-  report.lastModified = lastModified.toISOString();
+  report.hash = reportResult.hash;
   report.reportId = reportId;
-  report.score = reportResult?.simpleReport?.score;
+  report.score = reportResult.simpleReport
+    ? isNaN(reportResult.simpleReport.score)
+      ? undefined
+      : reportResult.simpleReport.score
+    : undefined;
 
   updatedRatings.push(report);
   console.log(report);

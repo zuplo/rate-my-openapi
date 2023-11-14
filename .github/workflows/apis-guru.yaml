@@ -15,6 +15,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - id: "auth-gcp"
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v1"
+        with:
+          token_format: "access_token"
+          workload_identity_provider: projects/196494084534/locations/global/workloadIdentityPools/github-actions-wi-pool/providers/github-actions-wi-provider
+          service_account: "github-actions@zuplo-marketing.iam.gserviceaccount.com"
+
       - uses: actions/checkout@v4
         with:
           repository: "APIs-guru/openapi-directory"
@@ -25,14 +34,6 @@ jobs:
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
-
-      - id: "auth-gcp"
-        name: "Authenticate to Google Cloud"
-        uses: "google-github-actions/auth@v1"
-        with:
-          token_format: "access_token"
-          workload_identity_provider: projects/196494084534/locations/global/workloadIdentityPools/github-actions-wi-pool/providers/github-actions-wi-provider
-          service_account: "github-actions@zuplo-marketing.iam.gserviceaccount.com"
 
       - run: npm ci
       - run: npm run build

@@ -23,7 +23,7 @@ jobs:
           token_format: "access_token"
           workload_identity_provider: projects/196494084534/locations/global/workloadIdentityPools/github-actions-wi-pool/providers/github-actions-wi-provider
           service_account: "github-actions@zuplo-marketing.iam.gserviceaccount.com"
-          access_token_lifetime: 3600
+          access_token_lifetime: 10800
 
       - uses: actions/checkout@v4
         with:
@@ -50,18 +50,8 @@ jobs:
         if: always()
         uses: "google-github-actions/upload-cloud-storage@v1"
         with:
-          path: apis-guru.json
-          destination: rate-my-openapi-public/apis-guru.json
-          parent: false
-          headers: |-
-            content-type: application/json
-
-      - name: Upload Ratings (with sha)
-        if: always()
-        uses: "google-github-actions/upload-cloud-storage@v1"
-        with:
-          path: apis-guru.json
-          destination: rate-my-openapi-public/apis-guru/${{ github.sha }}.json
+          path: apis-guru
+          destination: rate-my-openapi-public
           parent: false
           headers: |-
             content-type: application/json

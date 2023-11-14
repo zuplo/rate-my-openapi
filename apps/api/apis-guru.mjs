@@ -17,14 +17,16 @@ const files = await glob(
 
 const queue = new PQueue({ concurrency: 10 });
 
-const ratingsPath = path.resolve(process.cwd(), "../../apis-guru.json");
+const outputPath = path.resolve(process.cwd(), "../../apis-guru");
+const ratingsPath = path.resolve(outputPath, "ratings.json");
+const logPath = path.resolve(outputPath, `${Date.now()}.log`);
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 const response = await fetch(
-  "https://storage.googleapis.com/rate-my-openapi-public/apis-guru.json",
+  "https://storage.googleapis.com/rate-my-openapi-public/apis-guru/ratings.json",
 );
 let ratings = await response.json();
 let updatedRatings = [];
@@ -45,16 +47,7 @@ try {
 } catch (err) {
   console.error(err);
 } finally {
-  const outputRatings = ratings.map((r) => {
-    const updatedRating = updatedRatings.find((ur) => ur.file === r.file);
-    if (updatedRating) {
-      return updatedRating;
-    }
-    return r;
-  });
-
-  const reportJson = JSON.stringify(outputRatings, null, 2);
-  await fs.promises.writeFile(ratingsPath, reportJson, "utf-8");
+  await writeRatings();
 }
 
 async function rateFile(file) {
@@ -76,5 +69,24 @@ async function rateFile(file) {
     : undefined;
 
   updatedRatings.push(report);
+  await writeLogLine(report);
   console.log(report);
+}
+
+async function writeLogLine(report) {
+  const logLine = JSON.stringify(report) + "\n";
+  await fs.promises.appendFile(logPath, logLine, "utf-8");
+}
+
+async function writeRatings() {
+  const outputRatings = ratings.map((r) => {
+    const updatedRating = updatedRatings.find((ur) => ur.file === r.file);
+    if (updatedRating) {
+      return updatedRating;
+    }
+    return r;
+  });
+
+  const reportJson = JSON.stringify(outputRatings, null, 2);
+  await fs.promises.writeFile(ratingsPath, reportJson, "utf-8");
 }

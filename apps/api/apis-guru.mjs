@@ -17,7 +17,17 @@ const files = await glob(
 
 const queue = new PQueue({ concurrency: 10 });
 
+let ratings = [];
+
+const ratingsPath = path.resolve(process.cwd(), "../../apis-guru.json");
+if (fs.existsSync(ratingsPath)) {
+  ratings = await fs.promises.readFile(ratingsPath, "utf-8").then(JSON.parse);
+}
+
 await queue.addAll(files.map((file) => () => rateFile(file)));
+
+const reportJson = JSON.stringify(ratings, null, 2);
+await fs.promises.writeFile(ratingsPath, reportJson, "utf-8");
 
 async function rateFile(file) {
   console.log(`Processing ${file}`);
@@ -30,15 +40,8 @@ async function rateFile(file) {
 
   const lastModified = new Date(stdout);
 
-  const reportPath = path.resolve(file, "../rating.json");
-
-  let report;
-  if (fs.existsSync(reportPath)) {
-    report = await fs.promises.readFile(reportPath, "utf-8").then(JSON.parse);
-  } else {
-    report = {};
-  }
-
+  const report =
+    ratings.find((r) => r.file === path.relative(baseDir, file)) || {};
   if (
     report.lastModified ? new Date(report.lastModified) >= lastModified : false
   ) {
@@ -50,11 +53,11 @@ async function rateFile(file) {
 
   await createReportFromLocal(file, reportId);
 
+  report.file = path.relative(baseDir, file);
   report.lastModified = lastModified.toISOString();
   report.reportId = reportId;
 
-  const reportJson = JSON.stringify(report, null, 2);
-  await fs.promises.writeFile(reportPath, reportJson);
+  ratings.push(report);
 
   console.log({ reportId });
 }

@@ -15,16 +15,16 @@ const files = await glob(
   "../../openapi-directory/**/{openapi,swagger}.{json,yaml}",
 );
 
-const queue = new PQueue({ concurrency: 10 });
-
-let ratings = [];
+const queue = new PQueue({ concurrency: 25 });
 
 const ratingsPath = path.resolve(process.cwd(), "../../apis-guru.json");
-if (fs.existsSync(ratingsPath)) {
-  ratings = await fs.promises.readFile(ratingsPath, "utf-8").then(JSON.parse);
-}
 
-await queue.addAll([files[0]].map((file) => () => rateFile(file)));
+const response = await fetch(
+  "https://storage.googleapis.com/rate-my-openapi-public/apis-guru.json",
+);
+let ratings = await response.json() as any[];
+
+await queue.addAll(files[0].map((file) => () => rateFile(file)));
 
 const reportJson = JSON.stringify(ratings, null, 2);
 await fs.promises.writeFile(ratingsPath, reportJson, "utf-8");

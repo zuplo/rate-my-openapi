@@ -4,10 +4,9 @@ config();
 import { randomUUID } from "crypto";
 import fs from "fs";
 import { glob } from "glob";
+import { Worker } from "node:worker_threads";
 import PQueue from "p-queue";
-import pRetry from "p-retry";
 import path from "path";
-import { createReportFromLocal } from "./dist/lib/local.js";
 
 const baseDir = path.join(process.cwd(), "../../openapi-directory");
 
@@ -24,10 +23,6 @@ if (!fs.existsSync(outputPath)) {
 const ratingsPath = path.resolve(outputPath, "ratings.json");
 const logPath = path.resolve(outputPath, `${Date.now()}.log`);
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 const response = await fetch(
   "https://storage.googleapis.com/rate-my-openapi-public/apis-guru/ratings.json",
   {
@@ -35,68 +30,76 @@ const response = await fetch(
   },
 );
 let ratings = await response.json();
-let updatedRatings = [];
+
+const workerPath = path.resolve(process.cwd(), "./api-guru.worker.mjs");
 
 try {
   await queue.addAll(
     files.map((file) => () => {
-      return pRetry(() => rateFile(file), {
-        retries: 3,
-        randomize: true,
-        onFailedAttempt: async (error) => {
-          console.log("Waiting for 1 second before retrying");
-          await sleep(1000);
-        },
+      return new Promise((resolve, reject) => {
+        const relativeFile = path.relative(baseDir, file);
+        const report = ratings.find((r) => r.file === relativeFile) ?? {};
+        const reportId = report.reportId || randomUUID();
+
+        const worker = new Worker(workerPath, {
+          workerData: {
+            logPath,
+            relativeFile,
+            report,
+            reportId,
+            file,
+          },
+          env: process.env,
+        });
+        worker.on("error", (err) => {
+          console.log(err);
+        });
+        worker.on("exit", (code) => {
+          if (code === 0) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
+        setTimeout(() => {
+          worker.terminate();
+          reject();
+        }, 3600 * 1000);
       });
     }),
   );
 } catch (err) {
   console.error(err);
 } finally {
+  console.log("Ratings complete");
   await writeRatings();
-}
-
-async function rateFile(file) {
-  const relativeFile = path.relative(baseDir, file);
-  console.log(`Processing ${relativeFile}`);
-
-  const report = ratings.find((r) => r.file === relativeFile) || {};
-  const reportId = report.reportId || randomUUID();
-
-  const reportResult = await createReportFromLocal(
-    file,
-    reportId,
-    report?.hash,
-  );
-
-  report.file = relativeFile;
-  report.hash = reportResult.hash;
-  report.reportId = reportId;
-  report.score = reportResult.simpleReport
-    ? isNaN(reportResult.simpleReport.score)
-      ? undefined
-      : reportResult.simpleReport.score
-    : undefined;
-
-  updatedRatings.push(report);
-  await writeLogLine(report);
-  console.log(report);
-}
-
-async function writeLogLine(report) {
-  const logLine = JSON.stringify(report) + "\n";
-  await fs.promises.appendFile(logPath, logLine, "utf-8");
+  process.exit(0);
 }
 
 async function writeRatings() {
-  const outputRatings = ratings.map((r) => {
-    const updatedRating = updatedRatings.find((ur) => ur.file === r.file);
-    if (updatedRating) {
-      return updatedRating;
+  let updatedRatings = [];
+  const logLines = await fs.promises.readFile(logPath, "utf-8");
+  for (const line of logLines.split("\n")) {
+    if (line) {
+      const report = JSON.parse(line);
+      updatedRatings.push(report);
     }
-    return r;
-  });
+  }
 
-  const reportJson = JSON.stringify(outputRatings, null, 2);
+  const outputRatings = ratings
+    .map((r) => {
+      const updatedRating = updatedRatings.find((ur) => ur.file === r.file);
+      if (updatedRating) {
+        return updatedRating;
+      }
+      return r;
+    })
+    .filter((r) => r !== undefined);
+
+  // Just to make sure we create fully valid json without undefined values
+  const response = new Response(JSON.stringify(outputRatings));
+  const result = await response.json();
+  const reportJson = JSON.stringify(result, null, 2);
+  console.log("Writing rating report");
   await fs.promises.writeFile(ratingsPath, reportJson, "utf-8");
 }

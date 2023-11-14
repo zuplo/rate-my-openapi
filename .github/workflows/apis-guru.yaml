@@ -16,14 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - id: "auth-gcp"
-        name: "Authenticate to Google Cloud"
+      - name: "Authenticate to Google Cloud"
         uses: "google-github-actions/auth@v1"
         with:
           token_format: "access_token"
           workload_identity_provider: projects/196494084534/locations/global/workloadIdentityPools/github-actions-wi-pool/providers/github-actions-wi-provider
           service_account: "github-actions@zuplo-marketing.iam.gserviceaccount.com"
-          access_token_lifetime: 10800
+          access_token_lifetime: 3600
 
       - uses: actions/checkout@v4
         with:
@@ -45,6 +44,17 @@ jobs:
           GOOGLE_CLOUD_STORAGE_BUCKET: rate-my-open-api-prod
           GOOGLE_CLOUD_PROJECT_ID: zuplo-marketing
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      # Reauthenticate to Google Cloud because its possible this job takes
+      # more than 1 hour to run.
+      - name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v1"
+        if: always()
+        with:
+          token_format: "access_token"
+          workload_identity_provider: projects/196494084534/locations/global/workloadIdentityPools/github-actions-wi-pool/providers/github-actions-wi-provider
+          service_account: "github-actions@zuplo-marketing.iam.gserviceaccount.com"
+          access_token_lifetime: 3600
 
       - name: Upload Ratings
         if: always()

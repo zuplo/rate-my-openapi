@@ -51,11 +51,12 @@ async function rateFile(file) {
 
   const reportId = report.reportId || randomUUID();
 
-  await createReportFromLocal(file, reportId);
+  const reportResult = await createReportFromLocal(file, reportId);
 
   report.file = relativeFile;
   report.lastModified = lastModified.toISOString();
   report.reportId = reportId;
+  report.score = reportResult.simpleReport.score;
 
   ratings.push(report);
   console.log(report);

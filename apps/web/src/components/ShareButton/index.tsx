@@ -23,8 +23,8 @@ const ShareButton = ({
         copied
           ? "button bg-gray-400 text-white"
           : type === "light"
-          ? "button-light"
-          : "button-dark"
+            ? "button-light"
+            : "button-dark"
       } ${className}`}
     >
       {copied ? "Copied to clipboard" : "Share these results"}

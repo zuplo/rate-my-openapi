@@ -27,6 +27,9 @@ let updatedRatings = [];
 
 try {
   await queue.addAll(files.map((file) => () => rateFile(file)));
+} catch (err) {
+  console.error(err);
+  process.exit(1);
 } finally {
   const outputRatings = ratings.map((r) => {
     const updatedRating = updatedRatings.find((ur) => ur.file === r.file);
@@ -67,7 +70,7 @@ async function rateFile(file) {
   report.file = relativeFile;
   report.lastModified = lastModified.toISOString();
   report.reportId = reportId;
-  report.score = reportResult.simpleReport.score;
+  report.score = reportResult?.simpleReport?.score;
 
   updatedRatings.push(report);
   console.log(report);

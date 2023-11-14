@@ -1,6 +1,9 @@
 import { serializeError } from "serialize-error";
 import { SimpleReport, generateRating, uploadReport } from "src/lib/rating.js";
-import { getStorageBucketName, storage } from "src/services/storage.js";
+import {
+  getStorageBucketName,
+  getStorageClient,
+} from "src/services/storage.js";
 
 const regenerateOrderedReport = async ({
   reportId,
@@ -44,7 +47,9 @@ const regenerateOrderedReport = async ({
 };
 
 (async () => {
-  const [files] = await storage.bucket(getStorageBucketName()).getFiles();
+  const [files] = await getStorageClient()
+    .bucket(getStorageBucketName())
+    .getFiles();
 
   const simpleReportFiles = files.filter((file) =>
     file.name.endsWith("-simple-report.json"),

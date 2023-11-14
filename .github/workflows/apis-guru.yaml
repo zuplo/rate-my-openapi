@@ -1,0 +1,41 @@
+name: Main
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "0 17,22 * * 1-5"
+
+jobs:
+  build:
+    name: Update API Ratings
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: "APIs-guru/openapi-directory"
+          path: "openapi-directory"
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+
+      - id: "auth-gcp"
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v1"
+        with:
+          token_format: "access_token"
+          workload_identity_provider: projects/196494084534/locations/global/workloadIdentityPools/github-actions-wi-pool/providers/github-actions-wi-provider
+          service_account: "github-actions@zuplo-marketing.iam.gserviceaccount.com"
+
+      - run: npm ci
+      - run: npm run build
+
+      - run: node apis-guru.mjs
+        working-directory: apps/api
+        env:
+          GOOGLE_CLOUD_STORAGE_BUCKET: rate-my-open-api-prod
+          GOOGLE_CLOUD_PROJECT_ID: zuplo-marketing
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

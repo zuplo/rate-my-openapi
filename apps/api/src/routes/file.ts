@@ -3,7 +3,7 @@ import {
   logAndReplyError,
   logAndReplyInternalError,
 } from "../helpers/reply.js";
-import { getStorageBucketName, storage } from "../services/storage.js";
+import { getStorageBucketName, getStorageClient } from "../services/storage.js";
 
 export const fileRoute: FastifyPluginAsync = async function (server) {
   server.route({
@@ -30,7 +30,7 @@ export const fileRoute: FastifyPluginAsync = async function (server) {
       const { fileName } = request.params as { fileName: string };
 
       try {
-        const [fileExists] = await storage
+        const [fileExists] = await getStorageClient()
           .bucket(getStorageBucketName())
           .file(fileName)
           .exists();
@@ -50,7 +50,7 @@ export const fileRoute: FastifyPluginAsync = async function (server) {
         reply.hijack();
         reply.raw.setHeader("Content-Type", "application/json; charset=utf-8");
         reply.raw.setHeader("Access-Control-Allow-Origin", "*");
-        return storage
+        return getStorageClient()
           .bucket(getStorageBucketName())
           .file(fileName)
           .createReadStream()

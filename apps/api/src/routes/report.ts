@@ -1,9 +1,9 @@
 import { type FastifyPluginAsync } from "fastify";
-import { getStorageBucketName, storage } from "../services/storage.js";
 import {
   logAndReplyError,
   logAndReplyInternalError,
 } from "../helpers/reply.js";
+import { getStorageBucketName, getStorageClient } from "../services/storage.js";
 
 export const reportRoute: FastifyPluginAsync = async function (server) {
   server.route({
@@ -31,7 +31,7 @@ export const reportRoute: FastifyPluginAsync = async function (server) {
       const fileName = `${id}-report.json`;
 
       try {
-        const [fileExists] = await storage
+        const [fileExists] = await getStorageClient()
           .bucket(getStorageBucketName())
           .file(fileName)
           .exists();
@@ -51,7 +51,7 @@ export const reportRoute: FastifyPluginAsync = async function (server) {
         reply.hijack();
         reply.raw.setHeader("Content-Type", "application/json; charset=utf-8");
         reply.raw.setHeader("Access-Control-Allow-Origin", "*");
-        return await storage
+        return getStorageClient()
           .bucket(getStorageBucketName())
           .file(fileName)
           .createReadStream()
@@ -90,7 +90,7 @@ export const reportRoute: FastifyPluginAsync = async function (server) {
       const fileName = `${id}-simple-report.json`;
 
       try {
-        const [fileExists] = await storage
+        const [fileExists] = await getStorageClient()
           .bucket(getStorageBucketName())
           .file(fileName)
           .exists();
@@ -110,7 +110,7 @@ export const reportRoute: FastifyPluginAsync = async function (server) {
         reply.hijack();
         reply.raw.setHeader("Content-Type", "application/json; charset=utf-8");
         reply.raw.setHeader("Access-Control-Allow-Origin", "*");
-        return await storage
+        return await getStorageClient()
           .bucket(getStorageBucketName())
           .file(fileName)
           .createReadStream()

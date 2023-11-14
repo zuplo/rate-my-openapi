@@ -1,11 +1,11 @@
-import { serializeError } from "serialize-error";
-import { getStorageBucketName, storage } from "../services/storage.js";
 import { RatingOutput } from "@rate-my-openapi/core";
+import { serializeError } from "serialize-error";
+import { getStorageBucketName, getStorageClient } from "../services/storage.js";
 
 const regenerateOrderedReport = async (reportId: string) => {
   const fullReportName = reportId + "-report.json";
 
-  const [fullReportExists] = await storage
+  const [fullReportExists] = await getStorageClient()
     .bucket(getStorageBucketName())
     .file(fullReportName)
     .exists();
@@ -19,7 +19,7 @@ const regenerateOrderedReport = async (reportId: string) => {
 
   let fullReport: RatingOutput;
   try {
-    const file = await storage
+    const file = await getStorageClient()
       .bucket(getStorageBucketName())
       .file(fullReportName)
       .download();
@@ -47,7 +47,7 @@ const regenerateOrderedReport = async (reportId: string) => {
   };
 
   try {
-    await storage
+    await getStorageClient()
       .bucket(getStorageBucketName())
       .file(fullReportName)
       .save(Buffer.from(JSON.stringify(orderedReport)));
@@ -60,7 +60,9 @@ const regenerateOrderedReport = async (reportId: string) => {
 };
 
 (async () => {
-  const [files] = await storage.bucket(getStorageBucketName()).getFiles();
+  const [files] = await getStorageClient()
+    .bucket(getStorageBucketName())
+    .getFiles();
 
   const reports = files.filter(
     (file) =>

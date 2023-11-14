@@ -12,7 +12,7 @@ import validateOpenapi, {
 } from "../lib/validate-openapi.js";
 import { inngestInstance } from "../services/inngest.js";
 import { postSlackMessage } from "../services/slack.js";
-import { getStorageBucketName, storage } from "../services/storage.js";
+import { getStorageBucketName, getStorageClient } from "../services/storage.js";
 
 const uploadRoute: FastifyPluginAsync = async function (server) {
   server.route({
@@ -61,7 +61,7 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
       try {
         const fileName = `${uuid}.${parseResult.val.fileExtension}`;
 
-        await storage
+        await getStorageClient()
           .bucket(getStorageBucketName())
           .file(fileName)
           .save(parseResult.val.fileContentString);

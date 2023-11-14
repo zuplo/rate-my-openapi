@@ -1,15 +1,22 @@
 import { Storage } from "@google-cloud/storage";
 
-const {
-  GOOGLE_CLOUD_STORAGE_BUCKET: bucketName,
-  GOOGLE_CLOUD_PROJECT_ID: projectId,
-} = process.env;
+let storage: Storage | undefined;
 
-export const storage = new Storage({
-  projectId,
-});
+export function getStorageClient(): Storage {
+  if (!storage) {
+    const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
+    if (!projectId) {
+      throw new Error("Env variable GOOGLE_CLOUD_PROJECT_ID is not set");
+    }
+    storage = new Storage({
+      projectId,
+    });
+  }
+  return storage;
+}
 
 export const getStorageBucketName = () => {
+  const bucketName = process.env.GOOGLE_CLOUD_STORAGE_BUCKET;
   if (!bucketName) {
     throw new Error("Env variable GOOGLE_CLOUD_STORAGE_BUCKET is not set");
   }

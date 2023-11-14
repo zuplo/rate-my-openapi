@@ -1,6 +1,6 @@
-import { getStorageBucketName, storage } from "../services/storage.js";
-import { SimpleReport } from "../lib/rating.js";
 import { load } from "js-yaml";
+import { SimpleReport } from "../lib/rating.js";
+import { getStorageBucketName, getStorageClient } from "../services/storage.js";
 
 // at the time of writing this script, I introduced a new simple report format
 // that is easier to parse and contains less information than the full report
@@ -9,7 +9,7 @@ const checkIfSimpleReportExistsAndCreate = async (reportId: string) => {
   const fullReportName = reportId + "-report.json";
   const simpleReportName = reportId + "-simple-report.json";
 
-  const [fullReportExists] = await storage
+  const [fullReportExists] = await getStorageClient()
     .bucket(getStorageBucketName())
     .file(fullReportName)
     .exists();
@@ -21,7 +21,7 @@ const checkIfSimpleReportExistsAndCreate = async (reportId: string) => {
     return null;
   }
 
-  const [simpleReportExists] = await storage
+  const [simpleReportExists] = await getStorageClient()
     .bucket(getStorageBucketName())
     .file(simpleReportName)
     .exists();
@@ -33,7 +33,7 @@ const checkIfSimpleReportExistsAndCreate = async (reportId: string) => {
 
   let fullReport;
   try {
-    const file = await storage
+    const file = await getStorageClient()
       .bucket(getStorageBucketName())
       .file(fullReportName)
       .download();
@@ -47,7 +47,7 @@ const checkIfSimpleReportExistsAndCreate = async (reportId: string) => {
   let openAPIDoc;
   const fileExtension = fullReport?.issues?.[0]?.source?.split(".").pop();
   try {
-    const file = await storage
+    const file = await getStorageClient()
       .bucket(getStorageBucketName())
       .file(reportId + "." + fileExtension)
       .download();
@@ -75,7 +75,7 @@ const checkIfSimpleReportExistsAndCreate = async (reportId: string) => {
   };
 
   try {
-    await storage
+    await getStorageClient()
       .bucket(getStorageBucketName())
       .file(simpleReportName)
       .save(Buffer.from(JSON.stringify(simpleReport)));
@@ -88,7 +88,9 @@ const checkIfSimpleReportExistsAndCreate = async (reportId: string) => {
 };
 
 (async () => {
-  const [files] = await storage.bucket(getStorageBucketName()).getFiles();
+  const [files] = await getStorageClient()
+    .bucket(getStorageBucketName())
+    .getFiles();
 
   const reports = files.filter((file) => file.name.endsWith("-report.json"));
 

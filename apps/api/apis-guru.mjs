@@ -22,7 +22,7 @@ const ratingsPath = path.resolve(process.cwd(), "../../apis-guru.json");
 const response = await fetch(
   "https://storage.googleapis.com/rate-my-openapi-public/apis-guru.json",
 );
-let ratings = await response.json() as any[];
+let ratings = await response.json();
 
 await queue.addAll(files[0].map((file) => () => rateFile(file)));
 

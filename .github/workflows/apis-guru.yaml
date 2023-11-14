@@ -62,7 +62,7 @@ jobs:
         uses: "google-github-actions/upload-cloud-storage@v1"
         with:
           path: apis-guru
-          destination: rate-my-openapi-public
+          destination: rate-my-openapi-public/apis-guru
           parent: false
           headers: |-
             content-type: application/json

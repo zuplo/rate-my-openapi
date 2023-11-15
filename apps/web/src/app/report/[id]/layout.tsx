@@ -7,7 +7,7 @@ type Props = {
 export function generateMetadata({ params }: Props): Metadata {
   const id = params.id;
 
-  const ogiImage = `https://www.ratemyopenapi.com/api/og/${id}`;
+  const ogiImage = `https://www.ratemyopenapi.com/og/${id}`;
   const title = "Rate My OpenAPI";
   const description =
     "Upload your OpenAPI spec and we'll tell you how good it is.";

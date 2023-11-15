@@ -1,6 +1,6 @@
 import { getSimpleReport } from "@/app/report/[id]/simple-report-request";
 import classNames from "classnames";
-import { ImageResponse } from "next/server";
+import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
@@ -10,7 +10,7 @@ export async function GET(
 ) {
   const report = await getSimpleReport(params.reportId);
   const fontData = await fetch(
-    new URL("../../../../../assets/Roboto-Bold.ttf", import.meta.url),
+    new URL("../../../../assets/Roboto-Bold.ttf", import.meta.url),
   ).then((res) => res.arrayBuffer());
 
   if (!report) {

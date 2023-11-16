@@ -16,11 +16,10 @@ if (!fs.existsSync(outputPath)) {
   fs.mkdirSync(outputPath);
 }
 
-const logPath = path.resolve(outputPath, `${process.env.RUN_ID}.log`);
-const errorLogPath = path.resolve(
-  outputPath,
-  `${process.env.RUN_ID}-errors.log`,
-);
+const runId = process.env.RUN_ID ?? crypto.randomUUID();
+
+const logPath = path.resolve(outputPath, `${runId}.log`);
+const errorLogPath = path.resolve(outputPath, `${runId}-errors.log`);
 
 const transport = pino.transport({
   targets: [

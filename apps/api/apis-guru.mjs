@@ -13,9 +13,12 @@ const outputPath = path.resolve(process.cwd(), "../../apis-guru");
 if (!fs.existsSync(outputPath)) {
   fs.mkdirSync(outputPath);
 }
-const ratingsPath = path.resolve(outputPath, "ratings.json");
-const logPath = path.resolve(outputPath, `${Date.now()}.log`);
-const errorLogPath = path.resolve(outputPath, `${Date.now()}-errors.log`);
+
+const logPath = path.resolve(outputPath, `${process.env.RUN_ID}.log`);
+const errorLogPath = path.resolve(
+  outputPath,
+  `${process.env.RUN_ID}-errors.log`,
+);
 
 const transport = pino.transport({
   targets: [
@@ -107,34 +110,5 @@ try {
   logger.error(err ?? "Unknown error");
 } finally {
   logger.info("Ratings complete");
-  await writeRatings();
   process.exit(0);
-}
-
-async function writeRatings() {
-  let updatedRatings = [];
-  const logLines = await fs.promises.readFile(logPath, "utf-8");
-  for (const line of logLines.split("\n")) {
-    if (line) {
-      const report = JSON.parse(line);
-      updatedRatings.push(report);
-    }
-  }
-
-  const outputRatings = ratings
-    .map((r) => {
-      const updatedRating = updatedRatings.find((ur) => ur.file === r.file);
-      if (updatedRating) {
-        return updatedRating;
-      }
-      return r;
-    })
-    .filter((r) => r !== undefined);
-
-  // Just to make sure we create fully valid json without undefined values
-  const response = new Response(JSON.stringify(outputRatings));
-  const result = await response.json();
-  const reportJson = JSON.stringify(result, null, 2);
-  logger.info("Writing rating report");
-  await fs.promises.writeFile(ratingsPath, reportJson, "utf-8");
 }

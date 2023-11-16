@@ -36,10 +36,18 @@ jobs:
 
       - run: node apis-guru.mjs
         working-directory: apps/api
+        timeout-minutes: 30
         env:
           GOOGLE_CLOUD_STORAGE_BUCKET: rate-my-open-api-prod
           GOOGLE_CLOUD_PROJECT_ID: zuplo-marketing
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RUN_ID: ${{github.run_id}}
+
+      - run: node apis-guru.ratings.mjs
+        working-directory: apps/api
+        if: always()
+        env:
+          RUN_ID: ${{github.run_id}}
 
       - uses: actions/upload-artifact@v3
         if: always()

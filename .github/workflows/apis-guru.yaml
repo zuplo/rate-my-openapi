@@ -15,11 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
-        with:
-          repository: "APIs-guru/openapi-directory"
-          path: "openapi-directory"
-
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:

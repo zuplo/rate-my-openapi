@@ -83,7 +83,10 @@ await downloadQueue.addAll(
     const stream = fs.createWriteStream(fsPath, { flags: "wx" });
     const response = await fetch(api.openApiUrl);
     if (response.status !== 200) {
-      throw new Error("Could not download openapi file");
+      logger.error(
+        `Could not download openapi file for ${api.name} ${api.version}`,
+      );
+      return;
     }
     await finished(Readable.fromWeb(response.body).pipe(stream));
     api.fsPath = fsPath;

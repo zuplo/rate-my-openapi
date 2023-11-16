@@ -46,6 +46,12 @@ jobs:
           GOOGLE_CLOUD_PROJECT_ID: zuplo-marketing
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: logs
+          path: apis-guru
+
       # Reauthenticate to Google Cloud because its possible this job takes
       # more than 1 hour to run and we want to make sure we save any updates
       - name: "Authenticate to Google Cloud"

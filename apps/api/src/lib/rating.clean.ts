@@ -30,6 +30,8 @@ function getOpenAIClient(): OpenAI | undefined {
   return openai;
 }
 
+export class ReportGenerationError extends Error {}
+
 /**
  * @description produces a stripped down version of the report which can be fed
  * to LLM models.
@@ -79,7 +81,9 @@ const getOpenAiResponse = async (
       ? response.choices[0].message.content
       : "Placeholder OpenAI response";
   } catch (err) {
-    throw new Error(`Could not get OpenAI response: ${err}`, { cause: err });
+    throw new ReportGenerationError(`Could not get OpenAI response: ${err}`, {
+      cause: err,
+    });
   }
 };
 
@@ -135,9 +139,12 @@ export const uploadReport = async ({
       .file(`${reportId}-simple-report.json`)
       .save(Buffer.from(JSON.stringify(simpleReport)));
   } catch (err) {
-    throw new Error(`Could not save report for file ${reportId}`, {
-      cause: err,
-    });
+    throw new ReportGenerationError(
+      `Could not save report for file ${reportId}`,
+      {
+        cause: err,
+      },
+    );
   }
 };
 
@@ -158,7 +165,9 @@ export const generateRating = async (
 
     content = file.toString();
   } catch (err) {
-    throw new Error(`Could not download file ${fileName}`, { cause: err });
+    throw new ReportGenerationError(`Could not download file ${fileName}`, {
+      cause: err,
+    });
   }
 
   const tempApiFilePath = await createTempFile({
@@ -183,9 +192,12 @@ const deleteTempFile = async (tempApiFilePath: string): Promise<void> => {
   try {
     await unlink(tempApiFilePath);
   } catch (err) {
-    throw new Error(`Could not delete temporary file ${tempApiFilePath}`, {
-      cause: err,
-    });
+    throw new ReportGenerationError(
+      `Could not delete temporary file ${tempApiFilePath}`,
+      {
+        cause: err,
+      },
+    );
   }
 };
 
@@ -204,9 +216,12 @@ export const createTempFile = async ({
     await writeFile(tempApiFilePath, Buffer.from(content));
     return tempApiFilePath;
   } catch (err) {
-    throw new Error(`Could not create temporary file for file ${fileId}`, {
-      cause: err,
-    });
+    throw new ReportGenerationError(
+      `Could not create temporary file for file ${fileId}`,
+      {
+        cause: err,
+      },
+    );
   }
 };
 
@@ -231,53 +246,60 @@ export type SimpleReport = Pick<
   summary?: string;
 };
 
-type GetReportOutput = {
+export interface GetReportOutput {
   simpleReport: SimpleReport;
   fullReport: RatingOutput;
-};
+}
 
 export const getReport = async (
   input: GetReportInput,
 ): Promise<GetReportOutput> => {
-  let spectralOutputReport;
+  const parser =
+    input.fileExtension === "json"
+      ? SpectralParsers.Json
+      : SpectralParsers.Yaml;
+
   let openApiSpectralDoc: spectralCore.Document;
   try {
-    const parser =
-      input.fileExtension === "json"
-        ? SpectralParsers.Json
-        : SpectralParsers.Yaml;
-
     openApiSpectralDoc = new Document(
       input.fileContent,
       parser as SpectralParsers.IParser,
       input.openAPIFilePath,
     );
-
-    const spectral = new Spectral();
-    const spectralRulesetFilepath = join(
-      process.cwd(),
-      "rulesets/.spectral.yaml",
+  } catch (err) {
+    throw new ReportGenerationError(
+      `Unable to parse OpenAPI file ${input.openAPIFilePath}`,
+      { cause: err },
     );
+  }
 
-    try {
-      const spectralRuleset = await bundleAndLoadRuleset(
-        spectralRulesetFilepath,
-        {
-          fs,
-          fetch,
-        },
-      );
-      spectral.setRuleset(spectralRuleset);
-    } catch (err) {
-      throw new Error(
-        `Unable to set Spectral ruleset for file ${input.openAPIFilePath}`,
-        { cause: err },
-      );
-    }
+  const spectral = new Spectral();
+  const spectralRulesetFilepath = join(
+    process.cwd(),
+    "rulesets/.spectral.yaml",
+  );
 
+  try {
+    const spectralRuleset = await bundleAndLoadRuleset(
+      spectralRulesetFilepath,
+      {
+        fs,
+        fetch,
+      },
+    );
+    spectral.setRuleset(spectralRuleset);
+  } catch (err) {
+    throw new ReportGenerationError(
+      `Unable to set Spectral ruleset for file ${input.openAPIFilePath}`,
+      { cause: err },
+    );
+  }
+
+  let spectralOutputReport;
+  try {
     spectralOutputReport = await spectral.run(openApiSpectralDoc);
   } catch (err) {
-    throw new Error(
+    throw new ReportGenerationError(
       `Unable to run Spectral for file ${input.openAPIFilePath}`,
       { cause: err },
     );
@@ -292,7 +314,7 @@ export const getReport = async (
 
     output = generateOpenApiRating(spectralOutputReport, outputContent);
   } catch (err) {
-    throw new Error(`Unable to generate rating for file ${input.reportId}`, {
+    throw new ReportGenerationError(err.message, {
       cause: err,
     });
   }

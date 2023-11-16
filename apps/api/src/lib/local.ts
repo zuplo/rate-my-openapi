@@ -1,14 +1,25 @@
 import { createHash } from "crypto";
 import fs from "fs/promises";
 import path from "path";
+import { Logger } from "pino";
 import { getStorageBucketName, getStorageClient } from "../services/storage.js";
-import { getReport, uploadReport } from "./rating.clean.js";
+import {
+  GetReportOutput,
+  ReportGenerationError,
+  getReport,
+  uploadReport,
+} from "./rating.clean.js";
+
+export type LocalReportOutput = GetReportOutput & { hash: string };
+
+export { ReportGenerationError };
 
 export async function createReportFromLocal(
   fsPath: string,
   reportId: string,
+  logger: Logger,
   lastHash?: string,
-) {
+): Promise<LocalReportOutput | undefined> {
   const content = await fs.readFile(fsPath, "utf-8");
   const fileExtension = path.extname(fsPath).replace(".", "");
   if (!["json", "yaml"].includes(fileExtension)) {
@@ -20,7 +31,6 @@ export async function createReportFromLocal(
   ).toString();
 
   if (lastHash === hash) {
-    console.log(`Skipping ${fsPath} because it hasn't changed`);
     return;
   }
 

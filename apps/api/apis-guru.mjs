@@ -5,6 +5,7 @@ import { createHash, randomUUID } from "crypto";
 import fs from "fs";
 import { Worker } from "node:worker_threads";
 import { tmpdir } from "os";
+/* eslint-env node */
 import PQueue from "p-queue";
 import path from "path";
 import pino from "pino";
@@ -117,7 +118,7 @@ queue.onEmpty().then(() => {
 try {
   await queue.addAll(
     apisToUpdate.map((api) => () => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const report =
           ratings.find(
             (r) => r.name === api.name && r.version === api.version,
@@ -139,7 +140,7 @@ try {
           logger.error(err ?? "Unknown error on worker");
           worker.terminate();
         });
-        worker.on("exit", (code) => {
+        worker.on("exit", () => {
           resolve();
         });
 

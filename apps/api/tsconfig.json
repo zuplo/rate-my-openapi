@@ -3,12 +3,15 @@
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"],
   "compilerOptions": {
+    "module": "NodeNext",
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
     "baseUrl": ".",
     "outDir": "dist",
     "rootDir": "src",
-    "declaration": false,
-    "declarationMap": false,
-    "sourceMap": false
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
   },
   "references": [{ "path": "../../packages/core" }]
 }

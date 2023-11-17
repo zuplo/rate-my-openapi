@@ -1,3 +1,4 @@
+/* eslint-env node */
 import fs from "fs";
 import { workerData } from "node:worker_threads";
 import { createReportFromLocal } from "./dist/lib/local.js";

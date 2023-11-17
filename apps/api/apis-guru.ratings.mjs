@@ -7,7 +7,7 @@ const logPath = path.resolve(outputPath, `${process.env.RUN_ID}.log`);
 
 if (!fs.existsSync(ratingsPath)) {
   console.log("Ratings file not found, skipping");
-  return;
+  process.exit();
 }
 
 const ratings = await fetch(

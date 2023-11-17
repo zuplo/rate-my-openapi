@@ -3,6 +3,7 @@ import { sendFailureEmail, sendReportEmail } from "../lib/email/index.js";
 import { generateRating, uploadReport } from "../lib/rating.js";
 import { getPostHogClient } from "./posthog.js";
 import { postSlackMessage } from "./slack.js";
+import { getStorageBucketName, getStorageClient } from "./storage.js";
 
 type FileUploaded = {
   data: {
@@ -21,6 +22,22 @@ export const inngestInstance = new Inngest({
   schemas: new EventSchemas().fromRecord<Events>(),
 });
 
+const getSignedUrl = async (data: FileUploaded["data"]) => {
+  const fileName = `${data.id}.${data.fileExtension}`;
+  try {
+    const [url] = await getStorageClient()
+      .bucket(getStorageBucketName())
+      .file(fileName)
+      .getSignedUrl({
+        action: "read",
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days
+      });
+    return url;
+  } catch (err) {
+    return null;
+  }
+};
+
 export const generateRatingInngest = inngestInstance.createFunction(
   {
     id: slugify("Generate Rating For OpenAPI and Send Email"),
@@ -38,9 +55,14 @@ export const generateRatingInngest = inngestInstance.createFunction(
       });
 
       await step.run("Send Failed Slack Message", async () => {
+        const fileUrl = await getSignedUrl(originalEvent.data);
         try {
           return await postSlackMessage(
-            `Failed to generate rating for ${originalEvent.data.email} and Report ID ${originalEvent.data.id} with error: ${error.message}`,
+            `Failed to generate rating for ${
+              originalEvent.data.email
+            } and Report ID ${originalEvent.data.id} ${
+              fileUrl ? `and File URL ${fileUrl}` : ""
+            } with error: ${error.message}`,
           );
         } catch (err) {
           throw new Error("Step Send Failed Slack Message failed: ", err);
@@ -138,9 +160,13 @@ export const generateRatingInngest = inngestInstance.createFunction(
         if (event.data.email.endsWith("@zuplo.com")) {
           return;
         }
-
+        const fileUrl = await getSignedUrl(event.data);
         return await postSlackMessage(
-          `Generated rating for ${event.data.email}. Report URL: https://ratemyopenapi.com/report/${event.data.id}`,
+          `Generated rating for ${
+            event.data.email
+          }. Report URL: https://ratemyopenapi.com/report/${event.data.id}. ${
+            fileUrl ? `File URL: ${fileUrl}` : ""
+          }}`,
         );
       } catch (err) {
         logger.error("Step Send Slack Message failed: ", err);

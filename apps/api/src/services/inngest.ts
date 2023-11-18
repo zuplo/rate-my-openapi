@@ -107,23 +107,13 @@ export const generateRatingInngest = inngestInstance.createFunction(
         fileExtension: event.data.fileExtension as "json" | "yaml",
       });
 
-      if (ratingResult.err) {
-        logger.error("Step Generate Rating failed: ", ratingResult.val);
-        throw ratingResult.val;
-      }
-
       const uploadResult = await uploadReport({
         reportId: event.data.id,
-        fullReport: ratingResult.val.fullReport,
-        simpleReport: ratingResult.val.simpleReport,
+        fullReport: ratingResult.fullReport,
+        simpleReport: ratingResult.simpleReport,
       });
 
-      if (uploadResult.err) {
-        logger.error("Step Upload Report failed: ", uploadResult.val);
-        throw uploadResult.val;
-      }
-
-      return uploadResult.val;
+      return uploadResult;
     });
 
     await step.run("Send Success Email", async () => {
@@ -132,12 +122,7 @@ export const generateRatingInngest = inngestInstance.createFunction(
         reportId: event.data.id,
       });
 
-      if (result.err) {
-        logger.error("Step Send Success Email: ", result.err);
-        throw result.err;
-      }
-
-      return result.val;
+      return result;
     });
 
     await step.run("Generate and cache OG image", async () => {

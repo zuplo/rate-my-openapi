@@ -1,12 +1,7 @@
 import fastifyMultipart from "@fastify/multipart";
+import { ApiError, Problems } from "@zuplo/errors";
 import { type FastifyPluginAsync } from "fastify";
-import { Err, Ok, Result } from "ts-results-es";
 import { v4 as uuidv4 } from "uuid";
-import {
-  logAndReplyError,
-  logAndReplyInternalError,
-  successJsonReply,
-} from "../helpers/reply.js";
 import validateOpenapi, {
   checkFileIsJsonOrYaml,
 } from "../lib/validate-openapi.js";
@@ -30,69 +25,47 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
     url: "/upload",
     handler: async (request, reply) => {
       const parts = request.parts();
-      const parseResult = await parseMultipartUpload(parts);
-
-      if (parseResult.err) {
+      let parseResult: ParseMultipartUploadResult;
+      try {
+        parseResult = await parseMultipartUpload(parts);
+      } catch (err) {
         await postSlackMessage(
-          `Failed to upload file with error: ${parseResult.val.userMessage}. Request ID: ${request.id}`,
+          `Failed to upload file with error: ${
+            err.detail ?? err.message
+          }. Request ID: ${request.id}`,
         );
-
-        return logAndReplyError({
-          errorResult: parseResult.val,
-          fastifyRequest: request,
-          fastifyReply: reply,
-        });
+        throw err;
       }
 
-      if (!parseResult.val.email) {
-        return logAndReplyError({
-          errorResult: Err({
-            userMessage: "Invalid request body. No email provided.",
-            debugMessage: "Invalid request body. No email provided",
-            statusCode: 400,
-          }).val,
-          fastifyRequest: request,
-          fastifyReply: reply,
+      if (!parseResult.email) {
+        throw new ApiError({
+          ...Problems.BAD_REQUEST,
+          detail: "Invalid request body. No email provided",
         });
       }
 
       // upload to google cloud storage
       const uuid = uuidv4();
-      try {
-        const fileName = `${uuid}.${parseResult.val.fileExtension}`;
 
-        await getStorageClient()
-          .bucket(getStorageBucketName())
-          .file(fileName)
-          .save(parseResult.val.fileContentString);
+      const fileName = `${uuid}.${parseResult.fileExtension}`;
 
-        request.log.info(`Uploaded file ${uuid}`);
-      } catch (err) {
-        return logAndReplyInternalError({
-          error: err,
-          fastifyRequest: request,
-          fastifyReply: reply,
-        });
-      }
+      await getStorageClient()
+        .bucket(getStorageBucketName())
+        .file(fileName)
+        .save(parseResult.fileContentString);
 
-      try {
-        await inngestInstance.send({
-          name: "api/file.uploaded",
-          data: {
-            id: uuid,
-            email: parseResult.val.email,
-            fileExtension: parseResult.val.fileExtension,
-          },
-        });
+      request.log.info(`Uploaded file ${uuid}`);
 
-        return successJsonReply({ id: uuid }, reply);
-      } catch (err) {
-        return logAndReplyInternalError({
-          error: `Could not send event to inngest: ${err}`,
-          fastifyRequest: request,
-          fastifyReply: reply,
-        });
-      }
+      await inngestInstance.send({
+        name: "api/file.uploaded",
+        data: {
+          id: uuid,
+          email: parseResult.email,
+          fileExtension: parseResult.fileExtension,
+        },
+      });
+
+      return reply.send({ id: uuid });
     },
   });
 };
@@ -105,7 +78,7 @@ type ParseMultipartUploadResult = {
 
 export async function parseMultipartUpload(
   parts: AsyncIterableIterator<fastifyMultipart.Multipart>,
-): Promise<Result<ParseMultipartUploadResult, UserErrorResult>> {
+): Promise<ParseMultipartUploadResult> {
   let fileContent;
   let email;
   for await (const part of parts) {
@@ -117,31 +90,26 @@ export async function parseMultipartUpload(
   }
 
   if (!fileContent) {
-    return Err({
-      userMessage: "Invalid request body.",
-      debugMessage: "Invalid request body",
-      statusCode: 400,
+    throw new ApiError({
+      ...Problems.BAD_REQUEST,
+      detail: "Invalid request body, no file content",
     });
   }
   const fileContentString = fileContent.toString();
   if (!validateOpenapi(fileContentString)) {
-    return Err({
-      userMessage: "Invalid OpenAPI version. Only OpenAPI v3.x is supported.",
-      debugMessage: "Invalid OpenAPI version",
-      statusCode: 400,
+    throw new ApiError({
+      ...Problems.BAD_REQUEST,
+      detail: "Invalid OpenAPI version. Only OpenAPI v3.x is supported.",
     });
   }
 
   const fileIsJsonOrYamlResult = checkFileIsJsonOrYaml(fileContentString);
-  if (fileIsJsonOrYamlResult.err) {
-    return fileIsJsonOrYamlResult;
-  }
 
-  return Ok({
+  return {
     fileContentString,
     email,
-    fileExtension: fileIsJsonOrYamlResult.val,
-  });
+    fileExtension: fileIsJsonOrYamlResult,
+  };
 }
 
 export default uploadRoute;

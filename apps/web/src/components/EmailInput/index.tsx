@@ -62,14 +62,17 @@ const EmailInput = () => {
         });
 
         if (!uploadResponse.ok) {
-          const text = await uploadResponse.text();
-          if (text.includes("userMessage")) {
-            setError(JSON.parse(text).userMessage);
-          } else {
-            setError(
-              `Upload failed with status ${uploadResponse.status}. We've been notified and will fix this ASAP.`,
-            );
+          let message: string = `Upload failed with status ${uploadResponse.status}. We've been notified and will fix this ASAP.`;
+          try {
+            const problem = await uploadResponse.json();
+            if ("detail" in problem) {
+              message = problem.detail;
+            }
+          } catch (err) {
+            // Ignore
           }
+          setError(message);
+
           setIsSubmitting(false);
           return;
         }

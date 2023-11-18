@@ -1,6 +1,4 @@
 import sgMail, { MailDataRequired } from "@sendgrid/mail";
-import esMain from "es-main";
-import { Err, Ok, Result } from "ts-results-es";
 import { getSuccesfulEmailHtml } from "./succesfull-email.js";
 
 if (process.env.SENDGRID_API_KEY) {
@@ -22,7 +20,7 @@ export const sendReportEmail = async ({
 }: {
   email: string;
   reportId: string;
-}): Promise<Result<SendEmailResult, GenericErrorResult>> => {
+}): Promise<SendEmailResult> => {
   const msg = {
     to: email,
     from: {
@@ -36,18 +34,12 @@ export const sendReportEmail = async ({
     }),
   };
 
-  try {
-    const emailSend = await sgMail.send(msg);
+  const emailSend = await sgMail.send(msg);
 
-    return Ok({
-      statusCode: emailSend[0].statusCode,
-      headers: emailSend[0].headers,
-    });
-  } catch (err) {
-    return Err({
-      error: `Could not send email to ${email}: ${err}`,
-    });
-  }
+  return {
+    statusCode: emailSend[0].statusCode,
+    headers: emailSend[0].headers,
+  };
 };
 
 type SendFailureEmailResult = {
@@ -61,7 +53,7 @@ export const sendFailureEmail = async ({
   email,
 }: {
   email: string;
-}): Promise<Result<SendFailureEmailResult, GenericErrorResult>> => {
+}): Promise<SendFailureEmailResult> => {
   const msg: MailDataRequired = {
     to: email,
     from: {
@@ -73,26 +65,10 @@ export const sendFailureEmail = async ({
     html: "We could not generate your report. There was an issue with your OpenAPI file.",
   };
 
-  try {
-    const emailSend = await sgMail.send(msg);
+  const emailSend = await sgMail.send(msg);
 
-    return Ok({
-      statusCode: emailSend[0].statusCode,
-      headers: emailSend[0].headers,
-    });
-  } catch (err) {
-    return Err({
-      error: `Could not send email to ${email}: ${err}`,
-    });
-  }
+  return {
+    statusCode: emailSend[0].statusCode,
+    headers: emailSend[0].headers,
+  };
 };
-
-// Run this without needing to run the entire app
-// `npx tsx src/services/sendgrid.ts <email> <reportId>`
-if (esMain(import.meta))
-  sendReportEmail({
-    email: process.argv[2],
-    reportId: process.argv[3],
-  })
-    .then(console.log)
-    .catch(console.error);

@@ -6,7 +6,7 @@ import {
   ReportGenerationError,
   getReport,
   uploadReport,
-} from "./rating.clean.js";
+} from "./rating.js";
 
 export { ReportGenerationError };
 

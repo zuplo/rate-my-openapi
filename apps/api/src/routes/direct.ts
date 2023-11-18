@@ -1,8 +1,7 @@
 import { ApiError, Problems } from "@zuplo/errors";
 import { type FastifyPluginAsync } from "fastify";
 import { randomUUID } from "node:crypto";
-import { createTempFile, getReport } from "../lib/rating.clean.js";
-import { uploadReport } from "../lib/rating.js";
+import { createTempFile, getReport, uploadReport } from "../lib/rating.js";
 import { getStorageBucketName, getStorageClient } from "../services/storage.js";
 import { parseMultipartUpload } from "./upload.js";
 
@@ -24,15 +23,9 @@ const directUploadRoute: FastifyPluginAsync = async function (server) {
     handler: async (request, reply) => {
       const parts = request.files({ preservePath: true });
       const parsed = await parseMultipartUpload(parts);
-      if (parsed.err) {
-        throw new ApiError({
-          ...Problems.BAD_REQUEST,
-          detail: parsed.val.userMessage,
-        });
-      }
 
       const reportId = randomUUID();
-      const { fileContentString: content, fileExtension } = parsed.val;
+      const { fileContentString: content, fileExtension } = parsed;
       if (!["json", "yaml"].includes(fileExtension)) {
         throw new ApiError({
           ...Problems.BAD_REQUEST,

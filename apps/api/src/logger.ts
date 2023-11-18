@@ -97,9 +97,8 @@ function logMethod(
       if (originalChindings.trace) {
         // NOTE: GCP JSON log field format (https://cloud.google.com/logging/docs/structured-logging)
         // This will be used to correctly parse the trace field when we don't send the data via GCP logging api
-        originalChindings[
-          GOOGLE_TRACE_PROPERTY
-        ] = `projects/${PROJECT_ID}/traces/${originalChindings.trace}`;
+        originalChindings[GOOGLE_TRACE_PROPERTY] =
+          `projects/${PROJECT_ID}/traces/${originalChindings.trace}`;
       }
 
       if (
@@ -145,7 +144,7 @@ function logMethod(
 
 export function createNewLogger(
   defaultLabels: Record<string, string> = {},
-): pino.Logger | undefined {
+): pino.Logger | boolean {
   const loggerOptions: LoggerOpts = {
     /**
      * The logging level is a minimum level based on the associated value of that level.
@@ -278,7 +277,7 @@ export function createNewLogger(
     return pino.default(loggerOptions);
   }
 
-  return undefined;
+  return true;
 }
 
 const enum PinoLogLevels {

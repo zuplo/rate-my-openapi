@@ -3,8 +3,12 @@ config();
 
 import cors from "@fastify/cors";
 import fastifyMultipart from "@fastify/multipart";
+import { randomUUID } from "crypto";
 import Fastify from "fastify";
+import { apiKeyAuthPlugin } from "./lib/fastify/api-key-auth.js";
+import { errorHandler } from "./lib/fastify/error-handler.js";
 import { createNewLogger } from "./logger.js";
+import directUploadRoute from "./routes/direct.js";
 import { fileRoute } from "./routes/file.js";
 import healthRoute from "./routes/health.js";
 import { inngestRoute } from "./routes/inngest.js";
@@ -15,14 +19,26 @@ const fastify = Fastify({
   logger: createNewLogger(),
   requestIdHeader: "zp-rid",
   requestIdLogLabel: "trace",
+  genReqId: (req) => {
+    let rid = req.headers["zp-rid"];
+    if (typeof rid !== "string") {
+      rid = randomUUID();
+    }
+    return rid;
+  },
   bodyLimit: 30000000, // 50MB
 });
 
 async function build() {
+  fastify.setErrorHandler(errorHandler);
   await fastify.register(cors);
+  await fastify.register(apiKeyAuthPlugin, {
+    validationUrl: process.env.API_KEY_VALIDATION_URL,
+  });
   await fastify.register(fastifyMultipart);
   await fastify.register(healthRoute);
   await fastify.register(uploadRoute);
+  await fastify.register(directUploadRoute);
   await fastify.register(inngestRoute);
   await fastify.register(reportRoute);
   await fastify.register(fileRoute);

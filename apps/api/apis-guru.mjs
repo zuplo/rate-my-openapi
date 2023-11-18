@@ -1,3 +1,4 @@
+/* eslint-env node */
 import { config } from "dotenv";
 config();
 
@@ -5,7 +6,7 @@ import { createHash, randomUUID } from "crypto";
 import fs from "fs";
 import { Worker } from "node:worker_threads";
 import { tmpdir } from "os";
-/* eslint-env node */
+
 import PQueue from "p-queue";
 import path from "path";
 import pino from "pino";

@@ -1,6 +1,5 @@
-import { type FastifyPluginAsync } from "fastify";
-
 import { ApiError, Problems } from "@zuplo/errors";
+import { type FastifyPluginAsync } from "fastify";
 import { getStorageBucketName, getStorageClient } from "../services/storage.js";
 
 export const reportRoute: FastifyPluginAsync = async function (server) {
@@ -89,7 +88,7 @@ export const reportRoute: FastifyPluginAsync = async function (server) {
       reply.hijack();
       reply.raw.setHeader("Content-Type", "application/json; charset=utf-8");
       reply.raw.setHeader("Access-Control-Allow-Origin", "*");
-      return await getStorageClient()
+      return getStorageClient()
         .bucket(getStorageBucketName())
         .file(fileName)
         .createReadStream()

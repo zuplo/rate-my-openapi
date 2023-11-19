@@ -1,4 +1,5 @@
 import type { Multipart } from "@fastify/multipart";
+import * as Sentry from "@sentry/node";
 import { ApiError, Problems } from "@zuplo/errors";
 import { randomUUID } from "crypto";
 import { type FastifyPluginAsync } from "fastify";
@@ -30,6 +31,7 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
       try {
         parseResult = await parseMultipartUpload(parts);
       } catch (err) {
+        Sentry.captureException(err);
         await postSlackMessage({
           text: `Failed to upload file with error: ${
             err.detail ?? err.message

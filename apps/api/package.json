@@ -9,7 +9,8 @@
     "build": "tsc --build",
     "start": "node --enable-source-maps ./dist/server.js",
     "lint": "eslint --cache --fix .",
-    "test": "mocha"
+    "test": "mocha",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org zuplo --project rate-my-openapi-api ./dist && sentry-cli sourcemaps upload --org zuplo --project rate-my-openapi-api ./dist"
   },
   "lint-staged": {
     "**/*.{ts,js}": [
@@ -25,6 +26,7 @@
     "@google-cloud/storage": "^6.12.0",
     "@rate-my-openapi/core": "*",
     "@sendgrid/mail": "^7.7.0",
+    "@sentry/cli": "^2.21.5",
     "@sentry/node": "^7.80.1",
     "@slack/web-api": "^6.9.0",
     "@stoplight/spectral-core": "^1.18.3",

@@ -1,4 +1,3 @@
-import fastifyMultipart from "@fastify/multipart";
 import { ApiError, Problems } from "@zuplo/errors";
 import { randomUUID } from "crypto";
 import { type FastifyPluginAsync } from "fastify";
@@ -83,7 +82,7 @@ type ParseMultipartUploadResult = {
 };
 
 export async function parseMultipartUpload(
-  parts: AsyncIterableIterator<fastifyMultipart.Multipart>,
+  parts: AsyncIterableIterator<Multipart>,
 ): Promise<ParseMultipartUploadResult> {
   let fileContent;
   let email;

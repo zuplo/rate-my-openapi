@@ -1,8 +1,5 @@
+import { ApiError, Problems } from "@zuplo/errors";
 import { type FastifyPluginAsync } from "fastify";
-import {
-  logAndReplyError,
-  logAndReplyInternalError,
-} from "../helpers/reply.js";
 import { getStorageBucketName, getStorageClient } from "../services/storage.js";
 
 export const fileRoute: FastifyPluginAsync = async function (server) {
@@ -29,39 +26,26 @@ export const fileRoute: FastifyPluginAsync = async function (server) {
     handler: async (request, reply) => {
       const { fileName } = request.params as { fileName: string };
 
-      try {
-        const [fileExists] = await getStorageClient()
-          .bucket(getStorageBucketName())
-          .file(fileName)
-          .exists();
+      const [fileExists] = await getStorageClient()
+        .bucket(getStorageBucketName())
+        .file(fileName)
+        .exists();
 
-        if (!fileExists) {
-          return logAndReplyError({
-            errorResult: {
-              debugMessage: `File ${fileName} does not exist`,
-              userMessage: `File ${fileName} does not exist.`,
-              statusCode: 404,
-            },
-            fastifyRequest: request,
-            fastifyReply: reply,
-          });
-        }
-
-        reply.hijack();
-        reply.raw.setHeader("Content-Type", "application/json; charset=utf-8");
-        reply.raw.setHeader("Access-Control-Allow-Origin", "*");
-        return getStorageClient()
-          .bucket(getStorageBucketName())
-          .file(fileName)
-          .createReadStream()
-          .pipe(reply.raw);
-      } catch (err) {
-        return logAndReplyInternalError({
-          error: err,
-          fastifyRequest: request,
-          fastifyReply: reply,
+      if (!fileExists) {
+        throw new ApiError({
+          ...Problems.NOT_FOUND,
+          detail: `File ${fileName} does not exist.`,
         });
       }
+
+      reply.hijack();
+      reply.raw.setHeader("Content-Type", "application/json; charset=utf-8");
+      reply.raw.setHeader("Access-Control-Allow-Origin", "*");
+      return getStorageClient()
+        .bucket(getStorageBucketName())
+        .file(fileName)
+        .createReadStream()
+        .pipe(reply.raw);
     },
   });
 };

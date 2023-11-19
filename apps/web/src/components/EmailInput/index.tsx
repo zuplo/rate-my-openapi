@@ -7,7 +7,7 @@ import { useUploadContext } from "@/contexts/UploadContext";
 
 import StepContainer from "@/components/StepContainer";
 import posthog from "posthog-js";
-import { NEXT_PUBLIC_API_URL } from "../../utils/env";
+import { API_URL } from "../../utils/env";
 import LoadingIndicator from "../LoadingIndicator";
 
 const EmailInput = () => {
@@ -56,20 +56,23 @@ const EmailInput = () => {
         formData.append("emailAddress", emailInput?.value);
         formData.append("apiFile", file);
 
-        const uploadResponse = await fetch(`${NEXT_PUBLIC_API_URL}/upload`, {
+        const uploadResponse = await fetch(`${API_URL}/upload`, {
           method: "POST",
           body: formData,
         });
 
         if (!uploadResponse.ok) {
-          const text = await uploadResponse.text();
-          if (text.includes("userMessage")) {
-            setError(JSON.parse(text).userMessage);
-          } else {
-            setError(
-              `Upload failed with status ${uploadResponse.status}. We've been notified and will fix this ASAP.`,
-            );
+          let message: string = `Upload failed with status ${uploadResponse.status}. We've been notified and will fix this ASAP.`;
+          try {
+            const problem = await uploadResponse.json();
+            if ("detail" in problem) {
+              message = problem.detail;
+            }
+          } catch (err) {
+            // Ignore
           }
+          setError(message);
+
           setIsSubmitting(false);
           return;
         }

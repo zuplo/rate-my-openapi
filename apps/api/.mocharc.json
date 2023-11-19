@@ -1,0 +1,8 @@
+{
+  "extension": ["js"],
+  "spec": "dist/**/*.spec.js",
+  "recursive": true,
+  "enable-source-maps": true,
+  "timeout": "0",
+  "diff": true
+}

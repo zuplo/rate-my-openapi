@@ -6,37 +6,296 @@ import {
 import spectralCore from "@stoplight/spectral-core";
 import SpectralParsers from "@stoplight/spectral-parsers";
 import { bundleAndLoadRuleset } from "@stoplight/spectral-ruleset-bundler/with-loader";
-import esMain from "es-main";
-import { readFile, unlink, writeFile } from "fs/promises";
+import { readFile, unlink } from "fs/promises";
 import { load as loadYAML } from "js-yaml";
 import * as fs from "node:fs";
 import { join } from "node:path";
+import { Worker } from "node:worker_threads";
 import OpenAI from "openai";
-import { Err, Ok, Result } from "ts-results-es";
-import { getStorageBucketName, getStorageClient } from "../services/storage.js";
+import { tmpdir } from "os";
+import path from "path";
+import { getOpenAIClient } from "../services/openai.js";
+import {
+  getStorageBucket,
+  getStorageBucketName,
+  getStorageClient,
+} from "../services/storage.js";
+import { OpenApiFileExtension, assertValidFileExtension } from "./types.js";
+
 const { Spectral, Document } = spectralCore;
 
-let openai: OpenAI | undefined;
-
-type GenerateRatingInput = {
-  reportId: string;
-  fileExtension: "json" | "yaml";
+export type SimpleReport = Pick<
+  Rating,
+  | "docsScore"
+  | "completenessScore"
+  | "score"
+  | "securityScore"
+  | "sdkGenerationScore"
+> & {
+  fileExtension: OpenApiFileExtension;
+  title: string;
+  version: string;
+  summary?: string;
 };
 
-function getOpenAIClient(): OpenAI | undefined {
-  if (!openai) {
-    openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
+export interface GetReportResult {
+  simpleReport: SimpleReport;
+  fullReport: RatingOutput;
+}
+
+export class ReportGenerationError extends Error {}
+
+const workerPath = new URL("rating.worker.js", import.meta.url);
+
+export async function runRatingWorker({
+  email,
+  reportId,
+  fileExtension,
+}: {
+  email: string | undefined;
+  reportId: string;
+  fileExtension: OpenApiFileExtension;
+}): Promise<void> {
+  const worker = new Worker(workerPath, {
+    workerData: {
+      email,
+      reportId,
+      fileExtension,
+    },
+    env: process.env,
+  });
+  return new Promise<void>((resolve, reject) => {
+    worker.on("error", (err) => {
+      worker.terminate();
+      reject(err ?? "Unknown error on worker");
+    });
+    worker.on("exit", () => {
+      resolve();
+    });
+
+    setTimeout(() => {
+      worker.terminate();
+      reject(new Error("Worker timed out."));
+    }, 30000);
+  });
+}
+
+export async function generateRatingFromStorage({
+  reportId,
+  fileExtension,
+}: {
+  reportId: string;
+  fileExtension: OpenApiFileExtension;
+}): Promise<{
+  simpleReport: SimpleReport;
+  fullReport: RatingOutput;
+}> {
+  const fileName = `${reportId}.${fileExtension}`;
+
+  const tempPath = path.join(tmpdir(), fileName);
+
+  try {
+    await getStorageBucket().file(fileName).download({
+      destination: tempPath,
+    });
+  } catch (err) {
+    throw new ReportGenerationError(`Could not download file from storage`, {
+      cause: err,
     });
   }
-  return openai;
+
+  const content = await readFile(tempPath, "utf-8");
+
+  const reportResult = await getReport({
+    fileContent: content,
+    fileExtension: fileExtension,
+    reportId,
+    openAPIFilePath: tempPath,
+  });
+
+  await uploadReport({
+    reportId,
+    fullReport: reportResult.fullReport,
+    simpleReport: reportResult.simpleReport,
+  });
+
+  await deleteTempFile(tempPath);
+
+  return reportResult;
+}
+
+export async function generateReportFromLocal({
+  reportId,
+  filePath,
+}: {
+  reportId: string;
+  filePath: OpenApiFileExtension;
+}): Promise<GetReportResult> {
+  const content = await readFile(filePath, "utf-8");
+  const fileExtension = path.extname(filePath).replace(".", "");
+  assertValidFileExtension(fileExtension);
+
+  const fileName = `${reportId}.${fileExtension}`;
+
+  await getStorageClient()
+    .bucket(getStorageBucketName())
+    .file(fileName)
+    .save(content);
+
+  const reportResult = await getReport({
+    fileContent: content,
+    fileExtension: fileExtension as "json" | "yaml",
+    reportId,
+    openAPIFilePath: filePath,
+  });
+
+  await uploadReport({
+    reportId,
+    ...reportResult,
+  });
+
+  return reportResult;
+}
+
+export async function getReport(options: {
+  fileContent: string;
+  reportId: string;
+  openAPIFilePath: string;
+  fileExtension: OpenApiFileExtension;
+}): Promise<GetReportResult> {
+  const parser =
+    options.fileExtension === "json"
+      ? SpectralParsers.Json
+      : SpectralParsers.Yaml;
+
+  let openApiSpectralDoc: spectralCore.Document;
+  try {
+    openApiSpectralDoc = new Document(
+      options.fileContent,
+      parser as SpectralParsers.IParser,
+      options.openAPIFilePath,
+    );
+  } catch (err) {
+    throw new ReportGenerationError(
+      `Unable to parse OpenAPI file ${options.openAPIFilePath}`,
+      { cause: err },
+    );
+  }
+
+  const spectral = new Spectral();
+  const spectralRulesetFilepath = join(
+    process.cwd(),
+    "rulesets/.spectral.yaml",
+  );
+
+  try {
+    const spectralRuleset = await bundleAndLoadRuleset(
+      spectralRulesetFilepath,
+      {
+        fs,
+        fetch,
+      },
+    );
+    spectral.setRuleset(spectralRuleset);
+  } catch (err) {
+    throw new ReportGenerationError(
+      `Unable to set Spectral ruleset for file ${options.openAPIFilePath}`,
+      { cause: err },
+    );
+  }
+
+  let spectralOutputReport;
+  try {
+    spectralOutputReport = await spectral.run(openApiSpectralDoc);
+  } catch (err) {
+    throw new ReportGenerationError(
+      `Unable to run Spectral for file ${options.openAPIFilePath}`,
+      { cause: err },
+    );
+  }
+
+  let output;
+  try {
+    const outputContent =
+      options.fileExtension === "json"
+        ? JSON.parse(options.fileContent)
+        : loadYAML(options.fileContent, { json: true });
+
+    output = generateOpenApiRating(spectralOutputReport, outputContent);
+  } catch (err) {
+    throw new ReportGenerationError(err.message, {
+      cause: err,
+    });
+  }
+
+  const issueSummary = getReportMinified(output);
+  const [openAiLongSummary, openAiShortSummary] = await Promise.all([
+    getOpenAiLongSummary(issueSummary),
+    getOpenAiShortSummary(issueSummary),
+  ]);
+
+  const simpleReport = {
+    version:
+      // TODO: Clean this up
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (openApiSpectralDoc.data as any)?.info?.version ||
+      // TODO: Clean this up
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (openApiSpectralDoc.data as any)?.openapi ||
+      "",
+    // TODO: Clean this up
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    title: (openApiSpectralDoc.data as any)?.info?.title || "OpenAPI",
+    fileExtension: options.fileExtension,
+    docsScore: output.docsScore,
+    completenessScore: output.completenessScore,
+    score: output.score,
+    securityScore: output.securityScore,
+    sdkGenerationScore: output.sdkGenerationScore,
+    shortSummary: openAiShortSummary ?? undefined,
+    longSummary: openAiLongSummary ?? undefined,
+  };
+
+  return {
+    simpleReport,
+    fullReport: output,
+  };
+}
+
+async function uploadReport({
+  reportId,
+  fullReport,
+  simpleReport,
+}: {
+  reportId: string;
+  fullReport: RatingOutput;
+  simpleReport: SimpleReport;
+}): Promise<void> {
+  try {
+    await getStorageClient()
+      .bucket(getStorageBucketName())
+      .file(`${reportId}-report.json`)
+      .save(Buffer.from(JSON.stringify(fullReport)));
+
+    await getStorageClient()
+      .bucket(getStorageBucketName())
+      .file(`${reportId}-simple-report.json`)
+      .save(Buffer.from(JSON.stringify(simpleReport)));
+  } catch (err) {
+    throw new ReportGenerationError(
+      `Could not save report for file ${reportId}`,
+      {
+        cause: err,
+      },
+    );
+  }
 }
 
 /**
  * @description produces a stripped down version of the report which can be fed
  * to LLM models.
  */
-const getReportMinified = (fullReport: RatingOutput) => {
+function getReportMinified(fullReport: RatingOutput) {
   const issues = fullReport.issues;
   return issues
     .map(({ code, message, severity }) => {
@@ -62,11 +321,11 @@ const getReportMinified = (fullReport: RatingOutput) => {
       },
       {} as Record<number, Record<string, { occurrences: number }>>,
     );
-};
+}
 
-const getOpenAiResponse = async (
+async function getOpenAiResponse(
   messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
-): Promise<Result<string | null, GenericErrorResult>> => {
+): Promise<string | null> {
   try {
     const response = await getOpenAIClient()?.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -77,19 +336,17 @@ const getOpenAiResponse = async (
       frequency_penalty: 0,
       presence_penalty: 0,
     });
-    return Ok(
-      response
-        ? response.choices[0].message.content
-        : "Placeholder OpenAI response",
-    );
+    return response
+      ? response.choices[0].message.content
+      : "Placeholder OpenAI response";
   } catch (err) {
-    return Err({
-      error: `Could not get OpenAI response: ${err}`,
+    throw new ReportGenerationError(`Could not get OpenAI response: ${err}`, {
+      cause: err,
     });
   }
-};
+}
 
-const getOpenAiLongSummary = async (issueSummary: object) => {
+async function getOpenAiLongSummary(issueSummary: object) {
   return await getOpenAiResponse([
     {
       role: "system",
@@ -103,9 +360,9 @@ const getOpenAiLongSummary = async (issueSummary: object) => {
       )}`,
     },
   ]);
-};
+}
 
-const getOpenAiShortSummary = async (issueSummary: object) => {
+async function getOpenAiShortSummary(issueSummary: object) {
   return await getOpenAiResponse([
     {
       role: "system",
@@ -119,279 +376,17 @@ const getOpenAiShortSummary = async (issueSummary: object) => {
       )}`,
     },
   ]);
-};
+}
 
-export const uploadReport = async ({
-  reportId,
-  fullReport,
-  simpleReport,
-}: {
-  reportId: string;
-  fullReport: RatingOutput;
-  simpleReport: SimpleReport;
-}): Promise<Result<true, GenericErrorResult>> => {
-  try {
-    await getStorageClient()
-      .bucket(getStorageBucketName())
-      .file(`${reportId}-report.json`)
-      .save(Buffer.from(JSON.stringify(fullReport)));
-
-    await getStorageClient()
-      .bucket(getStorageBucketName())
-      .file(`${reportId}-simple-report.json`)
-      .save(Buffer.from(JSON.stringify(simpleReport)));
-
-    return Ok(true);
-  } catch (err) {
-    return Err({
-      error: `Could not save report for file ${reportId}: ${err}`,
-    });
-  }
-};
-
-export const generateRating = async (
-  input: GenerateRatingInput,
-): Promise<
-  Result<
-    {
-      simpleReport: SimpleReport;
-      fullReport: RatingOutput;
-    },
-    GenericErrorResult
-  >
-> => {
-  const fileName = `${input.reportId}.${input.fileExtension}`;
-
-  let content;
-  try {
-    const file = await getStorageClient()
-      .bucket(getStorageBucketName())
-      .file(fileName)
-      .download();
-
-    content = file.toString();
-  } catch (err) {
-    return Err({
-      error: `Could not download file ${fileName}: ${err}`,
-    });
-  }
-
-  const tempApiFilePath = await createTempFile({
-    fileId: input.reportId,
-    fileExtension: input.fileExtension,
-    content: content,
-  });
-
-  if (tempApiFilePath.err) {
-    return tempApiFilePath;
-  }
-
-  const reportResult = await getReport({
-    fileContent: content,
-    fileExtension: input.fileExtension,
-    reportId: input.reportId,
-    openAPIFilePath: tempApiFilePath.val,
-  });
-
-  if (reportResult.err) {
-    return reportResult;
-  }
-
-  const deleteTempFileResult = await deleteTempFile(tempApiFilePath.val);
-
-  if (deleteTempFileResult.err) {
-    return deleteTempFileResult;
-  }
-
-  return Ok(reportResult.val);
-};
-
-const deleteTempFile = async (
-  tempApiFilePath: string,
-): Promise<Result<true, GenericErrorResult>> => {
+async function deleteTempFile(tempApiFilePath: string): Promise<void> {
   try {
     await unlink(tempApiFilePath);
-    return Ok(true);
   } catch (err) {
-    return Err({
-      error: `Could not delete temporary file ${tempApiFilePath}: ${err}`,
-    });
-  }
-};
-
-export const createTempFile = async ({
-  fileId,
-  fileExtension,
-  content,
-}: {
-  fileId: string;
-  fileExtension: "json" | "yaml";
-  content: string;
-}): Promise<Result<string, GenericErrorResult>> => {
-  const tempApiFilePath = `/tmp/${fileId}.${fileExtension}`;
-
-  try {
-    await writeFile(tempApiFilePath, Buffer.from(content));
-    return Ok(tempApiFilePath);
-  } catch (err) {
-    return Err({
-      error: `Could not create temporary file for file ${fileId}: ${err}`,
-    });
-  }
-};
-
-type GetReportInput = {
-  fileContent: string;
-  reportId: string;
-  openAPIFilePath: string;
-  fileExtension: "json" | "yaml";
-};
-
-export type SimpleReport = Pick<
-  Rating,
-  | "docsScore"
-  | "completenessScore"
-  | "score"
-  | "securityScore"
-  | "sdkGenerationScore"
-> & {
-  fileExtension: "json" | "yaml";
-  title: string;
-  version: string;
-  summary?: string;
-};
-
-type GetReportOutput = {
-  simpleReport: SimpleReport;
-  fullReport: RatingOutput;
-};
-
-const getReport = async (
-  input: GetReportInput,
-): Promise<Result<GetReportOutput, GenericErrorResult>> => {
-  let spectralOutputReport;
-  let openApiSpectralDoc: spectralCore.Document;
-  try {
-    const parser =
-      input.fileExtension === "json"
-        ? SpectralParsers.Json
-        : SpectralParsers.Yaml;
-
-    openApiSpectralDoc = new Document(
-      input.fileContent,
-      parser as SpectralParsers.IParser,
-      input.openAPIFilePath,
+    throw new ReportGenerationError(
+      `Could not delete temporary file ${tempApiFilePath}`,
+      {
+        cause: err,
+      },
     );
-
-    const spectral = new Spectral();
-    const spectralRulesetFilepath = join(
-      process.cwd(),
-      "rulesets/.spectral.yaml",
-    );
-
-    try {
-      const spectralRuleset = await bundleAndLoadRuleset(
-        spectralRulesetFilepath,
-        {
-          fs,
-          fetch,
-        },
-      );
-      spectral.setRuleset(spectralRuleset);
-    } catch (err) {
-      return Err({
-        error: `Unable to set Spectral ruleset for file ${input.openAPIFilePath}: ${err}`,
-      });
-    }
-
-    spectralOutputReport = await spectral.run(openApiSpectralDoc);
-  } catch (err) {
-    return Err({
-      error: `Unable to run Spectral for file ${input.openAPIFilePath}: ${err}`,
-    });
   }
-
-  let output;
-  try {
-    const outputContent =
-      input.fileExtension === "json"
-        ? JSON.parse(input.fileContent)
-        : loadYAML(input.fileContent, { json: true });
-
-    output = generateOpenApiRating(spectralOutputReport, outputContent);
-  } catch (err) {
-    return Err({
-      error: `Unable to generate rating for file ${input.reportId}: ${err}`,
-    });
-  }
-
-  const issueSummary = getReportMinified(output);
-  const [openAiLongSummary, openAiShortSummary] = await Promise.all([
-    getOpenAiLongSummary(issueSummary),
-    getOpenAiShortSummary(issueSummary),
-  ]);
-
-  if (openAiLongSummary.err) {
-    return openAiLongSummary;
-  }
-
-  if (openAiShortSummary.err) {
-    return openAiShortSummary;
-  }
-
-  const simpleReport = {
-    version:
-      // TODO: Clean this up
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (openApiSpectralDoc.data as any)?.info?.version ||
-      // TODO: Clean this up
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (openApiSpectralDoc.data as any)?.openapi ||
-      "",
-    // TODO: Clean this up
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    title: (openApiSpectralDoc.data as any)?.info?.title || "OpenAPI",
-    fileExtension: input.fileExtension,
-    docsScore: output.docsScore,
-    completenessScore: output.completenessScore,
-    score: output.score,
-    securityScore: output.securityScore,
-    sdkGenerationScore: output.sdkGenerationScore,
-    shortSummary: openAiShortSummary.val ?? undefined,
-    longSummary: openAiLongSummary.val ?? undefined,
-  };
-
-  return Ok({
-    simpleReport,
-    fullReport: output,
-  });
-};
-
-if (esMain(import.meta)) {
-  (async () => {
-    const jsonOpenApiFilePath = process.argv[2];
-
-    if (!jsonOpenApiFilePath) {
-      console.error("Please provide a JSON OpenAPI file path");
-      process.exit(1);
-    }
-
-    try {
-      const path = join(process.cwd(), jsonOpenApiFilePath);
-      const file = await readFile(path);
-      const content = file.toString();
-
-      const result = await getReport({
-        fileContent: content,
-        fileExtension: "json",
-        reportId: "test",
-        openAPIFilePath: path,
-      });
-
-      console.log("output: ", result.unwrap().simpleReport);
-    } catch (e) {
-      console.error(e);
-      process.exit(1);
-    }
-  })();
 }

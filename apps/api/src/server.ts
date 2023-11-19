@@ -1,6 +1,14 @@
 import { config } from "dotenv";
 config();
 
+import * as Sentry from "@sentry/node";
+if (process.env.SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    tracesSampleRate: 1.0,
+  });
+}
+
 import cors from "@fastify/cors";
 import fastifyMultipart from "@fastify/multipart";
 import { randomUUID } from "crypto";

@@ -39,6 +39,7 @@ export async function postSuccessMessage({
   openApiFilePath: string;
   score: number;
 }) {
+  const text = `Generated API Rating for ${email}. Score: ${score}`;
   const blocks = [
     {
       type: "section",
@@ -69,5 +70,5 @@ export async function postSuccessMessage({
       ],
     },
   ];
-  return postSlackMessage({ blocks });
+  return postSlackMessage({ text, blocks });
 }

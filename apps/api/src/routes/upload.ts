@@ -30,11 +30,11 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
       try {
         parseResult = await parseMultipartUpload(parts);
       } catch (err) {
-        await postSlackMessage(
-          `Failed to upload file with error: ${
+        await postSlackMessage({
+          text: `Failed to upload file with error: ${
             err.detail ?? err.message
           }. Request ID: ${request.id}`,
-        );
+        });
         throw err;
       }
 
@@ -46,7 +46,7 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
       }
 
       const reportId = randomUUID();
-      const { fileContentString: content, fileExtension } = parseResult;
+      const { fileContentString: content, fileExtension, email } = parseResult;
 
       try {
         assertValidFileExtension(fileExtension);
@@ -64,7 +64,7 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
         .file(fileName)
         .save(content);
 
-      runRatingWorker({ reportId, fileExtension }).catch((err) => {
+      runRatingWorker({ reportId, fileExtension, email }).catch((err) => {
         request.log.error(err);
       });
 

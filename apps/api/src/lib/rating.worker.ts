@@ -2,8 +2,7 @@ import { workerData } from "node:worker_threads";
 import { createNewLogger } from "../logger.js";
 import { sendReportEmail } from "../services/email/index.js";
 import { getPostHogClient } from "../services/posthog.js";
-import { postSlackMessage } from "../services/slack.js";
-import { getSignedUrl } from "../services/storage.js";
+import { postSuccessMessage } from "../services/slack.js";
 import { generateRatingFromStorage } from "./rating.js";
 import { RatingWorkerData } from "./types.js";
 
@@ -16,7 +15,7 @@ const logger = createNewLogger({
 
 const filePath = `${reportId}.${fileExtension}`;
 
-if (email) {
+if (email && process.env.NODE_ENV === "production") {
   getPostHogClient()?.capture({
     distinctId: email,
     properties: {
@@ -27,10 +26,11 @@ if (email) {
 }
 
 logger.debug(`Generating report from storage ${reportId}`);
-await generateRatingFromStorage({
+const result = await generateRatingFromStorage({
   reportId,
   fileExtension,
 });
+logger.info(`Finished generating report`, { score: result.simpleReport.score });
 
 fetch(`https://ratemyopenapi.com/og/${reportId}`).then((response) => {
   if (response.status !== 200) {
@@ -42,25 +42,32 @@ fetch(`https://ratemyopenapi.com/og/${reportId}`).then((response) => {
 
 if (email) {
   logger.debug(`Sending report email for report ${reportId}`);
-  await sendReportEmail({
-    email,
-    reportId,
-  });
-
-  const fileUrl = await getSignedUrl(filePath);
-
-  logger.debug(`Sending slack message for report ${reportId}`);
-  await postSlackMessage(
-    `Generated rating for ${email}. Report URL: https://ratemyopenapi.com/report/${reportId}. ${
-      fileUrl ? `File URL: ${fileUrl}` : ""
-    }}`,
-  );
-
-  getPostHogClient()?.capture({
-    distinctId: email,
-    properties: {
+  if (process.env.SENDGRID_API_KEY) {
+    await sendReportEmail({
+      email,
       reportId,
-    },
-    event: "report_generated_successfully",
-  });
+    });
+  } else {
+    logger.warn(`Skipping sending email, SENDGRID_API_KEY not set`);
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    logger.debug(`Sending slack message for report ${reportId}`);
+    await postSuccessMessage({
+      email,
+      reportId,
+      openApiFilePath: filePath,
+      score: result.simpleReport.score,
+    });
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    getPostHogClient()?.capture({
+      distinctId: email,
+      properties: {
+        reportId,
+      },
+      event: "report_generated_successfully",
+    });
+  }
 }

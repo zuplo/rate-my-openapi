@@ -42,9 +42,11 @@ const directUploadRoute: FastifyPluginAsync = async function (server) {
         .file(fileName)
         .save(content);
 
-      runRatingWorker({ reportId, fileExtension }).catch((err) => {
-        request.log.error(err);
-      });
+      runRatingWorker({ reportId, fileExtension, email: undefined }).catch(
+        (err) => {
+          request.log.error(err);
+        },
+      );
 
       reply.send({
         reportId,

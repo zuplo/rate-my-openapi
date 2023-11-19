@@ -27,14 +27,3 @@ export function getStorageBucketName() {
 export function getStorageBucket(): Bucket {
   return getStorageClient().bucket(getStorageBucketName());
 }
-
-export async function getSignedUrl(fileName: string) {
-  const [url] = await getStorageClient()
-    .bucket(getStorageBucketName())
-    .file(fileName)
-    .getSignedUrl({
-      action: "read",
-      expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days
-    });
-  return url;
-}

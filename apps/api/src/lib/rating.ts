@@ -48,14 +48,17 @@ export class ReportGenerationError extends Error {}
 const workerPath = new URL("rating.worker.js", import.meta.url);
 
 export async function runRatingWorker({
+  email,
   reportId,
   fileExtension,
 }: {
+  email: string | undefined;
   reportId: string;
   fileExtension: OpenApiFileExtension;
 }): Promise<void> {
   const worker = new Worker(workerPath, {
     workerData: {
+      email,
       reportId,
       fileExtension,
     },

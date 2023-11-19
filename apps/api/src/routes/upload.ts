@@ -1,3 +1,4 @@
+import type { Multipart } from "@fastify/multipart";
 import { ApiError, Problems } from "@zuplo/errors";
 import { randomUUID } from "crypto";
 import { type FastifyPluginAsync } from "fastify";

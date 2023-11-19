@@ -1,6 +1,6 @@
+import { COMMON_CRITICAL_ISSUES } from "./common-rating-utils";
 import { SpectralReport } from "./interfaces";
 import { getScoreDelta } from "./rating-utils";
-import { COMMON_CRITICAL_ISSUES } from "./common-rating-utils";
 
 /**
  * Inspired by Apimatic: https://www.apimatic.io/blog/2022/11/14-best-practices-to-write-openapi-for-better-api-consumption/
@@ -51,11 +51,11 @@ export const SDK_ISSUES = [
   ...APIMATIC_SDK_ISSUES,
 ];
 
-export const getSdkGenerationRating = (issues: SpectralReport) => {
+export function getSdkGenerationRating(issues: SpectralReport) {
   return getLengthNormalizedSdkGenerationRating(issues, 1);
-};
+}
 
-export const getSdkGenerationIssues = (issues: SpectralReport) => {
+export function getSdkGenerationIssues(issues: SpectralReport) {
   return issues
     .filter(
       (issue) =>
@@ -64,12 +64,12 @@ export const getSdkGenerationIssues = (issues: SpectralReport) => {
     .sort(
       (a, b) => a.severity - b.severity || a.message.localeCompare(b.message),
     );
-};
+}
 
-export const getLengthNormalizedSdkGenerationRating = (
+export function getLengthNormalizedSdkGenerationRating(
   issues: SpectralReport,
   length: number,
-) => {
+) {
   let totalDelta = 0;
   const sdkGenerationIssues = issues.filter((issue) => {
     if (typeof issue.code === "string" && SDK_ISSUES.includes(issue.code)) {
@@ -82,4 +82,4 @@ export const getLengthNormalizedSdkGenerationRating = (
     sdkGenerationScore: Math.max(0, 100 - totalDelta / length),
     sdkGenerationIssues,
   };
-};
+}

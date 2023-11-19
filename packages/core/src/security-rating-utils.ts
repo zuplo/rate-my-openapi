@@ -1,6 +1,6 @@
+import { COMMON_CRITICAL_ISSUES } from "./common-rating-utils";
 import { SpectralReport } from "./interfaces";
 import { getScoreDelta } from "./rating-utils";
-import { COMMON_CRITICAL_ISSUES } from "./common-rating-utils";
 
 // Sort of a subset of https://github.com/stoplightio/spectral-owasp-ruleset/blob/main/src/ruleset.ts
 // With some rules dropped because I didn't think they were very useful or
@@ -19,11 +19,11 @@ export const SECURITY_ISSUES = [
   "owasp:api7:2019-security-hosts-https-oas3",
 ];
 
-export const getSecurityRating = (issues: SpectralReport) => {
+export function getSecurityRating(issues: SpectralReport) {
   return getLengthNormalizedSecurityRating(issues, 1);
-};
+}
 
-export const getSecurityIssues = (issues: SpectralReport) => {
+export function getSecurityIssues(issues: SpectralReport) {
   return issues
     .filter(
       (issue) =>
@@ -32,12 +32,12 @@ export const getSecurityIssues = (issues: SpectralReport) => {
     .sort(
       (a, b) => a.severity - b.severity || a.message.localeCompare(b.message),
     );
-};
+}
 
-export const getLengthNormalizedSecurityRating = (
+export function getLengthNormalizedSecurityRating(
   issues: SpectralReport,
   length: number,
-) => {
+) {
   let totalDelta = 0;
   const securityIssues = issues.filter((issue) => {
     if (
@@ -53,4 +53,4 @@ export const getLengthNormalizedSecurityRating = (
     securityScore: Math.max(0, 100 - totalDelta / length),
     securityIssues,
   };
-};
+}

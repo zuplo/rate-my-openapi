@@ -1,6 +1,6 @@
+import { COMMON_CRITICAL_ISSUES } from "./common-rating-utils";
 import { SpectralReport } from "./interfaces";
 import { getScoreDelta } from "./rating-utils";
-import { COMMON_CRITICAL_ISSUES } from "./common-rating-utils";
 
 export const COMPLETENESS_ISSUES = [
   ...COMMON_CRITICAL_ISSUES,
@@ -29,11 +29,11 @@ export const COMPLETENESS_ISSUES = [
   "redocly-no-undefined-server-variable",
 ];
 
-export const getCompletenessRating = (issues: SpectralReport) => {
+export function getCompletenessRating(issues: SpectralReport) {
   return getLengthNormalizedCompletenessRating(issues, 1);
-};
+}
 
-export const getCompletenessIssues = (issues: SpectralReport) => {
+export function getCompletenessIssues(issues: SpectralReport) {
   return issues
     .filter(
       (issue) =>
@@ -43,12 +43,12 @@ export const getCompletenessIssues = (issues: SpectralReport) => {
     .sort(
       (a, b) => a.severity - b.severity || a.message.localeCompare(b.message),
     );
-};
+}
 
-export const getLengthNormalizedCompletenessRating = (
+export function getLengthNormalizedCompletenessRating(
   issues: SpectralReport,
   length: number,
-) => {
+) {
   let totalDelta = 0;
   const completenessIssues = issues.filter((issue) => {
     if (
@@ -64,4 +64,4 @@ export const getLengthNormalizedCompletenessRating = (
     completenessScore: Math.max(0, 100 - totalDelta / length),
     completenessIssues,
   };
-};
+}

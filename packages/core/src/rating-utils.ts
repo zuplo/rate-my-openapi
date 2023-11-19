@@ -39,10 +39,10 @@ const OPEN_API_PROPERTY_WEIGHTS = {
   components: 0.15,
 };
 
-export const generateOpenApiRating = (
+export function generateOpenApiRating(
   outputReport: SpectralReport,
   openApi: OpenAPIV3_1.Document | OpenAPIV3.Document,
-): RatingOutput => {
+): RatingOutput {
   const processingErrors: string[] = [];
   const issuesByArea = outputReport.reduce(
     (issuesByArea, issue) => {
@@ -162,11 +162,11 @@ export const generateOpenApiRating = (
         issues: issuesByArea.tags,
         docsScore: 25,
         docsIssues: getDocsIssues(issuesByArea.tags),
-        completenessScore: 25, // Needed to be considered complete
+        completenessScore: 25,
         completenessIssues: getCompletenessIssues(issuesByArea.tags),
-        sdkGenerationScore: 100, // No implication afaik
+        sdkGenerationScore: 100,
         sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.tags),
-        securityScore: 100, // No implication afaik
+        securityScore: 100,
         securityIssues: getSecurityIssues(issuesByArea.tags),
       };
 
@@ -195,6 +195,7 @@ export const generateOpenApiRating = (
         openApi.security.length,
       )
     : // Security is not a mandatory property, but chances are the API is
+
       // secured in some way, but they just didn't document it, so we count this
       // as a fail. Security can also be documented at the operation
       // level, but should also be documented at the top level in most cases,
@@ -206,7 +207,7 @@ export const generateOpenApiRating = (
         docsIssues: getDocsIssues(issuesByArea.security),
         completenessScore: 0,
         completenessIssues: getCompletenessIssues(issuesByArea.security),
-        sdkGenerationScore: 100, // No implication afaik
+        sdkGenerationScore: 100,
         sdkGenerationIssues: getSdkGenerationIssues(issuesByArea.security),
         securityScore: 0,
         securityIssues: getSecurityIssues(issuesByArea.security),
@@ -268,17 +269,17 @@ export const generateOpenApiRating = (
         componentsRating.securityScore * OPEN_API_PROPERTY_WEIGHTS.components,
     ),
   };
-};
+}
 
 /**
  * @description Calculated the ratings for each path and operation in the API.
  * The scores are normalized by the size of the API so large OpenAPIs don't get
  * penalized for having the same issue multiple times.
  */
-const getPathRatings = (
+function getPathRatings(
   openApi: OpenAPIV3_1.Document | OpenAPIV3.Document,
   pathsIssues: SpectralReport,
-) => {
+) {
   const operations = [
     "get",
     "put",
@@ -510,17 +511,17 @@ const getPathRatings = (
     },
     {} as Record<string, PathRating>,
   );
-};
+}
 
 /**
  * @description Generates a rating for an Operation, normalizing the score based
  * on how many properties exist on the operation and how many issues were found
  * on those properties.
  */
-const getNormalizedOperationRating = (
+function getNormalizedOperationRating(
   operationItem: OpenAPIV3_1.OperationObject | OpenAPIV3.OperationObject,
   operationIssues: SpectralReport,
-) => {
+) {
   // We calculate the operation score by normalizing the penalties of list
   // properties on the operation. Responses tags, and parameters issues are all
   // divided by the number of items in that property.
@@ -529,7 +530,6 @@ const getNormalizedOperationRating = (
   // One can argue that this encourages people to not document responses rather
   // than document them poorly, but we have rules in place to make sure certain
   // responses are documented (ex. 2XX and 4XX), so this should not be a problem
-
   let score = 100;
   operationIssues.forEach((issue) => {
     const scoreDelta = getScoreDelta(issue.severity);
@@ -568,12 +568,12 @@ const getNormalizedOperationRating = (
   });
 
   return Math.round(score);
-};
+}
 
-const getComponentsRatings = (
+function getComponentsRatings(
   openApi: OpenAPIV3_1.Document | OpenAPIV3.Document,
   componentsIssues: SpectralReport,
-): ComponentsRating => {
+): ComponentsRating {
   const { components } = openApi;
   if (!components) {
     // No components, no problems
@@ -584,7 +584,7 @@ const getComponentsRatings = (
       docsIssues: getDocsIssues(componentsIssues),
       completenessScore: 100,
       completenessIssues: getCompletenessIssues(componentsIssues),
-      sdkGenerationScore: 0, // You will likely generate a garbage SDK
+      sdkGenerationScore: 0,
       sdkGenerationIssues: getSdkGenerationIssues(componentsIssues),
       securityScore: 100,
       securityIssues: getSecurityIssues(componentsIssues),
@@ -861,16 +861,16 @@ const getComponentsRatings = (
     securityIssues: getSecurityIssues(componentsIssues),
     ...componentCategoryRatings,
   };
-};
+}
 
-const getAreaRating = (areaIssues: SpectralReport): Rating => {
+function getAreaRating(areaIssues: SpectralReport): Rating {
   return getLengthNormalizedAreaRating(areaIssues, 1);
-};
+}
 
-const getLengthNormalizedAreaRating = (
+function getLengthNormalizedAreaRating(
   areaIssues: SpectralReport,
   areaLength: number,
-): Rating => {
+): Rating {
   const { docsScore, docsIssues } = getLengthNormalizedDocsRating(
     areaIssues,
     areaLength,
@@ -897,11 +897,11 @@ const getLengthNormalizedAreaRating = (
     securityScore,
     securityIssues,
   };
-};
+}
 
 // How heavily should each issue impact the score?
 // Nothing is scientific here - I made these up
-export const getScoreDelta = (severity: 0 | 1 | 2 | 3) => {
+export function getScoreDelta(severity: 0 | 1 | 2 | 3) {
   switch (severity) {
     case 0:
       return 75; // Essentially an error so judged harshly
@@ -912,20 +912,20 @@ export const getScoreDelta = (severity: 0 | 1 | 2 | 3) => {
     case 3:
       return 5; // Hint, prescriptive suggestions essentially
   }
-};
+}
 
 // Issues discovered at the paths level, that affect all operations
-const getPathIssueDelta = (pathIssues: SpectralReport) => {
+function getPathIssueDelta(pathIssues: SpectralReport) {
   return pathIssues.reduce((pathIssueDeltaSum, pathIssue) => {
     return pathIssueDeltaSum + getScoreDelta(pathIssue.severity);
   }, 0);
-};
+}
 
 /**
  * Sometimes vacuum/spectral mess up the path, but we can try and figure out
  * what part of the file they are referring to
  */
-const inferAreaFromIssue = (issue: SpectralReport[0]): string | undefined => {
+function inferAreaFromIssue(issue: SpectralReport[0]): string | undefined {
   if (issue.path.length > 0) {
     const areaHint = issue.path[0].toString();
     if (areaHint.includes("info")) {
@@ -962,4 +962,4 @@ const inferAreaFromIssue = (issue: SpectralReport[0]): string | undefined => {
     return "tags";
   }
   return undefined;
-};
+}

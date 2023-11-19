@@ -1,11 +1,14 @@
 /* eslint-env node */
 import fs from "fs";
 import { workerData } from "node:worker_threads";
-import { createReportFromLocal } from "./dist/lib/local.js";
+import { generateReportFromLocal } from "./dist/lib/rating.js";
 
 const { logPath, report, reportId, name, version, fsPath } = workerData;
 
-let reportResult = await createReportFromLocal(fsPath, reportId);
+let reportResult = await generateReportFromLocal({
+  filePath: fsPath,
+  reportId,
+});
 
 report.name = name;
 report.version = version;

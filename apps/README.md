@@ -35,14 +35,12 @@ cp .env.example .env
 export $(grep -v '^#' .env)
 ```
 
-In 3 different terminals:
+In 2 different terminals:
 
 ```
 npx tsc --watch # Teminal 1, start the compiler on watch mode
 
 node dist/server.js # Terminal 2, start the server
-
-npx inngest-cli@latest dev -u http://localhost:3000/inngest # Terminal 3, start the Inngest server
 ```
 
 ### Running the web app

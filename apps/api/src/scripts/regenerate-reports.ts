@@ -1,4 +1,4 @@
-import { SimpleReport, generateRating, uploadReport } from "src/lib/rating.js";
+import { SimpleReport, generateRatingFromStorage } from "src/lib/rating.js";
 import {
   getStorageBucketName,
   getStorageClient,
@@ -11,17 +11,9 @@ const regenerateOrderedReport = async ({
   reportId: string;
   fileExtension: "json" | "yaml";
 }) => {
-  const generateReportResult = await generateRating({
+  await generateRatingFromStorage({
     reportId,
     fileExtension,
-  });
-
-  const { simpleReport, fullReport } = generateReportResult;
-
-  await uploadReport({
-    reportId,
-    fullReport,
-    simpleReport,
   });
 
   console.log(`Regenerated report for ${reportId}`);

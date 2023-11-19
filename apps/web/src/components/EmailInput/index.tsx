@@ -7,7 +7,7 @@ import { useUploadContext } from "@/contexts/UploadContext";
 
 import StepContainer from "@/components/StepContainer";
 import posthog from "posthog-js";
-import { NEXT_PUBLIC_API_URL } from "../../utils/env";
+import { API_URL } from "../../utils/env";
 import LoadingIndicator from "../LoadingIndicator";
 
 const EmailInput = () => {
@@ -56,7 +56,7 @@ const EmailInput = () => {
         formData.append("emailAddress", emailInput?.value);
         formData.append("apiFile", file);
 
-        const uploadResponse = await fetch(`${NEXT_PUBLIC_API_URL}/upload`, {
+        const uploadResponse = await fetch(`${API_URL}/upload`, {
           method: "POST",
           body: formData,
         });

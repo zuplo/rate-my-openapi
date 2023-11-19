@@ -1,9 +1,10 @@
 import { ApiError, Problems } from "@zuplo/errors";
 import { load } from "js-yaml";
+import { OpenApiFileExtension } from "./types.js";
 
 export const checkFileIsJsonOrYaml = (
   fileContentString: string,
-): "yaml" | "json" => {
+): OpenApiFileExtension => {
   try {
     JSON.parse(fileContentString);
     return "json";

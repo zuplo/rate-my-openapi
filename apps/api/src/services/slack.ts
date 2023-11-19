@@ -2,7 +2,7 @@ import { WebClient } from "@slack/web-api";
 
 let slack: WebClient | undefined;
 
-export function postSlackMessage(text: string) {
+export async function postSlackMessage(text: string) {
   if (!slack && process.env.SLACK_TOKEN) {
     slack = new WebClient(process.env.SLACK_TOKEN);
   }
@@ -11,8 +11,12 @@ export function postSlackMessage(text: string) {
     console.warn("No environment variable set for SLACK_CHANNEL_ID");
     return;
   }
-  return slack?.chat.postMessage({
-    channel,
-    text,
-  });
+  try {
+    await slack?.chat.postMessage({
+      channel,
+      text,
+    });
+  } catch (err) {
+    throw new Error("Failed to send Slack Message", { cause: err });
+  }
 }

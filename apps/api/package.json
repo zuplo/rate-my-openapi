@@ -5,13 +5,9 @@
   "main": "dist/server.js",
   "type": "module",
   "scripts": {
-    "dev": "concurrently -n watch,dev,inngest 'npm run build:watch' 'npm run run:api' 'npm run run:inngest'",
-    "dev:api": "concurrently -n watch,dev 'npm run build:watch' 'npm run run:api'",
-    "run:api": "PORT=3001 nodemon dist/server.js | pino-pretty",
-    "run:inngest": "npx inngest-cli@latest dev -u http://localhost:3000/inngest",
+    "dev": "PORT=3001 nodemon | pino-pretty",
     "build": "tsc --build",
-    "build:watch": "tsc --build --watch --preserveWatchOutput",
-    "start": "node ./dist/server.js",
+    "start": "node --enable-source-maps ./dist/server.js",
     "lint": "eslint --cache --fix .",
     "test": "mocha"
   },
@@ -36,13 +32,11 @@
     "@zuplo/errors": "^0.0.0",
     "dotenv": "^16.3.1",
     "fastify": "^4.21.0",
-    "inngest": "^3.6.0",
     "js-yaml": "^4.1.0",
     "posthog-node": "^3.1.1",
     "serialize-error": "^11.0.1",
     "stacktrace-parser": "^0.1.10",
-    "typescript": "^5.2.2",
-    "uuid": "^9.0.0"
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "@types/chai": "^4.3.9",

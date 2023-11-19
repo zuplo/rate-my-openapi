@@ -4,12 +4,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
 import {
   createContext,
+  useContext,
+  useEffect,
+  useState,
   type Dispatch,
   type ReactNode,
   type SetStateAction,
-  useContext,
-  useState,
-  useEffect,
 } from "react";
 
 type UploadContextType = {
@@ -43,7 +43,6 @@ const UploadContextProvider = ({ children }: { children: ReactNode }) => {
 
     switch (currentStep) {
       case null:
-        router.push("?step=upload");
         break;
       case "upload":
         setStep(1);
@@ -61,11 +60,9 @@ const UploadContextProvider = ({ children }: { children: ReactNode }) => {
     switch (step) {
       case 1:
         posthog.capture("step_uploaded_file_completed");
-        router.push("?step=email");
         break;
       case 2:
         posthog.capture("step_entered_email_completed");
-        router.push("?step=analyzing");
         break;
     }
 

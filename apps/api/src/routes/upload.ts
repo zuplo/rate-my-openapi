@@ -1,11 +1,12 @@
 import fastifyMultipart from "@fastify/multipart";
 import { ApiError, Problems } from "@zuplo/errors";
+import { randomUUID } from "crypto";
 import { type FastifyPluginAsync } from "fastify";
-import { v4 as uuidv4 } from "uuid";
+import { runRatingWorker } from "../lib/rating.js";
+import { assertValidFileExtension } from "../lib/types.js";
 import validateOpenapi, {
   checkFileIsJsonOrYaml,
 } from "../lib/validate-openapi.js";
-import { inngestInstance } from "../services/inngest.js";
 import { postSlackMessage } from "../services/slack.js";
 import { getStorageBucketName, getStorageClient } from "../services/storage.js";
 
@@ -44,28 +45,33 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
         });
       }
 
-      // upload to google cloud storage
-      const uuid = uuidv4();
+      const reportId = randomUUID();
+      const { fileContentString: content, fileExtension } = parseResult;
 
-      const fileName = `${uuid}.${parseResult.fileExtension}`;
+      try {
+        assertValidFileExtension(fileExtension);
+      } catch (err) {
+        throw new ApiError({
+          ...Problems.BAD_REQUEST,
+          detail: err.message,
+        });
+      }
+
+      const fileName = `${reportId}.${fileExtension}`;
 
       await getStorageClient()
         .bucket(getStorageBucketName())
         .file(fileName)
-        .save(parseResult.fileContentString);
+        .save(content);
 
-      request.log.info(`Uploaded file ${uuid}`);
-
-      await inngestInstance.send({
-        name: "api/file.uploaded",
-        data: {
-          id: uuid,
-          email: parseResult.email,
-          fileExtension: parseResult.fileExtension,
-        },
+      runRatingWorker({ reportId, fileExtension }).catch((err) => {
+        request.log.error(err);
       });
 
-      return reply.send({ id: uuid });
+      reply.send({
+        reportId,
+        reportUrl: `https://ratemyopenapi.com/rating/${reportId}`,
+      });
     },
   });
 };

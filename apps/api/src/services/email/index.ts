@@ -7,20 +7,13 @@ if (process.env.SENDGRID_API_KEY) {
   console.warn("No environment variable set for SENDGRID_API_KEY");
 }
 
-type SendEmailResult = {
-  statusCode: number;
-  headers: {
-    [key: string]: string;
-  };
-};
-
-export const sendReportEmail = async ({
+export async function sendReportEmail({
   email,
   reportId,
 }: {
   email: string;
   reportId: string;
-}): Promise<SendEmailResult> => {
+}): Promise<void> {
   const msg = {
     to: email,
     from: {
@@ -36,24 +29,16 @@ export const sendReportEmail = async ({
 
   const emailSend = await sgMail.send(msg);
 
-  return {
-    statusCode: emailSend[0].statusCode,
-    headers: emailSend[0].headers,
-  };
-};
+  if (emailSend[0].statusCode !== 200) {
+    throw new Error(`Failed to send Email. Status: ${emailSend[0].statusCode}`);
+  }
+}
 
-type SendFailureEmailResult = {
-  statusCode: number;
-  headers: {
-    [key: string]: string;
-  };
-};
-
-export const sendFailureEmail = async ({
+export async function sendFailureEmail({
   email,
 }: {
   email: string;
-}): Promise<SendFailureEmailResult> => {
+}): Promise<void> {
   const msg: MailDataRequired = {
     to: email,
     from: {
@@ -67,8 +52,7 @@ export const sendFailureEmail = async ({
 
   const emailSend = await sgMail.send(msg);
 
-  return {
-    statusCode: emailSend[0].statusCode,
-    headers: emailSend[0].headers,
-  };
-};
+  if (emailSend[0].statusCode !== 200) {
+    throw new Error(`Failed to send Email. Status: ${emailSend[0].statusCode}`);
+  }
+}

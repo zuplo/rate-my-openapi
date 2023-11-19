@@ -1,7 +1,8 @@
 import { ApiError, Problems } from "@zuplo/errors";
 import { type FastifyPluginAsync } from "fastify";
 import { randomUUID } from "node:crypto";
-import { createTempFile, getReport, uploadReport } from "../lib/rating.js";
+import { runRatingWorker } from "../lib/rating.js";
+import { assertValidFileExtension } from "../lib/types.js";
 import { getStorageBucketName, getStorageClient } from "../services/storage.js";
 import { parseMultipartUpload } from "./upload.js";
 
@@ -19,17 +20,18 @@ const directUploadRoute: FastifyPluginAsync = async function (server) {
       },
     },
     url: "/direct",
-    onRequest: [server.validateApiKey],
     handler: async (request, reply) => {
       const parts = request.files({ preservePath: true });
       const parsed = await parseMultipartUpload(parts);
 
       const reportId = randomUUID();
       const { fileContentString: content, fileExtension } = parsed;
-      if (!["json", "yaml"].includes(fileExtension)) {
+      try {
+        assertValidFileExtension(fileExtension);
+      } catch (err) {
         throw new ApiError({
           ...Problems.BAD_REQUEST,
-          detail: `Invalid file extension`,
+          detail: err.message,
         });
       }
 
@@ -40,23 +42,10 @@ const directUploadRoute: FastifyPluginAsync = async function (server) {
         .file(fileName)
         .save(content);
 
-      const tempApiFilePath = await createTempFile({
-        fileId: reportId,
-        fileExtension: fileExtension as "json" | "yaml",
-        content: content,
+      runRatingWorker({ reportId, fileExtension }).catch((err) => {
+        request.log.error(err);
       });
 
-      const reportResult = await getReport({
-        fileContent: content,
-        fileExtension: fileExtension as "json" | "yaml",
-        reportId,
-        openAPIFilePath: tempApiFilePath,
-      });
-
-      await uploadReport({
-        reportId,
-        ...reportResult,
-      });
       reply.send({
         reportId,
         reportUrl: `https://ratemyopenapi.com/rating/${reportId}`,

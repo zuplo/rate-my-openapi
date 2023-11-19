@@ -1,26 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FastifyReply, FastifyRequest } from "fastify";
-import pino, { LogFn, Logger } from "pino";
+import { Writable } from "node:stream";
+import { LogFn, Logger, pino } from "pino";
 import { parse as parseStack } from "stacktrace-parser";
 
 export const GOOGLE_TRACE_PROPERTY = "logging.googleapis.com/trace";
 export const GOOGLE_LABELS_PROPERTY = "logging.googleapis.com/labels";
-const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT_ID || "unknown";
-
-import { randomUUID } from "node:crypto";
-
-export const REQUEST_ID_HEADER = "zp-rid";
-
-export const requestIdGenerator = (request: FastifyRequest): string => {
-  const traceHeader = request.headers[REQUEST_ID_HEADER];
-
-  if (traceHeader) {
-    return traceHeader as string;
-  }
-
-  return randomUUID();
-};
+const PROJECT_ID = "zuplo-production";
+/**
+ * @DEPRECATED Reuse logger from server or request
+ * If you must create a new logger, use createNewLogger
+ */
+export const logger: pino.Logger = createNewLogger();
 
 // NOTE: Had to add this stripped down interface because using pino's
 // throws error "Exported variable 'LoggerOptions' has or is using name 'redactedOptions' from external module 'local/path' but cannot be named"
@@ -87,6 +78,7 @@ function logMethod(
   let originalChindings;
   try {
     const chindings = `{${
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this?.[pino.symbols.chindingsSym]?.slice(1) || ""
     }}`;
@@ -130,6 +122,8 @@ function logMethod(
       if (originalChindings["caller"] && level < 50) {
         delete originalChindings.caller;
       }
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this[pino.symbols.chindingsSym] = `,${flatJSONString(originalChindings)}`;
 
@@ -144,7 +138,8 @@ function logMethod(
 
 export function createNewLogger(
   defaultLabels: Record<string, string> = {},
-): pino.Logger | boolean {
+  { logStream }: { logStream?: Writable } = {},
+): pino.Logger {
   const loggerOptions: LoggerOpts = {
     /**
      * The logging level is a minimum level based on the associated value of that level.
@@ -157,9 +152,17 @@ export function createNewLogger(
      */
     redact: [
       'requestHeaders["authorization"]',
+      'requestHeaders["zuplo-user"]',
       'requestHeaders["cookie"]',
+      'requestHeaders["cf-access-jwt-assertion"]',
+      'requestHeaders["cf-access-client-secret"]',
+      'requestHeaders["cf-access-client-id"]',
       'responseHeaders["authorization"]',
+      'responseHeaders["zuplo-user"]',
       'responseHeaders["cookie"]',
+      'responseHeaders["cf-access-jwt-assertion"]',
+      'responseHeaders["cf-access-client-secret"]',
+      'responseHeaders["cf-access-client-id"]',
       "cookie",
     ],
   };
@@ -178,7 +181,11 @@ export function createNewLogger(
     },
   };
 
-  if (process.env.LOG_FORMAT === "gcp") {
+  if (process.env.LOG_FORMAT === "pretty") {
+    loggerOptions.transport = {
+      target: "@zuplo/pino-pretty-configurations",
+    };
+  } else if (process.env.LOG_FORMAT === "gcp") {
     loggerOptions.messageKey = "message";
     loggerOptions.formatters = {
       level(_label, number) {
@@ -189,6 +196,7 @@ export function createNewLogger(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       log(object: any) {
         const labels: Record<string, string> = defaultLabels;
+
         // Attempt to parse the source location from an error
         if (object.err && object.err.stack) {
           try {
@@ -274,10 +282,13 @@ export function createNewLogger(
         return undefined;
       },
     };
-    return pino.default(loggerOptions);
   }
 
-  return true;
+  if (logStream) {
+    return pino(loggerOptions, logStream);
+  } else {
+    return pino(loggerOptions);
+  }
 }
 
 const enum PinoLogLevels {

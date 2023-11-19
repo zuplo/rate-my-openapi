@@ -7,7 +7,6 @@ import { randomUUID } from "crypto";
 import Fastify from "fastify";
 import { errorHandler } from "./lib/fastify/error-handler.js";
 import { createNewLogger } from "./logger.js";
-import directUploadRoute from "./routes/direct.js";
 import { fileRoute } from "./routes/file.js";
 import healthRoute from "./routes/health.js";
 import { reportRoute } from "./routes/report.js";
@@ -33,7 +32,6 @@ async function build() {
   await fastify.register(fastifyMultipart);
   await fastify.register(healthRoute);
   await fastify.register(uploadRoute);
-  await fastify.register(directUploadRoute);
   await fastify.register(reportRoute);
   await fastify.register(fileRoute);
 }

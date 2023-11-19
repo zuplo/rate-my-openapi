@@ -38,13 +38,6 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
         throw err;
       }
 
-      if (!parseResult.email) {
-        throw new ApiError({
-          ...Problems.BAD_REQUEST,
-          detail: "Invalid request body. No email provided",
-        });
-      }
-
       const reportId = randomUUID();
       const { fileContentString: content, fileExtension, email } = parseResult;
 

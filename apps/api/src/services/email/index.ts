@@ -29,7 +29,7 @@ export async function sendReportEmail({
 
   const emailSend = await sgMail.send(msg);
 
-  if (emailSend[0].statusCode !== 200) {
+  if (emailSend[0].statusCode !== 202) {
     throw new Error(`Failed to send Email. Status: ${emailSend[0].statusCode}`);
   }
 }
@@ -52,7 +52,7 @@ export async function sendFailureEmail({
 
   const emailSend = await sgMail.send(msg);
 
-  if (emailSend[0].statusCode !== 200) {
+  if (emailSend[0].statusCode !== 202) {
     throw new Error(`Failed to send Email. Status: ${emailSend[0].statusCode}`);
   }
 }

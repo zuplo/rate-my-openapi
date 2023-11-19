@@ -2,10 +2,13 @@ import { config } from "dotenv";
 config();
 
 import * as Sentry from "@sentry/node";
+import { ProfilingIntegration } from "@sentry/profiling-node";
 if (process.env.SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.SENTRY_DSN,
     tracesSampleRate: 1.0,
+    profilesSampleRate: 1.0,
+    integrations: [new ProfilingIntegration()],
   });
 }
 

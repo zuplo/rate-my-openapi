@@ -1,6 +1,8 @@
 name: Main
 on:
   push:
+    branches-ignore:
+      - main
 
 jobs:
   build:

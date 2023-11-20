@@ -20,7 +20,7 @@ export const FullReport = ({
   const [openapi, setOpenapi] = useState<string>();
   useEffect(() => {
     const getReport = async () => {
-      const downloadUrlRequest = await fetch(`${API_URL}/report/${reportId}`, {
+      const downloadUrlRequest = await fetch(`${API_URL}/reports/${reportId}`, {
         next: {
           // 1 day
           revalidate: 60 * 60 * 24,
@@ -42,7 +42,7 @@ export const FullReport = ({
 
     const getOpenapi = async () => {
       const downloadUrlRequest = await fetch(
-        `${API_URL}/file/${reportId}.${fileExtension}`,
+        `${API_URL}/files/${reportId}.${fileExtension}`,
         {
           next: {
             // 1 day

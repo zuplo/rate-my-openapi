@@ -22,7 +22,7 @@ export const reportRoute: FastifyPluginAsync = async function (server) {
         },
       },
     },
-    url: "/report/:id",
+    url: "/reports/:id",
     handler: async (request, reply) => {
       const { id } = request.params as { id: string };
       const fileName = `${id}-report.json`;
@@ -68,7 +68,7 @@ export const reportRoute: FastifyPluginAsync = async function (server) {
         },
       },
     },
-    url: "/report/:id/simplified",
+    url: "/reports/:id/simplified",
     handler: async (request, reply) => {
       const { id } = request.params as { id: string };
       const fileName = `${id}-simple-report.json`;

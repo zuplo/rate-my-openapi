@@ -22,7 +22,7 @@ export const fileRoute: FastifyPluginAsync = async function (server) {
         },
       },
     },
-    url: "/file/:fileName",
+    url: "/files/:fileName",
     handler: async (request, reply) => {
       const { fileName } = request.params as { fileName: string };
 

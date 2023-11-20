@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.0.18",
     "@monaco-editor/react": "^4.6.0",
     "@rate-my-openapi/core": "*",
+    "@sentry/nextjs": "^7.81.0",
     "@typeform/embed-react": "^3.8.0",
     "@vercel/og": "^0.5.20",
     "classnames": "^2.3.2",

@@ -1,5 +1,4 @@
 import sgMail, { MailDataRequired } from "@sendgrid/mail";
-import { getSuccesfulEmailHtml } from "./succesfull-email.js";
 
 if (process.env.SENDGRID_API_KEY) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -14,17 +13,18 @@ export async function sendReportEmail({
   email: string;
   reportId: string;
 }): Promise<void> {
-  const msg = {
+  const msg: MailDataRequired = {
     to: email,
     from: {
       name: "Rate My OpenAPI",
       email: "hello@ratemyopenapi.com",
     },
-    subject: "Your OpenAPI Report is Ready",
-    text: "Visit here: https://ratemyopenapi.com/report/" + reportId,
-    html: getSuccesfulEmailHtml({
+    // Rating Success Template
+    // https://mc.sendgrid.com/dynamic-templates
+    templateId: "d-a8a7ae2f68394d6a89e78d495e2b2b73",
+    dynamicTemplateData: {
       reportId,
-    }),
+    },
   };
 
   const emailSend = await sgMail.send(msg);
@@ -45,9 +45,9 @@ export async function sendFailureEmail({
       name: "Rate My OpenAPI",
       email: "hello@ratemyopenapi.com",
     },
-    subject: "We could not generate your report",
-    text: `We could not generate your report. There was an issue with your OpenAPI file.`,
-    html: "We could not generate your report. There was an issue with your OpenAPI file.",
+    // Rating Failure Template
+    // https://mc.sendgrid.com/dynamic-templates
+    templateId: "d-121cdefa851e457bbe9ceeeb6de10f86",
   };
 
   const emailSend = await sgMail.send(msg);

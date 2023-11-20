@@ -86,10 +86,7 @@ export async function generateRatingFromStorage({
 }: {
   reportId: string;
   fileExtension: OpenApiFileExtension;
-}): Promise<{
-  simpleReport: SimpleReport;
-  fullReport: RatingOutput;
-}> {
+}): Promise<GetReportResult> {
   const fileName = `${reportId}.${fileExtension}`;
 
   const tempPath = path.join(tmpdir(), fileName);

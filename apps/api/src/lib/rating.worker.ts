@@ -1,9 +1,9 @@
 import { workerData } from "node:worker_threads";
 import { createNewLogger } from "../logger.js";
-import { sendReportEmail } from "../services/email/index.js";
 import { getPostHogClient } from "../services/posthog.js";
+import { sendFailureEmail, sendReportEmail } from "../services/sendgrid.js";
 import { postSuccessMessage } from "../services/slack.js";
-import { generateRatingFromStorage } from "./rating.js";
+import { GetReportResult, generateRatingFromStorage } from "./rating.js";
 import { RatingWorkerData } from "./types.js";
 
 const { reportId, fileExtension, email, requestId } =
@@ -26,11 +26,22 @@ if (email && process.env.NODE_ENV === "production") {
 }
 
 logger.debug(`Generating report from storage ${reportId}`);
-const result = await generateRatingFromStorage({
-  reportId,
-  fileExtension,
-});
-logger.info(`Finished generating report`, { score: result.simpleReport.score });
+let result: GetReportResult;
+try {
+  result = await generateRatingFromStorage({
+    reportId,
+    fileExtension,
+  });
+  logger.info(`Finished generating report`, {
+    score: result.simpleReport.score,
+  });
+} catch (err) {
+  logger.error(err);
+  if (email) {
+    sendFailureEmail({ email });
+  }
+  throw err;
+}
 
 fetch(`https://ratemyopenapi.com/og/${reportId}`).then((response) => {
   if (response.status !== 200) {

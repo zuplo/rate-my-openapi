@@ -1,0 +1,7 @@
+{
+  "watch": ["src"],
+  "ext": "ts,json",
+  "ignore": ["dist/**/*.spec.ts"],
+  "exec": "npm run build && npm start",
+  "delay": "400"
+}

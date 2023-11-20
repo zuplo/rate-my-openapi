@@ -12,8 +12,13 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 0
-    allow:
-      - dependency-type: "production"
+    groups:
+      eslint-dependencies:
+        patterns:
+          - "*eslint*"
+      prettier-dependencies:
+        patterns:
+          - "*prettier*"
 
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
@@ -23,8 +28,13 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 0
-    allow:
-      - dependency-type: "production"
+    groups:
+      eslint-dependencies:
+        patterns:
+          - "*eslint*"
+      prettier-dependencies:
+        patterns:
+          - "*prettier*"
 
   - package-ecosystem: "npm"
     directory: "/apps/web"
@@ -33,8 +43,13 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 0
-    allow:
-      - dependency-type: "production"
+    groups:
+      eslint-dependencies:
+        patterns:
+          - "*eslint*"
+      prettier-dependencies:
+        patterns:
+          - "*prettier*"
 
   - package-ecosystem: "docker"
     directory: "/apps/api"

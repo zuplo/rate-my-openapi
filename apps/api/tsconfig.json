@@ -6,9 +6,13 @@
     "baseUrl": ".",
     "outDir": "dist",
     "rootDir": "src",
-    "declaration": false,
-    "declarationMap": false,
-    "sourceMap": false
+    "sourceMap": true,
+    "inlineSources": true,
+
+    // Set `sourceRoot` to  "/" to strip the build path prefix
+    // from generated source code references.
+    // This improves issue grouping in Sentry.
+    "sourceRoot": "/"
   },
   "references": [{ "path": "../../packages/core" }]
 }

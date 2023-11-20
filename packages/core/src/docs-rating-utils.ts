@@ -36,11 +36,11 @@ export const DOCS_ISSUES = [
   "redocly-no-undefined-server-variable",
 ];
 
-export const getDocsRating = (issues: SpectralReport) => {
+export function getDocsRating(issues: SpectralReport) {
   return getLengthNormalizedDocsRating(issues, 1);
-};
+}
 
-export const getDocsIssues = (issues: SpectralReport) => {
+export function getDocsIssues(issues: SpectralReport) {
   return issues
     .filter(
       (issue) =>
@@ -49,12 +49,12 @@ export const getDocsIssues = (issues: SpectralReport) => {
     .sort(
       (a, b) => a.severity - b.severity || a.message.localeCompare(b.message),
     );
-};
+}
 
-export const getLengthNormalizedDocsRating = (
+export function getLengthNormalizedDocsRating(
   issues: SpectralReport,
   length: number,
-) => {
+) {
   let totalDelta = 0;
   const docsIssues = issues.filter((issue) => {
     if (typeof issue.code === "string" && DOCS_ISSUES.includes(issue.code)) {
@@ -64,4 +64,4 @@ export const getLengthNormalizedDocsRating = (
     return false;
   });
   return { docsScore: Math.max(0, 100 - totalDelta / length), docsIssues };
-};
+}

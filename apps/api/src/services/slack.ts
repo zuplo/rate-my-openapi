@@ -1,8 +1,14 @@
-import { WebClient } from "@slack/web-api";
+import { Block, KnownBlock, WebClient } from "@slack/web-api";
 
 let slack: WebClient | undefined;
 
-export function postSlackMessage(text: string) {
+export async function postSlackMessage({
+  text,
+  blocks,
+}: {
+  text?: string;
+  blocks?: (KnownBlock | Block)[];
+}) {
   if (!slack && process.env.SLACK_TOKEN) {
     slack = new WebClient(process.env.SLACK_TOKEN);
   }
@@ -11,8 +17,58 @@ export function postSlackMessage(text: string) {
     console.warn("No environment variable set for SLACK_CHANNEL_ID");
     return;
   }
-  return slack?.chat.postMessage({
-    channel,
-    text,
-  });
+  try {
+    await slack?.chat.postMessage({
+      blocks,
+      channel,
+      text,
+    });
+  } catch (err) {
+    throw new Error("Failed to send Slack Message", { cause: err });
+  }
+}
+
+export async function postSuccessMessage({
+  email,
+  reportId,
+  openApiFilePath,
+  score,
+}: {
+  email: string;
+  reportId: string;
+  openApiFilePath: string;
+  score: number;
+}) {
+  const text = `Generated API Rating for ${email}. Score: ${score}`;
+  const blocks = [
+    {
+      type: "section",
+      text: {
+        type: "mrkdwn",
+        text: "*Generated API Rating*",
+      },
+    },
+    {
+      type: "section",
+      fields: [
+        {
+          type: "mrkdwn",
+          text: `*Email:*\n${email}`,
+        },
+        {
+          type: "mrkdwn",
+          text: `*Scopre:*\n${score}`,
+        },
+        {
+          type: "mrkdwn",
+          text: `*Report URL:*\nhttps://ratemyopenapi.com/report/${reportId}`,
+        },
+        {
+          type: "mrkdwn",
+          text: `*OpenAPI URL:*\nhttps://api.ratemyopenapi.com/file/${openApiFilePath}`,
+        },
+      ],
+    },
+  ];
+  return postSlackMessage({ text, blocks });
 }

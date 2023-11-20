@@ -1,28 +1,27 @@
-import { Err, Ok, Result } from "ts-results-es";
+import { ApiError, Problems } from "@zuplo/errors";
 import { load } from "js-yaml";
-import esMain from "es-main";
+import { OpenApiFileExtension } from "./types.js";
 
 export const checkFileIsJsonOrYaml = (
   fileContentString: string,
-): Result<"yaml" | "json", UserErrorResult> => {
+): OpenApiFileExtension => {
   try {
     JSON.parse(fileContentString);
-    return Ok("json");
+    return "json";
   } catch (_) {
     // Ignore
   }
 
   try {
     load(fileContentString);
-    return Ok("yaml");
+    return "yaml";
   } catch (err) {
     // Ignore
   }
 
-  return Err({
-    userMessage: "Invalid file format. Only JSON and YAML are supported.",
-    debugMessage: "File can only be json or yaml",
-    statusCode: 400,
+  throw new ApiError({
+    ...Problems.BAD_REQUEST,
+    detail: "Invalid file format. Only JSON and YAML are supported.",
   });
 };
 
@@ -35,30 +34,3 @@ const validateOpenapi = (content: string) => {
 };
 
 export default validateOpenapi;
-
-if (esMain(import.meta)) {
-  (async () => {
-    if (
-      validateOpenapi(
-        `{
-          "openapi": "3.0.0",
-          "info": {
-            "title": "The Zuplo Developer API, powered by Zuplo",
-            "version": "1.0.0",
-            "description": "Welcome to ZAPI",
-            "termsOfService": "https://zuplo.com/legal/terms",
-            "contact": {
-              "name": "Zuplo",
-              "url": "https://zuplo.com/",
-              "email": "support@zuplo.com"
-            }
-          }
-        }`,
-      )
-    ) {
-      console.log("OpenAPI definition valid");
-    } else {
-      console.log("OpenAPI definition invalid");
-    }
-  })();
-}

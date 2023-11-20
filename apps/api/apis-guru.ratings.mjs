@@ -1,9 +1,15 @@
+/* eslint-env node */
 import fs from "fs";
 import path from "path";
 
 const outputPath = path.resolve(process.cwd(), "../../apis-guru");
 const ratingsPath = path.resolve(outputPath, "ratings.json");
 const logPath = path.resolve(outputPath, `${process.env.RUN_ID}.log`);
+
+if (!fs.existsSync(ratingsPath)) {
+  console.log("Ratings file not found, skipping");
+  process.exit();
+}
 
 const ratings = await fetch(
   "https://storage.googleapis.com/rate-my-openapi-public/apis-guru/ratings.json",

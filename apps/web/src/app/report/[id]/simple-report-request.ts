@@ -16,12 +16,15 @@ export type SimpleReport = {
 export const getSimpleReport = async (
   id: string,
 ): Promise<SimpleReport | null> => {
-  const downloadUrlRequest = await fetch(`${API_URL}/report/${id}/simplified`, {
-    next: {
-      // 1 day
-      revalidate: 60 * 60 * 24,
+  const downloadUrlRequest = await fetch(
+    `${API_URL}/reports/${id}/simplified`,
+    {
+      next: {
+        // 1 day
+        revalidate: 60 * 60 * 24,
+      },
     },
-  });
+  );
 
   if (downloadUrlRequest.status !== 200) {
     console.log("API Error getting simplified report", {

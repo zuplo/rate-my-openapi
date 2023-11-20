@@ -18,6 +18,7 @@ export default function Footer() {
           <Link
             href="https://twitter.com/zuplo"
             className="group mr-3"
+            target="_blank"
             aria-label="Zuplo on Twitter"
           >
             <svg
@@ -30,6 +31,7 @@ export default function Footer() {
           <Link
             href="https://github.com/zuplo/rate-my-openapi"
             className="group"
+            target="_blank"
             aria-label="rate-my-openapi on GitHub"
           >
             <svg

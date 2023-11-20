@@ -65,7 +65,7 @@ const IssueModal = ({
         range: selection,
         options: {
           isWholeLine: true,
-          blockClassName: getGlyphBackgroundClassName(issue.severity),
+          className: getGlyphBackgroundClassName(issue.severity),
           hoverMessage: { value: issue.message },
           minimap: {
             color: "rgba(254, 226, 226, 1)",

@@ -1,14 +1,13 @@
 import {
   Rating,
   RatingOutput,
+  SpectralReport,
   generateOpenApiRating,
 } from "@rate-my-openapi/core";
 import spectralCore from "@stoplight/spectral-core";
 import SpectralParsers from "@stoplight/spectral-parsers";
-import { bundleAndLoadRuleset } from "@stoplight/spectral-ruleset-bundler/with-loader";
 import { readFile, unlink } from "fs/promises";
 import { load as loadYAML } from "js-yaml";
-import * as fs from "node:fs";
 import { join } from "node:path";
 import { Worker } from "node:worker_threads";
 import OpenAI from "openai";
@@ -21,8 +20,13 @@ import {
   getStorageClient,
 } from "../services/storage.js";
 import { OpenApiFileExtension, assertValidFileExtension } from "./types.js";
+import util from "node:util";
+import { exec } from "node:child_process";
+import { OpenAPIV3, OpenAPIV3_1 } from "openapi-types";
 
-const { Spectral, Document } = spectralCore;
+const execAwait = util.promisify(exec);
+
+const { Document } = spectralCore;
 
 export type SimpleReport = Pick<
   Rating,
@@ -154,12 +158,106 @@ export async function generateReportFromLocal({
   return reportResult;
 }
 
-export async function getReport(options: {
-  fileContent: string;
+async function generateVacuumReport(options: {
   reportId: string;
   openAPIFilePath: string;
+}) {
+  const rulesetPath = join(process.cwd(), "rulesets/rules.vacuum.yaml");
+
+  let vacuumCliReport;
+  try {
+    const vacuumCommand =
+      `vacuum spectral-report -r ${rulesetPath} -o ${options.openAPIFilePath}`.replace(
+        /\n/g,
+        "",
+      );
+    const { stdout, stderr } = await execAwait(vacuumCommand, {
+      maxBuffer: undefined,
+    });
+
+    if (stderr) {
+      throw new ReportGenerationError(
+        `Vacuum CLI command failed for report ${options.reportId}`,
+        { cause: stderr },
+      );
+    }
+
+    if (!stdout) {
+      throw new ReportGenerationError(
+        `Vacuum CLI command succeeded but did not generate a report for report ${options.reportId}`,
+      );
+    }
+
+    vacuumCliReport = stdout;
+  } catch (e) {
+    throw new ReportGenerationError(
+      `Vacuum CLI command failed for report ${options.reportId}`,
+      { cause: e },
+    );
+  }
+
+  if (!vacuumCliReport) {
+    throw new ReportGenerationError(
+      `Vacuum CLI command succeeded but did not generate a report for report ${options.reportId}`,
+    );
+  }
+
+  let outputReport: SpectralReport;
+  try {
+    outputReport = JSON.parse(vacuumCliReport);
+  } catch (err) {
+    throw new ReportGenerationError(
+      `Could not parse vacuum report for report ${options.reportId}`,
+      { cause: err },
+    );
+  }
+
+  // TODO: being fixed by https://github.com/daveshanley/vacuum/issues/372
+  // remove this check once fixed in the next couple of days
+  if (vacuumCliReport.toLowerCase().includes("rolodex")) {
+    throw new ReportGenerationError(`Rolodex issue ${options.reportId}`);
+  }
+
+  return outputReport;
+}
+
+async function generateRatingFromReport(options: {
+  report: SpectralReport;
+  fileContent: string;
   fileExtension: OpenApiFileExtension;
-}): Promise<GetReportResult> {
+  reportId: string;
+}) {
+  let outputContent: OpenAPIV3.Document | OpenAPIV3_1.Document;
+  try {
+    outputContent =
+      options.fileExtension === "json"
+        ? JSON.parse(options.fileContent)
+        : loadYAML(options.fileContent, { json: true });
+  } catch (err) {
+    throw new ReportGenerationError("Could not parse OpenAPI document", {
+      cause: err,
+    });
+  }
+
+  let output;
+  try {
+    output = generateOpenApiRating(options.report, outputContent);
+  } catch (err) {
+    throw new ReportGenerationError(
+      `Could not generate rating for report ${options.reportId}`,
+      { cause: err },
+    );
+  }
+
+  return output;
+}
+
+async function generateSimpleReport(options: {
+  fileContent: string;
+  openAPIFilePath: string;
+  fileExtension: OpenApiFileExtension;
+  ratingOutput: RatingOutput;
+}) {
   const parser =
     options.fileExtension === "json"
       ? SpectralParsers.Json
@@ -179,53 +277,7 @@ export async function getReport(options: {
     );
   }
 
-  const spectral = new Spectral();
-  const spectralRulesetFilepath = join(
-    process.cwd(),
-    "rulesets/.spectral.yaml",
-  );
-
-  try {
-    const spectralRuleset = await bundleAndLoadRuleset(
-      spectralRulesetFilepath,
-      {
-        fs,
-        fetch,
-      },
-    );
-    spectral.setRuleset(spectralRuleset);
-  } catch (err) {
-    throw new ReportGenerationError(
-      `Unable to set Spectral ruleset for file ${options.openAPIFilePath}`,
-      { cause: err },
-    );
-  }
-
-  let spectralOutputReport;
-  try {
-    spectralOutputReport = await spectral.run(openApiSpectralDoc);
-  } catch (err) {
-    throw new ReportGenerationError(
-      `Unable to run Spectral for file ${options.openAPIFilePath}`,
-      { cause: err },
-    );
-  }
-
-  let output;
-  try {
-    const outputContent =
-      options.fileExtension === "json"
-        ? JSON.parse(options.fileContent)
-        : loadYAML(options.fileContent, { json: true });
-
-    output = generateOpenApiRating(spectralOutputReport, outputContent);
-  } catch (err) {
-    throw new ReportGenerationError(err.message, {
-      cause: err,
-    });
-  }
-
-  const issueSummary = getReportMinified(output);
+  const issueSummary = getReportMinified(options.ratingOutput);
   const [openAiLongSummary, openAiShortSummary] = await Promise.all([
     getOpenAiLongSummary(issueSummary),
     getOpenAiShortSummary(issueSummary),
@@ -244,18 +296,43 @@ export async function getReport(options: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     title: (openApiSpectralDoc.data as any)?.info?.title || "OpenAPI",
     fileExtension: options.fileExtension,
-    docsScore: output.docsScore,
-    completenessScore: output.completenessScore,
-    score: output.score,
-    securityScore: output.securityScore,
-    sdkGenerationScore: output.sdkGenerationScore,
+    docsScore: options.ratingOutput.docsScore,
+    completenessScore: options.ratingOutput.completenessScore,
+    score: options.ratingOutput.score,
+    securityScore: options.ratingOutput.securityScore,
+    sdkGenerationScore: options.ratingOutput.sdkGenerationScore,
     shortSummary: openAiShortSummary ?? undefined,
     longSummary: openAiLongSummary ?? undefined,
   };
 
+  return simpleReport;
+}
+
+export async function getReport(options: {
+  fileContent: string;
+  reportId: string;
+  openAPIFilePath: string;
+  fileExtension: OpenApiFileExtension;
+}): Promise<GetReportResult> {
+  const reportOutput = await generateVacuumReport(options);
+
+  const ratingOutput = await generateRatingFromReport({
+    report: reportOutput,
+    fileContent: options.fileContent,
+    fileExtension: options.fileExtension,
+    reportId: options.reportId,
+  });
+
+  const simpleReport = await generateSimpleReport({
+    fileContent: options.fileContent,
+    fileExtension: options.fileExtension,
+    openAPIFilePath: options.openAPIFilePath,
+    ratingOutput,
+  });
+
   return {
     simpleReport,
-    fullReport: output,
+    fullReport: ratingOutput,
   };
 }
 

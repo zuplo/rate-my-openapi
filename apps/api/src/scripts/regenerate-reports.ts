@@ -22,7 +22,6 @@ import { DownloadResponse } from "@google-cloud/storage";
     );
 
     for (const simpleReportFile of simpleReportFiles) {
-      console.time("ReportTime");
       let downloadedFileContent: DownloadResponse;
 
       try {
@@ -60,6 +59,7 @@ import { DownloadResponse } from "@google-cloud/storage";
 
       const content = await readFile(tempPath, "utf-8");
 
+      console.time("ReportTime");
       try {
         const reportResult = await getReport({
           fileContent: content,

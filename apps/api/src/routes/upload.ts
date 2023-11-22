@@ -105,14 +105,20 @@ export async function parseMultipartUpload(
     });
   }
   const fileContentString = fileContent.toString();
-  if (!validateOpenapi(fileContentString)) {
+
+  const fileIsJsonOrYamlResult = checkFileIsJsonOrYaml(fileContentString);
+
+  if (
+    !validateOpenapi({
+      fileContent: fileContentString,
+      fileExtension: fileIsJsonOrYamlResult,
+    })
+  ) {
     throw new ApiError({
       ...Problems.BAD_REQUEST,
       detail: "Invalid OpenAPI version. Only OpenAPI v3.x is supported.",
     });
   }
-
-  const fileIsJsonOrYamlResult = checkFileIsJsonOrYaml(fileContentString);
 
   return {
     fileContentString,

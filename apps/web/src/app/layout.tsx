@@ -1,13 +1,14 @@
 import "./globals.css";
 
-import { Suspense } from "react";
 import { Metadata } from "next";
-import { Roboto, Roboto_Mono, IBM_Plex_Sans } from "next/font/google";
+import { IBM_Plex_Sans, Roboto, Roboto_Mono } from "next/font/google";
+import { Suspense } from "react";
 
 import { ModalProvider, PHProvider, PostHogPageview } from "./providers";
 
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+import Script from "next/script";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -43,6 +44,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     lang="en"
     className={`${roboto.variable} ${robotoMono.variable} ${ibmPlexSans.variable}`}
   >
+    {process.env.NEXT_PUBLIC_ANALYTICS_URL ? (
+      <Script src={process.env.NEXT_PUBLIC_ANALYTICS_URL} />
+    ) : null}
     <Suspense>
       <PostHogPageview />
     </Suspense>

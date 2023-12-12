@@ -2,7 +2,7 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.format.enable": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": true
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

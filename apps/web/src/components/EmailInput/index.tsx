@@ -126,7 +126,7 @@ const EmailInput = () => {
         ) : isSubmitting ? (
           <p className="text-gray-400">Uploading your OpenAPI definition...</p>
         ) : (
-          <>Enter your email to send your report when it&apos;s ready.</>
+          <>Enter your email. We <strong>promise</strong> not to use this for marketing, only to send your report when ready.</>
         )}
       </label>
     </StepContainer>

@@ -12,6 +12,7 @@ export type Issue = {
   code: string | number;
   message: string;
   severity: number;
+  path: (string | number)[];
   range: {
     start: {
       line: number;
@@ -46,12 +47,14 @@ const DetailedScoreSection = ({
   title,
   score,
   issues,
+  reportName,
   openapi,
   fileExtension,
 }: {
   title: string;
   score: number;
   issues: Issue[];
+  reportName: string;
   openapi: string;
   fileExtension: "json" | "yaml";
 }) => {
@@ -75,6 +78,7 @@ const DetailedScoreSection = ({
         onClose={() => {
           hideModal();
         }}
+        reportName={reportName}
         issue={issueToView!}
       />
     );

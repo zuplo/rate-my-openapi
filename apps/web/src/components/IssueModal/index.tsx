@@ -3,7 +3,7 @@
 import useWindowSize from "@/utils/use-window-size";
 import { Dialog, Transition } from "@headlessui/react";
 import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Editor, OnMount } from "@monaco-editor/react";
+import { Editor, Monaco, OnMount } from "@monaco-editor/react";
 import { Fragment, useState } from "react";
 import { getRuleData } from "../../utils/issue-utils";
 import { Issue } from "../DetailedScoreSection";
@@ -42,32 +42,6 @@ const getGlyphBackgroundClassName = (severity: number) => {
       return "infoGlyphBackground";
     case 3:
       return "hintGlyphBackground";
-  }
-};
-
-const getPingClassName = (severity: number) => {
-  switch (severity) {
-    case 0:
-      return "bg-red-500";
-    case 1:
-      return "bg-yellow-500";
-    case 2:
-      return "bg-blue-500";
-    case 3:
-      return "bg-green-500";
-  }
-};
-
-const getPingAnimationClassName = (severity: number) => {
-  switch (severity) {
-    case 0:
-      return "bg-red-400";
-    case 1:
-      return "bg-yellow-400";
-    case 2:
-      return "bg-blue-400";
-    case 3:
-      return "bg-green-400";
   }
 };
 
@@ -224,7 +198,11 @@ const IssueModal = ({
                   )}
                 </div>
               </div>
-              <div className="flex h-full w-full flex-col">
+              <div
+                className={`flex ${
+                  selectedTab === "AI" ? "h-fit" : "h-full"
+                }  w-full flex-col`}
+              >
                 <div className="flex w-fit rounded-md rounded-b-none border">
                   <div
                     onClick={() => setSelectedTab("CODE")}
@@ -243,22 +221,14 @@ const IssueModal = ({
                     AI Suggestion{" "}
                     {aiTabVisited ? null : (
                       <span className="absolute -right-1 -top-1 flex h-3 w-3">
-                        <span
-                          className={`absolute inline-flex h-full w-full animate-ping rounded-full ${getPingAnimationClassName(
-                            issue.severity,
-                          )} opacity-75`}
-                        ></span>
-                        <span
-                          className={`relative inline-flex h-3 w-3 rounded-full ${getPingClassName(
-                            issue.severity,
-                          )}`}
-                        ></span>
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#f7a1e1] opacity-75"></span>
+                        <span className="relative inline-flex h-3 w-3 rounded-full bg-[#FF00BD]"></span>
                       </span>
                     )}
                   </div>
                 </div>
                 {selectedTab === "AI" ? (
-                  <div className="mt-4 flex w-full flex-col">
+                  <div className="mt-4 flex h-fit w-full flex-col">
                     <div className="w-full rounded-sm border border-amber-400 bg-amber-100 px-2 py-3 font-medium text-gray-600">
                       Note: AI Suggestions are experimental. Implement with
                       care.
@@ -266,7 +236,7 @@ const IssueModal = ({
                     {aiSuggestion ? (
                       <ReactMarkdown
                         className={
-                          "prose prose-code:before:content-none prose-code:after:content-none font-[helvetica, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, sans-serif] mt-4 h-full"
+                          "prose prose-code:before:content-none prose-code:after:content-none font-[helvetica, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, sans-serif] mt-4"
                         }
                         components={{
                           p({ node, children, ...props }) {
@@ -291,6 +261,13 @@ const IssueModal = ({
                             const match = /language-(\w+)/.exec(
                               className || "",
                             );
+                            const onMount: OnMount = (editor) => {
+                              const height = editor.getContentHeight();
+                              editor.layout({
+                                height,
+                                width: 100,
+                              });
+                            };
                             return !match ? (
                               <code
                                 className="font-light font-[ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace] rounded-[0.25rem] bg-[#f7fafc] p-[0.25rem] text-sm text-[#2a2f45]"
@@ -300,9 +277,9 @@ const IssueModal = ({
                               </code>
                             ) : (
                               <Editor
-                                className="my-2"
-                                height="300px"
+                                className="my-2 h-full"
                                 width="100%"
+                                onMount={onMount}
                                 language={
                                   fileExtension === "json" ? "json" : "yaml"
                                 }
@@ -310,11 +287,16 @@ const IssueModal = ({
                                   children as string
                                 } /* We expect the code to be a string */
                                 options={{
+                                  automaticLayout: true,
                                   readOnly: true,
                                   selectionHighlight: true,
                                   renderLineHighlight: "line",
                                   scrollBeyondLastLine: false,
                                   glyphMargin: true,
+                                  scrollbar: {
+                                    vertical: "hidden",
+                                    alwaysConsumeMouseWheel: false,
+                                  },
                                   minimap: windowSize.isMobile
                                     ? {
                                         enabled: false,
@@ -347,33 +329,36 @@ const IssueModal = ({
                   </div>
                 ) : null}
                 {selectedTab === "CODE" ? (
-                  <Editor
-                    height="100%"
-                    width="100%"
-                    language={fileExtension === "json" ? "json" : "yaml"}
-                    value={openapi}
-                    options={{
-                      readOnly: true,
-                      selectionHighlight: true,
-                      renderLineHighlight: "line",
-                      scrollBeyondLastLine: false,
-                      glyphMargin: true,
-                      minimap: windowSize.isMobile
-                        ? {
-                            enabled: false,
-                          }
-                        : undefined,
-                      fontSize: windowSize.isMobile ? 10 : undefined,
-                      lineNumbers: windowSize.isMobile ? "off" : undefined,
-                      // @ts-ignore - this is a valid option, but the types don't know about it
-                      renderIndentGuides: windowSize.isMobile
-                        ? false
-                        : undefined,
-                      folding: windowSize.isMobile ? false : undefined,
-                    }}
-                    onMount={onEditorDidMount}
-                    line={issue.range.start.line}
-                  />
+                  <div className="flex h-full w-full">
+                    <Editor
+                      className="my-2 h-full"
+                      width="100%"
+                      language={fileExtension === "json" ? "json" : "yaml"}
+                      value={openapi}
+                      options={{
+                        automaticLayout: true,
+                        readOnly: true,
+                        selectionHighlight: true,
+                        renderLineHighlight: "line",
+                        scrollBeyondLastLine: false,
+                        glyphMargin: true,
+                        minimap: windowSize.isMobile
+                          ? {
+                              enabled: false,
+                            }
+                          : undefined,
+                        fontSize: windowSize.isMobile ? 10 : undefined,
+                        lineNumbers: windowSize.isMobile ? "off" : undefined,
+                        // @ts-ignore - this is a valid option, but the types don't know about it
+                        renderIndentGuides: windowSize.isMobile
+                          ? false
+                          : undefined,
+                        folding: windowSize.isMobile ? false : undefined,
+                      }}
+                      onMount={onEditorDidMount}
+                      line={issue.range.start.line}
+                    />
+                  </div>
                 ) : null}
               </div>
             </div>

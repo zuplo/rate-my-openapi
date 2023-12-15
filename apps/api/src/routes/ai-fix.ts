@@ -32,7 +32,7 @@ async function getOpenAiResponse(
     const response = await getOpenAIClient()?.chat.completions.create({
       model: "gpt-3.5-turbo-1106",
       messages,
-      temperature: 0.5,
+      temperature: 0,
       max_tokens: 1000,
       top_p: 1,
       frequency_penalty: 0,
@@ -183,53 +183,59 @@ export const aiFixRoute: FastifyPluginAsync = async function (server) {
       const { path: issuePath } = issue;
       // We want to get the property that the issue is referring to
       let issueProperty = openApiSpec;
-      let prevPathFragment = "";
-      for (const pathFragment of issuePath) {
+      for (let i = 0; i < issuePath.length; i++) {
+        const pathFragment = issuePath[i];
         if (issueProperty == null || typeof issueProperty !== "object") {
           break;
         }
         issueProperty = (issueProperty as Record<string, unknown>)[
           pathFragment as string
         ];
-        if (prevPathFragment === "paths") {
+        if (i >= 1 && issuePath[i - 1] === "paths") {
           // We want the the AI to have the full context of the path
           issueProperty = {
             [pathFragment]: issueProperty,
           };
           break;
         }
-        if (prevPathFragment === "components") {
+        if (i >= 2 && issuePath[i - 2] === "components") {
           // We preserve the component name as it is relevant for certain rules
           issueProperty = {
             [pathFragment]: issueProperty,
           };
           break;
         }
-        prevPathFragment = pathFragment as string;
       }
 
       // We parse out the values of all references to give the AI more context
       const references = getAllReferences(
         issueProperty as Record<string, unknown>,
-      ).map((ref) => resolveAllReferences(ref, openApiSpec));
+      )
+        .map((ref) => resolveAllReferences(ref, openApiSpec))
+        .map((reference) => JSON.stringify(reference, null, 2))
+        .join(", ");
+
+      const prompt = `Given the following OpenAPI spec sample, and an issue found with that sample, please provide a suggested fix for the issue. The Sample: ${JSON.stringify(
+        issueProperty,
+        null,
+        2,
+      )}\n\n The Issue: ${JSON.stringify(
+        issue,
+        null,
+        2,
+      )}. If your suggestion is a change to the OpenAPI spec, the suggestion should be in ${
+        isJson ? "JSON" : "YAML"
+      } format. Leave inline comments explaining the changes you made. Any code blocks should use the markdown codeblock syntax. If the issue has to do with a component being orphaned, you should suggest deleting that component from the spec. ${
+        references
+          ? `Here are some components that are referenced within the OpenAPI spec sample: ${references}`
+          : ""
+      } 
+      `;
 
       const response = await getOpenAiResponse([
         {
           role: "user",
-          content: `Given the following OpenAPI spec sample, and an issue found with that sample, please provide a suggested fix for the issue.\n\n The Sample: ${JSON.stringify(
-            issueProperty,
-            null,
-            2,
-          )}\n\n The Issue: ${JSON.stringify(
-            issue,
-            null,
-            2,
-          )}. If your suggestion is a change to the OpenAPI spec, the suggestion should be in ${
-            isJson ? "JSON" : "YAML"
-          } format. Any code blocks should use the markdown codeblock syntax. If the issue has to do with a component being orphaned, you should suggest deleting that component from the spec. Here are some components that are referenced within the OpenAPI spec sample: ${references.join(
-            ", ",
-          )}
-          )}`,
+          content: prompt,
         },
       ]);
 

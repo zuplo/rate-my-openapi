@@ -29,5 +29,6 @@ export const theme = {
         "radial-gradient(circle at 25% -10%, var(--tw-gradient-from), transparent 45%), radial-gradient(circle at 110% 75%, var(--tw-gradient-from), transparent 55%)",
     },
   },
+  plugins: [require("@tailwindcss/typography")],
 };
 export const plugins = [];

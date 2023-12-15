@@ -92,6 +92,7 @@ export const FullReport = ({
             score={report?.docsScore}
             issues={report?.docsIssues}
             openapi={openapi}
+            reportName={`${reportId}.${fileExtension}`}
             fileExtension={fileExtension}
           />
         ) : (
@@ -103,6 +104,7 @@ export const FullReport = ({
             score={report?.completenessScore}
             issues={report?.completenessIssues}
             openapi={openapi}
+            reportName={`${reportId}.${fileExtension}`}
             fileExtension={fileExtension}
           />
         )}
@@ -112,6 +114,7 @@ export const FullReport = ({
             score={report?.sdkGenerationScore}
             issues={report?.sdkGenerationIssues}
             openapi={openapi}
+            reportName={`${reportId}.${fileExtension}`}
             fileExtension={fileExtension}
           />
         )}
@@ -121,6 +124,7 @@ export const FullReport = ({
             score={report?.securityScore}
             issues={report?.securityIssues}
             openapi={openapi}
+            reportName={`${reportId}.${fileExtension}`}
             fileExtension={fileExtension}
           />
         )}

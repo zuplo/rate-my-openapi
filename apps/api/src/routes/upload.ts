@@ -33,9 +33,13 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
       } catch (err) {
         Sentry.captureException(err);
         await postSlackMessage({
-          text: `Failed to upload file with error: ${
+          text: `Failed to parse uploaded file with error: ${
             err.detail ?? err.message
-          }. Request ID: ${request.id}`,
+          }. Request ID: ${request.id}. ${
+            request.headers["api-user"]
+              ? `API User: ${request.headers["api-user"]}`
+              : ""
+          }}`,
         });
         throw err;
       }

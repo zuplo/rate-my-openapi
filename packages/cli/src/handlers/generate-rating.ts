@@ -34,6 +34,14 @@ export async function generateRating(argv: Arguments) {
       "../",
       "rulesets/rules.vacuum.yaml",
     );
+    // TODO: Use JS functions once bugs are fixed
+    // https://github.com/daveshanley/vacuum/issues/418
+    // const rulesetFunctionsPath = join(
+    //   process.cwd(),
+    //   "../",
+    //   "../",
+    //   "rulesets/functions",
+    // );
     const openApiFile = await readFile(pathName);
     const { stdout, stderr } = await execAwait(
       `vacuum spectral-report -r ${rulesetPath} -o ${pathName}`,
@@ -50,7 +58,9 @@ export async function generateRating(argv: Arguments) {
     try {
       outputReport = JSON.parse(stdout);
     } catch (err) {
-      throw new Error(`Failed to parse vacuum output to JSON: ${err}`);
+      throw new Error(
+        `Failed to parse vacuum output to JSON: ${err}. Output: ${stdout}`,
+      );
     }
 
     // Spectral supplement

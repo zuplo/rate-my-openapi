@@ -7,13 +7,13 @@ import { getScoreDelta } from "./rating-utils";
  * 1. No Empty Servers List 🟢
  * 2. Titles, Names, And Summaries Should Not Exceed 50 Characters 🟡
  * 3. No Inline Schemas Definition 🟡
- * 4. No Missing Example(s) 🟢
- * 5. No Invalid Examples  🟢
+ * 4. No Missing Example(s) 🟢 - covered by oas3-valid-schema-example
+ * 5. No Invalid Examples  🟢 - covered by oas3-valid-schema-example
  * 6. At Least One Security Scheme 🟢
- * 7. OperationId Is Required 🟢
- * 8. No Invalid OperationId 🟢
- * 9. 2XX Response Present for GET Operation  🟢
- * 10. At Least One Operation Level Tag 🟢
+ * 7. OperationId Is Required 🟢 - covered by operation-operationId
+ * 8. No Invalid OperationId 🟢 - covered by operation-operationId-unique and operation-operationId-valid-in-url
+ * 9. 2XX Response Present for GET Operation  🟢 - covered by operation-success-response
+ * 10. At Least One Operation Level Tag 🟢 - covered by operation-tags
  * 11. Parameters Should Be in Order 🔴
  * 12. Add Descriptions to the API Components - SKIPPED
  * 13. Add Contact Information - SKIPPED
@@ -33,8 +33,6 @@ const APIMATIC_SDK_ISSUES = [
   "apimatic-no-inline-response-schema", // Rec 3
   "apimatic-no-inline-parameter-schema", // Rec 3,
   "apimatic-no-inline-request-body-schema", // Rec 3
-  "oas3-valid-schema-example", // Rec 4 & 5
-  "apimatic-security-defined", // Rec 6
   "operation-operationId", // Rec 7
   "operation-operationId-unique", // Rec 8
   "operation-operationId-valid-in-url", // Rec 8
@@ -43,12 +41,18 @@ const APIMATIC_SDK_ISSUES = [
   "oas3-unused-component", // Rec 14
 ];
 
+/**
+ * Inspired by Speakeasy: https://www.speakeasyapi.dev/docs/openapi/validation
+ */
+const SPEAKEASY_SDK_ISSUES = ["speakeasy-parameter-name-nonempty"];
+
 export const SDK_ISSUES = [
   "redocly-components-invalid-map-name",
   "typed-enum",
   "no-ambiguous-paths",
   ...COMMON_CRITICAL_ISSUES,
   ...APIMATIC_SDK_ISSUES,
+  ...SPEAKEASY_SDK_ISSUES,
 ];
 
 export function getSdkGenerationRating(issues: SpectralReport) {

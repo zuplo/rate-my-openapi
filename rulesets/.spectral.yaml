@@ -237,3 +237,34 @@ rules:
     then:
       field: "variables"
       function: defined
+  speakeasy-parameter-name-nonempty:
+    message: "Parameter has an empty name"
+    description: "All parameters must have a non-empty name. See https://www.speakeasyapi.dev/docs/openapi/validation"
+    severity: warn
+    given: "$.paths..parameters..name"
+    then:
+      function: length
+      functionOptions:
+        min: 1
+  # TODO: Integrate and benchmark custom JS rules
+  # speakeasy-duplicate-tag:
+  #   message: "Duplicate tags detected"
+  #   description: "Tag names must be unique. See https://www.speakeasyapi.dev/docs/openapi/validation"
+  #   severity: warn
+  #   given: "$.tags"
+  #   then:
+  #     function: "checkUniqueTags"
+  # speakeasy-validate-requests:
+  #   message: "Request body content type is not a valid mime type"
+  #   description: "Request body content type must be a valid mime type. See https://www.speakeasyapi.dev/docs/openapi/validation"
+  #   severity: warn
+  #   given: "$.paths..requestBody.content"
+  #   then:
+  #     function: "validateContentMimeType"
+  # speakeasy-validate-responses:
+  #   message: "Response content type is not a valid mime type"
+  #   description: "Responses content type must be a valid mime type. See https://www.speakeasyapi.dev/docs/openapi/validation"
+  #   severity: warn
+  #   given: "$.paths..responses..content"
+  #   then:
+  #     function: "validateContentMimeType"

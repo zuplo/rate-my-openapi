@@ -27,6 +27,7 @@ export const COMPLETENESS_ISSUES = [
   "redocly-operation-summary",
   "redocly-no-server-variables-empty-enum",
   "redocly-no-undefined-server-variable",
+  "speakeasy-parameter-name-nonempty",
 ];
 
 export function getCompletenessRating(issues: SpectralReport) {

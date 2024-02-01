@@ -51,7 +51,8 @@ most important to those categories. The current categories are:
 - **SDK Generation**: How suitable is this OpenAPI spec for generating an SDK?
   We utilized recommendations from
   [Apimatic](https://www.apimatic.io/blog/2022/11/14-best-practices-to-write-openapi-for-better-api-consumption/)
-  to generate this score. Proper naming and component usage affect this score.
+  and [Speakeasy](https://www.speakeasyapi.dev/docs/openapi/validation) to
+  generate this score. Proper naming and component usage affect this score.
 - **Security (Inspired by OWASP recommendations)**: How vulnerable is this API
   to OWASP's Top 10 attack vectors? Contract-testing plays a large role here, so
   documenting all possible responses affects this score.

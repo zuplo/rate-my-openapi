@@ -1,5 +1,6 @@
-extends: [[spectral:oas, all]]
+extends: [[spectral:oas, all], [vacuum:owasp, all]]
 rules:
+  # Too preachy
   paths-kebab-case: false
   operation-4xx-response: info
   operation-success-response: warn
@@ -20,3 +21,20 @@ rules:
   # Covered by oas3-api-servers
   oas3-host-trailing-slash: false
   no-$ref-siblings: false
+  owasp-security-hosts-https-oas3: warn
+  owasp-constrained-additionalProperties: info
+  owasp-no-additionalProperties: false
+  owasp-integer-format: info
+  owasp-integer-limit: warn
+  owasp-string-restricted: info
+  owasp-string-limit: warn
+  owasp-array-limit: warn
+  owasp-define-error-responses-429: info
+  owasp-rate-limit-retry-after: warn
+  owasp-rate-limit: info
+  owasp-protection-global-unsafe-strict: false
+  owasp-jwt-best-practices: warn
+  owasp-no-numeric-ids: warn
+  # Normally we would put rules here but without the true node path, RMOA can't
+  # use the result. See https://github.com/daveshanley/vacuum/issues/269
+  # Instead, we have to fall back to Spectral, see .spectral-supplement.yaml

@@ -166,9 +166,9 @@ const IssueModal = ({
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div
-              className={`sm:my-8 sm:p-6 sm:align-middle inline-block h-screen w-screen transform overflow-hidden overflow-y-auto rounded-lg bg-white px-4 pb-4 pt-4 text-left align-bottom shadow-xl transition-all md:h-[80vh] md:w-[75vw] md:max-w-[1200px]`}
+              className={`sm:my-8 sm:p-6 sm:align-middle flex h-screen w-screen transform flex-col overflow-hidden overflow-y-auto rounded-lg bg-white px-4 pb-4 pt-4 text-left align-bottom shadow-xl transition-all md:h-[80vh] md:w-[75vw] md:max-w-[1200px]`}
             >
-              <div className="sm:block z-40 -mr-2 -mt-4 inline-flex w-full justify-end">
+              <div className="sm:block z-40 -mr-2 inline-flex w-full justify-end">
                 <button
                   type="button"
                   className={`z-40 rounded-md text-gray-400  hover:text-gray-500`}
@@ -181,27 +181,32 @@ const IssueModal = ({
               <div className="-mt-2 flex w-fit flex-col">
                 <div className="font-bold md:text-lg">{issue.message}</div>
                 <div className="text-xs text-gray-400">Code: {issue.code}</div>
-                <div className="mb-4 mt-2">
-                  {"urlPathFragment" in ruleData ? (
-                    <div className="flex items-center text-blue-500 hover:text-blue-700">
-                      <a
-                        target="_blank"
-                        className="w-fit"
-                        href={`https://quobix.com/vacuum/rules/${ruleData.urlPathFragment}/${issue.code}`}
-                      >
-                        Additional details
-                      </a>
-                      <ArrowUpRightIcon height={12} strokeWidth={3} />
+                <div className="mb-4 mt-2 flex flex-col gap-y-2">
+                  <div className="flex flex-col">
+                    <span className="font-bold">Why is this important?</span>
+                    {ruleData.description}
+                  </div>
+                  {ruleData.violationExplanation && (
+                    <div className="flex flex-col">
+                      <span className="font-bold">
+                        Why did this violation appear?
+                      </span>
+                      {ruleData.violationExplanation}
                     </div>
-                  ) : (
-                    <div>{ruleData.description}</div>
                   )}
+                  <a
+                    target="_blank"
+                    className="flex w-fit items-center text-blue-500 hover:text-blue-700"
+                    href={ruleData.url}
+                  >
+                    Learn more <ArrowUpRightIcon height={12} strokeWidth={3} />
+                  </a>
                 </div>
               </div>
               <div
-                className={`flex ${
+                className={` ${
                   selectedTab === "AI" ? "h-fit" : "h-full"
-                }  w-full flex-col`}
+                }  w-full`}
               >
                 <div className="flex w-fit rounded-md rounded-b-none border">
                   <div
@@ -329,36 +334,35 @@ const IssueModal = ({
                   </div>
                 ) : null}
                 {selectedTab === "CODE" ? (
-                  <div className="flex h-full w-full">
-                    <Editor
-                      className="my-2 h-full"
-                      width="100%"
-                      language={fileExtension === "json" ? "json" : "yaml"}
-                      value={openapi}
-                      options={{
-                        automaticLayout: true,
-                        readOnly: true,
-                        selectionHighlight: true,
-                        renderLineHighlight: "line",
-                        scrollBeyondLastLine: false,
-                        glyphMargin: true,
-                        minimap: windowSize.isMobile
-                          ? {
-                              enabled: false,
-                            }
-                          : undefined,
-                        fontSize: windowSize.isMobile ? 10 : undefined,
-                        lineNumbers: windowSize.isMobile ? "off" : undefined,
-                        // @ts-ignore - this is a valid option, but the types don't know about it
-                        renderIndentGuides: windowSize.isMobile
-                          ? false
-                          : undefined,
-                        folding: windowSize.isMobile ? false : undefined,
-                      }}
-                      onMount={onEditorDidMount}
-                      line={issue.range.start.line}
-                    />
-                  </div>
+                  <Editor
+                    className="my-2 h-full"
+                    width="100%"
+                    height="calc(100% - 75px)"
+                    language={fileExtension === "json" ? "json" : "yaml"}
+                    value={openapi}
+                    options={{
+                      automaticLayout: true,
+                      readOnly: true,
+                      selectionHighlight: true,
+                      renderLineHighlight: "line",
+                      scrollBeyondLastLine: false,
+                      glyphMargin: true,
+                      minimap: windowSize.isMobile
+                        ? {
+                            enabled: false,
+                          }
+                        : undefined,
+                      fontSize: windowSize.isMobile ? 10 : undefined,
+                      lineNumbers: windowSize.isMobile ? "off" : undefined,
+                      // @ts-ignore - this is a valid option, but the types don't know about it
+                      renderIndentGuides: windowSize.isMobile
+                        ? false
+                        : undefined,
+                      folding: windowSize.isMobile ? false : undefined,
+                    }}
+                    onMount={onEditorDidMount}
+                    line={issue.range.start.line}
+                  />
                 ) : null}
               </div>
             </div>

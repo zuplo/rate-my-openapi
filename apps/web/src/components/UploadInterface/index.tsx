@@ -12,6 +12,7 @@ import {
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { DocumentIcon } from "@heroicons/react/24/outline";
+import { PaperClipIcon } from "@heroicons/react/24/outline";
 
 import { useUploadContext } from "@/contexts/UploadContext";
 
@@ -73,10 +74,6 @@ const UploadInterface = () => {
     // Timeout used to avoid a bit of a race condition with
     // button being disabled
     setTimeout(() => submitButtonRef.current?.focus(), 50);
-  };
-
-  const onLocalFileUploadClick = () => {
-    fileInputRef.current?.click();
   };
 
   const onLocalFileUploadInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -177,62 +174,69 @@ const UploadInterface = () => {
       )}
 
       <form
-        className="relative flex w-full flex-row justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-md"
+        className="relative flex w-full flex-row items-center justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-md"
         id="upload-form"
         onSubmit={onSubmit}
       >
-        {!isLocalUpload && !file && (
-          <input
-            type="url"
-            ref={urlInputRef}
-            onChange={onInputChange}
-            className="w-full border-none bg-transparent pr-3 text-lg outline-none"
-            placeholder={
-              !isLocalUpload
-                ? "Drop your OpenAPI 3.x file or enter your OpenAPI file URL here"
-                : ""
-            }
-            aria-label="Enter OpenAPI 3.x file URL here"
-            disabled={!!file}
-          />
-        )}
-
-        <input
-          ref={fileInputRef}
-          onChange={onLocalFileUploadInputChange}
-          className="hidden h-0 w-0"
-          type="file"
-          name="drag-upload"
-        />
-
-        {isLocalUpload && (
-          <button
-            onClick={onClear}
-            className="flex items-center rounded-lg bg-gray-200 p-2 text-lg hover:bg-gray-300"
-          >
-            <DocumentIcon
-              height={24}
-              width={24}
-              className="mr-1 text-gray-900"
-            />
-            <span className="max-w-[170px] overflow-hidden whitespace-nowrap md:max-w-[500px]">
-              {file?.name}
-            </span>
-            <XMarkIcon height={24} width={24} className="ml-3 text-gray-900" />
-          </button>
-        )}
-
-        <div className="flex h-[44px]">
-          {!isLocalUpload && !file && !isValidUrlInput && (
-            <button
-              onClick={onLocalFileUploadClick}
-              type="button"
-              className="mr-2 whitespace-nowrap rounded-lg border border-gray-500 bg-transparent px-3 py-2 text-gray-500 transition-colors hover:border-gray-900 hover:bg-gray-900 hover:text-white"
+        <div className="flex w-full items-center gap-2">
+          {!isLocalUpload && !file && (
+            <label
+              title="Select OpenAPI file"
+              role="button"
+              className="icon-button p-4 hover:bg-gray-200"
+              tabIndex={0}
             >
-              Select a file
-            </button>
+              <PaperClipIcon height={24} width={24} />
+              <input
+                ref={fileInputRef}
+                onChange={onLocalFileUploadInputChange}
+                className="hidden h-0 w-0"
+                type="file"
+                id="drag-upload"
+              />
+            </label>
           )}
 
+          {!isLocalUpload ? (
+            <div className="flex-1">
+              <input
+                autoFocus
+                type="url"
+                ref={urlInputRef}
+                onChange={onInputChange}
+                className="w-full border-none bg-transparent pr-3 text-lg outline-none"
+                placeholder={
+                  !isLocalUpload
+                    ? "Drop your OpenAPI 3.x file or enter your OpenAPI file URL here"
+                    : ""
+                }
+                aria-label="Enter OpenAPI 3.x file URL here"
+                disabled={!!file}
+              />
+            </div>
+          ) : (
+            <button
+              onClick={onClear}
+              className="flex items-center rounded-lg bg-gray-200 p-2 text-lg hover:bg-gray-300"
+            >
+              <DocumentIcon
+                height={24}
+                width={24}
+                className="mr-1 text-gray-900"
+              />
+              <span className="max-w-[170px] overflow-hidden whitespace-nowrap md:max-w-[500px]">
+                {file?.name}
+              </span>
+              <XMarkIcon
+                height={24}
+                width={24}
+                className="ml-3 text-gray-900"
+              />
+            </button>
+          )}
+        </div>
+
+        <div className="flex h-[44px]">
           {isValidUrlInput && (
             <button
               className="icon-button mr-2 bg-gray-200 hover:bg-gray-300"

@@ -105,22 +105,26 @@ export async function parseMultipartUpload(
   if (!fileContent) {
     throw new ApiError({
       ...Problems.BAD_REQUEST,
-      detail: "Invalid request body, no file content",
+      detail: `Invalid request body, no file content. Uploader: ${email}.`,
     });
   }
   const fileContentString = fileContent.toString();
 
   const fileIsJsonOrYamlResult = checkFileIsJsonOrYaml(fileContentString);
-
-  if (
-    !validateOpenapi({
-      fileContent: fileContentString,
-      fileExtension: fileIsJsonOrYamlResult,
-    })
-  ) {
+  if (typeof fileIsJsonOrYamlResult !== "string") {
     throw new ApiError({
-      ...Problems.BAD_REQUEST,
-      detail: "Invalid OpenAPI version. Only OpenAPI v3.x is supported.",
+      ...fileIsJsonOrYamlResult,
+      detail: `${fileIsJsonOrYamlResult.detail} Uploader: ${email}.`,
+    });
+  }
+  const openApiValidationResult = validateOpenapi({
+    fileContent: fileContentString,
+    fileExtension: fileIsJsonOrYamlResult,
+  });
+  if (!openApiValidationResult.isValid) {
+    throw new ApiError({
+      ...openApiValidationResult.error,
+      detail: `${openApiValidationResult.error.detail} Uploader: ${email}. File extension: ${fileIsJsonOrYamlResult}.`,
     });
   }
 

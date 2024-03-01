@@ -19,7 +19,7 @@ describe("Validate OpenAPI", function () {
         }`,
       fileExtension: "json",
     });
-    assert.isTrue(result);
+    assert.isTrue(result.isValid);
   });
 
   it("Validates file falsy", async function () {
@@ -35,6 +35,6 @@ describe("Validate OpenAPI", function () {
       }`,
       fileExtension: "json",
     });
-    assert.isFalse(result);
+    assert.isFalse(result.isValid);
   });
 });

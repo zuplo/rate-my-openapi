@@ -19,7 +19,7 @@
     "@vercel/og": "^0.5.20",
     "classnames": "^2.3.2",
     "js-yaml": "^4.1.0",
-    "next": "^14.0.3",
+    "next": "^14.1.1",
     "posthog-js": "^1.91.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

@@ -4,6 +4,18 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSaveMode": "file",
+  "editor.formatOnSave": true,
+  "editor.wordWrapColumn": 80,
+  "editor.tabSize": 2,
+  "editor.rulers": [
+    {
+      "column": 80,
+      "color": "#414141"
+    }
+  ],
+  "npm.packageManager": "npm",
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -36,5 +48,13 @@
     "**/*.code-search": true,
     "**/dist": true,
     "**/.next": true
+  },
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#f4e572",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveBackground": "#f4e572",
+    "titleBar.inactiveForeground": "#15202b99",
+    "statusBar.background": "#f4e572",
+    "statusBar.foreground": "#15202b"
   }
 }

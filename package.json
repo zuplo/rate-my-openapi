@@ -3,6 +3,7 @@
   "version": "1.18.0",
   "scripts": {
     "dev": "concurrently -n api,web 'npm run dev --workspace apps/api' 'npm run dev --workspace apps/web'",
+    "dev:api": "npm run dev --workspace apps/api",
     "build": "tsc --build",
     "format": "prettier --write .",
     "lint": "npm run lint --workspaces",

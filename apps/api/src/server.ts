@@ -23,6 +23,7 @@ import healthRoute from "./routes/health.js";
 import { reportRoute } from "./routes/report.js";
 import uploadRoute from "./routes/upload.js";
 import { aiFixRoute } from "./routes/ai-fix.js";
+import syncReportRoute from "./routes/sync-report.js";
 
 const fastify = Fastify({
   logger: createNewLogger(),
@@ -47,6 +48,7 @@ async function build() {
   await fastify.register(reportRoute);
   await fastify.register(fileRoute);
   await fastify.register(aiFixRoute);
+  await fastify.register(syncReportRoute);
 }
 
 const start = async () => {

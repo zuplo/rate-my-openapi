@@ -27,7 +27,7 @@ jobs:
         with:
           token_format: "access_token"
           workload_identity_provider: "projects/196494084534/locations/global/workloadIdentityPools/github-actions-wi-pool/providers/github-actions-wi-provider"
-          service_account: "github-actions@zuplo-marketing.iam.gserviceaccount.com"
+          service_account: "github-actions@zuplo-production.iam.gserviceaccount.com"
           access_token_lifetime: "300s"
 
       - name: Login to Google Registry

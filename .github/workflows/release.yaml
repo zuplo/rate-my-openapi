@@ -17,17 +17,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
 
       - id: auth-gcp
-        uses: "google-github-actions/auth@v1"
+        uses: "google-github-actions/auth@v2"
         with:
           token_format: "access_token"
           workload_identity_provider: projects/196494084534/locations/global/workloadIdentityPools/github-actions-wi-pool/providers/github-actions-wi-provider
           service_account: "github-actions@zuplo-marketing.iam.gserviceaccount.com"
+          access_token_lifetime: "300s"
 
       - name: Login to Google Registry
         uses: docker/login-action@v2

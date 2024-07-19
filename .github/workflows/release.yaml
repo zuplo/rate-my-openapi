@@ -2,11 +2,13 @@ name: Release
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' # This can only be triggered from main
 
     permissions:
       contents: "read"

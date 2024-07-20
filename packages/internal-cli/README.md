@@ -2,7 +2,7 @@
 
 ## Installation
 
-1. Build the CLI
+1. Build the Internal CLI
 
 **From the root of the project** run:
 
@@ -21,7 +21,7 @@ npm install -g @quobix/vacuum
 3. Run the CLI
 
 ```
-cd packages/cli
+cd packages/internal-cli
 
 node rate-my-openapi.js generate-rating --filepath example-specs/zuplo.json
 ```

@@ -3,11 +3,11 @@ import {
   printDiagnosticsToConsole,
   printResultToConsole,
 } from "../common/output.js";
-import { existsSync, createReadStream } from "node:fs";
+import { existsSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
-import FormData from "form-data";
-import { ReadableStream } from "node:stream/web";
 import { ApiError } from "@zuplo/errors";
+import { readFile } from "node:fs/promises";
+import { lookup } from "mime-types";
 
 export interface SyncReportArguments {
   dir: string;
@@ -25,33 +25,16 @@ export async function syncReport(argv: SyncReportArguments) {
     );
   }
 
-  const form = new FormData();
-  const fileStream = createReadStream(openApiFilePath);
+  // Read the file as a buffer
+  const data = await readFile(openApiFilePath, "utf-8");
 
-  // Append fields to the form
-  form.append("name", argv.filename);
-  form.append("apiFile", fileStream);
-
-  const readable = new ReadableStream({
-    async pull(controller) {
-      return new Promise(function (resolve) {
-        form.on("data", function (chunk) {
-          controller.enqueue(chunk);
-        });
-        form.once("end", function () {
-          resolve();
-        });
-        form.resume();
-      });
-    },
+  // Convert the buffer to a Blob
+  const lookuptMimeType = lookup(openApiFilePath);
+  const file = new Blob([data], {
+    type: typeof lookuptMimeType === "string" ? lookuptMimeType : undefined,
   });
-
-  const newHeaders = {
-    ...form.getHeaders(),
-    ...{
-      Authorization: `Bearer ${argv["api-key"]}`,
-    },
-  };
+  const formData = new FormData();
+  formData.set("apiFile", file, argv.filename);
 
   printDiagnosticsToConsole(`Processing file ${argv.filename}`);
 
@@ -60,9 +43,10 @@ export async function syncReport(argv: SyncReportArguments) {
       `https://api.ratemyopenapi.com/sync-report`,
       {
         method: "POST",
-        body: readable,
-        headers: newHeaders,
-        duplex: "half",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${argv["api-key"]}`,
+        },
       },
     );
 

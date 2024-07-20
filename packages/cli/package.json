@@ -1,0 +1,60 @@
+{
+  "name": "@rate-my-openapi/cli",
+  "version": "1.18.0",
+  "type": "module",
+  "description": "Rate My Open API Cli",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --build",
+    "lint": "eslint --cache --fix ."
+  },
+  "author": "Zuplo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zuplo/rate-my-openapi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zuplo/rate-my-openapi/issues"
+  },
+  "homepage": "https://github.com/zuplo/rate-my-openapi#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.18.10",
+    "@types/yargs": "^17.0.24",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "@zuplo/pino-pretty-configurations": "^1.5.0",
+    "eslint": "^8.46.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.2",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@zuplo/errors": "^0.0.0",
+    "chalk": "^5.1.2",
+    "dotenv": "^16.4.5",
+    "form-data": "^4.0.0",
+    "pino": "^9.3.1",
+    "pino-pretty": "^11.2.1"
+  },
+  "files": [
+    "dist/**/**/*",
+    "*.js",
+    "*.d.ts"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "lint-staged": {
+    "**/*.{ts,js}": [
+      "eslint --cache --fix ."
+    ]
+  }
+}

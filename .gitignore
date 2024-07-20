@@ -50,3 +50,5 @@ apis-guru/
 .eslintcache
 .vercel
 .env
+
+**/tsconfig.tsbuildinfo

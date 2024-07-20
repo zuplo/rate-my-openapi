@@ -2,7 +2,8 @@
   "files": [],
   "references": [
     { "path": "./apps/api" },
-    { "path": "./packages/internal-cli" },
-    { "path": "./packages/core" }
+    { "path": "./packages/cli" },
+    { "path": "./packages/core" },
+    { "path": "./packages/internal-cli" }
   ]
 }

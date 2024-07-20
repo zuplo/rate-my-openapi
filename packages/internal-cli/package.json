@@ -1,5 +1,5 @@
 {
-  "name": "cli",
+  "name": "internal-cli",
   "version": "1.18.0",
   "description": "CLI for rating OpenAPI files",
   "type": "module",

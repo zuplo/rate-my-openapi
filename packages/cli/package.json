@@ -21,6 +21,9 @@
   "engines": {
     "node": ">=18.0.0"
   },
+  "bin": {
+    "ratemyopenapi": "cli.js"
+  },
   "devDependencies": {
     "@types/mime-types": "^2.1.4",
     "@types/node": "^18.18.10",
@@ -38,6 +41,7 @@
     "chalk": "^5.1.2",
     "dotenv": "^16.4.5",
     "mime-types": "^2.1.35",
+    "ora": "^8.0.1",
     "pino": "^9.3.1",
     "pino-pretty": "^11.2.1"
   },

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
 import chalk from "chalk";
+import { APIResponse } from "../sync-report/interfaces.js";
 
 // We standardize printing to the terminal with this module
 
@@ -66,4 +67,38 @@ export function printScoreResult(
   } else {
     console.log(`${message} ${score}`);
   }
+}
+
+export function printScoreSummaryAndExitGracefully(report: APIResponse) {
+  console.log(`${chalk.bold.blue("==>")} ${chalk.bold("Results")}\n`);
+  printScoreResult("Overall", report.results.simpleReport.score);
+  console.log("======");
+  printScoreResult("- Docs", report.results.simpleReport.docsScore);
+  printScoreResult(
+    "- Completeness",
+    report.results.simpleReport.completenessScore,
+  );
+  printScoreResult(
+    "- SDK Generation",
+    report.results.simpleReport.sdkGenerationScore,
+  );
+  printScoreResult("- Security", report.results.simpleReport.securityScore);
+  console.log("======\n");
+  console.log(
+    `View details of your report at ${chalk.magenta(report.reportUrl)}\n`,
+  );
+  process.exit(0);
+}
+
+export function printScoreSimpleJSONAndExitGracefully(report: APIResponse) {
+  const simpleReport = {
+    overallScore: report.results.simpleReport.score,
+    docsScore: report.results.simpleReport.docsScore,
+    completenessScore: report.results.simpleReport.completenessScore,
+    securityScore: report.results.simpleReport.securityScore,
+    sdkGenerationScore: report.results.simpleReport.sdkGenerationScore,
+    reportUrl: report.reportUrl,
+  };
+  console.log(JSON.stringify(simpleReport, null, 2));
+  process.exit(0);
 }

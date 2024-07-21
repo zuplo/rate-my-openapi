@@ -23,6 +23,11 @@ export default {
         default: ".",
         normalize: true,
       })
+      .option("output", {
+        type: "string",
+        describe: "default, json",
+        default: "default",
+      })
       .demandOption(["api-key", "filename"]);
   },
   handler: async (argv: unknown) => {

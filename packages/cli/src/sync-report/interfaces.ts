@@ -2,6 +2,7 @@ export interface SyncReportArguments {
   dir: string;
   "api-key": string;
   filename: string;
+  output: "default" | "json";
 }
 
 export interface APIResponse {

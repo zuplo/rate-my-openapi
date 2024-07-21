@@ -2,7 +2,8 @@ import {
   printCriticalFailureToConsoleAndExit,
   printDiagnosticsToConsole,
   printResultToConsoleAndExitGracefully,
-  printScoreResult,
+  printScoreSimpleJSONAndExitGracefully,
+  printScoreSummaryAndExitGracefully,
 } from "../common/output.js";
 import { existsSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
@@ -10,7 +11,6 @@ import { ApiError } from "@zuplo/errors";
 import { readFile } from "node:fs/promises";
 import { lookup } from "mime-types";
 import ora from "ora";
-import chalk from "chalk";
 import { APIResponse, SyncReportArguments } from "./interfaces.js";
 
 const okMark = "\x1b[32m✔\x1b[0m";
@@ -75,28 +75,22 @@ export async function syncReport(argv: SyncReportArguments) {
       spinner.fail("Analizing file\n");
       const error = (await fileUploadResults.json()) as ApiError;
       printCriticalFailureToConsoleAndExit(`${error.detail ?? error.message}`);
-    } else {
-      spinner.succeed("Analizing file\n");
-      const res = (await fileUploadResults.json()) as APIResponse;
+    }
 
-      const simpleJSON = {
-        ...res.results.simpleReport,
-        ...{ reportId: res.reportId, reportUrl: res.reportUrl },
-      };
+    spinner.succeed("Analizing file\n");
+    const res = (await fileUploadResults.json()) as APIResponse;
 
-      // @TODO support more output modes e.g. JSON, GH Actions, etc
+    // @TODO support more output modes e.g. JSON, GH Actions, etc
 
-      console.log(`${chalk.bold.blue("==>")} ${chalk.bold("Results")}\n`);
-      printScoreResult("Overall", simpleJSON.score);
-      console.log("======");
-      printScoreResult("- Docs", simpleJSON.docsScore);
-      printScoreResult("- Completeness", simpleJSON.completenessScore);
-      printScoreResult("- SDK Generation", simpleJSON.sdkGenerationScore);
-      printScoreResult("- Security", simpleJSON.securityScore);
-      console.log("======\n");
-      console.log(
-        `View details of your report at ${chalk.magenta(simpleJSON.reportUrl)}\n`,
-      );
+    switch (argv.output) {
+      case "default":
+        printScoreSummaryAndExitGracefully(res);
+        break;
+      case "json":
+        printScoreSimpleJSONAndExitGracefully(res);
+        break;
+      default:
+        printScoreSummaryAndExitGracefully(res);
     }
   } catch (err) {
     spinner.fail("Analizing file\n");

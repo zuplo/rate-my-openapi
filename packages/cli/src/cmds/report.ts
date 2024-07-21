@@ -1,4 +1,5 @@
-import { syncReport, SyncReportArguments } from "../sync-report/handler.js";
+import { SyncReportArguments } from "sync-report/interfaces.js";
+import { syncReport } from "../sync-report/handler.js";
 import { Argv } from "yargs";
 
 export default {

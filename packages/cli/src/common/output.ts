@@ -41,3 +41,29 @@ export async function printTableToConsoleAndExitGracefully(table: any) {
   printTableToConsole(table);
   process.exit(0);
 }
+
+export function printScoreResult(
+  message: string,
+  score: number,
+  options?: {
+    overrideGreen?: number;
+    overrideYellow?: number;
+    overrideRed?: number;
+  },
+) {
+  const greenScore =
+    options && options.overrideGreen ? options.overrideGreen : 80;
+  const yellowScore =
+    options && options.overrideYellow ? options.overrideYellow : 60;
+  const redScore = options && options.overrideRed ? options.overrideRed : 59;
+
+  if (score >= greenScore) {
+    console.log(`${message} ${chalk.bold.green(score)}`);
+  } else if (score >= yellowScore && score < greenScore) {
+    console.log(`${message} ${chalk.bold.yellow(score)}`);
+  } else if (score <= redScore) {
+    console.log(`${message} ${chalk.bold.red(score)}`);
+  } else {
+    console.log(`${message} ${score}`);
+  }
+}

@@ -1,15 +1,14 @@
 {
-  "name": "@rate-my-openapi/cli",
-  "version": "1.18.0",
+  "name": "rmoa",
+  "version": "0.0.0",
   "type": "module",
-  "description": "Rate My Open API Cli",
-  "main": "dist/index.js",
+  "description": "The command-line interface for Rate My Open API",
   "scripts": {
     "build": "tsc --build",
     "lint": "eslint --cache --fix ."
   },
-  "author": "Zuplo",
-  "license": "MIT",
+  "author": "Zuplo, Inc.",
+  "license": "See LICENSE in LICENSE.txt",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zuplo/rate-my-openapi.git"
@@ -19,7 +18,7 @@
   },
   "homepage": "https://github.com/zuplo/rate-my-openapi#readme",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "bin": {
     "rmoa": "cli.js"

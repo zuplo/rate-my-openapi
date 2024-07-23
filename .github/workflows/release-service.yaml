@@ -1,4 +1,4 @@
-name: Release
+name: Release Service
 on:
   push:
     branches: [main]
@@ -6,7 +6,7 @@ on:
 
 jobs:
   release:
-    name: Release
+    name: Release Service
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' # This can only be triggered from main
 

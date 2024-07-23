@@ -1,0 +1,77 @@
+name: Trigger CLI Release
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: "Part of the semantic version number to increment. (major | minor | patch)"
+        required: true
+        default: patch
+
+jobs:
+  release:
+    name: Run Release
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' # This can only be triggered from main
+    timeout-minutes: 2
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GH_CUSTOM_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # Override the default token because the built
+          # in token cannot trigger other workflows
+          # https://github.community/t/github-actions-workflow-not-triggering-with-tag-push/17053/2
+          token: ${{ secrets.GH_CUSTOM_TOKEN }}
+
+      - name: Get latest tag
+        id: get_latest_tag
+        run: echo "LATEST_TAG=$(git describe --abbrev=0 --tags)" >> $GITHUB_ENV
+
+      - name: Increment tag
+        id: increment_tag
+        shell: bash
+        run: |
+          BUMP=${{ inputs.bump }}
+          LAST_SEMVER=${LATEST_TAG#v}
+          if [[ ! "$LATEST_TAG" ]]; then
+            echo "No tag found. Using default SEMVER '0.0.0'."
+            LAST_SEMVER=0.0.0
+          fi
+          LAST_SEMVER_ELEMENTS=($(echo $LAST_SEMVER | tr "." " "))
+          MAJOR="${LAST_SEMVER_ELEMENTS[0]}"
+          MINOR="${LAST_SEMVER_ELEMENTS[1]}"
+          PATCH="${LAST_SEMVER_ELEMENTS[2]}"
+          case "$BUMP" in
+              "major")
+                  ((MAJOR+=1))
+                  MINOR=0
+                  PATCH=0
+              ;;
+              "minor")
+                  ((MINOR+=1))
+                  PATCH=0
+              ;;
+              "patch")
+                  ((PATCH+=1))
+              ;;
+          esac
+          NEXT_SEMVER="$MAJOR.$MINOR.$PATCH"
+          NEXT_TAG="v$NEXT_SEMVER"
+          echo "BUMP:        $BUMP"
+          echo "LAST SEMVER: $LAST_SEMVER"
+          echo "NEXT SEMVER: $NEXT_SEMVER"
+          echo "NEXT TAG:    $NEXT_TAG"
+          echo "next_tag=$NEXT_TAG" >> $GITHUB_OUTPUT
+          echo "last_semver=$LAST_SEMVER" >> $GITHUB_OUTPUT
+          echo "next_semver=$NEXT_SEMVER" >> $GITHUB_OUTPUT
+
+      - name: Create new tag
+        if: success()
+        run: git tag ${{steps.increment_tag.outputs.next_tag}}
+
+      - name: Push new tag
+        if: success()
+        run: git push origin ${{steps.increment_tag.outputs.next_tag}}

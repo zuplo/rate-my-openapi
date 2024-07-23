@@ -30,10 +30,6 @@ export async function syncReport(argv: SyncReportArguments) {
     printResultToConsoleAndExitGracefully("\nProcess has been canceled\n");
   });
 
-  // @TODO - remove this in favor of bin configs
-  process.env.NODE_NO_WARNINGS = "1";
-  process.removeAllListeners("warning");
-
   const sourceDirectory = resolve(join(relative(process.cwd(), argv.dir)));
 
   const openApiFilePath = join(sourceDirectory, argv.filename);

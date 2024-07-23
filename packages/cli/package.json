@@ -22,7 +22,7 @@
     "node": ">=18.0.0"
   },
   "bin": {
-    "ratemyopenapi": "cli.js"
+    "rmoa": "cli.js"
   },
   "devDependencies": {
     "@types/mime-types": "^2.1.4",

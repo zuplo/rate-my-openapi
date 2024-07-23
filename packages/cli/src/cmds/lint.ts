@@ -4,7 +4,7 @@ import { Argv } from "yargs";
 
 export default {
   desc: "Uploads an Open API file & gets it's Rate My Open API results",
-  command: "report",
+  command: "lint",
 
   builder: (yargs: Argv): Argv<unknown> => {
     return yargs

@@ -39,10 +39,6 @@ jobs:
 
       - run: node ./scripts/set-package-version.js packages/cli/package.json
 
-      - name: \[Debug\] Check npm config
-        run: npm config list
-        working-directory: packages/cli
-
       - name: Publish to the public NPM registry
         run: npm publish
         working-directory: packages/cli

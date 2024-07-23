@@ -76,15 +76,9 @@ export async function syncReport(argv: SyncReportArguments) {
     spinner.succeed("Analizing file\n");
     const res = (await fileUploadResults.json()) as APIResponse;
 
-    const IS_CI = !!(
-      process.env.JENKINS_URL ||
-      process.env.GITLAB_CI ||
-      process.env.GITHUB_ACTIONS ||
-      process.env.CIRCLECI ||
-      process.env.TRAVIS
-    );
+    const IS_GITHUB_ACTION = !!process.env.GITHUB_ACTIONS;
 
-    if (IS_CI) {
+    if (IS_GITHUB_ACTION) {
       try {
         res.results.fullReport.issues.forEach((issue) => {
           console.log(`${openApiFilePath}`);

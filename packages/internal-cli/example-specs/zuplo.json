@@ -4765,7 +4765,7 @@
           "id": "key_m1m4ol223R0kGHGZY7tPQMQl",
           "description": "My secret api key",
           "expiresOn": "2023-04-20T05:54:34.408Z",
-          "key": "zpka_66b**"
+          "key": "zpka_66b21c8591354c0997db232cc2f79c9e_69253f24"
         }
       },
       "Zuplo.ApiKeys.ApiKeyBulkCreateOrUpdateBody": {
@@ -4777,12 +4777,12 @@
           {
             "description": "My secret api key",
             "expiresOn": "2023-04-20T05:54:34.408Z",
-            "key": "zpka_66b**"
+            "key": "zpka_66b21c8591354c0997db232cc2f79c9e_69253f24"
           },
           {
             "description": "My secret api key2",
             "expiresOn": "2023-05-20T05:54:34.408Z",
-            "key": "zpka_77b**"
+            "key": "zpka_77b21c8591354c0997db232cc2f79c9e_69253f99"
           }
         ]
       },
@@ -4807,7 +4807,7 @@
         "example": {
           "description": "My secret api key",
           "expiresOn": "2023-04-20T05:54:34.408Z",
-          "key": "zpka_66b**"
+          "key": "zpka_66b21c8591354c0997db232cc2f79c9e_69253f24"
         }
       },
       "Zuplo.ApiKeys.ApiKeys": {
@@ -4843,7 +4843,7 @@
               "id": "key_m1m4ol223R0kGHGZY7tPQMQl",
               "description": "My secret api key",
               "expiresOn": "2023-04-20T05:54:34.408Z",
-              "key": "zpka_66b**"
+              "key": "zpka_66b21c8591354c0997db232cc2f79c9e_69253f24"
             }
           ],
           "limit": 1000,

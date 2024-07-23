@@ -13,7 +13,7 @@ jobs:
       contents: "write"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ncipollo/release-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -38,6 +38,10 @@ jobs:
       - run: npm run build
 
       - run: node ./scripts/set-package-version.js packages/cli/package.json
+
+      - name: \[Debug\] Check npm config
+        run: npm config list
+        working-directory: packages/cli
 
       - name: Publish to the public NPM registry
         run: npm publish

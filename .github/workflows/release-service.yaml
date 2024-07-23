@@ -2,6 +2,15 @@ name: Release Service
 on:
   push:
     branches: [main]
+    paths:
+      - "apps/api/**"
+      - "apps/web/**"
+      - "packages/core/**"
+      - "!**/terraform/**"
+      - ".github/workflows/release-service.yaml"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.base.json"
   workflow_dispatch:
 
 jobs:

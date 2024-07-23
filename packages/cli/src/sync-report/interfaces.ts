@@ -19,25 +19,25 @@ export interface APIResponse {
       shortSummary: string;
       longSummary: string;
     };
-  };
-  fullReport: {
-    issues: {
-      code: string;
-      message: string;
-      path: string[];
-      severity: number;
-      source: string;
-      range: {
-        start: {
-          line: number;
-          character: number;
+    fullReport: {
+      issues: {
+        code: string;
+        message: string;
+        path: string[];
+        severity: number;
+        source: string;
+        range: {
+          start: {
+            line: number;
+            character: number;
+          };
+          end: {
+            line: number;
+            character: number;
+          };
         };
-        end: {
-          line: number;
-          character: number;
-        };
-      };
-    }[];
+      }[];
+    };
   };
   reportId: string;
   reportUrl: string;

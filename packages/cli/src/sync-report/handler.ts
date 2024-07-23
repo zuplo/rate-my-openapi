@@ -76,7 +76,40 @@ export async function syncReport(argv: SyncReportArguments) {
     spinner.succeed("Analizing file\n");
     const res = (await fileUploadResults.json()) as APIResponse;
 
-    // @TODO support more output modes e.g. JSON, GH Actions, etc
+    const IS_CI = !!(
+      process.env.JENKINS_URL ||
+      process.env.GITLAB_CI ||
+      process.env.GITHUB_ACTIONS ||
+      process.env.CIRCLECI ||
+      process.env.TRAVIS
+    );
+
+    if (IS_CI) {
+      try {
+        res.results.fullReport.issues.forEach((issue) => {
+          console.log(`${openApiFilePath}`);
+          let issueType: "error" | "warning" | "info";
+          switch (issue.severity) {
+            case 0:
+              issueType = "error";
+              break;
+            case 1:
+            case 2:
+              issueType = "warning";
+              break;
+            default:
+              issueType = "error";
+          }
+
+          console.log(
+            `::${issueType} file=${openApiFilePath},line=${issue.range.start.line},col=${issue.range.start.character},endLine=${issue.range.end.line}endColumn=${issue.range.end.character}::${issue.message}`,
+          );
+          console.log("\n");
+        });
+      } catch (err) {
+        console.error(`Failed to return CI details. Error: ${err.message}`);
+      }
+    }
 
     switch (argv.output) {
       case "default":

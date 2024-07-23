@@ -3,9 +3,11 @@
 .env.example
 .eslintignore
 .eslintrc.js 
+.eslintrc.cjs 
 .gitignore
 .github/
 .husky/_
+.mocharc.json
 .npmrc
 .prettierignore
 .prettierrc
@@ -21,6 +23,8 @@ test-fixtures/
 *.spec.js
 tsconfig.eslint.json
 tsconfig.json
+.npmrc
+scripts/
 
 # https://raw.githubusercontent.com/github/gitignore/main/Node.gitignore
 ### 

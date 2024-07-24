@@ -3,14 +3,14 @@ import { syncReport } from "../sync-report/handler.js";
 import { Argv } from "yargs";
 
 export default {
-  desc: "Uploads an Open API file & gets it's Rate My Open API results",
+  desc: "Lint & get a score for your OpenAPI definition using the Rate My OpenAPI ruleset",
   command: "lint",
 
   builder: (yargs: Argv): Argv<unknown> => {
     return yargs
       .option("api-key", {
         type: "string",
-        describe: "The API Key from Zuplo",
+        describe: "Your Rate My OpenAPI API Key",
         envVar: "API_KEY",
       })
       .option("filename", {

@@ -70,7 +70,7 @@ const syncReportRoute: FastifyPluginAsync = async function (server) {
       return reply.code(200).send({
         results,
         reportId,
-        reportUrl: `https://ratemyopenapi.com/rating/${reportId}`,
+        reportUrl: `https://ratemyopenapi.com/report/${reportId}`,
       });
     },
   });

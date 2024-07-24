@@ -77,7 +77,7 @@ const uploadRoute: FastifyPluginAsync = async function (server) {
 
       reply.send({
         reportId,
-        reportUrl: `https://ratemyopenapi.com/rating/${reportId}`,
+        reportUrl: `https://ratemyopenapi.com/report/${reportId}`,
       });
     },
   });

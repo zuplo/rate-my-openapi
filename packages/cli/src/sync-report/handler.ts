@@ -1,9 +1,10 @@
 import {
   printCriticalFailureToConsoleAndExit,
   printDiagnosticsToConsole,
+  printGitHubErrorWarning,
   printResultToConsoleAndExitGracefully,
-  printScoreSimpleJSONAndExitGracefully,
-  printScoreSummaryAndExitGracefully,
+  printScoreSimpleJSON,
+  printScoreSummary,
 } from "../common/output.js";
 import { existsSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
@@ -78,42 +79,85 @@ export async function syncReport(argv: SyncReportArguments) {
 
     const IS_GITHUB_ACTION = !!process.env.GITHUB_ACTIONS;
 
-    if (IS_GITHUB_ACTION) {
-      try {
-        res.results.fullReport.issues.forEach((issue) => {
-          console.log(`${openApiFilePath}`);
-          let issueType: "error" | "warning" | "info";
-          switch (issue.severity) {
-            case 0:
-              issueType = "error";
-              break;
-            case 1:
-            case 2:
-              issueType = "warning";
-              break;
-            default:
-              issueType = "error";
-          }
+    let totalErrors = 0;
+    let totalWarnings = 0;
 
-          console.log(
-            `::${issueType} file=${openApiFilePath},line=${issue.range.start.line},col=${issue.range.start.character},endLine=${issue.range.end.line}endColumn=${issue.range.end.character}::${issue.message}`,
-          );
-          console.log("\n");
+    try {
+      res.results.fullReport.issues.forEach((issue) => {
+        console.log(`${openApiFilePath}`);
+        let issueType: "error" | "warning" | "info";
+        if (issue.severity === 0) {
+          totalErrors++;
+        } else {
+          totalWarnings++;
+        }
+
+        switch (issue.severity) {
+          case 0:
+            issueType = "error";
+            break;
+          case 1:
+          case 2:
+            issueType = "warning";
+            break;
+          default:
+            issueType = "error";
+        }
+
+        printGitHubErrorWarning(issue.message, {
+          type: issueType,
+          filename: openApiFilePath,
+          line: issue.range.start.line,
+          column: issue.range.start.character,
+          endLine: issue.range.end.line,
+          endColumn: issue.range.end.character,
         });
-      } catch (err) {
-        console.error(`Failed to return CI details. Error: ${err.message}`);
-      }
+      });
+    } catch (err) {
+      console.error(`Failed to parse error details. Error: ${err.message}`);
     }
 
     switch (argv.output) {
       case "default":
-        printScoreSummaryAndExitGracefully(res);
+        printScoreSummary(res);
         break;
       case "json":
-        printScoreSimpleJSONAndExitGracefully(res);
+        printScoreSimpleJSON(res);
         break;
       default:
-        printScoreSummaryAndExitGracefully(res);
+        printScoreSummary(res);
+    }
+
+    const minimumPassingScore = argv["minimum-score"]
+      ? parseInt(argv["minimum-score"])
+      : 80;
+    const maxErrors = argv["max-errors"] ? parseInt(argv["max-errors"]) : 0;
+    const maxWarnings = argv["max-warnings"]
+      ? parseInt(argv["max-warnings"])
+      : 5;
+
+    if (totalErrors > 0 || totalWarnings > 0) {
+      const totalProblems = totalErrors + totalWarnings;
+
+      const finalMessage = IS_GITHUB_ACTION
+        ? `::info::${totalProblems} problems (${totalErrors} errors, ${totalWarnings} warnings)`
+        : `${failMark} ${totalProblems} problems (${totalErrors} errors, ${totalWarnings} warnings)`;
+
+      console.log(finalMessage);
+    }
+
+    if (minimumPassingScore > res.results.simpleReport.score) {
+      printCriticalFailureToConsoleAndExit(
+        `The minimum passing score is '${minimumPassingScore}' and the lint score for this run is '${res.results.simpleReport.score}'`,
+      );
+    } else if (totalErrors > maxErrors) {
+      printCriticalFailureToConsoleAndExit(
+        `The total number of errors (${totalErrors}) exceeds the maximum amout of errors allowed (${maxErrors})`,
+      );
+    } else if (totalWarnings > maxWarnings) {
+      printCriticalFailureToConsoleAndExit(
+        `The total number of warnings (${totalWarnings}) exceeds the maximum amout of warnings allowed (${maxWarnings})`,
+      );
     }
   } catch (err) {
     spinner.fail("Analizing file\n");

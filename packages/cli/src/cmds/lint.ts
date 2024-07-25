@@ -28,6 +28,24 @@ export default {
         describe: "default, json",
         default: "default",
       })
+      .option("max-warnings", {
+        type: "number",
+        describe:
+          "The maximum number of warnings allowed before labeling the run as failed. Default is 5.",
+        default: 5,
+      })
+      .option("max-errors", {
+        type: "number",
+        describe:
+          "The maximum number of errors allowed before labeling the run as failed. Default is 0.",
+        default: 0,
+      })
+      .option("minimum-score", {
+        type: "number",
+        describe:
+          "The minimum score (0 - 100) to label a lint run as successful/passing. Default is 80.",
+        default: 80,
+      })
       .demandOption(["api-key", "filename"]);
   },
   handler: async (argv: unknown) => {

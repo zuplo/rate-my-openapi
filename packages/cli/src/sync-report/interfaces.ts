@@ -3,6 +3,9 @@ export interface SyncReportArguments {
   "api-key": string;
   filename: string;
   output: "default" | "json";
+  "max-warnings": string;
+  "max-errors": string;
+  "minimum-score": string;
 }
 
 export interface APIResponse {

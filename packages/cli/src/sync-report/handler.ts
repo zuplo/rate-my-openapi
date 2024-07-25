@@ -159,6 +159,9 @@ export async function syncReport(argv: SyncReportArguments) {
         `The total number of warnings (${totalWarnings}) exceeds the maximum amout of warnings allowed (${maxWarnings})`,
       );
     }
+
+    // @NOTE - perfect run, exit gracefully
+    process.exit(0);
   } catch (err) {
     spinner.fail("Analizing file\n");
     // @TODO - show a nice useful error

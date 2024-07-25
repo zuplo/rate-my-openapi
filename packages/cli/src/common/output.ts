@@ -43,33 +43,19 @@ export async function printTableToConsoleAndExitGracefully(table: any) {
   process.exit(0);
 }
 
-export function printScoreResult(
-  message: string,
-  score: number,
-  options?: {
-    overrideGreen?: number;
-    overrideYellow?: number;
-    overrideRed?: number;
-  },
-) {
-  const greenScore =
-    options && options.overrideGreen ? options.overrideGreen : 80;
-  const yellowScore =
-    options && options.overrideYellow ? options.overrideYellow : 60;
-  const redScore = options && options.overrideRed ? options.overrideRed : 59;
-
-  if (score >= greenScore) {
-    console.log(`${message} ${chalk.bold.green(score)}`);
-  } else if (score >= yellowScore && score < greenScore) {
-    console.log(`${message} ${chalk.bold.yellow(score)}`);
-  } else if (score <= redScore) {
+export function printScoreResult(message: string, score: number) {
+  if (score >= 0 && score < 50) {
     console.log(`${message} ${chalk.bold.red(score)}`);
+  } else if (score >= 50 && score < 80) {
+    console.log(`${message} ${chalk.bold.yellow(score)}`);
+  } else if (score >= 80) {
+    console.log(`${message} ${chalk.bold.green(score)}`);
   } else {
     console.log(`${message} ${score}`);
   }
 }
 
-export function printScoreSummaryAndExitGracefully(report: APIResponse) {
+export function printScoreSummary(report: APIResponse) {
   console.log(`${chalk.bold.blue("==>")} ${chalk.bold("Results")}\n`);
   printScoreResult("Overall", report.results.simpleReport.score);
   console.log("======");
@@ -87,10 +73,9 @@ export function printScoreSummaryAndExitGracefully(report: APIResponse) {
   console.log(
     `View details of your report at ${chalk.magenta(report.reportUrl)}\n`,
   );
-  process.exit(0);
 }
 
-export function printScoreSimpleJSONAndExitGracefully(report: APIResponse) {
+export function printScoreSimpleJSON(report: APIResponse) {
   const simpleReport = {
     overallScore: report.results.simpleReport.score,
     docsScore: report.results.simpleReport.docsScore,
@@ -100,5 +85,25 @@ export function printScoreSimpleJSONAndExitGracefully(report: APIResponse) {
     reportUrl: report.reportUrl,
   };
   console.log(JSON.stringify(simpleReport, null, 2));
-  process.exit(0);
+}
+
+export function printGitHubIssue(
+  message: string,
+  issue: {
+    type: "error" | "warning";
+    filename: string;
+    line: number;
+    endLine: number;
+    column: number;
+    endColumn: number;
+  },
+) {
+  const IS_GITHUB_ACTION = !!process.env.GITHUB_ACTIONS;
+
+  if (IS_GITHUB_ACTION) {
+    console.log(
+      `::${issue.type} file=${issue.filename},line=${issue.line},col=${issue.column},endLine=${issue.endLine}endColumn=${issue.endColumn}::${message}`,
+    );
+    console.log("\n");
+  }
 }

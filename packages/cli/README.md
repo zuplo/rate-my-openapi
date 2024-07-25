@@ -41,10 +41,17 @@ rmoa lint
 Lint & get a score for your OpenAPI definition using the Rate My OpenAPI ruleset
 
 Options:
-  --version   Show version number                                      [boolean]
-  --help      Show help                                                [boolean]
-  --api-key   Your Rate My OpenAPI API Key                   [string] [required]
-  --filename  The OpenApi file name to process               [string] [required]
-  --dir       The directory containing your Open API file[string] [default: "."]
-  --output    default, json                        [string] [default: "default"]
+  --version        Show version number                                 [boolean]
+  --help           Show help                                           [boolean]
+  --api-key        Your Rate My OpenAPI API Key              [string] [required]
+  --filename       The OpenApi file name to process          [string] [required]
+  --dir            The directory containing your Open API file
+                                                         [string] [default: "."]
+  --output         default, json                   [string] [default: "default"]
+  --max-warnings   The maximum number of warnings allowed before labeling the ru
+                   n as failed. Default is 5.              [number] [default: 5]
+  --max-errors     The maximum number of errors allowed before labeling the run
+                   as failed. Default is 0.                [number] [default: 0]
+  --minimum-score  The minimum score (0 - 100) to label a lint run as successful
+                   /passing. Default is 80.               [number] [default: 80]
 ```

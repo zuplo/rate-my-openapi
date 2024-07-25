@@ -1,7 +1,7 @@
 import {
   printCriticalFailureToConsoleAndExit,
   printDiagnosticsToConsole,
-  printGitHubErrorWarning,
+  printGitHubIssue,
   printResultToConsoleAndExitGracefully,
   printScoreSimpleJSON,
   printScoreSummary,
@@ -104,7 +104,7 @@ export async function syncReport(argv: SyncReportArguments) {
             issueType = "error";
         }
 
-        printGitHubErrorWarning(issue.message, {
+        printGitHubIssue(issue.message, {
           type: issueType,
           filename: openApiFilePath,
           line: issue.range.start.line,

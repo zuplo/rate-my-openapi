@@ -87,7 +87,7 @@ export function printScoreSimpleJSON(report: APIResponse) {
   console.log(JSON.stringify(simpleReport, null, 2));
 }
 
-export function printGitHubErrorWarning(
+export function printGitHubIssue(
   message: string,
   issue: {
     type: "error" | "warning";

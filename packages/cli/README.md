@@ -15,7 +15,7 @@ should.
 ## Installation
 
 ```bash
-npm install -g rmoa
+npm install -g ramoa
 ```
 
 ## Usage
@@ -27,16 +27,16 @@ need to create your api key on the
 To start using the CLI, run:
 
 ```bash
-rmoa --help
+ramoa --help
 ```
 
 ### Commands
 
 ```
-rmoa <command>
+ramoa <command>
 
 Commands:
-rmoa lint
+ramoa lint
 
 Lint & get a score for your OpenAPI definition using the Rate My OpenAPI ruleset
 

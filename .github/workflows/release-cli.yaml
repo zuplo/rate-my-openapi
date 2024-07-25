@@ -55,6 +55,6 @@ jobs:
         with:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.com"
-
+      
       # Sanity check to ensure that the package is published and runnable
-      - run: npx ramoa --help
+      - run: npx rmoa --help

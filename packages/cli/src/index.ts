@@ -29,7 +29,7 @@ try {
   );
 } catch (e) {
   await printCriticalFailureToConsoleAndExit(
-    `Unable to load ramoa. The package.json is missing or malformed.`,
+    `Unable to load rmoa. The package.json is missing or malformed.`,
   );
 }
 

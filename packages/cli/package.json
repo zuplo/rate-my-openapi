@@ -1,5 +1,5 @@
 {
-  "name": "rmoa",
+  "name": "ramoa",
   "version": "0.0.0",
   "type": "module",
   "description": "The command-line interface for Rate My Open API",
@@ -21,7 +21,7 @@
     "node": ">=20.0.0"
   },
   "bin": {
-    "rmoa": "cli.js"
+    "ramoa": "cli.js"
   },
   "devDependencies": {
     "@types/mime-types": "^2.1.4",

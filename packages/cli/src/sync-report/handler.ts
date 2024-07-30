@@ -20,7 +20,8 @@ const failMark = "\x1b[31m✖\x1b[0m";
 export async function syncReport(argv: SyncReportArguments) {
   printDiagnosticsToConsole(`Rate Open API file ${argv.filename}`);
   printDiagnosticsToConsole(`Press Ctrl+C to cancel.\n`);
-  const spinner = ora("Loading file for processing").start();
+  const spinner = ora().start();
+  spinner.text = "Loading file for processing";
 
   process.on("SIGTERM", () => {
     spinner.stop();
@@ -131,16 +132,18 @@ export async function syncReport(argv: SyncReportArguments) {
     const minimumPassingScore = argv["minimum-score"]
       ? parseInt(argv["minimum-score"])
       : 80;
-    const maxErrors = argv["max-errors"] ? parseInt(argv["max-errors"]) : 0;
+    const maxErrors = argv["max-errors"]
+      ? parseInt(argv["max-errors"])
+      : undefined;
     const maxWarnings = argv["max-warnings"]
       ? parseInt(argv["max-warnings"])
-      : 5;
+      : undefined;
 
     if (totalErrors > 0 || totalWarnings > 0) {
       const totalProblems = totalErrors + totalWarnings;
 
       const finalMessage = IS_GITHUB_ACTION
-        ? `::info::${totalProblems} problems (${totalErrors} errors, ${totalWarnings} warnings)`
+        ? `::notice file=${argv.filename}::${totalProblems} problems (${totalErrors} errors, ${totalWarnings} warnings)`
         : `${failMark} ${totalProblems} problems (${totalErrors} errors, ${totalWarnings} warnings)`;
 
       console.log(finalMessage);
@@ -150,11 +153,11 @@ export async function syncReport(argv: SyncReportArguments) {
       printCriticalFailureToConsoleAndExit(
         `The minimum passing score is '${minimumPassingScore}' and the lint score for this run is '${res.results.simpleReport.score}'`,
       );
-    } else if (totalErrors > maxErrors) {
+    } else if (maxErrors && totalErrors > maxErrors) {
       printCriticalFailureToConsoleAndExit(
         `The total number of errors (${totalErrors}) exceeds the maximum amout of errors allowed (${maxErrors})`,
       );
-    } else if (totalWarnings > maxWarnings) {
+    } else if (maxWarnings && totalWarnings > maxWarnings) {
       printCriticalFailureToConsoleAndExit(
         `The total number of warnings (${totalWarnings}) exceeds the maximum amout of warnings allowed (${maxWarnings})`,
       );

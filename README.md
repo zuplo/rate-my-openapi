@@ -1,19 +1,21 @@
-![Rate My OpenAPI](./assets/gh-header.png)
+<p align="center">
+  <a href="https://ratemyopenapi.com/">
+    <img src="https://cdn.zuplo.com/static/logos/logo.svg" height="50">
+    <h1 align="center">Rate My Open API</h1>
+  </a>
+</p>
 
 <div align="center">
-<h1>Rate My OpenAPI</h1>
   <a href="https://twitter.com/zuplo">
     <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/zuplo">
   </a>
   <p align="center">
-  <a href="#openapi---introduction
-  "><strong>Introduction</strong></a> · 
-  <a href="#ratemyopenapicom
-  "><strong>Website</strong></a> · 
-   <a href="#using-the-cli
-  "><strong>CLI</strong></a>
-</p>
-</p>
+    <a href="#openapi---introduction"><strong>Introduction</strong></a> · 
+    <a href="#website"><strong>Website</strong></a> · 
+    <a href="#cli"><strong>CLI</strong></a> · 
+    <a href="#github-action"><strong>GitHub Action</strong></a> · 
+    <a href="#apis"><strong>APIs</strong></a>
+  </p>
 </div>
 
 ## OpenAPI - Introduction
@@ -28,25 +30,113 @@ It's what's commonly known as the OpenAPI lifecycle, which looks like this:
   <img style="width:50%" src="assets/openapi-lifecycle-dark.png#gh-dark-mode-only" />
 </div>
 
-This project aims to give a rating to OpenAPI definitions so you can understand
-how helpful they are for the OpenAPI lifecycle. Having a low score might mean
-that your journey of governing your API is going to be harder than it should.
+## Rate My Open API
 
-## ratemyopenapi.com
+At Zuplo we believe that the better the quality of an OpenAPI document, the
+better the developer experience will be for the consumers of that API. This
+experience is important for the success of an API.
 
-https://ratemyopenapi.com is an easy way to upload your OpenAPI definition and
-get a score for it. That simple, no strings attached.
+Rate My OpenAPI is a suite of tools designed to help software developers using
+OpenAPI to design and implement their APIs. Our tools include a website, a CLI,
+and a GitHub Action, all aimed at ensuring your APIs meet high standards of
+quality and usability.
 
-## Using the CLI
+### Categories of Evaluation
 
-You can also use the CLI to get a score for your OpenAPI definition.
+Our tools evaluate your OpenAPI definition files and provide a comprehensive
+score based on four key categories:
+
+- <b>Documentation:</b> Ensure your API is well-documented, making it easy for
+  users to understand and use.
+- <b>SDK Generation:</b> Verify that your API definition supports SDK
+  generation, facilitating integration and usage in different programming
+  languages.
+- <b>Security:</b> Check for best practices and standards to ensure your API is
+  secure and protected against common vulnerabilities.
+- <b>Completeness:</b> Ensure your API definition is complete, with all
+  necessary endpoints, parameters, and responses accurately defined.
+
+### Website
+
+(https://ratemyopenapi.com)[https://ratemyopenapi.com] offers a user-friendly
+interface for developers to upload and analyze their OpenAPI definition files.
+
+Key features include:
+
+- <b>Linting:</b> Upload & lint your OpenAPI files to receive detailed feedback.
+- <b>Comprehensive Scoring:</b> Get a clear, actionable score rating your API's
+  documentation, SDK generation, security, and completeness.
+- <b>Detailed Reports:</b> Access in-depth reports that highlight areas of
+  improvement and provide recommendations.
+- <b>Visualization:</b> Easily visualize the structure and quality of your API
+  with in-line feedback.
+
+#### Getting Started
+
+To get started visit (https://ratemyopenapi.com)[https://ratemyopenapi.com],
+upload your OpenAPI definition file & review the detailed reports to identify
+areas for improvement
+
+### CLI
+
+The CLI tool is perfect for developers who prefer working from the command line
+or need to integrate quality checks into their development workflow.
+
+Key features include:
+
+- Automated Checks: Integrate the CLI into your CI/CD pipeline for automated
+  quality checks on every commit.
+- Detailed Output: Get detailed feedback directly in your terminal, with options
+  to further integrate these results into your development flow.
+
+#### Getting Started
+
+To get started install the CLI (detailed below) and start integrating it into
+your development workflow
+
+Source code & documentation at [packages/cli](/packages/cli/README.md)
+
+### GitHub Action
+
+Our GitHub action seamlessly integrates with your repository to ensure your APIs
+are consistently of high quality. Key features include:
+
+- <b>Automated Linting:</b> Automatically lint OpenAPI definition files on every
+  pull request and push to ensure code quality.
+- <b>Inline Feedback:</b> Receive feedback directly in your pull requests with
+  comments highlighting issues and areas for improvement.
+- <b>Continuous Improvement:</b> Maintain a high standard of API quality with
+  continuous monitoring and feedback.
+
+#### Getting Started
+
+To get started add our GitHub action to your repository & configure it to run on
+Pull Requests and Pushes to ensure continuous quality monitoring.
 
 ```
-npx @rate-my-openapi/cli generate-rating --filepath /path/to/your/openapi.json
+steps:
+  - uses: actions/checkout@v4
+  - uses: zuplo/rmoa-action@v1
+    with:
+      filepath: './my-api.json'
+      apikey: ${{ secrets.RMOA_API_KEY }}
 ```
 
-This will generate a JSON file with the rating and exact locations of the
-offending parts of your OpenAPI definition.
+Source code & documentation at
+[rmoa-action](https://github.com/zuplo/rmoa-action)
+
+### APIs
+
+All our tools make use of our APIs to analyze and provide detailed results. You
+can also make direct use of these APIs, which is a great option for those
+developers that want to build their own tools or integrate the Rate My OpenAPI
+lint capabilities in a way that's not covered the existing tools.
+
+#### Getting Started
+
+To get started, go to
+[https://api.ratemyopenapi.com/docs](https://api.ratemyopenapi.com/docs) to get
+the detailed documentation on every endpoint available for use.
 
 # License
 

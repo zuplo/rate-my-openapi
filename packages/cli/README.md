@@ -2,15 +2,15 @@
 
 <p align="center">
   <a href="https://ratemyopenapi.com/">
-    <img src="https://github.com/zuplo/rate-my-openapi/blob/main/assets/gh-header.png" height="96">
+    <img src="https://cdn.zuplo.com/static/logos/logo.svg" height="70">
     <h3 align="center">Rate My Open API</h3>
   </a>
 </p>
 
-This CLI project aims to give a rating to OpenAPI definitions so you can
-understand how helpful they are for the OpenAPI lifecycle. Having a low score
-might mean that your journey of governing your API is going to be harder than it
-should.
+The CLI tool is perfect for developers who prefer working from the command line
+or need to integrate quality checks into their development workflow. It provides
+the same lint results as the website with the added benefit of it being easier
+to integrate into your development workflow
 
 ## Installation
 
@@ -20,19 +20,37 @@ npm install -g rmoa
 
 ## Usage
 
-You can use the CLI to lint & get a score for your OpenAPI definition. You'll
-need to create your api key on the
-[Rate My Open API Portal](https://api.ratemyopenapi.com/docs) to use the CLI.
+You can use the CLI to lint & get a score for your OpenAPI definition and in a
+format that's easier to parse and integrate with your development workflow.
 
-To start using the CLI, run:
+### Getting an API Key
+
+You will need an API key as the CLI uses the Rate My OpenAPI APIs which require
+the use of an API Key. You can sign up for free at
+[https://api.ratemyopenapi.com/docs](https://api.ratemyopenapi.com/docs) to get
+your API Key.
+
+### Basic
+
+Lint an OpenAPI definition using the CLI's default configuration by running:
 
 ```bash
-rmoa --help
+rmoa lint --filename <openapi-filename>.json --api-key <API_KEY>
+```
+
+### Advanced
+
+Lint an OpenAPI definition using the CLI's and override the minimum passing
+score (default is 80 out of 100), set the maximum number of allowed warnings &
+errors and get the output in json format.
+
+```bash
+rmoa lint --filename <openapi-filename>.json --api-key <API_KEY> --minimum-score 60
 ```
 
 ### Commands
 
-```
+```bash
 rmoa <command>
 
 Commands:
@@ -49,9 +67,9 @@ Options:
                                                          [string] [default: "."]
   --output         default, json                   [string] [default: "default"]
   --max-warnings   The maximum number of warnings allowed before labeling the ru
-                   n as failed. Default is 5.              [number] [default: 5]
+                   n as failed.                                         [number]
   --max-errors     The maximum number of errors allowed before labeling the run
-                   as failed. Default is 0.                [number] [default: 0]
+                   as failed.                                           [number]
   --minimum-score  The minimum score (0 - 100) to label a lint run as successful
                    /passing. Default is 80.               [number] [default: 80]
 ```

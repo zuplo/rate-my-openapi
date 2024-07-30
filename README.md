@@ -84,10 +84,10 @@ or need to integrate quality checks into their development workflow.
 
 Key features include:
 
-- Automated Checks: Integrate the CLI into your CI/CD pipeline for automated
-  quality checks on every commit.
-- Detailed Output: Get detailed feedback directly in your terminal, with options
-  to further integrate these results into your development flow.
+- <b>Automated Checks:</b> Integrate the CLI into your CI/CD pipeline for
+  automated quality checks on every commit.
+- <b>Detailed Output:</b> Get detailed feedback directly in your terminal, with
+  options to further integrate these results into your development flow.
 
 #### Getting Started
 

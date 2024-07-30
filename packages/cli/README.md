@@ -32,10 +32,11 @@ your API Key.
 
 ### Basic
 
-Lint an OpenAPI definition using the CLI's default configuration by running:
+Lint an OpenAPI definition, json or yaml format, using the CLI's default
+configuration by running:
 
 ```bash
-rmoa lint --filename <openapi-filename>.json --api-key <API_KEY>
+rmoa lint --filename <openapi-filename> --api-key <API_KEY>
 ```
 
 ### Advanced
@@ -45,7 +46,7 @@ score (default is 80 out of 100), set the maximum number of allowed warnings &
 errors and get the output in json format.
 
 ```bash
-rmoa lint --filename <openapi-filename>.json --api-key <API_KEY> --minimum-score 60
+rmoa lint --filename <openapi-filename> --api-key <API_KEY> --minimum-score 60
 ```
 
 ### Commands

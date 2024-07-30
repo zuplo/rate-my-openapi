@@ -91,13 +91,13 @@ Key features include:
 
 #### Getting Started
 
-To get started install the CLI (detailed below) and start integrating it into
-your development workflow
+To get started install the CLI and start integrating it into your development
+workflow.
 
 ```bash
 npm install rmoa
 
-rmoa lint --filename <openapi-filename>.json --api-key <API_KEY>
+rmoa lint --filename <openapi-filename> --api-key <API_KEY>
 ```
 
 Source code & documentation at [packages/cli](/packages/cli/README.md)

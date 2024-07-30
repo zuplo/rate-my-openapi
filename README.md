@@ -38,8 +38,8 @@ experience is important for the success of an API.
 
 Rate My OpenAPI is a suite of tools designed to help software developers using
 OpenAPI to design and implement their APIs. Our tools include a website, a CLI,
-and a GitHub Action, all aimed at ensuring your APIs meet high standards of
-quality and usability.
+a GitHub Action and an API, all aimed at ensuring your APIs meet high standards
+of quality and usability.
 
 ### Categories of Evaluation
 
@@ -58,7 +58,7 @@ score based on four key categories:
 
 ### Website
 
-(https://ratemyopenapi.com)[https://ratemyopenapi.com] offers a user-friendly
+[https://ratemyopenapi.com](https://ratemyopenapi.com) offers a user-friendly
 interface for developers to upload and analyze their OpenAPI definition files.
 
 Key features include:
@@ -73,7 +73,7 @@ Key features include:
 
 #### Getting Started
 
-To get started visit (https://ratemyopenapi.com)[https://ratemyopenapi.com],
+To get started visit [https://ratemyopenapi.com](https://ratemyopenapi.com),
 upload your OpenAPI definition file & review the detailed reports to identify
 areas for improvement
 
@@ -94,6 +94,12 @@ Key features include:
 To get started install the CLI (detailed below) and start integrating it into
 your development workflow
 
+```bash
+npm install rmoa
+
+rmoa lint --filename <openapi-filename>.json --api-key <API_KEY>
+```
+
 Source code & documentation at [packages/cli](/packages/cli/README.md)
 
 ### GitHub Action
@@ -113,7 +119,7 @@ are consistently of high quality. Key features include:
 To get started add our GitHub action to your repository & configure it to run on
 Pull Requests and Pushes to ensure continuous quality monitoring.
 
-```
+```bash
 steps:
   - uses: actions/checkout@v4
   - uses: zuplo/rmoa-action@v1

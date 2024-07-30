@@ -20,7 +20,7 @@ npm install -g rmoa
 
 ## Usage
 
-You can use the CLI to lint & get a score for your OpenAPI definition and in a
+You can use the CLI to lint & get a score for your OpenAPI definition in a
 format that's easier to parse and integrate with your development workflow.
 
 ### Getting an API Key

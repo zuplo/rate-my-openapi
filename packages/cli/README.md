@@ -3,9 +3,16 @@
 <p align="center">
   <a href="https://ratemyopenapi.com/">
     <img src="https://cdn.zuplo.com/static/logos/logo.svg" height="70">
-    <h3 align="center">Rate My Open API</h3>
   </a>
 </p>
+
+At Zuplo we believe that the better the quality of an OpenAPI document, the
+better the developer experience will be for the consumers of that API. This
+experience is important for the success of an API.
+
+Rate My OpenAPI is a suite of tools designed to help software developers using
+OpenAPI to meet high standards of quality and usability when designing and
+developing their APIs.
 
 The CLI tool is perfect for developers who prefer working from the command line
 or need to integrate quality checks into their development workflow. It provides

@@ -31,14 +31,12 @@ export default {
       .option("max-warnings", {
         type: "number",
         describe:
-          "The maximum number of warnings allowed before labeling the run as failed. Default is 5.",
-        default: 5,
+          "The maximum number of warnings allowed before labeling the run as failed.",
       })
       .option("max-errors", {
         type: "number",
         describe:
-          "The maximum number of errors allowed before labeling the run as failed. Default is 0.",
-        default: 0,
+          "The maximum number of errors allowed before labeling the run as failed.",
       })
       .option("minimum-score", {
         type: "number",

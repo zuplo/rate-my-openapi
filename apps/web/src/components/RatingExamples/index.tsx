@@ -15,9 +15,9 @@ const EXAMPLES: { title: string; slug: string }[] = [
   },
 ];
 
-export const RatingExamples = ({ children }: { children: React.ReactNode }) => (
-  <div className="m-10 flex flex-col items-center">
-    {children}
+export const RatingExamples = () => (
+  <div className="m-10 flex items-center justify-center gap-4">
+    <p>See an example report</p>
     <ul className="flex flex-wrap items-center gap-3">
       {EXAMPLES.map((example) => (
         <li key={example.slug}>

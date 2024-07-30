@@ -172,7 +172,6 @@ const UploadInterface = () => {
           </div>
         </div>
       )}
-
       <form
         className="relative flex w-full flex-row items-center justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-md"
         id="upload-form"
@@ -257,12 +256,7 @@ const UploadInterface = () => {
         </div>
       </form>
       <FormError error={error} />
-      <RatingExamples>
-        <div className="m-5 text-center text-lg text-gray-400">
-          <p>Don&apos;t have an OpenAPI file to analyze?</p>
-          <p> Check out the reports of other APIs</p>
-        </div>
-      </RatingExamples>
+      <RatingExamples />
     </StepContainer>
   );
 };

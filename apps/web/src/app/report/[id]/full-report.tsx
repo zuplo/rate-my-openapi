@@ -135,9 +135,9 @@ export const FullReport = ({
           Rate another OpenAPI spec
         </Link>
       </div>
-
-      <p className="m-5 text-lg text-gray-400">See how other APIs scored</p>
-      <RatingExamples />
+      <RatingExamples>
+        <p className="m-5 text-lg text-gray-400">See how other APIs scored</p>
+      </RatingExamples>
     </>
   );
 };

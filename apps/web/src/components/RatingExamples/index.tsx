@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+interface RatingExamplesProps {
+  children?: React.ReactNode; // Make children optional
+}
+
 const EXAMPLES: { title: string; slug: string }[] = [
   {
     title: "Asana",
@@ -15,9 +19,9 @@ const EXAMPLES: { title: string; slug: string }[] = [
   },
 ];
 
-export const RatingExamples = () => (
+export const RatingExamples = ({ children }: RatingExamplesProps) => (
   <div className="m-10 flex items-center justify-center gap-4">
-    <p>See an example report</p>
+    {children ? <div>{children}</div> : <p>See an example report</p>}
     <ul className="flex flex-wrap items-center gap-3">
       {EXAMPLES.map((example) => (
         <li key={example.slug}>

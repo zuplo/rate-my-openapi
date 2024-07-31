@@ -21,7 +21,11 @@ const EXAMPLES: { title: string; slug: string }[] = [
 
 export const RatingExamples = ({ children }: RatingExamplesProps) => (
   <div className="m-10 flex items-center justify-center gap-4">
-    {children ? <div>{children}</div> : <p>See an example report</p>}
+    {children ? (
+      <div>{children}</div>
+    ) : (
+      <p className="m-2 text-lg text-gray-400">See an example report</p>
+    )}
     <ul className="flex flex-wrap items-center gap-3">
       {EXAMPLES.map((example) => (
         <li key={example.slug}>

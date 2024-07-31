@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://ratemyopenapi.com/">
     <img src="https://cdn.zuplo.com/static/logos/logo.svg" height="50">
-    <h1 align="center">Rate My Open API</h1>
+    <h1 align="center">Rate My OpenAPI</h1>
   </a>
 </p>
 
@@ -30,7 +30,7 @@ It's what's commonly known as the OpenAPI lifecycle, which looks like this:
   <img style="width:50%" src="assets/openapi-lifecycle-dark.png#gh-dark-mode-only" />
 </div>
 
-## Rate My Open API
+## Rate My OpenAPI
 
 At Zuplo we believe that the better the quality of an OpenAPI document, the
 better the developer experience will be for the consumers of that API. This

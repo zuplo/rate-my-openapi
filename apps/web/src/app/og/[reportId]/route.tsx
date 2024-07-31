@@ -31,7 +31,7 @@ export async function GET(
             tw="absolute z-[-1]"
             width="1200"
             height="630"
-            alt="Rate My Open API"
+            alt="Rate My OpenAPI"
             src={`https://cdn.zuplo.com/assets/517742cf-0c08-448c-8f81-18b03c3a7144.png`}
           />
           <div tw="flex ml-100 mt-30 items-center">

@@ -19,7 +19,7 @@ export default {
       })
       .option("dir", {
         type: "string",
-        describe: "The directory containing your Open API file",
+        describe: "The directory containing your OpenAPI file",
         default: ".",
         normalize: true,
       })

@@ -20,7 +20,7 @@ const EXAMPLES: { title: string; slug: string }[] = [
 ];
 
 export const RatingExamples = ({ children }: RatingExamplesProps) => (
-  <div className="m-10 flex items-center justify-center gap-4">
+  <div className="mx-10 my-5 flex flex-col items-center justify-center gap-4 md:flex-row">
     {children ? (
       <div>{children}</div>
     ) : (

@@ -1,4 +1,4 @@
-# Rate My Open API
+# Rate My OpenAPI
 
 Deployed URL: https://ratemyopenapi.com
 

@@ -18,7 +18,7 @@ const okMark = "\x1b[32m✔\x1b[0m";
 const failMark = "\x1b[31m✖\x1b[0m";
 
 export async function syncReport(argv: SyncReportArguments) {
-  printDiagnosticsToConsole(`Rate Open API file ${argv.filename}`);
+  printDiagnosticsToConsole(`Rate OpenAPI file ${argv.filename}`);
   printDiagnosticsToConsole(`Press Ctrl+C to cancel.\n`);
   const spinner = ora().start();
   spinner.text = "Loading file for processing";
@@ -38,7 +38,7 @@ export async function syncReport(argv: SyncReportArguments) {
   if (!existsSync(openApiFilePath)) {
     spinner.stopAndPersist({ symbol: failMark });
     printCriticalFailureToConsoleAndExit(
-      `The Open API file path provided does not exist: ${argv.filename}. Please specify an existing Open API file and try again.`,
+      `The OpenAPI file path provided does not exist: ${argv.filename}. Please specify an existing OpenAPI file and try again.`,
     );
   }
   spinner.stopAndPersist({ symbol: okMark });

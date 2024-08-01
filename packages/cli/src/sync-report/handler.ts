@@ -38,7 +38,7 @@ export async function syncReport(argv: SyncReportArguments) {
   if (!existsSync(openApiFilePath)) {
     spinner.stopAndPersist({ symbol: failMark });
     printCriticalFailureToConsoleAndExit(
-      `The OpenAPI file path provided does not exist: ${argv.filename}. Please specify an existing OpenAPI file and try again.`,
+      `The OpenAPI file path provided does not exist: ${openApiFilePath}. Please specify an existing OpenAPI file and try again.`,
     );
   }
   spinner.stopAndPersist({ symbol: okMark });
@@ -65,6 +65,7 @@ export async function syncReport(argv: SyncReportArguments) {
         body: formData,
         headers: {
           Authorization: `Bearer ${argv["api-key"]}`,
+          "User-Agent": "rmoa-cli-v1",
         },
       },
     );

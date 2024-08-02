@@ -7,7 +7,7 @@ import {
   printScoreSummary,
 } from "../common/output.js";
 import { existsSync } from "node:fs";
-import { join, relative, resolve } from "node:path";
+import { isAbsolute, join, relative, resolve } from "node:path";
 import { ApiError } from "@zuplo/errors";
 import { readFile } from "node:fs/promises";
 import { lookup } from "mime-types";
@@ -32,9 +32,15 @@ export async function syncReport(argv: SyncReportArguments) {
     printResultToConsoleAndExitGracefully("\nProcess has been canceled\n");
   });
 
-  const sourceDirectory = resolve(join(relative(process.cwd(), argv.dir)));
+  const completePath =
+    argv.dir && argv.dir !== "."
+      ? join(argv.dir, argv.filename)
+      : argv.filename;
 
-  const openApiFilePath = join(sourceDirectory, argv.filename);
+  const openApiFilePath = isAbsolute(completePath)
+    ? completePath
+    : resolve(join(relative(process.cwd(), completePath)));
+
   if (!existsSync(openApiFilePath)) {
     spinner.stopAndPersist({ symbol: failMark });
     printCriticalFailureToConsoleAndExit(
@@ -86,7 +92,6 @@ export async function syncReport(argv: SyncReportArguments) {
 
     try {
       res.results.fullReport.issues.forEach((issue) => {
-        console.log(`${openApiFilePath}`);
         let issueType: "error" | "warning" | "info";
         if (issue.severity === 0) {
           totalErrors++;

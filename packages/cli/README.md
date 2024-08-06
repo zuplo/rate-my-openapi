@@ -1,5 +1,13 @@
 # Rate My OpenAPI CLI
 
+<p align="center">
+  <a aria-label="Zuplo logo" href="https://zuplo.com">
+    <img src="https://img.shields.io/badge/MADE%20BY%20Zuplo-FF00BD.svg?style=for-the-badge&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAzNyAzMiIgYXJpYS1oaWRkZW49InRydWUiPgogIDxwYXRoIGZpbGw9IiNGRjAwQkQiIGQ9Ik0yNy4xNDIgMTkuOTc4SDE2LjYyTDI3LjgzIDguNzQ2YS43NTguNzU4IDAgMDAtLjUzNC0xLjI5M0g5LjQ4OFYwaDE5LjUzNGE3LjU3MyA3LjU3MyAwIDAxNC4wNjUgMS4xMjUgNy41OTEgNy41OTEgMCAwMTIuODM2IDMuMTI2IDcuNDAyIDcuNDAyIDAgMDEtMS40NjEgOC4zOThsLTcuMzIgNy4zMjh6Ii8+CiAgPHBhdGggZmlsbD0iI0ZGMDBCRCIgZD0iTTkuNDg5IDExLjA0MmgxMC41MjRsLTExLjE5IDExLjIxYS43NzIuNzcyIDAgMDAuNTQzIDEuMzE2aDE3Ljc1OXY3LjQ1Mkg3LjYxYTcuNTc0IDcuNTc0IDAgMDEtNC4wNjUtMS4xMjVBNy41OTMgNy41OTMgMCAwMS43MSAyNi43NjhhNy40MDMgNy40MDMgMCAwMTEuNDYyLTguMzk3bDcuMzE4LTcuMzI5eiIvPgo8L3N2Zz4K&labelColor=000"></a>
+  <a aria-label="NPM version" href="https://www.npmjs.com/package/rmoa"><img alt="NPM Badge" src="https://img.shields.io/npm/v/rmoa.svg?style=for-the-badge&labelColor=000000"></a>
+  <a aria-label="License" href="https://github.com/zuplo/rate-my-openapi/blob/main/LICENSE"><img alt="License Badge" src="https://img.shields.io/npm/l/rmoa.svg?style=for-the-badge&labelColor=000000"></a>
+  <a aria-label="Join the community on Discord" href="https://discord.com/channels/848913990360629268/1235294876778627246"><img alt="Discrod Badge" src="https://img.shields.io/badge/Chat%20on%20discord-5865F2.svg?style=for-the-badge&logo=discord&labelColor=000000&logoWidth=20"></a>
+</p>
+
 At [Zuplo](https://www.zuplo.com) we believe that the better the quality of an
 OpenAPI document, the better the developer experience will be for the consumers
 of that API. This experience is important for the success of an API.

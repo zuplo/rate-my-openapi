@@ -8,7 +8,7 @@
     "lint": "eslint --cache --fix ."
   },
   "author": "Zuplo, Inc.",
-  "license": "See LICENSE in LICENSE.txt",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zuplo/rate-my-openapi.git"

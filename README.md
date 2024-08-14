@@ -108,7 +108,10 @@ npm install rmoa
 rmoa lint --filename <openapi-filename> --api-key <API_KEY>
 ```
 
-Source code & documentation at [packages/cli](/packages/cli/README.md)
+Source code & documentation at [packages/cli](/packages/cli/README.md).
+
+To get an `API_KEY` sign up for free at
+[https://api.ratemyopenapi.com/docs](https://api.ratemyopenapi.com/docs).
 
 ### GitHub Action
 
@@ -151,6 +154,11 @@ lint capabilities in a way that's not covered the existing tools.
 To get started, go to
 [https://api.ratemyopenapi.com/docs](https://api.ratemyopenapi.com/docs) to get
 the detailed documentation on every endpoint available for use.
+
+#### Getting an API key
+
+To get an `API_KEY` you can sign up for free at
+[https://api.ratemyopenapi.com/docs](https://api.ratemyopenapi.com/docs).
 
 # License
 

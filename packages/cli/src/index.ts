@@ -11,7 +11,7 @@ dotenv.config();
 
 const MIN_NODE_VERSION = "20.0.0";
 
-if (!gte(MIN_NODE_VERSION, process.versions.node)) {
+if (gte(MIN_NODE_VERSION, process.versions.node)) {
   await printCriticalFailureToConsoleAndExit(
     `The Rate My OpenAPI CLI requires at least node.js v${MIN_NODE_VERSION}. You are using v${process.versions.node}. Please update your version of node.js.
 

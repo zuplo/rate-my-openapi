@@ -5,15 +5,15 @@ import lint from "./cmds/lint.js";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { printCriticalFailureToConsoleAndExit } from "./common/output.js";
-import { gte } from "semver";
+import { lt } from "semver";
 
 dotenv.config();
 
 const MIN_NODE_VERSION = "20.0.0";
 
-if (gte(MIN_NODE_VERSION, process.versions.node)) {
+if (lt(process.versions.node, MIN_NODE_VERSION)) {
   await printCriticalFailureToConsoleAndExit(
-    `The Rate My OpenAPI CLI requires at least node.js v${MIN_NODE_VERSION}. You are using v${process.versions.node}. Please update your version of node.js.
+    `The Rate My OpenAPI CLI requires at least Node.js v${MIN_NODE_VERSION}. You are using v${process.versions.node}. Please update your version of Node.js.
 
     Consider using a Node.js version manager such as https://github.com/nvm-sh/nvm.`,
   );

@@ -1,7 +1,6 @@
-/* eslint-env node */
 import fs from "fs";
 import { workerData } from "node:worker_threads";
-import { generateReportFromLocal } from "./dist/lib/rating.js";
+import { generateReportFromLocal } from "../dist/lib/rating.js";
 
 const { logPath, report, reportId, name, version, fsPath } = workerData;
 

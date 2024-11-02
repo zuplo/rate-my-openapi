@@ -1,8 +1,8 @@
+import spectralCore, { Document } from "@stoplight/spectral-core";
+import SpectralParsers from "@stoplight/spectral-parsers";
 import { ProblemDetails, Problems } from "@zuplo/errors";
 import { load } from "js-yaml";
 import { OpenApiFileExtension } from "./types.js";
-import spectralCore, { Document } from "@stoplight/spectral-core";
-import SpectralParsers from "@stoplight/spectral-parsers";
 
 export const checkFileIsJsonOrYaml = (
   fileContentString: string,
@@ -17,7 +17,7 @@ export const checkFileIsJsonOrYaml = (
   try {
     load(fileContentString);
     return "yaml";
-  } catch (err) {
+  } catch (_err) {
     // Ignore
   }
 
@@ -43,7 +43,7 @@ const validateOpenapi = (options: {
       parser as SpectralParsers.IParser,
       options.fileExtension,
     );
-  } catch (err) {
+  } catch (_err) {
     return {
       isValid: false,
       error: {

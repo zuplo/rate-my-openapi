@@ -1,17 +1,15 @@
-/* eslint-env node */
 import { config } from "dotenv";
-config();
-
-import { createHash, randomUUID } from "crypto";
-import fs from "fs";
+import { createHash, randomUUID } from "node:crypto";
+import fs from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import { Worker } from "node:worker_threads";
-import { tmpdir } from "os";
-
 import PQueue from "p-queue";
-import path from "path";
 import pino from "pino";
 import { Readable } from "stream";
 import { finished } from "stream/promises";
+
+config();
 
 const outputPath = path.resolve(process.cwd(), "../../apis-guru");
 if (!fs.existsSync(outputPath)) {

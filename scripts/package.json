@@ -1,0 +1,17 @@
+{
+  "name": "scripts",
+  "version": "1.18.0",
+  "description": "Scripts",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint --cache --fix ."
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.2",
+    "@types/node": "^20.17.5",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^8.12.2"
+  }
+}

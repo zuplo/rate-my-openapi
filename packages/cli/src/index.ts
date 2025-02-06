@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
-import { hideBin } from "yargs/helpers";
-import yargs from "yargs";
-import lint from "./cmds/lint.js";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { printCriticalFailureToConsoleAndExit } from "./common/output.js";
 import { lt } from "semver";
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
+import lint from "./cmds/lint.js";
+import { printCriticalFailureToConsoleAndExit } from "./common/output.js";
 
 dotenv.config();
 
@@ -27,7 +27,7 @@ try {
       "utf-8",
     ),
   );
-} catch (e) {
+} catch (_err) {
   await printCriticalFailureToConsoleAndExit(
     `Unable to load rmoa. The package.json is missing or malformed.`,
   );

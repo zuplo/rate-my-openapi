@@ -37,7 +37,7 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - run: node ./scripts/set-package-version.js packages/cli/package.json
+      - run: node ./scripts/set-package-version.mjs packages/cli/package.json
 
       - name: Publish to the public NPM registry
         run: npm publish
@@ -55,6 +55,6 @@ jobs:
         with:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.com"
-      
+
       # Sanity check to ensure that the package is published and runnable
       - run: npx rmoa --help

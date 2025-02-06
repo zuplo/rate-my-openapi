@@ -20,6 +20,7 @@ if (email && process.env.NODE_ENV === "production") {
     distinctId: email,
     properties: {
       reportId,
+      email,
     },
     event: "report_uploaded",
   });
@@ -77,6 +78,7 @@ if (email) {
       distinctId: email,
       properties: {
         reportId,
+        email,
       },
       event: "report_generated_successfully",
     });

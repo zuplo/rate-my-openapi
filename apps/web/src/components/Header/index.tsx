@@ -1,4 +1,5 @@
-import LogoIcon from "../LogoIcon";
+import Link from "next/link";
+import Image from "next/image";
 
 const Header = () => (
   <header className="xl:pt-8 px-4 pt-4">
@@ -10,9 +11,17 @@ const Header = () => (
           </h1>
         </a>
       </div>
-      <a href="https://zuplo.com">
-        <LogoIcon height={30} width={30} />
-      </a>
+      <div className="flex items-center">
+        <Link target="_blank" href="https://github.com/zuplo/rate-my-openapi">
+          <Image
+            height={0}
+            width={124}
+            alt="GitHub Repo stars"
+            unoptimized
+            src="https://img.shields.io/github/stars/zuplo/rate-my-openapi"
+          />
+        </Link>
+      </div>
     </div>
   </header>
 );

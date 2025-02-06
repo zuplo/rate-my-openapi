@@ -57,7 +57,7 @@ export async function postSuccessMessage({
         },
         {
           type: "mrkdwn",
-          text: `*Scopre:*\n${score}`,
+          text: `*Score:*\n${score}`,
         },
         {
           type: "mrkdwn",

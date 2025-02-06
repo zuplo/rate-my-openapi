@@ -44,20 +44,30 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     lang="en"
     className={`${roboto.variable} ${robotoMono.variable} ${ibmPlexSans.variable}`}
   >
-    {process.env.NEXT_PUBLIC_ANALYTICS_URL ? (
-      <Script src={process.env.NEXT_PUBLIC_ANALYTICS_URL} />
-    ) : null}
+    <head>
+      {process.env.NEXT_PUBLIC_ANALYTICS_URL ? (
+        <Script src={process.env.NEXT_PUBLIC_ANALYTICS_URL} />
+      ) : null}
+      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+      <script src="zuplo-banner.js"></script>
+    </head>
+
     <Suspense>
       <PostHogPageview />
     </Suspense>
     <ModalProvider>
       <PHProvider>
-        <body className="container mx-auto flex h-screen flex-col text-base">
-          <Header />
-          <div className="flex grow items-center justify-center">
-            {children}
+        <body className="flex h-screen flex-col text-base">
+          <div className="mb-5 w-full rounded-md bg-white px-14 shadow-md">
+            <zuplo-banner mode="light"></zuplo-banner>
           </div>
-          <Footer />
+          <div className="container mx-auto flex h-screen flex-col text-base">
+            <Header />
+            <div className="flex grow items-center justify-center">
+              {children}
+            </div>
+            <Footer />
+          </div>
         </body>
       </PHProvider>
     </ModalProvider>

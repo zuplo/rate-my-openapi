@@ -12,13 +12,13 @@ const Header = () => (
         </a>
       </div>
       <div className="flex items-center">
-        <Link target="_blank" href="https://github.com/zuplo/mockbin">
+        <Link target="_blank" href="https://github.com/zuplo/rate-my-openapi">
           <Image
             height={0}
             width={124}
             alt="GitHub Repo stars"
             unoptimized
-            src="https://img.shields.io/github/stars/zuplo/mockbin"
+            src="https://img.shields.io/github/stars/zuplo/rate-my-openapi"
           />
         </Link>
       </div>

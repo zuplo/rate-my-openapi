@@ -25,6 +25,12 @@ class ZuploBanner extends HTMLElement {
         description: "Mock an API from OpenAPI in seconds",
         url: "https://mockbin.io?utm_source=ratemyopenapi&utm_medium=web&utm_campaign=header&ref=ratemyopenapi",
       },
+      uuid: {
+        name: "UUID.new",
+        logo: "https://cdn.zuplo.com/uploads/uuidnew-logo-only.svg",
+        description: "Generate UUIDs in your browser",
+        url: "https://uuid.new",
+      },
     };
 
     // Create wrapper
@@ -82,7 +88,7 @@ class ZuploBanner extends HTMLElement {
     // Add "View Tools" text and icon to the button
     const buttonContent = document.createElement("span");
     buttonContent.setAttribute("class", "button-content");
-    buttonContent.innerHTML = `${gripIconSVG}<span class="button-text">More Tools</span>`;
+    buttonContent.innerHTML = `${gripIconSVG}<span class="button-text">View Tools</span>`;
 
     menuButton.appendChild(buttonContent);
 

@@ -12,13 +12,7 @@ npm install
 npm run build
 ```
 
-2. Install [Vacuum](https://quobix.com/vacuum/)
-
-```
-npm install -g @quobix/vacuum
-```
-
-3. Run the CLI
+2. Run the CLI
 
 ```
 cd packages/internal-cli

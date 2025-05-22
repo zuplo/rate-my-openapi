@@ -129,7 +129,7 @@ function logMethod(
 
       return method.apply(this, args);
     }
-  } catch (err) {
+  } catch (_err) {
     // do nothing
   }
 
@@ -208,7 +208,7 @@ export function createNewLogger(
                 function: stack[0].methodName,
               };
             }
-          } catch (err) {
+          } catch (_err) {
             // ignore
           }
         }

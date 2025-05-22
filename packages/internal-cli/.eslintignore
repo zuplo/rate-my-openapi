@@ -6,3 +6,4 @@ babel.config.js
 esbuild.js
 generated/
 bundle/
+rate-my-openapi.js

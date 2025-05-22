@@ -25,19 +25,19 @@
   },
   "devDependencies": {
     "@types/mime-types": "^2.1.4",
-    "@types/node": "^20.14.11",
     "@types/yargs": "^17.0.24",
-    "@typescript-eslint/eslint-plugin": "^7.0.2",
-    "@typescript-eslint/parser": "^7.0.2",
     "@zuplo/pino-pretty-configurations": "^1.5.0",
-    "eslint": "^8.46.0",
-    "eslint-config-prettier": "^9.0.0",
-    "prettier": "^3.0.2",
-    "typescript": "^5.2.2"
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.2",
+    "@types/node": "^20.17.5",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^8.12.2",
+    "prettier": "^3.2.5"
   },
   "dependencies": {
     "@zuplo/errors": "^0.0.0",
-    "chalk": "^5.1.2",
+    "chalk": "^5.3.0",
     "dotenv": "^16.4.5",
     "mime-types": "^2.1.35",
     "ora": "^8.0.1",
@@ -57,10 +57,5 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js"
     }
-  },
-  "lint-staged": {
-    "**/*.{ts,js}": [
-      "eslint --cache --fix ."
-    ]
   }
 }

@@ -1,3 +1,1 @@
-
-[auth]
-token=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
+# Auth token is provided via SENTRY_AUTH_TOKEN environment variable in CI

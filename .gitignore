@@ -54,3 +54,11 @@ apis-guru/
 **/tsconfig.tsbuildinfo
 
 .DS_Store
+
+
+.nx/cache
+.nx/workspace-data
+
+# Next.js
+.next
+out

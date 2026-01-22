@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-console */
-
 import chalk from "chalk";
 
 // We standardize printing to the terminal with this module
@@ -44,7 +42,7 @@ export function printTableToConsoleAndExitGracefully(table: any) {
 
 interface WriteStreamWithHandle {
   _handle: {
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
     setBlocking: Function;
   };
   isTTY: boolean;

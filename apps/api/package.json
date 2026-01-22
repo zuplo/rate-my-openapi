@@ -22,7 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "@fastify/cors": "^8.3.0",
-    "@fastify/multipart": "^8.0.0",
+    "@fastify/multipart": "^8.3.1",
     "@google-cloud/storage": "^7.6.0",
     "@rate-my-openapi/core": "*",
     "@sendgrid/mail": "^7.7.0",

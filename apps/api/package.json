@@ -36,7 +36,7 @@
     "@zuplo/errors": "^0.0.0",
     "dotenv": "^16.3.1",
     "fastify": "^4.21.0",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "posthog-node": "^3.1.1",
     "serialize-error": "^11.0.1",
     "stacktrace-parser": "^0.1.10",

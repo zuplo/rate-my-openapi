@@ -35,7 +35,7 @@
     "@stoplight/spectral-ruleset-bundler": "^1.5.2",
     "@zuplo/errors": "^0.0.0",
     "dotenv": "^16.3.1",
-    "fastify": "^4.21.0",
+    "fastify": "^5.7.4",
     "js-yaml": "^4.1.0",
     "posthog-node": "^3.1.1",
     "serialize-error": "^11.0.1",

@@ -75,7 +75,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            NODE_AUTH_TOKEN=${{ secrets.GH_NPM_PACKAGE_READ_TOKEN }}
+            NODE_AUTH_TOKEN=${{ github.token }}
 
       - uses: google-github-actions/deploy-cloudrun@v1
         with:

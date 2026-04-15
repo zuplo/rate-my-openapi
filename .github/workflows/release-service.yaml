@@ -20,6 +20,7 @@ jobs:
     if: github.ref == 'refs/heads/main' # This can only be triggered from main
 
     permissions:
+      packages: read
       contents: "read"
       id-token: "write"
 

@@ -200,7 +200,7 @@ export const aiFixRoute: FastifyPluginAsync = async function (server) {
           format: isJson ? "JSON" : "YAML",
         }),
         temperature: 0,
-        maxTokens: 1000,
+        maxTokens: 2000,
       });
 
       if (response === null) {

@@ -336,14 +336,14 @@ const getOpenAiLongSummary = (issueSummary: object) =>
   getOpenAiResponse({
     messages: longSummaryMessages(issueSummary),
     temperature: 0.3,
-    maxTokens: 400,
+    maxTokens: 1200,
   });
 
 const getOpenAiShortSummary = (issueSummary: object) =>
   getOpenAiResponse({
     messages: shortSummaryMessages(issueSummary),
     temperature: 0.3,
-    maxTokens: 400,
+    maxTokens: 1200,
   });
 
 async function deleteTempFile(tempApiFilePath: string): Promise<void> {

@@ -26,7 +26,8 @@ export async function getOpenAiResponse({
       model: MODEL,
       messages,
       temperature,
-      max_tokens: maxTokens,
+      max_completion_tokens: maxTokens,
+      reasoning_effort: "minimal",
     });
     return response.choices[0].message.content;
   } catch (err) {

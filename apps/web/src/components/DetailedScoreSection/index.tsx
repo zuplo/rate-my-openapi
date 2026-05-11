@@ -88,7 +88,10 @@ const DetailedScoreSection = ({
   const scoreTextColor = getScoreTextColor(score);
   const titleSlug = title.toLowerCase().replace(" ", "-");
   const issueCount = issues.length;
-  const totalPages = Math.ceil((issueCount - INITIAL_LENGTH) / PAGE_LENGTH);
+  const totalPages = Math.max(
+    0,
+    Math.ceil((issueCount - INITIAL_LENGTH) / PAGE_LENGTH),
+  );
   const [issueToView, setIssueToView] = useState<Issue | undefined>();
 
   const handleViewClick = (issue: Issue) => {
@@ -165,32 +168,47 @@ const DetailedScoreSection = ({
               </tr>
             </thead>
             <tbody>
-              {visibleIssues.map((issue, index: number) => (
-                <tr
-                  key={`${titleSlug}-table-row-${index}`}
-                  onClick={() => handleViewClick(issue)}
-                  className="border-bg-muted text-fg-secondary hover:bg-bg-subtle cursor-pointer border-b transition-colors last:border-b-0"
-                >
-                  <td className="px-5 py-3 align-top">
-                    <SeverityTag severity={issue.severity} />
-                  </td>
-                  <td className="px-5 py-3 align-top">
-                    <span className="text-fg block break-words">
-                      {issue.message}
-                    </span>
-                    {typeof issue.code !== "undefined" && (
-                      <span className="text-fg-muted mt-1 block font-mono text-xs">
-                        {issue.code}
+              {visibleIssues.map((issue, index: number) => {
+                const onActivate = () => handleViewClick(issue);
+                return (
+                  <tr
+                    key={`${titleSlug}-table-row-${index}`}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`View issue: ${issue.message}`}
+                    onClick={onActivate}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        onActivate();
+                      }
+                    }}
+                    className="border-bg-muted text-fg-secondary hover:bg-bg-subtle focus-visible:bg-bg-subtle focus-visible:outline-accent cursor-pointer border-b transition-colors last:border-b-0 focus-visible:outline-2 focus-visible:-outline-offset-2"
+                  >
+                    <td className="px-5 py-3 align-top">
+                      <SeverityTag severity={issue.severity} />
+                    </td>
+                    <td className="px-5 py-3 align-top">
+                      <span className="text-fg block break-words">
+                        {issue.message}
                       </span>
-                    )}
-                  </td>
-                  <td className="px-3 py-3 text-right align-top">
-                    <span className="btn btn-ghost btn-icon">
-                      <FileMagnifyingGlass size={16} weight="regular" />
-                    </span>
-                  </td>
-                </tr>
-              ))}
+                      {typeof issue.code !== "undefined" && (
+                        <span className="text-fg-muted mt-1 block font-mono text-xs">
+                          {issue.code}
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-3 py-3 text-right align-top">
+                      <span
+                        aria-hidden="true"
+                        className="btn btn-ghost btn-icon"
+                      >
+                        <FileMagnifyingGlass size={16} weight="regular" />
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
@@ -219,7 +237,7 @@ const DetailedScoreSection = ({
             {page < totalPages && (
               <button
                 type="button"
-                onClick={() => setPage(Math.ceil(issueCount / PAGE_LENGTH))}
+                onClick={() => setPage(totalPages)}
                 className="btn btn-outlined btn-sm"
               >
                 Show all {issueCount}

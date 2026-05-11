@@ -2,8 +2,8 @@
 
 import {
   type ChangeEvent,
-  type DragEvent,
   type FormEvent,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -35,25 +35,33 @@ const UploadInterface = () => {
   const [isValidUrlInput, setIsValidUrlInput] = useState(false);
   const [isLocalUpload, setIsLocalUpload] = useState(false);
 
-  const onDragOver = (e: globalThis.DragEvent) => {
-    e.preventDefault();
-    setDragActive(true);
-  };
-
-  const onDragLeave = (e: globalThis.DragEvent) => {
-    e.preventDefault();
-    setDragActive(false);
-  };
-
-  const onDrop = (e: DragEvent<HTMLDivElement> | globalThis.DragEvent) => {
-    e.preventDefault();
-    setDragActive(false);
-    if (e.dataTransfer?.files.length) {
-      onLocalFileUpload(e.dataTransfer.files[0]);
-    }
-  };
+  const onLocalFileUpload = useCallback(
+    (newFile: File) => {
+      setFile(newFile);
+      setError(undefined);
+      setIsLocalUpload(true);
+      setTimeout(() => submitButtonRef.current?.focus(), 50);
+    },
+    [setFile],
+  );
 
   useEffect(() => {
+    const onDragOver = (e: globalThis.DragEvent) => {
+      e.preventDefault();
+      setDragActive(true);
+    };
+    const onDragLeave = (e: globalThis.DragEvent) => {
+      e.preventDefault();
+      setDragActive(false);
+    };
+    const onDrop = (e: globalThis.DragEvent) => {
+      e.preventDefault();
+      setDragActive(false);
+      if (e.dataTransfer?.files.length) {
+        onLocalFileUpload(e.dataTransfer.files[0]);
+      }
+    };
+
     window.addEventListener("dragover", onDragOver, false);
     window.addEventListener("dragleave", onDragLeave, false);
     window.addEventListener("drop", onDrop, false);
@@ -63,14 +71,7 @@ const UploadInterface = () => {
       window.removeEventListener("dragleave", onDragLeave);
       window.removeEventListener("drop", onDrop);
     };
-  });
-
-  const onLocalFileUpload = (newFile: File) => {
-    setFile(newFile);
-    setError(undefined);
-    setIsLocalUpload(true);
-    setTimeout(() => submitButtonRef.current?.focus(), 50);
-  };
+  }, [onLocalFileUpload]);
 
   const onLocalFileUploadInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {

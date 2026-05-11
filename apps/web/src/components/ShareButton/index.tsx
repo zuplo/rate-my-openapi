@@ -1,8 +1,10 @@
 "use client";
 
-import { Check, ShareNetwork } from "@phosphor-icons/react";
+import { Check, ShareNetwork, WarningCircle } from "@phosphor-icons/react";
 import classNames from "classnames";
 import { useState } from "react";
+
+type CopyState = "idle" | "copied" | "error";
 
 const ShareButton = ({
   className = "",
@@ -11,28 +13,46 @@ const ShareButton = ({
   className?: string;
   type?: "light" | "dark";
 }) => {
-  const [copied, setCopied] = useState(false);
+  const [state, setState] = useState<CopyState>("idle");
+
+  const handleClick = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setState("copied");
+      setTimeout(() => setState("idle"), 2000);
+    } catch (err) {
+      console.error("Failed to copy report URL", err);
+      setState("error");
+      setTimeout(() => setState("idle"), 3000);
+    }
+  };
+
+  const isCopied = state === "copied";
+  const isError = state === "error";
 
   return (
     <button
       type="button"
-      onClick={() => {
-        setCopied(true);
-        navigator.clipboard.writeText(window.location.href);
-        setTimeout(() => setCopied(false), 2000);
-      }}
-      disabled={copied}
+      onClick={handleClick}
+      disabled={isCopied}
       className={classNames(
         "btn",
-        copied
-          ? "btn-outlined text-success"
-          : type === "light"
-            ? "btn-outlined"
-            : "btn-dark",
+        isError
+          ? "btn-outlined text-error"
+          : isCopied
+            ? "btn-outlined text-success"
+            : type === "light"
+              ? "btn-outlined"
+              : "btn-dark",
         className,
       )}
     >
-      {copied ? (
+      {isError ? (
+        <>
+          <WarningCircle size={16} weight="regular" />
+          <span>Couldn&apos;t copy — try again</span>
+        </>
+      ) : isCopied ? (
         <>
           <Check size={16} weight="regular" />
           <span>Copied to clipboard</span>

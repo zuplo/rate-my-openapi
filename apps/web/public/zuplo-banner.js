@@ -137,13 +137,6 @@ class ZuploBanner extends HTMLElement {
       menu.appendChild(menuItem);
     }
 
-    // Add the footer to the menu
-    const menuFooter = document.createElement("div");
-    menuFooter.setAttribute("class", "menu-footer");
-    menuFooter.textContent = "Created with care by Zuplo";
-
-    menu.appendChild(menuFooter);
-
     // Append menu to the rightDiv instead of shadow root
     rightDiv.appendChild(menu);
 
@@ -333,18 +326,6 @@ class ZuploBanner extends HTMLElement {
         line-height: 1.3;
         color: var(--zb-fg-muted);
       }
-      .menu-footer {
-        text-align: center;
-        margin-top: 6px;
-        padding: 8px 10px 6px;
-        border-top: 1px solid var(--zb-border);
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        color: var(--zb-fg-faint);
-      }
-
       @media (max-width: 640px) {
         .zuplo-banner {
           padding: 8px 16px;

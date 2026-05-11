@@ -58,6 +58,11 @@ if (email) {
     await sendReportEmail({
       email,
       reportId,
+      score: result.simpleReport.score,
+      docsScore: result.simpleReport.docsScore,
+      completenessScore: result.simpleReport.completenessScore,
+      sdkGenerationScore: result.simpleReport.sdkGenerationScore,
+      securityScore: result.simpleReport.securityScore,
     });
   } else {
     logger.warn(`Skipping sending email, SENDGRID_API_KEY not set`);

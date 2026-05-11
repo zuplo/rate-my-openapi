@@ -30,7 +30,8 @@ export async function getOpenAiResponse({
     });
     return response.choices[0].message.content;
   } catch (err) {
-    throw new ReportGenerationError(`Could not get OpenAI response: ${err}`, {
+    const detail = err instanceof Error ? err.message : String(err);
+    throw new ReportGenerationError(`Could not get OpenAI response: ${detail}`, {
       cause: err,
     });
   }

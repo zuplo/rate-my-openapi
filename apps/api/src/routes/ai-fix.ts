@@ -203,6 +203,14 @@ export const aiFixRoute: FastifyPluginAsync = async function (server) {
         maxTokens: 1000,
       });
 
+      if (response === null) {
+        // Schema declares 200: string. OpenAI not configured or returned no
+        // content — surface a clear failure rather than violating the contract.
+        throw new ReportGenerationError(
+          "AI fix suggestion unavailable: OpenAI is not configured or returned no content.",
+        );
+      }
+
       return response;
     },
   });

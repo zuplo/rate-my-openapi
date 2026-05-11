@@ -140,7 +140,7 @@ class ZuploBanner extends HTMLElement {
     // Add the footer to the menu
     const menuFooter = document.createElement("div");
     menuFooter.setAttribute("class", "menu-footer");
-    menuFooter.textContent = "Created with ❤️ by Zuplo";
+    menuFooter.textContent = "Created with care by Zuplo";
 
     menu.appendChild(menuFooter);
 
@@ -160,191 +160,229 @@ class ZuploBanner extends HTMLElement {
       }
     });
 
-    // Styles
+    // Styles — Zuplo design language. CSS custom properties from the host
+    // document (defined in globals.css :root) cascade into shadow DOM so the
+    // banner stays visually consistent with the rest of the app.
     const style = document.createElement("style");
     style.textContent = `
-      /* Set font family to Helvetica throughout */
+      :host {
+        --zb-accent: var(--color-accent, #ff00bd);
+        --zb-accent-hover: var(--color-accent-hover, #e600aa);
+        --zb-accent-ghost: var(--color-accent-ghost, rgba(255, 0, 189, 0.08));
+        --zb-fg: var(--color-fg, #111827);
+        --zb-fg-secondary: var(--color-fg-secondary, #374151);
+        --zb-fg-muted: var(--color-fg-muted, #6b7280);
+        --zb-fg-faint: var(--color-fg-faint, #9ca3af);
+        --zb-bg: var(--color-bg, #ffffff);
+        --zb-bg-subtle: var(--color-bg-subtle, #f9fafb);
+        --zb-bg-muted: var(--color-bg-muted, #f3f4f6);
+        --zb-border: var(--color-border, #e5e7eb);
+        --zb-font-sans: var(--font-sans, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+        --zb-font-display: var(--font-display, 'Readex Pro', 'Inter', sans-serif);
+      }
+
       * {
-        font-family: 'Helvetica', sans-serif;
+        font-family: var(--zb-font-sans);
         box-sizing: border-box;
       }
+
       .zuplo-banner {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: white;
-        color: black;
-        padding: 10px 20px;
+        background-color: var(--zb-bg);
+        color: var(--zb-fg);
+        padding: 8px 24px;
         width: 100%;
-        flex-wrap: nowrap; /* Prevent wrapping */
+        max-width: 1200px;
+        margin: 0 auto;
+        min-height: 40px;
+        flex-wrap: nowrap;
       }
+
       .left {
         display: flex;
         align-items: center;
+        gap: 8px;
       }
+
+      .open-source-text {
+        font-size: 13px;
+        color: var(--zb-fg-muted);
+        font-weight: 500;
+      }
+
       .left .zuplo-logo {
-        height: 20px;
-        margin-left: 10px;
-        display: flex;
-        align-items: center; /* Center vertically */
-        position: relative;
-        top: 1px; /* Move down slightly */
+        display: inline-flex;
+        align-items: center;
+        height: 14px;
+        text-decoration: none;
+        transition: opacity 0.15s ease;
       }
-      
-      .left .zuplo-logo:hover svg path {
-        fill: #FF00BD;
+      .left .zuplo-logo:hover {
+        opacity: 0.7;
       }
       .left .zuplo-logo svg {
         height: 100%;
         width: auto;
       }
+
       .right {
         position: relative;
         display: flex;
         align-items: center;
       }
+
       .menu-button {
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        background-color: #ff00bd;
-        color: white;
-        border: none;
-        padding: 10px 16px;
-        border-radius: 5px;
+        gap: 8px;
+        background: transparent;
+        color: var(--zb-fg-secondary);
+        border: 1px solid var(--zb-border);
+        padding: 0 12px;
+        height: 30px;
+        border-radius: 8px;
         cursor: pointer;
-        font-size: 16px;
+        font-family: var(--zb-font-sans);
+        font-size: 12px;
+        font-weight: 600;
         line-height: 1;
-        white-space: nowrap; /* Prevent text wrapping */
+        white-space: nowrap;
+        transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      }
+      .menu-button:hover {
+        background: var(--zb-bg-muted);
+        color: var(--zb-fg);
+      }
+      .menu-button:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px var(--zb-accent-ghost);
       }
       .menu-button .button-content {
-        display: flex;
+        display: inline-flex;
         align-items: center;
-        justify-content: center;
+        gap: 8px;
       }
       .menu-button svg {
-        width: 20px;
-        height: 20px;
-        margin-right: 8px;
+        width: 14px;
+        height: 14px;
+        color: var(--zb-fg-muted);
       }
-      .menu-button .button-text {
-        display: inline-block;
+      .menu-button:hover svg {
+        color: var(--zb-fg);
       }
+
       .menu {
         display: none;
         position: absolute;
         right: 0;
-        top: calc(100% + 5px); /* Place below the button with 5px margin */
-        background-color: white;
-        color: black;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Add shadow */
-        z-index: 9999; /* High z-index */
-        width: auto; /* Adjust width */
-        min-width: 200px; /* Optional: set a minimum width */
-        padding: 10px;
+        top: calc(100% + 8px);
+        background-color: var(--zb-bg);
+        color: var(--zb-fg);
+        border: 1px solid var(--zb-border);
+        border-radius: 12px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+        z-index: 9999;
+        width: 280px;
+        padding: 6px;
+        overflow: hidden;
       }
       .menu.visible {
         display: block;
       }
+
       .menu-item {
         display: flex;
         align-items: center;
+        gap: 12px;
         text-decoration: none;
-        color: black;
-        padding: 10px 0;
-        border-bottom: 1px solid #eee;
+        color: var(--zb-fg);
+        padding: 8px 10px;
+        border-radius: 8px;
+        transition: background 0.15s ease;
       }
-      .menu-item:last-child {
-        border-bottom: none;
+      .menu-item + .menu-item {
+        margin-top: 2px;
+      }
+      .menu-item:hover {
+        background: var(--zb-bg-muted);
       }
       .menu-item img {
-        width: 40px;
-        height: 40px;
-        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        border-radius: 6px;
       }
       .text-container {
         display: flex;
         flex-direction: column;
+        gap: 2px;
+        min-width: 0;
       }
       .tool-name {
-        font-weight: bold;
-        white-space: nowrap; /* Prevent wrapping */
-      }
-      .menu-item:hover {
-        color: #FF00BD;
+        font-family: var(--zb-font-display);
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 1.2;
+        color: var(--zb-fg);
+        white-space: nowrap;
       }
       .tool-description {
         font-size: 12px;
-        color: #666;
+        line-height: 1.3;
+        color: var(--zb-fg-muted);
       }
       .menu-footer {
         text-align: center;
-        margin-top: 10px;
-        font-size: 12px;
-        color: #666;
+        margin-top: 6px;
+        padding: 8px 10px 6px;
+        border-top: 1px solid var(--zb-border);
+        font-size: 11px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--zb-fg-faint);
       }
-      .open-source-text {
-        font-size: 16px;
-      }
-      /* Responsive */
-      @media (max-width: 600px) {
+
+      @media (max-width: 640px) {
         .zuplo-banner {
-          flex-direction: column; /* Stack left content below right */
-          align-items: center; /* Center horizontally */
+          padding: 8px 16px;
         }
-        .left {
-          margin-top: 0;
-        }
-        .right {
-          margin-top: 10px;
-          width: auto;
-          justify-content: center;
+        .open-source-text {
+          display: none;
         }
         .menu {
-          right: 0;
-          width: auto; /* Ensure menu is as wide as needed */
+          width: calc(100vw - 32px);
+          max-width: 320px;
         }
       }
     `;
 
-    // Handle mode attribute
+    // Handle mode attribute. The banner is rendered against the app's white
+    // surface in light mode and against the app's foreground (#111827) in
+    // dark mode — both pull from the same token set as the rest of the UI.
     const mode = this.getAttribute("mode") || "light";
 
     if (mode === "dark") {
       style.textContent += `
-        .zuplo-banner {
-          background-color: black;
-          color: white;
+        :host {
+          --zb-bg: var(--color-fg, #111827);
+          --zb-fg: #f8fafc;
+          --zb-fg-secondary: #e2e8f0;
+          --zb-fg-muted: #94a3b8;
+          --zb-fg-faint: #64748b;
+          --zb-bg-muted: rgba(255, 255, 255, 0.08);
+          --zb-border: rgba(255, 255, 255, 0.12);
         }
-        .menu {
-          background-color: black;
-          color: white;
-        }
-        .menu-item {
-          color: white;
-        }
-        .menu-footer {
-          color: #ccc;
-        }
-        .menu-button {
-          background-color: #ff00bd;
-          color: white;
-        }
-        /* Invert Zuplo logo for dark mode */
         .left .zuplo-logo svg path {
-          fill: white;
-          :hover {
-            fill: #FF00BD;
-          }
+          fill: #f8fafc;
         }
       `;
     } else {
-      /* Set Zuplo logo color for light mode */
       style.textContent += `
         .left .zuplo-logo svg path {
-          fill: black;
-          :hover {
-            fill: #FF00BD;
-          }
+          fill: var(--zb-fg);
         }
       `;
     }

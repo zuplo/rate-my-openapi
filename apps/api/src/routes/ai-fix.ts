@@ -1,12 +1,12 @@
 import { type FastifyPluginAsync } from "fastify";
-import { getStorageBucket } from "../services/storage.js";
-import path from "path";
-import { tmpdir } from "os";
 import { readFile } from "fs/promises";
 import { load } from "js-yaml";
-import { getOpenAIClient } from "../services/openai.js";
-import OpenAI from "openai";
-export class ReportGenerationError extends Error {}
+import { tmpdir } from "os";
+import path from "path";
+import { ReportGenerationError } from "../lib/errors.js";
+import { aiFixMessages } from "../prompts/ai-fix.js";
+import { getOpenAiResponse } from "../services/openai-response.js";
+import { getStorageBucket } from "../services/storage.js";
 
 type Issue = {
   code: string | number;
@@ -24,29 +24,6 @@ type Issue = {
     };
   };
 };
-
-async function getOpenAiResponse(
-  messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
-): Promise<string | null> {
-  try {
-    const response = await getOpenAIClient()?.chat.completions.create({
-      model: "gpt-3.5-turbo-1106",
-      messages,
-      temperature: 0,
-      max_tokens: 1000,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-    });
-    return response
-      ? response.choices[0].message.content
-      : "Placeholder OpenAI response";
-  } catch (err) {
-    throw new ReportGenerationError(`Could not get OpenAI response: ${err}`, {
-      cause: err,
-    });
-  }
-}
 
 /**
  * Parse out JSON references from a JSON object
@@ -215,29 +192,16 @@ export const aiFixRoute: FastifyPluginAsync = async function (server) {
         .map((reference) => JSON.stringify(reference, null, 2))
         .join(", ");
 
-      const prompt = `Given the following OpenAPI spec sample, and an issue found with that sample, please provide a suggested fix for the issue. The Sample: ${JSON.stringify(
-        issueProperty,
-        null,
-        2,
-      )}\n\n The Issue: ${JSON.stringify(
-        issue,
-        null,
-        2,
-      )}. If your suggestion is a change to the OpenAPI spec, the suggestion should be in ${
-        isJson ? "JSON" : "YAML"
-      } format. Leave inline comments explaining the changes you made. Any code blocks should use the markdown codeblock syntax. If the issue has to do with a component being orphaned, you should suggest deleting that component from the spec. ${
-        references
-          ? `Here are some components that are referenced within the OpenAPI spec sample: ${references}`
-          : ""
-      } 
-      `;
-
-      const response = await getOpenAiResponse([
-        {
-          role: "user",
-          content: prompt,
-        },
-      ]);
+      const response = await getOpenAiResponse({
+        messages: aiFixMessages({
+          sample: issueProperty,
+          issue,
+          references,
+          format: isJson ? "JSON" : "YAML",
+        }),
+        temperature: 0,
+        maxTokens: 1000,
+      });
 
       return response;
     },

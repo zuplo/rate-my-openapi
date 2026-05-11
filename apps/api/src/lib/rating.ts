@@ -11,16 +11,22 @@ import { load as loadYAML } from "js-yaml";
 import * as fs from "node:fs";
 import { join } from "node:path";
 import { Worker } from "node:worker_threads";
-import OpenAI from "openai";
 import { tmpdir } from "os";
 import path from "path";
-import { getOpenAIClient } from "../services/openai.js";
+import { getOpenAiResponse } from "../services/openai-response.js";
+import {
+  longSummaryMessages,
+  shortSummaryMessages,
+} from "../prompts/rating-summary.js";
 import {
   getStorageBucket,
   getStorageBucketName,
   getStorageClient,
 } from "../services/storage.js";
+import { ReportGenerationError } from "./errors.js";
 import { OpenApiFileExtension, assertValidFileExtension } from "./types.js";
+
+export { ReportGenerationError };
 
 const { Spectral, Document } = spectralCore;
 
@@ -42,8 +48,6 @@ export interface GetReportResult {
   simpleReport: SimpleReport;
   fullReport: RatingOutput;
 }
-
-export class ReportGenerationError extends Error {}
 
 const workerPath = new URL("rating.worker.js", import.meta.url);
 
@@ -226,9 +230,17 @@ export async function getReport(options: {
   }
 
   const issueSummary = getReportMinified(output);
+  // Summaries are best-effort: autonomous flow must still publish a score even
+  // if OpenAI is down, rate-limited, or returns an error.
   const [openAiLongSummary, openAiShortSummary] = await Promise.all([
-    getOpenAiLongSummary(issueSummary),
-    getOpenAiShortSummary(issueSummary),
+    getOpenAiLongSummary(issueSummary).catch((err) => {
+      console.warn(`OpenAI long summary failed: ${err}`);
+      return null;
+    }),
+    getOpenAiShortSummary(issueSummary).catch((err) => {
+      console.warn(`OpenAI short summary failed: ${err}`);
+      return null;
+    }),
   ]);
 
   const simpleReport = {
@@ -320,60 +332,19 @@ function getReportMinified(fullReport: RatingOutput) {
     );
 }
 
-async function getOpenAiResponse(
-  messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
-): Promise<string | null> {
-  try {
-    const response = await getOpenAIClient()?.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages,
-      temperature: 0.5,
-      max_tokens: 400,
-      top_p: 1,
-      frequency_penalty: 0,
-      presence_penalty: 0,
-    });
-    return response
-      ? response.choices[0].message.content
-      : "Placeholder OpenAI response";
-  } catch (err) {
-    throw new ReportGenerationError(`Could not get OpenAI response: ${err}`, {
-      cause: err,
-    });
-  }
-}
+const getOpenAiLongSummary = (issueSummary: object) =>
+  getOpenAiResponse({
+    messages: longSummaryMessages(issueSummary),
+    temperature: 0.3,
+    maxTokens: 400,
+  });
 
-async function getOpenAiLongSummary(issueSummary: object) {
-  return await getOpenAiResponse([
-    {
-      role: "system",
-      content:
-        "You are an expert in REST API Development and know everything about OpenAPI and what makes a good API. You like chatting in a playful, and a somewhat snarky manner. Don't make fun of the user though.",
-    },
-    {
-      role: "user",
-      content: `Here's a summary of issues found in an OpenAPI file. The format is a JSON, where the first level indicates the severity of the issue (the lower the key, the more severe), the second level is the name of the issue. These mostly match up to existing spectral rulesets, so you can infer what the issue is. The third level contains the number of occurrences of that issue.\n\nI would like a succinct summary of the issues and advice on how to fix them.  Focus on the highest severity issues. Keep the tone casual and playful, and a bit snarky. Do not insult the user or API creator or the API. Also, no bullet points. Maximum of 3 issues please. Only talk about the highest severity issues. \n\nHere's the issue summary\n ${JSON.stringify(
-        issueSummary,
-      )}`,
-    },
-  ]);
-}
-
-async function getOpenAiShortSummary(issueSummary: object) {
-  return await getOpenAiResponse([
-    {
-      role: "system",
-      content:
-        "You are an expert in REST API Development and know everything about OpenAPI and what makes a good API. You like chatting in a playful, and a somewhat snarky manner. Don't make fun of the user though.",
-    },
-    {
-      role: "user",
-      content: `Here's a summary of issues found in an OpenAPI file. The format is a JSON, where the first level indicates the severity of the issue (the lower the key, the more severe), the second level is the name of the issue. These mostly match up to existing spectral rulesets, so you can infer what the issue is. The third level contains the number of occurrences of that issue.\n\nI would like a succinct summary of the issues  in 2 lines. Keep the tone casual and playful, and a bit snarky. Do not insult the user or API creator or the API. Also, no bullet points. Only talk about the highest severity issues.\n\nHere's the issue summary\n ${JSON.stringify(
-        issueSummary,
-      )}`,
-    },
-  ]);
-}
+const getOpenAiShortSummary = (issueSummary: object) =>
+  getOpenAiResponse({
+    messages: shortSummaryMessages(issueSummary),
+    temperature: 0.3,
+    maxTokens: 400,
+  });
 
 async function deleteTempFile(tempApiFilePath: string): Promise<void> {
   try {

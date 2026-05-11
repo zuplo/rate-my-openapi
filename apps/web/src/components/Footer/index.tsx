@@ -22,7 +22,7 @@ const Footer = () => (
         <Heart size={14} weight="fill" className="text-accent" />
         <span>by</span>
         <Link
-          href="https://zuplo.com/"
+          href="https://zuplo.com/?utm_source=ratemyopenapi"
           target="_blank"
           rel="noreferrer"
           className="text-fg hover:text-accent font-semibold transition-colors"

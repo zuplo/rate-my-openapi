@@ -27,7 +27,9 @@ export async function getOpenAiResponse({
       messages,
       temperature,
       max_completion_tokens: maxTokens,
-      reasoning_effort: "minimal",
+      // Model accepts "none" (no reasoning) but openai SDK types lag and only
+      // include 'minimal' | 'low' | 'medium' | 'high'. Cast through unknown.
+      reasoning_effort: "none" as unknown as "low",
     });
     return response.choices[0].message.content;
   } catch (err) {

@@ -68,20 +68,10 @@ class ZuploBanner extends HTMLElement {
     const menuButton = document.createElement("button");
     menuButton.setAttribute("class", "menu-button");
 
-    // Grip icon SVG
+    // Phosphor DotsNine (regular) — proper viewBox, evenly weighted dots.
     const gripIconSVG = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-           stroke="currentColor" fill="none" stroke-width="2"
-           stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="2" cy="2" r="1"/>
-        <circle cx="8" cy="2" r="1"/>
-        <circle cx="14" cy="2" r="1"/>
-        <circle cx="2" cy="8" r="1"/>
-        <circle cx="8" cy="8" r="1"/>
-        <circle cx="14" cy="8" r="1"/>
-        <circle cx="2" cy="14" r="1"/>
-        <circle cx="8" cy="14" r="1"/>
-        <circle cx="14" cy="14" r="1"/>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
+        <path d="M84,60A24,24,0,1,1,60,36,24,24,0,0,1,84,60Zm44,24a24,24,0,1,0-24-24A24,24,0,0,0,128,84Zm68,0a24,24,0,1,0-24-24A24,24,0,0,0,196,84ZM60,104a24,24,0,1,0,24,24A24,24,0,0,0,60,104Zm68,0a24,24,0,1,0,24,24A24,24,0,0,0,128,104Zm68,0a24,24,0,1,0,24,24A24,24,0,0,0,196,104ZM60,172a24,24,0,1,0,24,24A24,24,0,0,0,60,172Zm68,0a24,24,0,1,0,24,24A24,24,0,0,0,128,172Zm68,0a24,24,0,1,0,24,24A24,24,0,0,0,196,172Z"/>
       </svg>
     `;
 

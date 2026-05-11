@@ -55,7 +55,6 @@ const HomePage = () => (
         <NavigateButton
           label="Get started"
           url="https://www.npmjs.com/package/rmoa"
-          variant="primary"
         />
       </PageBox>
 

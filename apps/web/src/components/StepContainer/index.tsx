@@ -20,7 +20,7 @@ const StepContainer = ({
       className={classNames(
         "col-start-1 row-start-1 w-full transition-opacity",
         {
-          "opacity-1": isCurrentStep && !isLoading,
+          "opacity-100": isCurrentStep && !isLoading,
           "opacity-0": (isCurrentStep && isLoading) || !isCurrentStep,
           "pointer-events-none invisible": !isCurrentStep,
         },

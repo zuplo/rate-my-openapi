@@ -72,7 +72,7 @@ const HomePage = () => (
         </pre>
         <NavigateButton
           label="Learn more"
-          url="https://github.com/marketplace/actions/rate-my-openapi-action"
+          url="https://docs.ratemyopenapi.com/github-action"
         />
       </PageBox>
 

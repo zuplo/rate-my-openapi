@@ -1,10 +1,5 @@
 import Link from "next/link";
-import {
-  DiscordLogo,
-  GithubLogo,
-  Heart,
-  XLogo,
-} from "@phosphor-icons/react/dist/ssr";
+import { GithubLogo, Heart, XLogo } from "@phosphor-icons/react/dist/ssr";
 
 const socials = [
   {
@@ -16,11 +11,6 @@ const socials = [
     href: "https://github.com/zuplo/rate-my-openapi",
     label: "rate-my-openapi on GitHub",
     Icon: GithubLogo,
-  },
-  {
-    href: "https://discord.zuplo.com",
-    label: "Zuplo on Discord",
-    Icon: DiscordLogo,
   },
 ];
 

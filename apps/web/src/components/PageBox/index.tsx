@@ -1,20 +1,24 @@
 import classNames from "classnames";
 import type { ReactNode } from "react";
 
-export const PageBox = ({
-  children,
-  className,
-}: {
+type PageBoxProps = {
   children: ReactNode;
   className?: string;
-}) => (
+  badge?: string;
+};
+
+export const PageBox = ({ children, className, badge }: PageBoxProps) => (
   <div
     className={classNames(
-      "relative flex flex-col gap-4 rounded-lg bg-white p-5 shadow-md",
-      "after:absolute after:-right-1.5 after:-top-1.5 after:rounded-md after:bg-indigo-700 after:px-3 after:py-2 after:text-xs after:font-medium after:uppercase after:text-white after:content-['New']",
+      "card hover:shadow-card-hover relative flex flex-col gap-4 transition-shadow",
       className,
     )}
   >
+    {badge && (
+      <span className="tag tag-accent is-caps absolute -top-2 -right-2">
+        {badge}
+      </span>
+    )}
     {children}
   </div>
 );

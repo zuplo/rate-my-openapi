@@ -1,7 +1,7 @@
 import "./globals.css";
 
 import { Metadata } from "next";
-import { IBM_Plex_Sans, Roboto, Roboto_Mono } from "next/font/google";
+import { Fira_Code, Inter, Readex_Pro } from "next/font/google";
 import { Suspense } from "react";
 
 import { ModalProvider, PHProvider, PostHogPageview } from "./providers";
@@ -10,25 +10,25 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Script from "next/script";
 
-const roboto = Roboto({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-roboto",
+  variable: "--font-inter",
 });
 
-const robotoMono = Roboto_Mono({
+const readexPro = Readex_Pro({
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-roboto-mono",
+  variable: "--font-readex-pro",
 });
 
-const ibmPlexSans = IBM_Plex_Sans({
+const firaCode = Fira_Code({
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["400", "500"],
   display: "swap",
-  variable: "--font-plex-sans",
+  variable: "--font-fira-code",
 });
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => (
   <html
     lang="en"
-    className={`${roboto.variable} ${robotoMono.variable} ${ibmPlexSans.variable}`}
+    className={`${inter.variable} ${readexPro.variable} ${firaCode.variable}`}
   >
     <head>
       {process.env.NEXT_PUBLIC_ANALYTICS_URL ? (
@@ -57,17 +57,15 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     </Suspense>
     <ModalProvider>
       <PHProvider>
-        <body className="flex h-screen flex-col text-base">
-          <div className="mb-5 w-full rounded-md bg-white px-14 shadow-md">
+        <body className="bg-bg-subtle text-fg flex min-h-screen flex-col antialiased">
+          <div className="border-border bg-bg w-full border-b">
             <zuplo-banner mode="light"></zuplo-banner>
           </div>
-          <div className="container mx-auto flex h-screen flex-col text-base">
-            <Header />
-            <div className="flex grow items-center justify-center">
-              {children}
-            </div>
-            <Footer />
-          </div>
+          <Header />
+          <main className="flex w-full grow flex-col py-8 md:py-12">
+            {children}
+          </main>
+          <Footer />
         </body>
       </PHProvider>
     </ModalProvider>

@@ -2,17 +2,20 @@
 
 import {
   type ChangeEvent,
-  type DragEvent,
   type FormEvent,
+  useCallback,
   useEffect,
   useRef,
   useState,
 } from "react";
 
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { DocumentIcon } from "@heroicons/react/24/outline";
-import { PaperClipIcon } from "@heroicons/react/24/outline";
+import {
+  FileArrowUp,
+  FileText,
+  Paperclip,
+  PaperPlaneRight,
+  X,
+} from "@phosphor-icons/react";
 
 import { useUploadContext } from "@/contexts/UploadContext";
 
@@ -32,49 +35,43 @@ const UploadInterface = () => {
   const [isValidUrlInput, setIsValidUrlInput] = useState(false);
   const [isLocalUpload, setIsLocalUpload] = useState(false);
 
-  const onDragOver = (e: globalThis.DragEvent) => {
-    e.preventDefault();
-
-    setDragActive(true);
-  };
-
-  const onDragLeave = (e: globalThis.DragEvent) => {
-    e.preventDefault();
-
-    setDragActive(false);
-  };
-
-  const onDrop = (e: DragEvent<HTMLDivElement> | globalThis.DragEvent) => {
-    e.preventDefault();
-
-    setDragActive(false);
-
-    if (e.dataTransfer?.files.length) {
-      onLocalFileUpload(e.dataTransfer.files[0]);
-    }
-  };
+  const onLocalFileUpload = useCallback(
+    (newFile: File) => {
+      setFile(newFile);
+      setError(undefined);
+      setIsLocalUpload(true);
+      setTimeout(() => submitButtonRef.current?.focus(), 50);
+    },
+    [setFile],
+  );
 
   useEffect(() => {
+    const onDragOver = (e: globalThis.DragEvent) => {
+      e.preventDefault();
+      setDragActive(true);
+    };
+    const onDragLeave = (e: globalThis.DragEvent) => {
+      e.preventDefault();
+      setDragActive(false);
+    };
+    const onDrop = (e: globalThis.DragEvent) => {
+      e.preventDefault();
+      setDragActive(false);
+      if (e.dataTransfer?.files.length) {
+        onLocalFileUpload(e.dataTransfer.files[0]);
+      }
+    };
+
     window.addEventListener("dragover", onDragOver, false);
     window.addEventListener("dragleave", onDragLeave, false);
     window.addEventListener("drop", onDrop, false);
 
     return () => {
       window.removeEventListener("dragover", onDragOver);
-      window.addEventListener("dragleave", onDragLeave, false);
+      window.removeEventListener("dragleave", onDragLeave);
       window.removeEventListener("drop", onDrop);
     };
-  });
-
-  const onLocalFileUpload = (newFile: File) => {
-    setFile(newFile);
-    setError(undefined);
-    setIsLocalUpload(true);
-
-    // Timeout used to avoid a bit of a race condition with
-    // button being disabled
-    setTimeout(() => submitButtonRef.current?.focus(), 50);
-  };
+  }, [onLocalFileUpload]);
 
   const onLocalFileUploadInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
@@ -84,9 +81,7 @@ const UploadInterface = () => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     setError(undefined);
-
     const urlInput = urlInputRef.current;
 
     if (file) {
@@ -104,19 +99,11 @@ const UploadInterface = () => {
 
     try {
       const response = await fetch(fileUrl);
-
       if (response.status !== 200) {
         throw new Error(`Could not fetch OpenAPI file from ${fileUrl}`);
       }
-
       const blob = await response.blob();
-
-      setFile(
-        new File([blob], fileName, {
-          type: blob.type,
-        }),
-      );
-
+      setFile(new File([blob], fileName, { type: blob.type }));
       setNextStep();
     } catch (e) {
       console.error(
@@ -130,50 +117,43 @@ const UploadInterface = () => {
     setFile(undefined);
     setError(undefined);
     setIsLocalUpload(false);
-
     if (urlInputRef.current) {
       urlInputRef.current.value = "";
     }
-
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
-
     setIsValidUrlInput(false);
   };
 
   const onInputChange = () => {
     setError(undefined);
-
     const isValid =
       urlInputRef.current?.value &&
       urlInputRef.current?.value !== "" &&
       urlInputRef.current?.validity.valid;
-
     setIsValidUrlInput(!!isValid);
   };
 
   return (
     <StepContainer step={1}>
       {dragActive && (
-        <div className="absolute left-0 top-0 z-10 h-full w-full px-[10%] py-[30%] md:py-[10%]">
-          <div className="flex h-full w-full items-center justify-center rounded-lg border-4 border-dashed border-blue-400 bg-[#F8FAFC]/50 backdrop-blur-[1px]">
-            <div className="w-full max-w-[240px] rounded-lg bg-white px-5 py-10 text-center shadow-md">
-              <DocumentIcon
-                height={80}
-                width={80}
-                className="mx-auto mb-5 text-gray-500"
-              />
-
-              <p className="text-xl font-bold text-gray-500">
-                Drop your OpenAPI 3.x file here
-              </p>
-            </div>
+        <div className="bg-bg/60 fixed inset-0 z-30 flex items-center justify-center p-6 backdrop-blur-sm">
+          <div className="border-accent bg-bg shadow-pop flex w-full max-w-md flex-col items-center justify-center rounded-xl border-2 border-dashed p-10 text-center">
+            <span className="bg-accent-light text-accent mb-4 grid h-14 w-14 place-items-center rounded-full">
+              <FileArrowUp size={28} weight="regular" />
+            </span>
+            <p className="font-display text-fg text-base font-semibold">
+              Drop your OpenAPI 3.x file here
+            </p>
+            <p className="text-fg-muted mt-1 text-sm">
+              JSON or YAML — we&apos;ll take it from here.
+            </p>
           </div>
         </div>
       )}
       <form
-        className="relative flex w-full flex-row items-center justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-md"
+        className="card flex w-full flex-row items-center gap-2 p-2"
         id="upload-form"
         onSubmit={onSubmit}
       >
@@ -182,76 +162,67 @@ const UploadInterface = () => {
             <label
               title="Select OpenAPI file"
               role="button"
-              className="icon-button p-4 hover:bg-gray-200"
+              className="btn btn-ghost btn-icon shrink-0"
               tabIndex={0}
             >
-              <PaperClipIcon height={24} width={24} />
+              <Paperclip size={18} weight="regular" />
               <input
                 ref={fileInputRef}
                 onChange={onLocalFileUploadInputChange}
                 className="hidden h-0 w-0"
                 type="file"
                 id="drag-upload"
+                accept=".json,.yaml,.yml"
               />
             </label>
           )}
 
           {!isLocalUpload ? (
-            <div className="flex-1">
-              <input
-                autoFocus
-                type="url"
-                ref={urlInputRef}
-                onChange={onInputChange}
-                className="w-full border-none bg-transparent pr-3 text-lg outline-none"
-                placeholder={
-                  !isLocalUpload
-                    ? "Drop your OpenAPI 3.x file or enter your OpenAPI file URL here"
-                    : ""
-                }
-                aria-label="Enter OpenAPI 3.x file URL here"
-                disabled={!!file}
-              />
-            </div>
+            <input
+              autoFocus
+              type="url"
+              ref={urlInputRef}
+              onChange={onInputChange}
+              className="text-fg placeholder:text-fg-faint h-9 w-full flex-1 border-none bg-transparent px-1 text-sm outline-none"
+              placeholder="Drop a file or paste your OpenAPI URL"
+              aria-label="Enter OpenAPI 3.x file URL here"
+              disabled={!!file}
+            />
           ) : (
             <button
+              type="button"
               onClick={onClear}
-              className="flex items-center rounded-lg bg-gray-200 p-2 text-lg hover:bg-gray-300"
+              className="bg-bg-muted text-fg hover:bg-border inline-flex h-9 items-center gap-2 rounded-md px-3 text-sm font-medium transition-colors"
             >
-              <DocumentIcon
-                height={24}
-                width={24}
-                className="mr-1 text-gray-900"
-              />
+              <FileText size={16} weight="regular" />
               <span className="max-w-[170px] overflow-hidden whitespace-nowrap md:max-w-[500px]">
                 {file?.name}
               </span>
-              <XMarkIcon
-                height={24}
-                width={24}
-                className="ml-3 text-gray-900"
-              />
+              <X size={14} weight="regular" />
             </button>
           )}
         </div>
 
-        <div className="flex h-[44px]">
+        <div className="flex items-center gap-1.5">
           {isValidUrlInput && (
             <button
-              className="icon-button mr-2 bg-gray-200 hover:bg-gray-300"
+              type="button"
               onClick={onClear}
+              aria-label="Clear URL"
+              className="btn btn-ghost btn-icon shrink-0"
             >
-              <XMarkIcon height={24} width={24} className="text-gray-500" />
+              <X size={16} weight="regular" />
             </button>
           )}
 
           <button
             type="submit"
             ref={submitButtonRef}
-            className="icon-button-submit"
+            className="btn btn-primary btn-icon shrink-0"
+            aria-label="Submit OpenAPI file"
             disabled={isLocalUpload ? !file : !isValidUrlInput}
           >
-            <ChevronRightIcon height={24} width={24} className="text-white" />
+            <PaperPlaneRight size={16} weight="regular" />
           </button>
         </div>
       </form>

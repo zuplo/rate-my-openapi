@@ -1,20 +1,18 @@
 "use client";
 
-import classNames from "classnames";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 import getScoreTextColor from "@/utils/get-score-test-color";
 
-const SVG_SIZE = 210;
-const STROKE_WIDTH = 18;
+const SVG_SIZE = 200;
+const STROKE_WIDTH = 16;
 
-const getScoreStrokeColor = (score: number) =>
-  classNames({
-    "stroke-gray-200": score === 0,
-    "stroke-green-500": score >= 80,
-    "stroke-yellow-500": score >= 50 && score < 80,
-    "stroke-red-500": score > 0 && score < 50,
-  });
+const getScoreStrokeVar = (score: number) => {
+  if (score >= 80) return "var(--color-success)";
+  if (score >= 50) return "var(--color-warning)";
+  if (score > 0) return "var(--color-error)";
+  return "var(--color-border)";
+};
 
 const calculateDash = (score: number, circumference: number) =>
   (score * circumference) / 100;
@@ -25,14 +23,14 @@ const ScoreMeter = ({ score = 0 }: { score: number }) => {
   const radius = (SVG_SIZE - STROKE_WIDTH) / 2;
   const circumference = radius * Math.PI * 2;
   const [dash, setDash] = useState(calculateDash(0, circumference));
-  const [textColor, setTextColor] = useState("text-gray-400");
-  const [strokeColor, setStrokeColor] = useState("text-gray-400");
+  const [textColor, setTextColor] = useState("text-fg-faint");
+  const [strokeColor, setStrokeColor] = useState("var(--color-border)");
 
   useEffect(() => {
     if (inView) {
       setDash(calculateDash(score, circumference));
       setTextColor(getScoreTextColor(score));
-      setStrokeColor(getScoreStrokeColor(score));
+      setStrokeColor(getScoreStrokeVar(score));
     }
   }, [inView, score, circumference]);
 
@@ -47,9 +45,11 @@ const ScoreMeter = ({ score = 0 }: { score: number }) => {
   };
 
   return (
-    <div className="relative">
-      <div className="absolute flex h-full w-full items-center justify-center">
-        <span className={`bold ${textColor} font-plex-sans text-[85px]`}>
+    <div className="relative" style={{ width: SVG_SIZE, height: SVG_SIZE }}>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span
+          className={`font-display text-[80px] leading-none font-bold tracking-tight ${textColor}`}
+        >
           {score}
         </span>
       </div>
@@ -60,9 +60,10 @@ const ScoreMeter = ({ score = 0 }: { score: number }) => {
         viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
         ref={ref}
       >
-        <circle className="stroke-gray-200" {...sharedAttributes} />
+        <circle stroke="var(--color-bg-muted)" {...sharedAttributes} />
         <circle
-          className={`${strokeColor} transition-all duration-1000 ease-[ease]`}
+          stroke={strokeColor}
+          style={{ transition: "stroke-dasharray 1s ease, stroke 0.3s ease" }}
           transform={`rotate(-90 ${halfSvgSize} ${halfSvgSize})`}
           strokeDasharray={`${dash} ${circumference - dash}`}
           strokeLinecap="round"

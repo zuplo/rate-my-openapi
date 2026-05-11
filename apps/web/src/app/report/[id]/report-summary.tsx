@@ -1,7 +1,7 @@
 "use client";
 
 import getScoreHeadline from "@/utils/get-score-headline";
-import getScoreTextColor from "@/utils/get-score-test-color";
+import { CaretDown, CaretUp } from "@phosphor-icons/react";
 import { useState } from "react";
 
 type ReportSummaryProps = {
@@ -16,34 +16,43 @@ const ReportSummary = ({
   score,
 }: ReportSummaryProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const scoreTextColor = getScoreTextColor(score);
   const scoreHeadline = getScoreHeadline(score);
   return (
     <>
-      <h2 className="mx-auto my-16 max-w-xl text-center text-4xl font-extrabold md:text-7xl">
-        {scoreHeadline.headline}
-        <div className="mt-2 text-xl font-bold text-gray-500">
-          {scoreHeadline.sub}
+      <div className="mx-auto my-10 max-w-3xl text-center md:my-14">
+        <h2 className="font-display text-fg text-3xl leading-tight font-semibold tracking-tight md:text-4xl">
+          {scoreHeadline.headline}
+        </h2>
+        <p className="text-fg-muted mt-3 text-base">{scoreHeadline.sub}</p>
+      </div>
+      <div className="card my-8 p-6 md:p-8">
+        <div className="mb-4 flex items-center gap-2">
+          <span className="tag tag-info is-caps">Summary</span>
         </div>
-      </h2>
-      <div className="my-10 flex flex-col	overflow-hidden rounded-lg bg-white p-8 shadow-md md:p-10">
-        <h3
-          className={`mb-6 font-roboto-mono text-xl font-bold uppercase ${scoreTextColor}`}
-        >
-          Summary
-        </h3>
-        <p className="whitespace-pre-wrap text-base">{shortSummary}</p>
-        {isExpanded ? (
-          <>
-            <p className="mt-4 text-lg">Advice</p>
-            <p className="mt-2 whitespace-pre-wrap text-base">{longSummary}</p>
-          </>
-        ) : null}
+        <p className="text-fg-secondary text-[15px] leading-relaxed whitespace-pre-wrap">
+          {shortSummary}
+        </p>
+        {isExpanded && (
+          <div className="border-border mt-6 border-t pt-6">
+            <h4 className="font-display text-fg text-base font-semibold">
+              Advice
+            </h4>
+            <p className="text-fg-secondary mt-2 text-[15px] leading-relaxed whitespace-pre-wrap">
+              {longSummary}
+            </p>
+          </div>
+        )}
         <button
-          className="button-transparent mt-4"
+          type="button"
+          className="btn btn-ghost mt-5 self-start"
           onClick={() => setIsExpanded(!isExpanded)}
         >
-          {isExpanded ? "Hide advice" : "Show advice"}
+          <span>{isExpanded ? "Hide advice" : "Show advice"}</span>
+          {isExpanded ? (
+            <CaretUp size={14} weight="regular" />
+          ) : (
+            <CaretDown size={14} weight="regular" />
+          )}
         </button>
       </div>
     </>

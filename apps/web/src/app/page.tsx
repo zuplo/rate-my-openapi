@@ -7,85 +7,95 @@ import { PageBox } from "@/components/PageBox";
 import NavigateButton from "@/components/NavigateButton";
 
 const gitHubActionCodeSample = `- uses: zuplo/rmoa-action@v1
-    with:
-      filepath: './my-api.json'
-      apikey: \${{ secrets.API_KEY }}`;
+  with:
+    filepath: './my-api.json'
+    apikey: \${{ secrets.API_KEY }}`;
 
 const HomePage = () => (
-  <div className="mx-4 mt-10 flex flex-col items-center justify-center md:mx-0 md:mt-8">
-    <h2 className="xl:mb-20 xl:text-7xl mb-10 mt-4 max-w-3xl text-center text-4xl font-bold md:mb-14 md:mt-0 md:text-6xl">
-      We rate your OpenAPI
-    </h2>
+  <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-12 px-6">
+    <section className="flex w-full max-w-3xl flex-col items-center gap-4 pt-4 text-center md:pt-10">
+      <span className="tag tag-accent is-caps">OpenAPI Quality Checker</span>
+      <h1 className="font-display text-fg text-4xl leading-tight font-semibold tracking-tight md:text-5xl">
+        We rate your OpenAPI
+      </h1>
+      <p className="text-fg-muted max-w-xl text-balance md:text-[15px]">
+        Upload a spec or paste a URL and we&apos;ll grade documentation,
+        completeness, SDK readiness and security in under a minute.
+      </p>
+    </section>
+
     <UploadContextProvider>
-      <div className="grid w-full max-w-4xl grid-cols-1">
+      <div className="grid w-full max-w-2xl grid-cols-1">
         <UploadInterface />
         <EmailInput />
         <AnalyzingText />
       </div>
     </UploadContextProvider>
-    <div className="mb-4 grid gap-10 md:grid-cols-3">
+
+    <section className="grid w-full gap-6 md:grid-cols-3">
       <PageBox>
-        <h3 className="text-lg font-medium">Use the CLI</h3>
-        <p>
-          Perfect for developers who prefer working from the command line or
-          need to integrate quality checks into their development workflow.
+        <h3 className="font-display text-fg text-base font-semibold">
+          Use the CLI
+        </h3>
+        <p className="text-fg-muted text-sm">
+          For developers who prefer the command line or need quality checks in
+          their dev workflow.
         </p>
-        <pre className="mt-auto whitespace-pre-wrap rounded-md bg-gray-100 px-2 py-6 font-mono text-xs">
+        <pre className="border-border bg-bg-subtle mt-auto overflow-x-auto rounded-md border px-3 py-3 font-mono text-xs leading-relaxed whitespace-pre">
           <code>
-            <span>npx rmoa lint </span>
-            <span style={{ color: "rgb(54, 172, 170)" }}>--filename</span>
+            <span className="text-fg">npx rmoa lint </span>
+            <span className="text-info">--filename</span>
             <span> </span>
-            <span style={{ color: "rgb(227, 17, 108)" }}>
-              &quot;api.json&quot;
-            </span>
-            <span style={{ color: "rgb(54, 172, 170)" }}> --api-key </span>
-            <span style={{ color: "rgb(227, 17, 108)" }}>&quot;****&quot;</span>
+            <span className="text-accent">&quot;api.json&quot;</span>
+            <br />
+            <span className="text-info"> --api-key </span>
+            <span className="text-accent">&quot;****&quot;</span>
           </code>
         </pre>
-
         <NavigateButton
-          label={"Get started"}
-          url={"https://www.npmjs.com/package/rmoa"}
+          label="Get started"
+          url="https://www.npmjs.com/package/rmoa"
         />
       </PageBox>
 
       <PageBox>
-        <h3 className="text-lg font-medium">Use our GitHub Action</h3>
-        <p>
-          Seamlessly integrates with your repository to run on Pull Requests and
-          Pushes to ensure continuous quality monitoring and feedback.
+        <h3 className="font-display text-fg text-base font-semibold">
+          Use our GitHub Action
+        </h3>
+        <p className="text-fg-muted text-sm">
+          Integrate with any repo to run on Pull Requests and pushes for
+          continuous quality monitoring.
         </p>
-        <pre className="mt-auto whitespace-pre-wrap rounded-md bg-gray-100 p-2 font-mono text-xs">
+        <pre className="border-border bg-bg-subtle text-fg mt-auto overflow-x-auto rounded-md border p-3 font-mono text-xs leading-relaxed whitespace-pre">
           <code>{gitHubActionCodeSample}</code>
         </pre>
-
         <NavigateButton
-          label={"Learn more"}
-          url={"https://github.com/marketplace/actions/rate-my-openapi-action"}
+          label="Learn more"
+          url="https://docs.ratemyopenapi.com/github-action"
         />
       </PageBox>
 
       <PageBox>
-        <h3 className="text-lg font-medium">Use our API</h3>
-        <p>
-          Great option for those developers that want to build their own tools
-          or their own integration to Rate My OpenAPI.
+        <h3 className="font-display text-fg text-base font-semibold">
+          Use our API
+        </h3>
+        <p className="text-fg-muted text-sm">
+          Build your own tools and integrations on top of Rate My OpenAPI.
         </p>
-        <div className="grid place-items-center">
+        <div className="bg-bg-subtle mt-auto grid place-items-center rounded-md py-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/build-crane-logo.png"
-            width={130}
+            width={120}
             alt="Build your tools with the API"
           />
         </div>
-
         <NavigateButton
-          label={"View docs"}
-          url={"https://api.ratemyopenapi.com/docs"}
+          label="View docs"
+          url="https://api.ratemyopenapi.com/docs"
         />
       </PageBox>
-    </div>
+    </section>
 
     <DynamicBackground />
   </div>

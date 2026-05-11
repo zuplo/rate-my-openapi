@@ -4,6 +4,7 @@ import ScoreDetailsSection from "@/components/DetailedScoreSection";
 import { DetailedScoreLoading } from "@/components/DetailedScoreSection/Loading";
 import { RatingExamples } from "@/components/RatingExamples";
 import ShareButton from "@/components/ShareButton";
+import { ArrowCounterClockwise } from "@phosphor-icons/react";
 import { type RatingOutput } from "@rate-my-openapi/core";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -21,10 +22,7 @@ export const FullReport = ({
   useEffect(() => {
     const getReport = async () => {
       const downloadUrlRequest = await fetch(`${API_URL}/reports/${reportId}`, {
-        next: {
-          // 1 day
-          revalidate: 60 * 60 * 24,
-        },
+        next: { revalidate: 60 * 60 * 24 },
       });
 
       if (downloadUrlRequest.status !== 200) {
@@ -36,19 +34,13 @@ export const FullReport = ({
       }
 
       const downloadUrlJson = await downloadUrlRequest.json();
-
       setReport(downloadUrlJson);
     };
 
     const getOpenapi = async () => {
       const downloadUrlRequest = await fetch(
         `${API_URL}/files/${reportId}.${fileExtension}`,
-        {
-          next: {
-            // 1 day
-            revalidate: 60 * 60 * 24,
-          },
-        },
+        { next: { revalidate: 60 * 60 * 24 } },
       );
 
       if (downloadUrlRequest.status !== 200) {
@@ -60,7 +52,6 @@ export const FullReport = ({
       }
 
       const downloadUrlJson = await downloadUrlRequest.text();
-
       setOpenapi(downloadUrlJson);
     };
 
@@ -71,10 +62,8 @@ export const FullReport = ({
   if (report === null || openapi === undefined)
     return (
       <>
-        <h2 className="mx-auto my-16 max-w-xl animate-pulse text-center text-4xl font-extrabold text-gray-400 md:text-7xl">
-          Loading
-          <br />
-          full report
+        <h2 className="font-display text-fg-faint mx-auto my-12 max-w-xl text-center text-2xl font-semibold md:text-3xl">
+          Loading full report…
         </h2>
         <DetailedScoreLoading title="Documentation" />
         <DetailedScoreLoading title="Completeness" />
@@ -85,7 +74,7 @@ export const FullReport = ({
 
   return (
     <>
-      <div className="mb-10">
+      <div className="mt-10 mb-8">
         {report?.docsScore ? (
           <ScoreDetailsSection
             title="Documentation"
@@ -96,7 +85,7 @@ export const FullReport = ({
             fileExtension={fileExtension}
           />
         ) : (
-          <div className="mb-10 h-[630px] animate-pulse rounded-lg bg-slate-200 shadow-md md:h-[312px]" />
+          <DetailedScoreLoading title="Documentation" />
         )}
         {report?.completenessScore && (
           <ScoreDetailsSection
@@ -129,15 +118,14 @@ export const FullReport = ({
           />
         )}
       </div>
-      <div className="mb-10 mt-20 flex w-full flex-col md:flex-row md:items-center md:justify-center">
-        <ShareButton className="mb-4 text-lg md:mb-0 md:mr-4" />
-        <Link href="/" className="button-light text-lg">
-          Rate another OpenAPI spec
+      <div className="mt-10 mb-12 flex w-full flex-col items-center justify-center gap-3 md:flex-row">
+        <ShareButton type="dark" />
+        <Link href="/" className="btn btn-outlined">
+          <ArrowCounterClockwise size={16} weight="regular" />
+          <span>Rate another OpenAPI spec</span>
         </Link>
       </div>
-      <RatingExamples>
-        <p className="m-5 text-lg text-gray-400">See how other APIs scored</p>
-      </RatingExamples>
+      <RatingExamples>See how other APIs scored</RatingExamples>
     </>
   );
 };

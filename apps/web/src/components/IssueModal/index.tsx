@@ -2,8 +2,8 @@
 
 import useWindowSize from "@/utils/use-window-size";
 import { Dialog, Transition } from "@headlessui/react";
-import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Editor, Monaco, OnMount } from "@monaco-editor/react";
+import { ArrowUpRight, Sparkle, Warning, X } from "@phosphor-icons/react";
+import { Editor, OnMount } from "@monaco-editor/react";
 import { Fragment, useState } from "react";
 import { getRuleData } from "../../utils/issue-utils";
 import { Issue } from "../DetailedScoreSection";
@@ -55,20 +55,14 @@ const IssueModal = ({
   const windowSize = useWindowSize();
   const ruleData = getRuleData(issue.code);
   const [aiSuggestion, setAiSuggestion] = useState<string>();
-  const [selectedTab, setSelectedTab] = useState("CODE");
+  const [selectedTab, setSelectedTab] = useState<"CODE" | "AI">("CODE");
   const [aiTabVisited, setAiTabVisited] = useState(false);
 
   const loadAiSuggestion = async () => {
-    if (aiSuggestion) {
-      return;
-    }
+    if (aiSuggestion) return;
     const aiResponse = await fetch(`${API_URL}/ai-fix/${reportName}`, {
-      body: JSON.stringify({
-        issue,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+      body: JSON.stringify({ issue }),
+      headers: { "Content-Type": "application/json" },
       method: "POST",
     });
     const responseMessage = await aiResponse.text();
@@ -83,9 +77,7 @@ const IssueModal = ({
   };
 
   const handleAiTabClick = () => {
-    if (!aiTabVisited) {
-      setAiTabVisited(true);
-    }
+    if (!aiTabVisited) setAiTabVisited(true);
     setSelectedTab("AI");
   };
 
@@ -106,7 +98,7 @@ const IssueModal = ({
           className: getGlyphBackgroundClassName(issue.severity),
           hoverMessage: { value: issue.message },
           minimap: {
-            color: "rgba(254, 226, 226, 1)",
+            color: "rgba(225, 29, 72, 0.6)",
             position: 2,
           },
           glyphMarginHoverMessage: { value: issue.message },
@@ -121,176 +113,168 @@ const IssueModal = ({
         },
       },
     ]);
-    // The code below will cause the hover message to show by default
-    // We may or may not want to do this in the future
     windowSize.isMobile && editor.getAction("editor.action.showHover")?.run();
     await loadAiSuggestion();
   };
+
+  const tabBtn = (active: boolean) =>
+    `inline-flex items-center gap-2 rounded-[7px] px-3 py-1.5 text-sm transition-colors ${
+      active
+        ? "bg-bg-muted font-semibold text-fg"
+        : "font-medium text-fg-muted hover:text-fg"
+    }`;
 
   return (
     <Transition.Root show={true} appear={true} as="div">
       <Dialog
         as="div"
         className="fixed inset-0 z-30 overflow-y-auto"
-        onClose={() => {
-          onClose(false);
-        }}
+        onClose={() => onClose(false)}
       >
         <div className="flex min-h-screen items-center justify-center px-4 text-center">
           <Transition.Child
             as="div"
-            enter="ease-out duration-400"
+            enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
-            leave="ease-in duration-300"
+            leave="ease-in duration-200"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <Dialog.Overlay
+              className="fixed inset-0 transition-opacity"
+              style={{ background: "rgba(0,0,0,0.45)" }}
+            />
           </Transition.Child>
 
-          {/* This element is to trick the browser into centering the modal contents. */}
           <span
-            className="sm:inline-block sm:h-screen sm:align-middle hidden"
+            className="hidden sm:inline-block sm:h-screen sm:align-middle"
             aria-hidden="true"
           >
             &#8203;
           </span>
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-400"
-            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 translate-y-3 sm:translate-y-0 sm:scale-95"
             enterTo="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-300"
+            leave="ease-in duration-200"
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            leaveTo="opacity-0 translate-y-3 sm:translate-y-0 sm:scale-95"
           >
-            <div
-              className={`sm:my-8 sm:p-6 sm:align-middle flex h-screen w-screen transform flex-col overflow-hidden overflow-y-auto rounded-lg bg-white px-4 pb-4 pt-4 text-left align-bottom shadow-xl transition-all md:h-[80vh] md:w-[75vw] md:max-w-[1200px]`}
-            >
-              <div className="sm:block z-40 -mr-2 inline-flex w-full justify-end">
+            <div className="bg-bg text-fg shadow-modal relative z-40 flex h-screen w-screen transform flex-col overflow-y-auto p-5 text-left transition-all md:my-8 md:h-[80vh] md:w-[75vw] md:max-w-[1200px] md:rounded-2xl md:p-8">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex flex-col">
+                  <span className="text-fg-faint text-xs font-medium tracking-[0.05em] uppercase">
+                    Issue
+                  </span>
+                  <h2 className="font-display text-fg text-lg leading-tight font-semibold md:text-xl">
+                    {issue.message}
+                  </h2>
+                  <span className="text-fg-muted mt-1 font-mono text-xs">
+                    {issue.code}
+                  </span>
+                </div>
                 <button
                   type="button"
-                  className={`z-40 rounded-md text-gray-400  hover:text-gray-500`}
+                  className="btn btn-ghost btn-icon"
+                  aria-label="Close issue"
                   onClick={() => onClose(false)}
                 >
-                  <span className="sr-only">Close</span>
-                  <XMarkIcon height={24} width={24} className="z-40 h-6 w-6" />
+                  <X size={18} weight="regular" />
                 </button>
               </div>
-              <div className="-mt-2 flex w-fit flex-col">
-                <div className="font-bold md:text-lg">{issue.message}</div>
-                <div className="text-xs text-gray-400">Code: {issue.code}</div>
-                <div className="mb-4 mt-2 flex flex-col gap-y-2">
-                  <div className="flex flex-col">
-                    <span className="font-bold">Why is this important?</span>
-                    {ruleData.description}
-                  </div>
-                  {ruleData.violationExplanation && (
-                    <div className="flex flex-col">
-                      <span className="font-bold">
-                        Why did this violation appear?
-                      </span>
+
+              <div className="text-fg-secondary mt-4 flex flex-col gap-3 text-sm">
+                <div>
+                  <span className="font-display text-fg block font-semibold">
+                    Why is this important?
+                  </span>
+                  <p className="mt-1 leading-relaxed">{ruleData.description}</p>
+                </div>
+                {ruleData.violationExplanation && (
+                  <div>
+                    <span className="font-display text-fg block font-semibold">
+                      Why did this violation appear?
+                    </span>
+                    <p className="mt-1 leading-relaxed">
                       {ruleData.violationExplanation}
-                    </div>
-                  )}
+                    </p>
+                  </div>
+                )}
+                {ruleData.url && (
                   <a
                     target="_blank"
-                    className="flex w-fit items-center text-blue-500 hover:text-blue-700"
+                    rel="noreferrer"
+                    className="text-accent hover:text-accent-hover inline-flex w-fit items-center gap-1 text-sm font-semibold transition-colors"
                     href={ruleData.url}
                   >
-                    Learn more <ArrowUpRightIcon height={12} strokeWidth={3} />
+                    Learn more <ArrowUpRight size={14} weight="regular" />
                   </a>
-                </div>
+                )}
               </div>
-              <div
-                className={` ${
-                  selectedTab === "AI" ? "h-fit" : "h-full"
-                }  w-full`}
-              >
-                <div className="flex w-fit rounded-md rounded-b-none border">
-                  <div
+
+              <div className="mt-5 flex w-full flex-1 flex-col">
+                <div className="border-border bg-bg inline-flex w-fit items-center gap-1 rounded-[10px] border p-1">
+                  <button
+                    type="button"
                     onClick={() => setSelectedTab("CODE")}
-                    className={`border-r border-gray-300 px-4 py-2 font-bold hover:cursor-pointer ${
-                      selectedTab === "CODE" ? "bg-gray-100" : ""
-                    }`}
+                    className={tabBtn(selectedTab === "CODE")}
                   >
-                    Code
-                  </div>
-                  <div
+                    <span>Code</span>
+                  </button>
+                  <button
+                    type="button"
                     onClick={handleAiTabClick}
-                    className={`relative flex px-4 py-2 font-bold hover:cursor-pointer ${
-                      selectedTab === "AI" ? "bg-gray-100" : ""
-                    }`}
+                    className={`${tabBtn(selectedTab === "AI")} relative`}
                   >
-                    AI Suggestion{" "}
-                    {aiTabVisited ? null : (
-                      <span className="absolute -right-1 -top-1 flex h-3 w-3">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#f7a1e1] opacity-75"></span>
-                        <span className="relative inline-flex h-3 w-3 rounded-full bg-[#FF00BD]"></span>
+                    <Sparkle size={14} weight="regular" />
+                    <span>AI Suggestion</span>
+                    {!aiTabVisited && (
+                      <span className="absolute -top-1 -right-1 flex h-2 w-2">
+                        <span className="bg-accent absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" />
+                        <span className="bg-accent relative inline-flex h-2 w-2 rounded-full" />
                       </span>
                     )}
-                  </div>
+                  </button>
                 </div>
+
                 {selectedTab === "AI" ? (
-                  <div className="mt-4 flex h-fit w-full flex-col">
-                    <div className="w-full rounded-sm border border-amber-400 bg-amber-100 px-2 py-3 font-medium text-gray-600">
-                      Note: AI Suggestions are experimental. Implement with
-                      care.
+                  <div className="mt-4 flex h-full w-full flex-col">
+                    <div className="border-warning-border bg-warning-bg flex items-start gap-3 rounded-xl border p-3.5 text-sm">
+                      <Warning
+                        size={18}
+                        weight="regular"
+                        className="text-warning-deep mt-0.5 shrink-0"
+                      />
+                      <div className="text-warning-deep">
+                        <span className="font-semibold">Experimental.</span> AI
+                        suggestions can be wrong — implement with care.
+                      </div>
                     </div>
                     {aiSuggestion ? (
                       <ReactMarkdown
-                        className={
-                          "prose prose-code:before:content-none prose-code:after:content-none font-[helvetica, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, sans-serif] mt-4"
-                        }
+                        className="prose prose-sm text-fg-secondary prose-headings:font-display prose-headings:text-fg prose-p:text-fg-secondary prose-code:rounded prose-code:bg-bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:font-mono prose-code:text-xs prose-code:font-normal prose-code:text-fg prose-code:before:content-none prose-code:after:content-none mt-4 max-w-none font-sans"
                         components={{
-                          p({ node, children, ...props }) {
-                            return (
-                              <p {...props} className="font-mono">
-                                {children}
-                              </p>
-                            );
-                          },
-                          li({ node, children, ...props }) {
-                            return (
-                              <li
-                                {...props}
-                                className={`my-1 font-mono marker:text-black`}
-                              >
-                                {children}
-                              </li>
-                            );
-                          },
-                          code({ node, children, className, ...props }) {
-                            // Solution to check if code is inline https://github.com/remarkjs/react-markdown/issues/776#issuecomment-1746945470
+                          code({ children, className, ...props }) {
                             const match = /language-(\w+)/.exec(
                               className || "",
                             );
                             const onMount: OnMount = (editor) => {
                               const height = editor.getContentHeight();
-                              editor.layout({
-                                height,
-                                width: 100,
-                              });
+                              editor.layout({ height, width: 100 });
                             };
                             return !match ? (
-                              <code
-                                className="font-light font-[ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace] rounded-[0.25rem] bg-[#f7fafc] p-[0.25rem] text-sm text-[#2a2f45]"
-                                {...props}
-                              >
-                                {children}
-                              </code>
+                              <code {...props}>{children}</code>
                             ) : (
                               <Editor
-                                className="my-2 h-full"
+                                className="my-3 h-full overflow-hidden rounded-md"
                                 width="100%"
                                 onMount={onMount}
                                 language={
                                   fileExtension === "json" ? "json" : "yaml"
                                 }
-                                value={
-                                  children as string
-                                } /* We expect the code to be a string */
+                                value={children as string}
                                 options={{
                                   automaticLayout: true,
                                   readOnly: true,
@@ -303,17 +287,13 @@ const IssueModal = ({
                                     alwaysConsumeMouseWheel: false,
                                   },
                                   minimap: windowSize.isMobile
-                                    ? {
-                                        enabled: false,
-                                      }
+                                    ? { enabled: false }
                                     : undefined,
-                                  fontSize: windowSize.isMobile
-                                    ? 10
-                                    : undefined,
+                                  fontSize: windowSize.isMobile ? 10 : 12,
                                   lineNumbers: windowSize.isMobile
                                     ? "off"
                                     : undefined,
-                                  // @ts-ignore - this is a valid option, but the types don't know about it
+                                  // @ts-ignore valid option, not in types
                                   renderIndentGuides: windowSize.isMobile
                                     ? false
                                     : undefined,
@@ -329,41 +309,41 @@ const IssueModal = ({
                         {aiSuggestion}
                       </ReactMarkdown>
                     ) : (
-                      <div className="my-4 flex h-full text-lg">Loading...</div>
+                      <div className="text-fg-muted my-4 flex h-full text-sm">
+                        Loading suggestion…
+                      </div>
                     )}
                   </div>
-                ) : null}
-                {selectedTab === "CODE" ? (
-                  <Editor
-                    className="my-2 h-full"
-                    width="100%"
-                    height="calc(100% - 75px)"
-                    language={fileExtension === "json" ? "json" : "yaml"}
-                    value={openapi}
-                    options={{
-                      automaticLayout: true,
-                      readOnly: true,
-                      selectionHighlight: true,
-                      renderLineHighlight: "line",
-                      scrollBeyondLastLine: false,
-                      glyphMargin: true,
-                      minimap: windowSize.isMobile
-                        ? {
-                            enabled: false,
-                          }
-                        : undefined,
-                      fontSize: windowSize.isMobile ? 10 : undefined,
-                      lineNumbers: windowSize.isMobile ? "off" : undefined,
-                      // @ts-ignore - this is a valid option, but the types don't know about it
-                      renderIndentGuides: windowSize.isMobile
-                        ? false
-                        : undefined,
-                      folding: windowSize.isMobile ? false : undefined,
-                    }}
-                    onMount={onEditorDidMount}
-                    line={issue.range.start.line}
-                  />
-                ) : null}
+                ) : (
+                  <div className="border-border mt-4 h-full min-h-[300px] flex-1 overflow-hidden rounded-md border">
+                    <Editor
+                      width="100%"
+                      height="100%"
+                      language={fileExtension === "json" ? "json" : "yaml"}
+                      value={openapi}
+                      options={{
+                        automaticLayout: true,
+                        readOnly: true,
+                        selectionHighlight: true,
+                        renderLineHighlight: "line",
+                        scrollBeyondLastLine: false,
+                        glyphMargin: true,
+                        minimap: windowSize.isMobile
+                          ? { enabled: false }
+                          : undefined,
+                        fontSize: windowSize.isMobile ? 10 : 12,
+                        lineNumbers: windowSize.isMobile ? "off" : undefined,
+                        // @ts-ignore valid option, not in types
+                        renderIndentGuides: windowSize.isMobile
+                          ? false
+                          : undefined,
+                        folding: windowSize.isMobile ? false : undefined,
+                      }}
+                      onMount={onEditorDidMount}
+                      line={issue.range.start.line}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </Transition.Child>

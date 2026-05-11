@@ -4,14 +4,18 @@ const DynamicBackground = ({ score = -1 }) => (
   <div
     role="presentation"
     className={classNames(
-      "fixed inset-0 z-[-1] h-full w-full bg-gradient-radial transition-colors",
-      {
-        "from-blue-100": score === -1,
-        "from-green-100": score >= 80,
-        "from-red-100": score >= 0 && score < 50,
-        "from-yellow-100": score >= 50 && score < 80,
-      },
+      "pointer-events-none fixed inset-0 -z-10 opacity-40 transition-opacity",
     )}
+    style={{
+      background:
+        score >= 80
+          ? "radial-gradient(circle at 25% -10%, var(--color-success-bg), transparent 45%), radial-gradient(circle at 110% 75%, var(--color-success-bg), transparent 55%)"
+          : score >= 50
+            ? "radial-gradient(circle at 25% -10%, var(--color-warning-bg), transparent 45%), radial-gradient(circle at 110% 75%, var(--color-warning-bg), transparent 55%)"
+            : score >= 0
+              ? "radial-gradient(circle at 25% -10%, var(--color-error-bg), transparent 45%), radial-gradient(circle at 110% 75%, var(--color-error-bg), transparent 55%)"
+              : "radial-gradient(circle at 25% -10%, var(--color-accent-light), transparent 45%), radial-gradient(circle at 110% 75%, var(--color-accent-light), transparent 55%)",
+    }}
   />
 );
 

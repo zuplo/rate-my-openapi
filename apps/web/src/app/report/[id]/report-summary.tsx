@@ -44,7 +44,7 @@ const ReportSummary = ({
         )}
         <button
           type="button"
-          className="btn btn-ghost mt-5 self-start"
+          className="btn btn-ghost btn-sm mt-5 -ml-3"
           onClick={() => setIsExpanded(!isExpanded)}
         >
           <span>{isExpanded ? "Hide advice" : "Show advice"}</span>

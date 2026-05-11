@@ -2,12 +2,29 @@
 
 import getScoreHeadline from "@/utils/get-score-headline";
 import { CaretDown, CaretUp } from "@phosphor-icons/react";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 type ReportSummaryProps = {
   shortSummary: string;
   longSummary: string;
   score: number;
+};
+
+const renderWithInlineCode = (text: string) => {
+  const parts = text.split(/(`[^`\n]+`)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("`") && part.endsWith("`") && part.length > 1) {
+      return (
+        <code
+          key={i}
+          className="bg-bg-muted text-fg rounded px-1.5 py-0.5 font-mono text-[0.85em]"
+        >
+          {part.slice(1, -1)}
+        </code>
+      );
+    }
+    return <Fragment key={i}>{part}</Fragment>;
+  });
 };
 
 const ReportSummary = ({
@@ -30,7 +47,7 @@ const ReportSummary = ({
           <span className="tag tag-info is-caps">Summary</span>
         </div>
         <p className="text-fg-secondary text-[15px] leading-relaxed whitespace-pre-wrap">
-          {shortSummary}
+          {renderWithInlineCode(shortSummary)}
         </p>
         {isExpanded && (
           <div className="border-border mt-6 border-t pt-6">
@@ -38,7 +55,7 @@ const ReportSummary = ({
               Advice
             </h4>
             <p className="text-fg-secondary mt-2 text-[15px] leading-relaxed whitespace-pre-wrap">
-              {longSummary}
+              {renderWithInlineCode(longSummary)}
             </p>
           </div>
         )}

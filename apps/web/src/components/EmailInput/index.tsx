@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { PaperPlaneRight } from "@phosphor-icons/react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 
 import { useUploadContext } from "@/contexts/UploadContext";
@@ -41,10 +41,7 @@ const EmailInput = () => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (isSubmitting) {
-      return;
-    }
+    if (isSubmitting) return;
 
     setIsSubmitting(true);
     setError(undefined);
@@ -62,30 +59,27 @@ const EmailInput = () => {
         });
 
         if (!uploadResponse.ok) {
-          let message: string = `Upload failed with status ${uploadResponse.status}. We've been notified and will fix this ASAP.`;
+          let message = `Upload failed with status ${uploadResponse.status}. We've been notified and will fix this ASAP.`;
           try {
             const problem = await uploadResponse.json();
             if ("detail" in problem) {
               message = problem.detail;
             }
-          } catch (err) {
-            // Ignore
+          } catch {
+            // ignore
           }
           setError(message);
-
           setIsSubmitting(false);
           return;
         }
 
         localStorage.setItem("lastUsedEmailAddress", emailInput?.value);
-
         posthog.identify(emailInput?.value);
 
         setIsSubmitting(false);
         setNextStep();
       } catch (e) {
         console.error((e as Error).message);
-
         setIsSubmitting(false);
         setError((e as Error).message);
       }
@@ -95,40 +89,38 @@ const EmailInput = () => {
   return (
     <StepContainer step={2}>
       <form onSubmit={onSubmit}>
-        <div className="relative flex w-full rounded-lg border border-gray-200 bg-white p-4 shadow-md">
+        <div className="card flex w-full flex-row items-center gap-2 p-2">
           <input
             required
             onChange={onChange}
             type="email"
             ref={emailInputRef}
-            placeholder="Enter email here"
-            className="w-full border-none bg-transparent pr-3 text-lg outline-none"
+            placeholder="Enter your email"
+            className="text-fg placeholder:text-fg-faint h-9 w-full flex-1 border-none bg-transparent px-2 text-sm outline-none"
           />
           <button
             type="submit"
-            className="icon-button-submit"
+            className="btn btn-primary btn-icon shrink-0"
+            aria-label="Submit email"
             disabled={!isValid || isSubmitting}
           >
             {isSubmitting ? (
-              <LoadingIndicator height={20} width={20} className="text-white" />
+              <LoadingIndicator height={16} width={16} className="text-white" />
             ) : (
-              <ChevronRightIcon height={24} width={24} className="text-white" />
+              <PaperPlaneRight size={16} weight="regular" />
             )}
           </button>
         </div>
       </form>
-      <label
-        htmlFor="email"
-        className="mx-auto mt-6 block max-w-lg text-center text-xl text-gray-600 md:mb-16"
-      >
+      <p className="text-fg-muted mx-auto mt-5 block max-w-lg text-center text-sm">
         {error ? (
-          <p className="mb-4 text-red-500">{error}</p>
+          <span className="text-error">{error}</span>
         ) : isSubmitting ? (
-          <p className="text-gray-400">Uploading your OpenAPI definition...</p>
+          <span>Uploading your OpenAPI definition…</span>
         ) : (
-          <>Enter your email to send your report when it&apos;s ready.</>
+          <>We&apos;ll email you the report when it&apos;s ready.</>
         )}
-      </label>
+      </p>
     </StepContainer>
   );
 };

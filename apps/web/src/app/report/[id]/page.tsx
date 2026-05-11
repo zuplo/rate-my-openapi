@@ -12,14 +12,24 @@ import { FeedbackPopover } from "./feedback-popup";
 const HeroScore = async ({ simpleReport }: { simpleReport: SimpleReport }) => {
   return (
     <>
-      <div className="mx-auto mt-8 flex max-w-xl flex-col items-center gap-6 rounded-lg bg-white p-6 shadow-md md:mt-32 md:flex-row md:justify-around md:p-10">
-        <div className="relative">
+      <div className="card mx-auto mt-2 flex max-w-3xl flex-col items-center gap-6 p-6 md:flex-row md:items-center md:justify-between md:gap-10 md:p-8">
+        <div className="shrink-0">
           <ScoreMeter score={simpleReport.score} />
         </div>
-        <div className="w-full text-center">
-          <h1 className="mb-10 text-2xl">
-            {simpleReport?.title} {simpleReport?.version}
-          </h1>
+        <div className="flex flex-1 flex-col items-center gap-4 text-center md:items-start md:text-left">
+          <div className="flex flex-col gap-1">
+            <span className="text-fg-faint text-xs font-medium tracking-[0.05em] uppercase">
+              Report
+            </span>
+            <h1 className="font-display text-fg text-2xl leading-tight font-semibold tracking-tight md:text-3xl">
+              {simpleReport?.title}
+            </h1>
+            {simpleReport?.version && (
+              <span className="text-fg-muted font-mono text-sm">
+                {simpleReport.version}
+              </span>
+            )}
+          </div>
           <ShareButton type="light" />
         </div>
       </div>
@@ -28,8 +38,9 @@ const HeroScore = async ({ simpleReport }: { simpleReport: SimpleReport }) => {
   );
 };
 
-const ReportPage = async ({ params }: { params: { id: string } }) => {
-  const simpleReport = await getSimpleReport(params.id);
+const ReportPage = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
+  const simpleReport = await getSimpleReport(id);
 
   if (!simpleReport) {
     notFound();
@@ -37,7 +48,7 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
 
   const fileExtension = simpleReport?.fileExtension;
   return (
-    <>
+    <div className="mx-auto w-full max-w-[1200px] px-6">
       <HeroScore simpleReport={simpleReport} />
       {simpleReport.shortSummary && simpleReport.longSummary ? (
         <ReportSummary
@@ -46,9 +57,9 @@ const ReportPage = async ({ params }: { params: { id: string } }) => {
           score={simpleReport.score}
         />
       ) : null}
-      <FullReport reportId={params.id} fileExtension={fileExtension} />
+      <FullReport reportId={id} fileExtension={fileExtension} />
       <FeedbackPopover />
-    </>
+    </div>
   );
 };
 

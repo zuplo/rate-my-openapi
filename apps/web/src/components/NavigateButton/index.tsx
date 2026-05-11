@@ -1,16 +1,32 @@
 "use client";
 
-const NavigateButton = ({ label, url }: { label: string; url: string }) => {
+import { ArrowUpRight } from "@phosphor-icons/react";
+import classNames from "classnames";
+
+type Variant = "primary" | "outlined";
+
+const NavigateButton = ({
+  label,
+  url,
+  variant = "outlined",
+}: {
+  label: string;
+  url: string;
+  variant?: Variant;
+}) => {
   return (
-    <button
-      type="button"
-      className="mt-auto block rounded-md bg-fuchsia-600 p-2 font-medium text-white transition-colors hover:bg-fuchsia-500 hover:text-white"
-      onClick={() => {
-        window.location.href = url;
-      }}
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      className={classNames(
+        "btn mt-auto self-start",
+        variant === "primary" ? "btn-primary" : "btn-outlined",
+      )}
     >
-      {label}
-    </button>
+      <span>{label}</span>
+      <ArrowUpRight size={16} weight="regular" />
+    </a>
   );
 };
 

@@ -1,29 +1,67 @@
 import Link from "next/link";
-import Image from "next/image";
+import { GithubLogo, Star } from "@phosphor-icons/react/dist/ssr";
 
-const Header = () => (
-  <header className="xl:pt-8 px-4 pt-4">
-    <div className="xl:p-5 flex justify-between rounded-lg bg-white p-3 shadow-md">
-      <div className="relative">
-        <a href="/" className="flex justify-center">
-          <h1 className="xl:text-2xl text-xl font-bold">
-            rate<span className="text-gray-500">my</span>openapi
-          </h1>
-        </a>
-      </div>
-      <div className="flex items-center">
-        <Link target="_blank" href="https://github.com/zuplo/rate-my-openapi">
-          <Image
-            height={0}
-            width={124}
-            alt="GitHub Repo stars"
-            unoptimized
-            src="https://img.shields.io/github/stars/zuplo/rate-my-openapi"
-          />
+const formatStars = (count: number) => {
+  if (count >= 1000) {
+    return `${(count / 1000).toFixed(1).replace(/\.0$/, "")}k`;
+  }
+  return `${count}`;
+};
+
+const getStarCount = async (): Promise<number | null> => {
+  try {
+    const res = await fetch(
+      "https://api.github.com/repos/zuplo/rate-my-openapi",
+      {
+        next: { revalidate: 60 * 60 * 6 },
+        headers: { Accept: "application/vnd.github+json" },
+      },
+    );
+    if (!res.ok) return null;
+    const data = (await res.json()) as { stargazers_count?: number };
+    return typeof data.stargazers_count === "number"
+      ? data.stargazers_count
+      : null;
+  } catch {
+    return null;
+  }
+};
+
+const Header = async () => {
+  const stars = await getStarCount();
+  return (
+    <header className="bg-bg-subtle/80 sticky top-0 z-20 w-full backdrop-blur">
+      <div className="mx-auto flex h-[52px] w-full max-w-[1200px] items-center justify-between px-6">
+        <Link
+          href="/"
+          className="focus-ring flex items-center gap-2 rounded-md"
+          aria-label="Rate My OpenAPI home"
+        >
+          <span className="font-display text-fg text-lg font-semibold tracking-tight">
+            rate<span className="text-fg-muted">my</span>openapi
+          </span>
         </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            href="https://github.com/zuplo/rate-my-openapi"
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-ghost btn-sm gap-2"
+            aria-label="View on GitHub"
+          >
+            <GithubLogo size={16} weight="regular" />
+            <span>GitHub</span>
+            {stars !== null && (
+              <span className="badge-numeric badge-numeric-neutral inline-flex items-center gap-1">
+                <Star size={10} weight="fill" />
+                {formatStars(stars)}
+              </span>
+            )}
+          </Link>
+        </div>
       </div>
-    </div>
-  </header>
-);
+    </header>
+  );
+};
 
 export default Header;

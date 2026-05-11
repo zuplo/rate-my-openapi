@@ -1,10 +1,12 @@
 "use client";
 
+import { Check, ShareNetwork } from "@phosphor-icons/react";
+import classNames from "classnames";
 import { useState } from "react";
 
 const ShareButton = ({
   className = "",
-  type,
+  type = "dark",
 }: {
   className?: string;
   type?: "light" | "dark";
@@ -13,21 +15,34 @@ const ShareButton = ({
 
   return (
     <button
+      type="button"
       onClick={() => {
         setCopied(true);
         navigator.clipboard.writeText(window.location.href);
         setTimeout(() => setCopied(false), 2000);
       }}
       disabled={copied}
-      className={`${
+      className={classNames(
+        "btn",
         copied
-          ? "button bg-gray-400 text-white"
+          ? "btn-outlined text-success"
           : type === "light"
-            ? "button-light"
-            : "button-dark"
-      } ${className}`}
+            ? "btn-outlined"
+            : "btn-dark",
+        className,
+      )}
     >
-      {copied ? "Copied to clipboard" : "Share these results"}
+      {copied ? (
+        <>
+          <Check size={16} weight="regular" />
+          <span>Copied to clipboard</span>
+        </>
+      ) : (
+        <>
+          <ShareNetwork size={16} weight="regular" />
+          <span>Share these results</span>
+        </>
+      )}
     </button>
   );
 };

@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 
 type Props = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
-export function generateMetadata({ params }: Props): Metadata {
-  const id = params.id;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
 
   const ogiImage = `https://www.ratemyopenapi.com/og/${id}`;
   const title = "Rate My OpenAPI";
@@ -38,7 +38,7 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 const ReportLayout = ({ children }: { children: React.ReactNode }) => (
-  <main className="pb-8">{children}</main>
+  <div className="pb-8">{children}</div>
 );
 
 export default ReportLayout;

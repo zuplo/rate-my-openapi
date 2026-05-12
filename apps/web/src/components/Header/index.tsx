@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { GithubLogo, Star } from "@phosphor-icons/react/dist/ssr";
 
@@ -34,12 +35,17 @@ const Header = async () => {
       <div className="mx-auto flex h-[52px] w-full max-w-[1200px] items-center justify-between px-6">
         <Link
           href="/"
-          className="focus-ring flex items-center gap-2 rounded-md"
+          className="focus-ring flex items-center rounded-md"
           aria-label="Rate My OpenAPI home"
         >
-          <span className="font-display text-fg text-lg font-semibold tracking-tight">
-            rate<span className="text-fg-muted">my</span>openapi
-          </span>
+          <Image
+            src="/images/logo.png"
+            alt="ratemyopenapi"
+            width={950}
+            height={280}
+            priority
+            className="h-8 w-auto"
+          />
         </Link>
         <div className="flex items-center gap-2">
           <Link

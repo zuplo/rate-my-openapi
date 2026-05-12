@@ -1,30 +1,20 @@
-import { API_URL } from "../../../utils/env";
+import "server-only";
 
-export type SimpleReport = {
-  docsScore: number;
-  completenessScore: number;
-  score: number;
-  securityScore: number;
-  sdkGenerationScore: number;
-  fileExtension: "json" | "yaml";
-  title: string;
-  version: string;
-  shortSummary?: string;
-  longSummary?: string;
-};
+import type { SimpleReport } from "@/types/report";
+import { getServerApiUrl } from "@/utils/server-api-url";
+
+export type { SimpleReport };
 
 export const getSimpleReport = async (
   id: string,
 ): Promise<SimpleReport | null> => {
-  const downloadUrlRequest = await fetch(
-    `${API_URL}/reports/${id}/simplified`,
-    {
-      next: {
-        // 1 day
-        revalidate: 60 * 60 * 24,
-      },
+  const apiUrl = await getServerApiUrl();
+  const downloadUrlRequest = await fetch(`${apiUrl}/reports/${id}/simplified`, {
+    next: {
+      // 1 day
+      revalidate: 60 * 60 * 24,
     },
-  );
+  });
 
   if (downloadUrlRequest.status !== 200) {
     console.log("API Error getting simplified report", {

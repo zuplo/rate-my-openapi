@@ -32,7 +32,7 @@ const Header = async () => {
   const stars = await getStarCount();
   return (
     <header className="bg-bg-subtle/80 sticky top-0 z-20 w-full backdrop-blur">
-      <div className="mx-auto flex h-[52px] w-full max-w-[1200px] items-center justify-between px-6">
+      <div className="mx-auto flex h-[64px] w-full max-w-[1200px] items-center justify-between px-6">
         <Link
           href="/"
           className="focus-ring flex items-center rounded-md"
@@ -44,7 +44,7 @@ const Header = async () => {
             width={950}
             height={280}
             priority
-            className="h-8 w-auto"
+            className="h-12 w-auto"
           />
         </Link>
         <div className="flex items-center gap-2">

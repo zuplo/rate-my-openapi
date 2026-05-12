@@ -62,7 +62,8 @@ const CopyPageDropdown = ({
   const [linkState, setLinkState] = useState<CopyState>("idle");
 
   const getPageUrl = () => window.location.origin + `/report/${reportId}`;
-  const getMarkdownUrl = () => window.location.origin + `/report/${reportId}.md`;
+  const getMarkdownUrl = () =>
+    window.location.origin + `/report/${reportId}.md`;
 
   const flash = (
     setter: (s: CopyState) => void,

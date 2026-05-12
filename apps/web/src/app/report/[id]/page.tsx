@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 
 import ScoreMeter from "@/components/ScoreMeter";
 
+import CopyPageDropdown from "@/components/CopyPageDropdown";
 import ShareButton from "@/components/ShareButton";
 import DynamicBackground from "@/components/DynamicBackground";
 import { FullReport } from "./full-report";
@@ -9,7 +10,13 @@ import { SimpleReport, getSimpleReport } from "./simple-report-request";
 import ReportSummary from "./report-summary";
 import { FeedbackPopover } from "./feedback-popup";
 
-const HeroScore = async ({ simpleReport }: { simpleReport: SimpleReport }) => {
+const HeroScore = async ({
+  simpleReport,
+  reportId,
+}: {
+  simpleReport: SimpleReport;
+  reportId: string;
+}) => {
   return (
     <>
       <div className="card mx-auto mt-2 flex max-w-3xl flex-col items-center gap-6 p-6 md:flex-row md:items-center md:justify-between md:gap-10 md:p-8">
@@ -30,7 +37,10 @@ const HeroScore = async ({ simpleReport }: { simpleReport: SimpleReport }) => {
               </span>
             )}
           </div>
-          <ShareButton type="light" />
+          <div className="flex flex-wrap items-center justify-center gap-2 md:justify-start">
+            <ShareButton type="light" />
+            <CopyPageDropdown reportId={reportId} title={simpleReport.title} />
+          </div>
         </div>
       </div>
       <DynamicBackground score={simpleReport.score} />
@@ -49,7 +59,7 @@ const ReportPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const fileExtension = simpleReport?.fileExtension;
   return (
     <div className="mx-auto w-full max-w-[1200px] px-6">
-      <HeroScore simpleReport={simpleReport} />
+      <HeroScore simpleReport={simpleReport} reportId={id} />
       {simpleReport.shortSummary && simpleReport.longSummary ? (
         <ReportSummary
           shortSummary={simpleReport.shortSummary}

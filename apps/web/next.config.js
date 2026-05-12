@@ -1,12 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   rewrites: () => {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "http://localhost:3001/:path*",
-      },
-    ];
+    return {
+      beforeFiles: [
+        {
+          source: "/report/:id.md",
+          destination: "/report/:id/markdown",
+        },
+      ],
+      afterFiles: [
+        {
+          source: "/api/:path*",
+          destination: "http://localhost:3001/:path*",
+        },
+      ],
+      fallback: [],
+    };
   },
 };
 

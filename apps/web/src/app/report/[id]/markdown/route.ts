@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import type { RatingOutput } from "@rate-my-openapi/core";
 
-import { API_URL } from "@/utils/env";
 import { generateMarkdownReport } from "@/utils/generate-markdown-report";
+import { getServerApiUrl } from "@/utils/server-api-url";
 
 const REVALIDATE_SECONDS = 60 * 60 * 24;
 
@@ -11,12 +11,13 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
+  const apiUrl = await getServerApiUrl();
 
   const [simpleRes, fullRes] = await Promise.all([
-    fetch(`${API_URL}/reports/${id}/simplified`, {
+    fetch(`${apiUrl}/reports/${id}/simplified`, {
       next: { revalidate: REVALIDATE_SECONDS },
     }),
-    fetch(`${API_URL}/reports/${id}`, {
+    fetch(`${apiUrl}/reports/${id}`, {
       next: { revalidate: REVALIDATE_SECONDS },
     }),
   ]);

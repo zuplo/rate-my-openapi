@@ -81,3 +81,12 @@ jobs:
         with:
           service: rate-my-openapi
           image: us-docker.pkg.dev/zuplo-marketing/docker-registry/rate-my-openapi-api:latest
+          # Cost-optimized sizing (traffic is ~20-70 requests/day; p99 usage was
+          # ~2% of 2 vCPU and ~140MiB of 2GiB before this change):
+          # - scale to zero instead of keeping a 2vCPU/2GiB instance warm 24/7
+          # - 1 vCPU / 1GiB is ample headroom for spectral/vacuum linting
+          # - keep instance-based billing (--no-cpu-throttling): /upload kicks off
+          #   runRatingWorker() AFTER the response is sent, so CPU must stay
+          #   allocated between requests while a report is being generated
+          # - --cpu-boost softens cold starts now that min-instances is 0
+          flags: --cpu=1 --memory=1Gi --min-instances=0 --max-instances=3 --concurrency=80 --no-cpu-throttling --cpu-boost

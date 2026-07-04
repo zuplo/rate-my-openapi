@@ -89,4 +89,15 @@ jobs:
           #   runRatingWorker() AFTER the response is sent, so CPU must stay
           #   allocated between requests while a report is being generated
           # - --cpu-boost softens cold starts now that min-instances is 0
-          flags: --cpu=1 --memory=1Gi --min-instances=0 --max-instances=3 --concurrency=80 --no-cpu-throttling --cpu-boost
+          #
+          # Secrets live in Secret Manager (rate-my-openapi-* secrets in
+          # zuplo-marketing) and are wired in as env vars via --set-secrets;
+          # the runtime SA has secretAccessor on each. --remove-env-vars strips
+          # the legacy plaintext copies (and the dead GOOGLE_SERVICE_ACCOUNT_B64
+          # and INNGEST_* vars); it tolerates already-absent names, so it stays
+          # here to keep plaintext secrets from ever being reintroduced.
+          flags: >-
+            --cpu=1 --memory=1Gi --min-instances=0 --max-instances=3
+            --concurrency=80 --no-cpu-throttling --cpu-boost
+            --remove-env-vars=GOOGLE_SERVICE_ACCOUNT_B64,INNGEST_EVENT_KEY,INNGEST_SIGNING_KEY,OPENAI_API_KEY,SENDGRID_API_KEY,SLACK_TOKEN,POSTHOG_KEY
+            --set-secrets=OPENAI_API_KEY=rate-my-openapi-openai-api-key:latest,SENDGRID_API_KEY=rate-my-openapi-sendgrid-api-key:latest,SLACK_TOKEN=rate-my-openapi-slack-token:latest,POSTHOG_KEY=rate-my-openapi-posthog-key:latest

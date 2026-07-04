@@ -43,8 +43,6 @@ terraform.rc
 apps/api/.env
 packages/core/tsconfig.tsbuildinfo
 apps/web/.env
-openapi-directory/
-apis-guru/
 
 # ESLint cache
 .eslintcache

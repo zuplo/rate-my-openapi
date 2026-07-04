@@ -89,4 +89,13 @@ jobs:
           #   runRatingWorker() AFTER the response is sent, so CPU must stay
           #   allocated between requests while a report is being generated
           # - --cpu-boost softens cold starts now that min-instances is 0
-          flags: --cpu=1 --memory=1Gi --min-instances=0 --max-instances=3 --concurrency=80 --no-cpu-throttling --cpu-boost
+          #
+          # Secrets live in Secret Manager (rate-my-openapi-* secrets in
+          # zuplo-marketing) and are wired in as env vars via --set-secrets;
+          # the runtime SA has secretAccessor on each. Never add secrets as
+          # plaintext env vars on the service — a name that exists as a literal
+          # will also make this deploy fail with a type conflict.
+          flags: >-
+            --cpu=1 --memory=1Gi --min-instances=0 --max-instances=3
+            --concurrency=80 --no-cpu-throttling --cpu-boost
+            --set-secrets=OPENAI_API_KEY=rate-my-openapi-openai-api-key:latest,SENDGRID_API_KEY=rate-my-openapi-sendgrid-api-key:latest,SLACK_TOKEN=rate-my-openapi-slack-token:latest,POSTHOG_KEY=rate-my-openapi-posthog-key:latest

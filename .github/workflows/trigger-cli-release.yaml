@@ -14,26 +14,16 @@ jobs:
     if: github.ref == 'refs/heads/main' # This can only be triggered from main
     timeout-minutes: 2
 
-    # The checkout and the tag push both use the App token minted below, so the
-    # job token is used for nothing.
-    permissions: {}
+    permissions:
+      # push the tag
+      contents: write
+      # dispatch Release CLI below
+      actions: write
 
     steps:
-      # The whole job exists to push a tag that triggers Release CLI. A tag
-      # pushed with the job token would not trigger it; an App token does.
-      # https://github.com/orgs/community/discussions/25702
-      - name: Generate GitHub App Token
-        id: app-token
-        uses: actions/create-github-app-token@v3
-        with:
-          app-id: ${{ vars.INTEGRATIONS_APP_ID }}
-          private-key: ${{ secrets.INTEGRATIONS_APP_PRIVATE_KEY }}
-          permission-contents: write
-
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ steps.app-token.outputs.token }}
 
       - name: Get latest tag
         id: get_latest_tag
@@ -84,3 +74,14 @@ jobs:
       - name: Push new tag
         if: success()
         run: git push origin ${{steps.increment_tag.outputs.next_tag}}
+
+      # A tag pushed with the job token does not raise the `create` event, so
+      # Release CLI is started explicitly instead. That is what keeps this
+      # public repo free of a GitHub App private key, which could mint tokens
+      # for every repo the App is installed on.
+      - name: Trigger Release CLI
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NEXT_TAG: ${{ steps.increment_tag.outputs.next_tag }}
+        run: gh workflow run release-cli.yaml --ref "$NEXT_TAG"

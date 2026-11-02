@@ -3,6 +3,10 @@ on:
   create:
     tags:
       - "*"
+  # Trigger CLI Release dispatches this explicitly. A tag pushed with the
+  # built-in job token does not raise `create`, and this repo is public, so we
+  # do not want a GitHub App private key here just to get the event.
+  workflow_dispatch:
 
 jobs:
   create-github-release:

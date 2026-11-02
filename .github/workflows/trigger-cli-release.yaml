@@ -14,6 +14,10 @@ jobs:
     if: github.ref == 'refs/heads/main' # This can only be triggered from main
     timeout-minutes: 2
 
+    # The checkout and the tag push both use the App token minted below, so the
+    # job token is used for nothing.
+    permissions: {}
+
     steps:
       # The whole job exists to push a tag that triggers Release CLI. A tag
       # pushed with the job token would not trigger it; an App token does.

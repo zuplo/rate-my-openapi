@@ -134,7 +134,8 @@ rules:
     message: "Operation is missing {{property}}."
     description: "OWASP API Security recommends defining schemas for all responses, even errors. The 401 describes what happens when a request is unauthorized, so its important to define this not just for documentation, but to empower contract testing to make sure the proper JSON structure is being returned instead of leaking implementation details in backtraces."
     severity: warn
-    given: "$.paths..responses"
+    # Skip operations that opt out of authentication with `security: []`.
+    given: "$.paths..[?(@ && @.responses && !(@.security && @.security.length === 0))].responses"
     then:
       - field: "401"
         function: truthy
